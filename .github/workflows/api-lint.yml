@@ -1,6 +1,11 @@
-name: API lint
+name: Protobuf API lint
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - main
+  # No `branches` filter: gate every PR, whatever branch it targets.
+  pull_request:
 
 permissions:
   contents: read
