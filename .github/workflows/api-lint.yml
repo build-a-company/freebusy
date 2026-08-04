@@ -1,0 +1,30 @@
+name: API lint
+
+on: [pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Google AIP lint (strict)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Strict: in-proto `(-- api-linter: disable=... --)` comments are ignored,
+      # and any problem at all fails the job.
+      - uses: the-protobuf-project/setup-google-api-linter@f2f9161d0333b3da9e58595f249107fc2cdaa033 # main
+        with:
+          version: 2.3.1
+          # Lint from the buf module root so each file's path matches its proto
+          # package (`freebusy/booking/v1/...`). Linting from the repo root
+          # instead trips core::0191::proto-package on every file.
+          working-directory: protobuf
+          paths: "**/*.proto"
+          # Resolve googleapis / protovalidate / mcp / orm imports from the
+          # buf.yaml one level up at the repo root.
+          buf: true
+          buf-input: ".."
+          ignore-comment-disables: true
+          fail-on-error: true
