@@ -102,7 +102,7 @@ var (
 // matching handle on conn (conn.Provider).
 func New(conn *database.Connection) PropertyRepository {
 	if conn.Provider == database.ProviderHasura {
-		return hasura.NewPropertyRepository(conn.Hasura)
+		return instrumentHasuraProperty(hasura.NewPropertyRepository(conn.Hasura))
 	}
 	return gorm.NewPropertyRepository(conn.PgSQLConn)
 }

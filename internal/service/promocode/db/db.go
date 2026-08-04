@@ -65,7 +65,7 @@ var (
 // matching handle on conn (conn.Provider).
 func New(conn *database.Connection) PromoCodeRepository {
 	if conn.Provider == database.ProviderHasura {
-		return hasura.NewPromoCodeRepository(conn.Hasura)
+		return instrumentHasuraPromoCode(hasura.NewPromoCodeRepository(conn.Hasura))
 	}
 	return gorm.NewPromoCodeRepository(conn.PgSQLConn)
 }

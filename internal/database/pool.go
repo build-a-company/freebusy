@@ -12,18 +12,18 @@ import (
 const defaultPoolSampleInterval = 30 * time.Second
 
 // poolMetrics is one sample of the shared Postgres pool, emitted as deltas:
-// pulse gauges are OTel up-down counters recorded via Add, so each sample
+// gauges are OTel up-down counters recorded via Add, so each sample
 // contributes the change since the previous one and the instrument tracks the
 // level. WaitCount/WaitMs are cumulative in Stats and likewise emitted as the
 // delta per interval; a rising wait rate means the pool cap is saturated and
 // requests are queueing — the signal that traffic outgrew the bounds.
 type poolMetrics struct {
-	Open    int64 `pulse:"metric:gauge:db.pool.open"`
-	InUse   int64 `pulse:"metric:gauge:db.pool.in_use"`
-	Idle    int64 `pulse:"metric:gauge:db.pool.idle"`
-	MaxOpen int64 `pulse:"metric:gauge:db.pool.max_open"`
-	Waits   int64 `pulse:"metric:counter:db.pool.wait_count"`
-	WaitMs  int64 `pulse:"metric:counter:db.pool.wait_ms"`
+	Open    int64 `opentelementry:"metric:gauge:db.pool.open"`
+	InUse   int64 `opentelementry:"metric:gauge:db.pool.in_use"`
+	Idle    int64 `opentelementry:"metric:gauge:db.pool.idle"`
+	MaxOpen int64 `opentelementry:"metric:gauge:db.pool.max_open"`
+	Waits   int64 `opentelementry:"metric:counter:db.pool.wait_count"`
+	WaitMs  int64 `opentelementry:"metric:counter:db.pool.wait_ms"`
 }
 
 // StartPoolMonitor launches a background loop publishing the connection-pool
@@ -36,7 +36,7 @@ func StartPoolMonitor(ctx context.Context, conn *Connection, interval time.Durat
 	}
 	sqlDB, err := conn.PgSQLConn.DB()
 	if err != nil {
-		_ = shared.Pulse.Logger.Error("pool monitor: no pool handle", map[string]any{"error": err.Error()})
+		_ = shared.Telemetry.Logger.Error("pool monitor: no pool handle", map[string]any{"error": err.Error()})
 		return
 	}
 	if interval <= 0 {
@@ -70,7 +70,7 @@ func sample(sqlDB *sql.DB, last *sql.DBStats) {
 		WaitMs:  (s.WaitDuration - last.WaitDuration).Milliseconds(),
 	}
 	*last = s
-	if err := shared.Pulse.Metrics.Record(m); err != nil {
-		_ = shared.Pulse.Logger.Error("pool monitor: record failed", map[string]any{"error": err.Error()})
+	if err := shared.Telemetry.Metrics.Record(m); err != nil {
+		_ = shared.Telemetry.Logger.Error("pool monitor: record failed", map[string]any{"error": err.Error()})
 	}
 }

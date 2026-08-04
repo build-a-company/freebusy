@@ -39,7 +39,7 @@ cert_file = ".certs/freebusy-dev+2.pem"
 key_file = ".certs/freebusy-dev+2-key.pem"
 
 [database]
-provider = "hasura"
+provider = "gorm"
 
 [database.postgres]
 host = "127.0.0.1"
@@ -52,3 +52,15 @@ timezone = "UTC"
 
 [database.hasura]
 url = "http://localhost:3280/graphql"
+
+# Dev-only startup seeding. Plants a known organisation so a freshly rebuilt
+# database has a parent to create properties and units under. Idempotent on
+# organisation.id, so restarts reuse organisations/machani-group.
+[seed]
+enabled = true
+
+[seed.organisation]
+id = "machanigroup"
+display_name = "Machani Group"
+slug = "machanigroup"
+billing_email = "billing@machanigroup.com"

@@ -42,8 +42,8 @@ func (s *Server) sweepOnce(ctx context.Context) {
 	n, err := s.repo.ExpireHolds(ctx)
 	switch {
 	case err != nil:
-		_ = shared.Pulse.Logger.Error("hold sweeper failed", map[string]any{"error": err.Error()})
+		_ = shared.Telemetry.Logger.Error("hold sweeper failed", map[string]any{"error": err.Error()})
 	case n > 0:
-		shared.Pulse.Logger.Debug("hold sweeper expired holds", map[string]any{"count": n})
+		shared.Telemetry.Logger.Debug("hold sweeper expired holds", map[string]any{"count": n})
 	}
 }

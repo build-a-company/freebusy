@@ -9,49 +9,49 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/machanirobotics/pulse/pulse-go"
-	"github.com/machanirobotics/pulse/pulse-go/options"
+	"github.com/the-protobuf-project/opentelementry/opentelementry-go"
+	"github.com/the-protobuf-project/opentelementry/opentelementry-go/options"
 )
 
-//go:embed pulse.toml
-var pulseConfigData []byte
+//go:embed opentelementry.toml
+var telemetryConfigData []byte
 
 var (
-	Pulse *pulse.Pulse // Pulse is the singleton Pulse client initialised at package load time.
-	once  sync.Once    // once is used to ensure that the Pulse client is initialised only once.
+	Telemetry *opentelementry.Opentelementry // Telemetry is the singleton client initialised at package load time.
+	once      sync.Once                      // once is used to ensure that the client is initialised only once.
 )
 
 func init() {
 	once.Do(func() {
-		tmpPath, err := writePulseConfig()
+		tmpPath, err := writeTelemetryConfig()
 		if err != nil {
-			panic(fmt.Sprintf("failed to write embedded pulse config: %v", err))
+			panic(fmt.Sprintf("failed to write embedded telemetry config: %v", err))
 		}
 		defer os.Remove(tmpPath) //nolint:errcheck
 
-		b := pulse.New().WithConfig(tmpPath)
+		b := opentelementry.New().WithConfig(tmpPath).WithTracing()
 		applyDeploymentOverrides(b)
 
-		p, err := b.Build()
+		o, err := b.Build()
 		if err != nil {
-			fmt.Printf("ERROR: Failed to create Pulse: %v\n", err)
+			fmt.Printf("ERROR: Failed to create Telemetry: %v\n", err)
 			panic(err)
 		}
 
-		Pulse = p
+		Telemetry = o
 	})
 }
 
 // applyDeploymentOverrides layers per-deployment values over the embedded
-// pulse.toml defaults, so one binary serves every environment and hotel
-// property without a rebuild. Each override is optional — an unset variable
-// leaves the embedded default in place.
+// opentelementry.toml defaults, so one binary serves every environment and
+// hotel property without a rebuild. Each override is optional — an unset
+// variable leaves the embedded default in place.
 //
 //	FREEBUSY_TELEMETRY_ENVIRONMENT  deployment environment (development|staging|production)
 //	FREEBUSY_OTLP_ENDPOINT          OTLP collector as host:port
 //	FREEBUSY_PROPERTY               property label slug (e.g. "doubletree-del-mar-san-diego")
 //	FREEBUSY_PROPERTY_NAME          human-readable property name
-func applyDeploymentOverrides(b *pulse.Builder) {
+func applyDeploymentOverrides(b *opentelementry.Builder) {
 	if env := os.Getenv("FREEBUSY_TELEMETRY_ENVIRONMENT"); env != "" {
 		b.WithEnvironment(options.Environment(env))
 	}
@@ -87,17 +87,17 @@ func splitHostPort(endpoint string) (host string, port int, ok bool) {
 	return h, p, true
 }
 
-// writePulseConfig writes the embedded pulse.toml to a temporary file
-// and returns its path. The caller is responsible for cleanup.
-func writePulseConfig() (string, error) {
-	f, err := os.CreateTemp("", "pulse-*.toml")
+// writeTelemetryConfig writes the embedded opentelementry.toml to a temporary
+// file and returns its path. The caller is responsible for cleanup.
+func writeTelemetryConfig() (string, error) {
+	f, err := os.CreateTemp("", "opentelementry-*.toml")
 	if err != nil {
 		return "", fmt.Errorf("create temp file: %w", err)
 	}
-	if _, err := f.Write(pulseConfigData); err != nil {
+	if _, err := f.Write(telemetryConfigData); err != nil {
 		_ = f.Close()
 		_ = os.Remove(f.Name())
-		return "", fmt.Errorf("write pulse config: %w", err)
+		return "", fmt.Errorf("write telemetry config: %w", err)
 	}
 	if err := f.Close(); err != nil {
 		_ = os.Remove(f.Name())
@@ -106,12 +106,12 @@ func writePulseConfig() (string, error) {
 	return f.Name(), nil
 }
 
-// Close releases resources held by the Pulse client.
-// It is safe to call even when Pulse was never initialised.
+// Close releases resources held by the Telemetry client.
+// It is safe to call even when Telemetry was never initialised.
 // The caller (typically main) should invoke this on application shutdown.
 func Close() error {
-	if Pulse != nil {
-		return Pulse.Close()
+	if Telemetry != nil {
+		return Telemetry.Close()
 	}
 	return nil
 }

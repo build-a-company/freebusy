@@ -28,13 +28,13 @@ func InitializeApp() *App {
 	cfg := config.Get()
 
 	if cfg.Meta.Name == "" || cfg.Meta.Version == "" {
-		_ = shared.Pulse.Logger.Error("Invalid configuration: name or version is empty",
+		_ = shared.Telemetry.Logger.Error("Invalid configuration: name or version is empty",
 			"name", cfg.Meta.Name,
 			"version", cfg.Meta.Version)
 		panic("cannot initialize app with empty name or version from config")
 	}
 
-	shared.Pulse.Logger.Debug("Initializing application from config",
+	shared.Telemetry.Logger.Debug("Initializing application from config",
 		"name", cfg.Meta.Name, "version", cfg.Meta.Version)
 
 	app := &App{
@@ -42,7 +42,7 @@ func InitializeApp() *App {
 		Version: cfg.Meta.Version,
 	}
 
-	shared.Pulse.Logger.Debug("App instance created",
+	shared.Telemetry.Logger.Debug("App instance created",
 		"name", app.Name, "version", app.Version)
 	return app
 }
@@ -50,46 +50,46 @@ func InitializeApp() *App {
 // Start creates the hybrid server and begins serving gRPC, HTTP, and MCP
 // traffic. Non-blocking — call Wait() afterwards to keep the process alive.
 func (a *App) Start() string {
-	shared.Pulse.Logger.Debug("Starting application",
+	shared.Telemetry.Logger.Debug("Starting application",
 		"name", a.Name, "version", a.Version)
 
 	message := "Starting " + a.Name + " version " + a.Version
 
 	server, err := internal.NewServer(a.Name, a.Version)
 	if err != nil {
-		_ = shared.Pulse.Logger.Error("Failed to create server", "error", err)
+		_ = shared.Telemetry.Logger.Error("Failed to create server", "error", err)
 		return fmt.Sprintf("Failed to create server: %v", err)
 	}
 	a.server = server
 
 	if err := a.server.Start(); err != nil {
-		_ = shared.Pulse.Logger.Error("Failed to start server", "error", err)
+		_ = shared.Telemetry.Logger.Error("Failed to start server", "error", err)
 		return fmt.Sprintf("Failed to start server: %v", err)
 	}
 
-	shared.Pulse.Logger.Info("Application started",
+	shared.Telemetry.Logger.Info("Application started",
 		"name", a.Name, "version", a.Version)
 	return message
 }
 
 // Stop gracefully drains connections, shuts the server down, and releases
-// shared resources (Pulse logger/tracer).
+// shared resources (Telemetry logger/tracer).
 func (a *App) Stop() error {
-	shared.Pulse.Logger.Debug("Stopping application", "name", a.Name)
+	shared.Telemetry.Logger.Debug("Stopping application", "name", a.Name)
 
 	if a.server != nil {
 		if err := a.server.Stop(); err != nil {
-			_ = shared.Pulse.Logger.Error("Error stopping server", "error", err)
+			_ = shared.Telemetry.Logger.Error("Error stopping server", "error", err)
 			return fmt.Errorf("failed to stop server: %w", err)
 		}
 	}
 
 	if err := shared.Close(); err != nil {
-		shared.Pulse.Logger.Warn("Error during shutdown", "error", err)
+		shared.Telemetry.Logger.Warn("Error during shutdown", "error", err)
 		return err
 	}
 
-	shared.Pulse.Logger.Info("Application stopped", "name", a.Name)
+	shared.Telemetry.Logger.Info("Application stopped", "name", a.Name)
 	return nil
 }
 
@@ -97,27 +97,27 @@ func (a *App) Stop() error {
 // immediately if Start() has not been called.
 func (a *App) Wait() {
 	if a.server != nil {
-		shared.Pulse.Logger.Debug("Waiting for shutdown signal")
+		shared.Telemetry.Logger.Debug("Waiting for shutdown signal")
 		a.server.Wait()
-		shared.Pulse.Logger.Info("Shutdown signal received")
+		shared.Telemetry.Logger.Info("Shutdown signal received")
 	}
 }
 
 // Restart performs a hot restart of the server without tearing down the
 // entire process. Useful for applying config changes at runtime.
 func (a *App) Restart() error {
-	shared.Pulse.Logger.Debug("Restarting server", "app", a.Name)
+	shared.Telemetry.Logger.Debug("Restarting server", "app", a.Name)
 
 	if a.server == nil {
-		shared.Pulse.Logger.Warn("Cannot restart: server not initialized")
+		shared.Telemetry.Logger.Warn("Cannot restart: server not initialized")
 		return fmt.Errorf("server not initialized")
 	}
 
 	if err := a.server.Restart(); err != nil {
-		_ = shared.Pulse.Logger.Error("Failed to restart server", "error", err)
+		_ = shared.Telemetry.Logger.Error("Failed to restart server", "error", err)
 		return fmt.Errorf("failed to restart server: %w", err)
 	}
 
-	shared.Pulse.Logger.Info("Server restarted", "app", a.Name)
+	shared.Telemetry.Logger.Info("Server restarted", "app", a.Name)
 	return nil
 }

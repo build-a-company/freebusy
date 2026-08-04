@@ -1,10 +1,10 @@
-# Telemetry configuration for the freebusy service (Pulse: logs, metrics, traces).
+# Telemetry configuration for the freebusy service.
 #
 # This file is embedded in the binary and holds defaults. The values that vary
 # per deployment — the OTLP collector endpoint, the environment, and the
 # hotel-property labels — are overridden at runtime from environment variables
-# (see shared/pulse.go), so the same binary serves every property without a
-# rebuild.
+# (see shared/telemetry.go), so the same binary serves every property without
+# a rebuild.
 
 [service]
 name = "freebusy"
@@ -13,8 +13,8 @@ environment = "development"
 description = "Booking and promo-code service for the freebusy platform."
 
 # Global attributes added to ALL telemetry (logs, metrics, traces). Here they
-# identify the hotel property this instance serves. Override per deployment with
-# FREEBUSY_PROPERTY / FREEBUSY_PROPERTY_NAME (see shared/pulse.go).
+# identify the hotel property this instance serves. Override per deployment
+# with FREEBUSY_PROPERTY / FREEBUSY_PROPERTY_NAME (see shared/telemetry.go).
 [service.labels]
 brand = "hilton"
 property = "doubletree-del-mar-san-diego"
@@ -25,15 +25,20 @@ region = "us-west"
 [telemetry]
 enabled = true
 
-# OpenTelemetry collector. The endpoint below is the local-dev default; in
-# deployment set FREEBUSY_OTLP_ENDPOINT=host:port to point at the cluster
-# collector.
+# OpenTelemetry collector. The endpoint below is the local-dev default (the
+# opentelementry-core stack's gateway, OTLP over HTTP); in deployment set
+# FREEBUSY_OTLP_ENDPOINT=host:port to point at the cluster collector (gRPC).
 [telemetry.otlp]
-endpoint = "192.168.0.161:4317"
+enabled = true
+endpoint = "localhost:6009"
+use_http = true
 
 # Metrics export interval
 [telemetry.metrics]
 export_interval_seconds = 5
+
+[tracing]
+enabled = true
 
 # Logging Configuration
 [logging.log]

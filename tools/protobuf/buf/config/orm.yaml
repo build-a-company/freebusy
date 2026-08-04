@@ -29,9 +29,9 @@ datasources:
   - match: "freebusy.**" # every freebusy.<service>.<version> package
     database: freebusy
     schema: "{leaf}" # the service segment: schedule, identity, booking, ...
-otel:
-  enabled: true               # override the otel opt's master switch
-  metrics: false              # spans only — bakes tracing.WithoutMetrics() into the default config
+telemetry:
+  enabled: true                # override the telemetry opt's master switch
+  metrics: true                 # ops counter + duration histogram, in addition to spans/logs
 
 # graphql configures the typed Hasura client generation (target=graphql in
 # orm.buf.gen.yaml), replacing the standalone generateql tool: the plugin

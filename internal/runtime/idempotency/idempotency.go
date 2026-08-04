@@ -102,7 +102,7 @@ func Interceptor(repo sharedrepo.IdempotencyKeyRepository) grpc.UnaryServerInter
 			// The call genuinely failed and wrote nothing worth remembering.
 			// Release the id so the caller may retry it for real.
 			if derr := repo.Delete(ctx, name); derr != nil {
-				_ = shared.Pulse.Logger.Error("idempotency: release key after handler error",
+				_ = shared.Telemetry.Logger.Error("idempotency: release key after handler error",
 					"method", info.FullMethod, "request_id", requestID, "error", derr)
 			}
 			return nil, err
@@ -161,14 +161,14 @@ func settle(ctx context.Context, repo sharedrepo.IdempotencyKeyRepository, key *
 	}
 	encoded, err := encode(msg)
 	if err != nil {
-		_ = shared.Pulse.Logger.Error("idempotency: encode response",
+		_ = shared.Telemetry.Logger.Error("idempotency: encode response",
 			"method", method, "request_id", requestID, "error", err)
 		return
 	}
 	key.State = sharedpbv1.IdempotencyState_IDEMPOTENCY_STATE_DONE
 	key.Response = encoded
 	if _, err := repo.Update(ctx, key, []string{"state", "response"}); err != nil {
-		_ = shared.Pulse.Logger.Error("idempotency: settle key",
+		_ = shared.Telemetry.Logger.Error("idempotency: settle key",
 			"method", method, "request_id", requestID, "error", err)
 	}
 }

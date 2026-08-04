@@ -1,7 +1,7 @@
 // Package rpc is the boundary between freebusy's gRPC handlers and the
 // platform runtime: Traced hands each handler body to the shared runtime-go
 // Observer (spans, rpc.requests/rpc.errors counters, outcome logs, all emitted
-// through freebusy's pulse identity), and ToStatusErr maps freebusy's
+// through freebusy's telemetry identity), and ToStatusErr maps freebusy's
 // repository sentinel errors onto gRPC status codes — the one piece that is
 // domain-specific and stays here.
 package rpc
@@ -19,8 +19,8 @@ import (
 )
 
 // observer wraps handler bodies with tracing, metrics, and outcome logging;
-// built once for the process against freebusy's pulse client.
-var observer = grpc.NewObserver(shared.Pulse)
+// built once for the process against freebusy's telemetry client.
+var observer = grpc.NewObserver(shared.Telemetry)
 
 // Traced runs fn inside a span named "<service>/<method>" with request/error
 // counters and outcome logging. See grpc.Observer.Traced.

@@ -73,7 +73,7 @@ var (
 // matching handle on conn (conn.Provider).
 func New(conn *database.Connection) BookingRepository {
 	if conn.Provider == database.ProviderHasura {
-		return hasura.NewBookingRepository(conn.Hasura)
+		return instrumentHasuraBooking(hasura.NewBookingRepository(conn.Hasura))
 	}
 	return gorm.NewBookingRepository(conn.PgSQLConn)
 }

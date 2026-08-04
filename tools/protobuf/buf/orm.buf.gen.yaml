@@ -34,14 +34,14 @@ plugins:
       # stores import gormx/common/shared paths that don't exist on disk.
       - go_module=github.com/oh-tarnished/freebusy/internal/database/gorm
       - config=tools/protobuf/buf/config/orm.yaml
-      - otel=true
+      # First-party opentelementry instrumentation: instrumented stores, the
+      # ormtelemetry adapter/plugin package, a filterx observer (with
+      # filters), and Registry.Instrument. Replaces the old otel/pulse opts.
+      - telemetry=true
       # AIP-160 filter / AIP-132 order_by specs per schema + the shared filterx
       # engines (backend-neutral core, gorm + hasura engines) — one Spec drives
       # both providers' filter/order/List paths.
       - filters=true
-      # Emit the pulse-go Observer adapter so repositories can trace/log the
-      # generated list engines through shared.Pulse.
-      - pulse=true
   # Proto-facing repository layer: provider-agnostic CRUD interfaces per
   # resource plus BOTH adapters — GORM (composing the generated models,
   # stores, converters, and filterx specs from gorm_module) and GraphQL

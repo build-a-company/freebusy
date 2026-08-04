@@ -58,3 +58,9 @@ conn_max_idle_minutes = 5
 [database.hasura]
 url = ""
 admin_secret = ""
+
+# Startup seeding is a dev convenience; production data is never seeded. The dev
+# overlay turns this on. Left explicit here so the default is documented, not
+# implied by a zero value.
+[seed]
+enabled = false
