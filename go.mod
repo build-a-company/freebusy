@@ -98,6 +98,7 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.27 // indirect
 	github.com/quic-go/qpack v0.6.0 // indirect
 	github.com/quic-go/quic-go v0.62.0 // indirect
+	github.com/redis/go-redis/v9 v9.22.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/segmentio/asm v1.2.1 // indirect
 	github.com/segmentio/encoding v0.5.4 // indirect
@@ -107,6 +108,7 @@ require (
 	github.com/the-protobuf-project/runtime-go/agents v0.0.0-20260904054035-1f2313e0d64a // indirect
 	github.com/the-protobuf-project/runtime-go/observability v0.0.0-20260904124504-3aec40995305 // indirect
 	github.com/the-protobuf-project/runtime-go/telemetry v0.0.0-20260904124504-3aec40995305 // indirect
+	github.com/the-protobuf-project/runtime-go/ulid v0.0.0-20260905053038-c759cd76211f // indirect
 	github.com/the-protobuf-project/store v1.5.1 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
 	github.com/yosida95/uritemplate/v3 v3.0.2 // indirect
@@ -126,6 +128,7 @@ require (
 	go.opentelemetry.io/otel/sdk/metric v1.46.0 // indirect
 	go.opentelemetry.io/otel/trace v1.46.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.11.0 // indirect
+	go.uber.org/atomic v1.11.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.4 // indirect
 	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/crypto v0.55.0 // indirect

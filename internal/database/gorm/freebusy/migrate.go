@@ -4,7 +4,7 @@
 // 	protoc (unknown)
 //
 // database: freebusy
-// schemas:  allocation, channel, identity, organisation, promocode, property, schedule, scheduling, shared, common
+// schemas:  allocation, channel, identity, organisation, pricing, promocode, property, schedule, scheduling, shared, common
 //
 // Migration aggregator: every model in one factory Registry.
 // annotations: entity.v1 v1.5.1, store.v1 v1.5.1
@@ -24,6 +24,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/identity"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/organisation"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/pricing"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/promocode"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/schedule"
@@ -48,6 +49,7 @@ var schemas = []string{
 	"channel",
 	"identity",
 	"organisation",
+	"pricing",
 	"promocode",
 	"property",
 	"schedule",
@@ -134,6 +136,16 @@ var Default = New().Register(
 	&identity.GuestPreferences{},
 	&organisation.Organisation{},
 	&organisation.Member{},
+	&pricing.RatePlan{},
+	&pricing.RateOverride{},
+	&pricing.LosDiscount{},
+	&pricing.Fee{},
+	&pricing.Tax{},
+	&pricing.DynamicRule{},
+	&pricing.PriceBounds{},
+	&pricing.DateRange{},
+	&pricing.DynamicBand{},
+	&pricing.Adjustment{},
 	&promocode.PromoCode{},
 	&promocode.Redemption{},
 	&promocode.Discount{},

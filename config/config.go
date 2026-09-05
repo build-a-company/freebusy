@@ -35,6 +35,37 @@ type AppConfig struct {
 	// Seed holds dev-only startup seeding. Disabled in the release defaults; the
 	// dev overlay turns it on to plant a known organisation.
 	Seed SeedConfig `koanf:"seed"`
+	// Cache holds the read-through cache backend. Disabled by default: the
+	// service is correct without it, and a cache that is on before anyone has
+	// measured the read it serves is just another thing that can be stale.
+	Cache CacheConfig `koanf:"cache"`
+}
+
+// CacheConfig is the backend behind protoc-gen-cache's generated decorators.
+//
+// The backend is deliberately absent from the protos: cache.v1 names strategies,
+// never drivers, so which server serves them is deployment policy and lives here.
+// It matters which one, though — resources annotated STRATEGY_INDEXED need
+// server-side sets, so Redis or Dragonfly. memcached has no sets and the
+// generated constructor refuses at startup rather than failing every lookup
+// later.
+type CacheConfig struct {
+	// Enabled turns the cache on. Off means repositories read straight through
+	// to the database, which is always a valid configuration.
+	Enabled bool `koanf:"enabled"`
+	// Address is the Redis/Dragonfly server, host:port.
+	Address string `koanf:"address"`
+	// Username and Password authenticate, when the server asks.
+	Username string `koanf:"username"`
+	Password string `koanf:"password"`
+	// Database is the Redis database index this service binds to.
+	Database int `koanf:"database"`
+	// PoolSize caps concurrent connections. Zero takes the driver's default.
+	PoolSize int `koanf:"pool_size"`
+	// Prefix namespaces every key, separating this deployment's entries from
+	// another's sharing one server. It is deliberately not a proto annotation:
+	// a prefix separates deployments, and an annotation travels with the schema.
+	Prefix string `koanf:"prefix"`
 }
 
 // SeedConfig controls the dev-only data planted at startup. It exists so a

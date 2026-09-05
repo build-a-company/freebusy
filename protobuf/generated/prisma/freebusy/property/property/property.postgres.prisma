@@ -135,7 +135,7 @@ model Unit {
   timeZone String @map("time_zone")
 
   /// What the price is charged per.
-  pricingUnit PricingUnit? @map("pricing_unit")
+  pricingUnit PropertyPricingUnit? @map("pricing_unit")
 
   /// Slot length. Required for TIME_SLOT units; ignored for NIGHTLY.
   duration String? @map("duration")
@@ -179,17 +179,17 @@ model Unit {
   /// Back-relation: Licence records that reference this model via unit.
   licences Licence[]
 
-  /// Back-relation: RateOverride records that reference this model via unit_id.
-  rateOverrides RateOverride[]
+  /// Back-relation: PropertyRateOverride records that reference this model via unit_id.
+  rateOverrides PropertyRateOverride[]
 
-  /// Back-relation: LosDiscount records that reference this model via unit_id.
-  losDiscounts LosDiscount[]
+  /// Back-relation: PropertyLosDiscount records that reference this model via unit_id.
+  losDiscounts PropertyLosDiscount[]
 
-  /// Back-relation: Fee records that reference this model via unit_id.
-  fees Fee[]
+  /// Back-relation: PropertyFee records that reference this model via unit_id.
+  fees PropertyFee[]
 
-  /// Back-relation: Tax records that reference this model via unit_id.
-  taxes Tax[]
+  /// Back-relation: PropertyTax records that reference this model via unit_id.
+  taxes PropertyTax[]
 
   /// Back-relation: UnitMedia records that reference this model via unit_id.
   unitMedias UnitMedia[]
@@ -364,7 +364,7 @@ model Policy {
 }
 
 /// A price override for a span of dates and/or specific weekdays, layered over a unit's base `price`. The price is still interpreted per the unit's pricing_unit (per night, per booking, per person).
-model RateOverride {
+model PropertyRateOverride {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 
@@ -380,8 +380,8 @@ model RateOverride {
   /// Foreign key to DateRange.
   dateRangeID String? @map("date_range_id")
 
-  /// Relation to DateRange via date_range_id.
-  dateRange DateRange? @relation(fields: [dateRangeID], references: [id], onDelete: SetNull)
+  /// Relation to SharedDateRange via date_range_id.
+  dateRange SharedDateRange? @relation(fields: [dateRangeID], references: [id], onDelete: SetNull)
 
   /// Foreign key to Money.
   priceID String @map("price_id")
@@ -402,7 +402,7 @@ model RateOverride {
 }
 
 /// A discount applied to a NIGHTLY subtotal once the stay reaches a minimum length. Exactly one of percent_off or amount_off is set.
-model LosDiscount {
+model PropertyLosDiscount {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 
@@ -435,7 +435,7 @@ model LosDiscount {
 }
 
 /// A fee added on top of a unit's base subtotal. Exactly one of `amount` or `percent` is set. Surfaces as a TYPE_FEE line in a booking's price_components.
-model Fee {
+model PropertyFee {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 
@@ -449,7 +449,7 @@ model Fee {
   percent Int? @map("percent")
 
   /// What the fee is charged per (per booking, per night, per person). Defaults to per booking.
-  pricingUnit PricingUnit? @map("pricing_unit")
+  pricingUnit PropertyPricingUnit? @map("pricing_unit")
 
   /// Whether this fee is included in the taxable base.
   taxable Boolean? @map("taxable")
@@ -477,7 +477,7 @@ model Fee {
 }
 
 /// A tax applied to the taxable base (base subtotal plus taxable fees). Surfaces as a TYPE_TAX line in a booking's price_components.
-model Tax {
+model PropertyTax {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 

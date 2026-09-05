@@ -19,13 +19,13 @@ erDiagram
     Contact {
         string id PK
     }
-    DateRange {
-        string id PK
-    }
     PriceComponent {
         string id PK
         string booking_id FK
         string amount_id FK
+    }
+    SharedDateRange {
+        string id PK
     }
     TimeWindow {
         string id PK
@@ -66,7 +66,7 @@ A half-open time interval [start_time, end_time). Used for query windows and for
 | `start_time` | `TIMESTAMPTZ` | not null |
 | `end_time` | `TIMESTAMPTZ` | not null |
 
-### `DateRange` → `date_ranges`
+### `SharedDateRange` → `date_ranges`
 
 A half-open range of calendar dates [start_date, end_date), evaluated in the resource's local timezone. The natural query and exception shape for NIGHTLY resources: end_date is the check-out date and is not itself included.
 

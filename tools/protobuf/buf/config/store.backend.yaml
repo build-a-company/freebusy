@@ -11,7 +11,7 @@
 # resource — collapsing all services into one schema. This config fixes both.
 #
 # Passed to the plugin via `opt: [config=tools/protobuf/buf/orm.yaml]` in
-# orm.buf.gen.yaml. Keeping every service in ONE database is required so that
+# store.buf.gen.yaml. Keeping every service in ONE database is required so that
 # cross-service references (booking -> user, booking -> resource, promo_code ->
 # resource, ...) resolve to real cross-schema relations instead of soft FKs.
 

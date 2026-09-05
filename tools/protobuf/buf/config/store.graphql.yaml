@@ -10,7 +10,7 @@
 # resource — collapsing all services into one schema. This config fixes both.
 #
 # Passed to the plugin via `opt: [config=tools/protobuf/buf/orm.yaml]` in
-# orm.buf.gen.yaml. Keeping every service in ONE database is required so that
+# store.buf.gen.yaml. Keeping every service in ONE database is required so that
 # cross-service references (booking -> user, booking -> resource, promo_code ->
 # resource, ...) resolve to real cross-schema relations instead of soft FKs.
 
@@ -37,7 +37,7 @@ telemetry:
   metrics: true                 # ops counter + duration histogram, in addition to spans/logs
 
 # graphql configures the typed Hasura client generation (target=graphql in
-# orm.buf.gen.yaml), replacing the standalone generateql tool: the plugin
+# store.buf.gen.yaml), replacing the standalone generateql tool: the plugin
 # introspects the local DDN engine and emits the freebusyql client. After a
 # schema change, rebuild the engine first (`just hasura regen`), then regenerate.
 graphql:

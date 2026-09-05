@@ -67,8 +67,8 @@ model AvailabilityException {
   /// Foreign key to DateRange.
   dateRangeID String? @map("date_range_id")
 
-  /// Relation to DateRange via date_range_id.
-  dateRange DateRange? @relation(fields: [dateRangeID], references: [id], onDelete: SetNull)
+  /// Relation to SharedDateRange via date_range_id.
+  dateRange SharedDateRange? @relation(fields: [dateRangeID], references: [id], onDelete: SetNull)
 
   /// Back-relation: ScheduleExceptions records that reference this model via availability_exception_id.
   exceptions ScheduleExceptions[]

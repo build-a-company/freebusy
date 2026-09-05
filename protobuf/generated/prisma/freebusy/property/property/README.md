@@ -13,21 +13,11 @@ Generated from Protobuf by protoc-gen-store. Source of truth is the `.proto` fil
 ```mermaid
 erDiagram
     direction LR
-    Fee {
-        string id PK
-        string unit_id FK
-        string amount_id FK
-    }
     Licence {
         string id PK
         string unit FK
         string property_id FK
         string attachment_id FK
-    }
-    LosDiscount {
-        string id PK
-        string unit_id FK
-        string amount_off_id FK
     }
     Media {
         string id PK
@@ -42,19 +32,29 @@ erDiagram
         string address_id FK
         string policy_id FK
     }
-    PropertyUnits {
+    PropertyFee {
         string id PK
-        string property_id FK
         string unit_id FK
+        string amount_id FK
     }
-    RateOverride {
+    PropertyLosDiscount {
+        string id PK
+        string unit_id FK
+        string amount_off_id FK
+    }
+    PropertyRateOverride {
         string id PK
         string unit_id FK
         string date_range_id FK
         string price_id FK
     }
-    Tax {
+    PropertyTax {
         string id PK
+        string unit_id FK
+    }
+    PropertyUnits {
+        string id PK
+        string property_id FK
         string unit_id FK
     }
     Unit {
@@ -74,9 +74,6 @@ erDiagram
     Attachment {
         string externalStub PK
     }
-    DateRange {
-        string externalStub PK
-    }
     Money {
         string externalStub PK
     }
@@ -89,23 +86,26 @@ erDiagram
     PromoCode {
         string externalStub PK
     }
-    Fee }o--|| Unit : "unit_id"
-    Fee }o--|| Money : "amount_id"
+    SharedDateRange {
+        string externalStub PK
+    }
     Licence }o--|| Unit : "unit"
     Licence }o--|| Property : "property_id"
     Licence }o--|| Attachment : "attachment_id"
-    LosDiscount }o--|| Unit : "unit_id"
-    LosDiscount }o--|| Money : "amount_off_id"
     Media }o--|| Property : "property_id"
     Property }o--|| Organisation : "organisation"
     Property }o--|| PostalAddress : "address_id"
     Property }o--|| Policy : "policy_id"
+    PropertyFee }o--|| Unit : "unit_id"
+    PropertyFee }o--|| Money : "amount_id"
+    PropertyLosDiscount }o--|| Unit : "unit_id"
+    PropertyLosDiscount }o--|| Money : "amount_off_id"
+    PropertyRateOverride }o--|| Unit : "unit_id"
+    PropertyRateOverride }o--|| SharedDateRange : "date_range_id"
+    PropertyRateOverride }o--|| Money : "price_id"
+    PropertyTax }o--|| Unit : "unit_id"
     PropertyUnits }o--|| Property : "property_id"
     PropertyUnits }o--|| Unit : "unit_id"
-    RateOverride }o--|| Unit : "unit_id"
-    RateOverride }o--|| DateRange : "date_range_id"
-    RateOverride }o--|| Money : "price_id"
-    Tax }o--|| Unit : "unit_id"
     Unit }o--|| Property : "property_id"
     Unit }o--|| Money : "price_id"
     UnitApplicablePromoCodes }o--|| Unit : "unit_id"
@@ -151,7 +151,7 @@ A bookable unit type within a property: a pool of `capacity` interchangeable roo
 | `capacity` | `INTEGER` | nullable |
 | `max_occupancy` | `INTEGER` | nullable |
 | `time_zone` | `VARCHAR(255)` | not null |
-| `pricing_unit` | `PricingUnit` | nullable |
+| `pricing_unit` | `PropertyPricingUnit` | nullable |
 | `duration` | `INTERVAL` | nullable |
 | `tags` | `VARCHAR(255)[]` | nullable |
 | `attributes` | `JSONB` | nullable |
@@ -213,7 +213,7 @@ Guest-facing, informational property policy: what to *display* to a guest (check
 | `house_rules` | `VARCHAR(255)[]` | nullable |
 | `notes` | `VARCHAR(255)` | nullable |
 
-### `RateOverride` → `rate_overrides`
+### `PropertyRateOverride` → `rate_overrides`
 
 A price override for a span of dates and/or specific weekdays, layered over a unit's base `price`. The price is still interpreted per the unit's pricing_unit (per night, per booking, per person).
 
@@ -225,7 +225,7 @@ A price override for a span of dates and/or specific weekdays, layered over a un
 | `date_range_id` | `CHAR(26)` | nullable |
 | `price_id` | `CHAR(26)` | not null |
 
-### `LosDiscount` → `los_discounts`
+### `PropertyLosDiscount` → `los_discounts`
 
 A discount applied to a NIGHTLY subtotal once the stay reaches a minimum length. Exactly one of percent_off or amount_off is set.
 
@@ -237,7 +237,7 @@ A discount applied to a NIGHTLY subtotal once the stay reaches a minimum length.
 | `unit_id` | `CHAR(26)` | not null |
 | `amount_off_id` | `CHAR(26)` | nullable |
 
-### `Fee` → `fees`
+### `PropertyFee` → `fees`
 
 A fee added on top of a unit's base subtotal. Exactly one of `amount` or `percent` is set. Surfaces as a TYPE_FEE line in a booking's price_components.
 
@@ -247,12 +247,12 @@ A fee added on top of a unit's base subtotal. Exactly one of `amount` or `percen
 | `code` | `VARCHAR(255)` | not null |
 | `display_name` | `VARCHAR(255)` | nullable |
 | `percent` | `INTEGER` | nullable |
-| `pricing_unit` | `PricingUnit` | nullable |
+| `pricing_unit` | `PropertyPricingUnit` | nullable |
 | `taxable` | `BOOLEAN` | nullable |
 | `unit_id` | `CHAR(26)` | not null |
 | `amount_id` | `CHAR(26)` | nullable |
 
-### `Tax` → `taxes`
+### `PropertyTax` → `taxes`
 
 A tax applied to the taxable base (base subtotal plus taxable fees). Surfaces as a TYPE_TAX line in a booking's price_components.
 

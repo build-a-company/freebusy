@@ -13,21 +13,11 @@ Generated from Protobuf by protoc-gen-store. Source of truth is the `.proto` fil
 ```mermaid
 erDiagram
     direction LR
-    Fee {
-        string id PK
-        string unit_id FK
-        string amount_id FK
-    }
     Licence {
         string id PK
         string unit FK
         string property_id FK
         string attachment_id FK
-    }
-    LosDiscount {
-        string id PK
-        string unit_id FK
-        string amount_off_id FK
     }
     Media {
         string id PK
@@ -42,19 +32,29 @@ erDiagram
         string address_id FK
         string policy_id FK
     }
-    PropertyUnits {
+    PropertyFee {
         string id PK
-        string property_id FK
         string unit_id FK
+        string amount_id FK
     }
-    RateOverride {
+    PropertyLosDiscount {
+        string id PK
+        string unit_id FK
+        string amount_off_id FK
+    }
+    PropertyRateOverride {
         string id PK
         string unit_id FK
         string date_range_id FK
         string price_id FK
     }
-    Tax {
+    PropertyTax {
         string id PK
+        string unit_id FK
+    }
+    PropertyUnits {
+        string id PK
+        string property_id FK
         string unit_id FK
     }
     Unit {
@@ -74,9 +74,6 @@ erDiagram
     Attachment {
         string externalStub PK
     }
-    DateRange {
-        string externalStub PK
-    }
     Money {
         string externalStub PK
     }
@@ -89,23 +86,26 @@ erDiagram
     PromoCode {
         string externalStub PK
     }
-    Fee }o--|| Unit : "unit_id"
-    Fee }o--|| Money : "amount_id"
+    SharedDateRange {
+        string externalStub PK
+    }
     Licence }o--|| Unit : "unit"
     Licence }o--|| Property : "property_id"
     Licence }o--|| Attachment : "attachment_id"
-    LosDiscount }o--|| Unit : "unit_id"
-    LosDiscount }o--|| Money : "amount_off_id"
     Media }o--|| Property : "property_id"
     Property }o--|| Organisation : "organisation"
     Property }o--|| PostalAddress : "address_id"
     Property }o--|| Policy : "policy_id"
+    PropertyFee }o--|| Unit : "unit_id"
+    PropertyFee }o--|| Money : "amount_id"
+    PropertyLosDiscount }o--|| Unit : "unit_id"
+    PropertyLosDiscount }o--|| Money : "amount_off_id"
+    PropertyRateOverride }o--|| Unit : "unit_id"
+    PropertyRateOverride }o--|| SharedDateRange : "date_range_id"
+    PropertyRateOverride }o--|| Money : "price_id"
+    PropertyTax }o--|| Unit : "unit_id"
     PropertyUnits }o--|| Property : "property_id"
     PropertyUnits }o--|| Unit : "unit_id"
-    RateOverride }o--|| Unit : "unit_id"
-    RateOverride }o--|| DateRange : "date_range_id"
-    RateOverride }o--|| Money : "price_id"
-    Tax }o--|| Unit : "unit_id"
     Unit }o--|| Property : "property_id"
     Unit }o--|| Money : "price_id"
     UnitApplicablePromoCodes }o--|| Unit : "unit_id"

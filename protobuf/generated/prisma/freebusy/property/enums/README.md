@@ -14,7 +14,7 @@ Schema file: [`enums.postgres.prisma`](./enums.postgres.prisma)
 
 - `PropertyState`: ACTIVE, ARCHIVED
 - `UnitType`: PROVIDER, ROOM, EQUIPMENT, LODGING, SPACE
-- `PricingUnit`: PER_BOOKING, PER_NIGHT, PER_PERSON
+- `PropertyPricingUnit`: PER_BOOKING, PER_NIGHT, PER_PERSON
 - `UnitState`: ACTIVE, ARCHIVED
 - `LicenceTarget`: PROPERTY, UNIT
 - `LicenceType`: TRADE, FIRE_SAFETY, LIQUOR, FOOD_SAFETY, TOURISM, HEALTH, OTHER

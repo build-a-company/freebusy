@@ -21,6 +21,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/organisationql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/pricingql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/prismaql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/promocodeql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql"
@@ -47,6 +48,7 @@ type QueryHandler struct {
 	Common       commonql.QueryHandler
 	Identity     identityql.QueryHandler
 	Organisation organisationql.QueryHandler
+	Pricing      pricingql.QueryHandler
 	Prisma       prismaql.QueryHandler
 	Promocode    promocodeql.QueryHandler
 	Property     propertyql.QueryHandler
@@ -77,6 +79,7 @@ type MutationHandler struct {
 	Common       commonql.MutationHandler
 	Identity     identityql.MutationHandler
 	Organisation organisationql.MutationHandler
+	Pricing      pricingql.MutationHandler
 	Prisma       prismaql.MutationHandler
 	Promocode    promocodeql.MutationHandler
 	Property     propertyql.MutationHandler
@@ -111,6 +114,7 @@ type SubscriptionHandler struct {
 	Common       commonql.SubscriptionHandler
 	Identity     identityql.SubscriptionHandler
 	Organisation organisationql.SubscriptionHandler
+	Pricing      pricingql.SubscriptionHandler
 	Prisma       prismaql.SubscriptionHandler
 	Promocode    promocodeql.SubscriptionHandler
 	Property     propertyql.SubscriptionHandler
@@ -140,6 +144,7 @@ func New(opts runtime.ConnectionOptions) (*Service, error) {
 			Common:       commonql.NewQuery(gql),
 			Identity:     identityql.NewQuery(gql),
 			Organisation: organisationql.NewQuery(gql),
+			Pricing:      pricingql.NewQuery(gql),
 			Prisma:       prismaql.NewQuery(gql),
 			Promocode:    promocodeql.NewQuery(gql),
 			Property:     propertyql.NewQuery(gql),
@@ -154,6 +159,7 @@ func New(opts runtime.ConnectionOptions) (*Service, error) {
 			Common:       commonql.NewMutation(gql),
 			Identity:     identityql.NewMutation(gql),
 			Organisation: organisationql.NewMutation(gql),
+			Pricing:      pricingql.NewMutation(gql),
 			Prisma:       prismaql.NewMutation(gql),
 			Promocode:    promocodeql.NewMutation(gql),
 			Property:     propertyql.NewMutation(gql),
@@ -167,6 +173,7 @@ func New(opts runtime.ConnectionOptions) (*Service, error) {
 			Common:       commonql.NewSubscription(gql),
 			Identity:     identityql.NewSubscription(gql),
 			Organisation: organisationql.NewSubscription(gql),
+			Pricing:      pricingql.NewSubscription(gql),
 			Prisma:       prismaql.NewSubscription(gql),
 			Promocode:    promocodeql.NewSubscription(gql),
 			Property:     propertyql.NewSubscription(gql),

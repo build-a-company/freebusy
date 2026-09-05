@@ -6,13 +6,17 @@ Generated from Protobuf by protoc-gen-store. Source of truth is the `.proto` fil
 
 | Models | Enums |
 | ---: | ---: |
-| 49 | 29 |
+| 59 | 32 |
 
 ## Entity relationships
 
 ```mermaid
 erDiagram
     direction LR
+    Adjustment {
+        string id PK
+        string amount_delta_id FK
+    }
     Attachment {
         string id PK
     }
@@ -52,17 +56,18 @@ erDiagram
     Contact {
         string id PK
     }
-    DateRange {
-        string id PK
-    }
     Discount {
         string id PK
         string amount_off_id FK
     }
-    Fee {
+    DynamicBand {
         string id PK
-        string unit_id FK
-        string amount_id FK
+        string dynamic_rule_id FK
+        string adjustment_id FK
+    }
+    DynamicRule {
+        string id PK
+        string rate_plan_id FK
     }
     ForeignerDetails {
         string id PK
@@ -95,11 +100,6 @@ erDiagram
         string property_id FK
         string attachment_id FK
     }
-    LosDiscount {
-        string id PK
-        string unit_id FK
-        string amount_off_id FK
-    }
     Media {
         string id PK
         string property_id FK
@@ -125,10 +125,38 @@ erDiagram
     PostalAddress {
         string id PK
     }
+    PriceBounds {
+        string id PK
+        string floor_id FK
+        string ceiling_id FK
+    }
     PriceComponent {
         string id PK
         string booking_id FK
         string amount_id FK
+    }
+    PricingDateRange {
+        string id PK
+    }
+    PricingFee {
+        string id PK
+        string rate_plan_id FK
+        string amount_id FK
+    }
+    PricingLosDiscount {
+        string id PK
+        string rate_plan_id FK
+        string amount_off_id FK
+    }
+    PricingRateOverride {
+        string id PK
+        string rate_plan_id FK
+        string date_range_id FK
+        string price_id FK
+    }
+    PricingTax {
+        string id PK
+        string rate_plan_id FK
     }
     PromoCode {
         string id PK
@@ -143,16 +171,35 @@ erDiagram
         string address_id FK
         string policy_id FK
     }
+    PropertyFee {
+        string id PK
+        string unit_id FK
+        string amount_id FK
+    }
+    PropertyLosDiscount {
+        string id PK
+        string unit_id FK
+        string amount_off_id FK
+    }
+    PropertyRateOverride {
+        string id PK
+        string unit_id FK
+        string date_range_id FK
+        string price_id FK
+    }
+    PropertyTax {
+        string id PK
+        string unit_id FK
+    }
     PropertyUnits {
         string id PK
         string property_id FK
         string unit_id FK
     }
-    RateOverride {
+    RatePlan {
         string id PK
-        string unit_id FK
-        string date_range_id FK
         string price_id FK
+        string bounds_id FK
     }
     RecurringRule {
         string id PK
@@ -198,12 +245,11 @@ erDiagram
         string scope_id FK
         string unit_id FK
     }
-    StayConstraints {
+    SharedDateRange {
         string id PK
     }
-    Tax {
+    StayConstraints {
         string id PK
-        string unit_id FK
     }
     TimeWindow {
         string id PK
@@ -233,10 +279,11 @@ erDiagram
     User {
         string id PK
     }
+    Adjustment }o--|| Money : "amount_delta_id"
     AvailabilityException }o--|| Property : "property_id"
     AvailabilityException }o--|| Unit : "unit_id"
     AvailabilityException }o--|| TimeWindow : "window_id"
-    AvailabilityException }o--|| DateRange : "date_range_id"
+    AvailabilityException }o--|| SharedDateRange : "date_range_id"
     Booking }o--|| Unit : "unit"
     Booking }o--|| User : "customer"
     Booking }o--|| PromoCode : "promo_code"
@@ -249,8 +296,9 @@ erDiagram
     Booking }o--|| Money : "refund_amount_id"
     Channel }o--|| Property : "property"
     Discount }o--|| Money : "amount_off_id"
-    Fee }o--|| Unit : "unit_id"
-    Fee }o--|| Money : "amount_id"
+    DynamicBand }o--|| DynamicRule : "dynamic_rule_id"
+    DynamicBand }o--|| Adjustment : "adjustment_id"
+    DynamicRule }o--|| RatePlan : "rate_plan_id"
     Guest }o--|| Booking : "booking_id"
     Guest }o--|| IdDocument : "id_document_id"
     Guest }o--|| PostalAddress : "permanent_address_id"
@@ -261,14 +309,22 @@ erDiagram
     Licence }o--|| Unit : "unit"
     Licence }o--|| Property : "property_id"
     Licence }o--|| Attachment : "attachment_id"
-    LosDiscount }o--|| Unit : "unit_id"
-    LosDiscount }o--|| Money : "amount_off_id"
     Media }o--|| Property : "property_id"
     Member }o--|| User : "user"
     Member }o--|| User : "inviter"
     Member }o--|| Organisation : "organisation_id"
+    PriceBounds }o--|| Money : "floor_id"
+    PriceBounds }o--|| Money : "ceiling_id"
     PriceComponent }o--|| Booking : "booking_id"
     PriceComponent }o--|| Money : "amount_id"
+    PricingFee }o--|| RatePlan : "rate_plan_id"
+    PricingFee }o--|| Money : "amount_id"
+    PricingLosDiscount }o--|| RatePlan : "rate_plan_id"
+    PricingLosDiscount }o--|| Money : "amount_off_id"
+    PricingRateOverride }o--|| RatePlan : "rate_plan_id"
+    PricingRateOverride }o--|| PricingDateRange : "date_range_id"
+    PricingRateOverride }o--|| Money : "price_id"
+    PricingTax }o--|| RatePlan : "rate_plan_id"
     PromoCode }o--|| Discount : "discount_id"
     PromoCode }o--|| RedemptionWindow : "window_id"
     PromoCode }o--|| UsageLimits : "limits_id"
@@ -276,11 +332,18 @@ erDiagram
     Property }o--|| Organisation : "organisation"
     Property }o--|| PostalAddress : "address_id"
     Property }o--|| Policy : "policy_id"
+    PropertyFee }o--|| Unit : "unit_id"
+    PropertyFee }o--|| Money : "amount_id"
+    PropertyLosDiscount }o--|| Unit : "unit_id"
+    PropertyLosDiscount }o--|| Money : "amount_off_id"
+    PropertyRateOverride }o--|| Unit : "unit_id"
+    PropertyRateOverride }o--|| SharedDateRange : "date_range_id"
+    PropertyRateOverride }o--|| Money : "price_id"
+    PropertyTax }o--|| Unit : "unit_id"
     PropertyUnits }o--|| Property : "property_id"
     PropertyUnits }o--|| Unit : "unit_id"
-    RateOverride }o--|| Unit : "unit_id"
-    RateOverride }o--|| DateRange : "date_range_id"
-    RateOverride }o--|| Money : "price_id"
+    RatePlan }o--|| Money : "price_id"
+    RatePlan }o--|| PriceBounds : "bounds_id"
     RecurringRule }o--|| Schedule : "schedule_id"
     Redemption }o--|| User : "customer"
     Redemption }o--|| Booking : "booking"
@@ -298,7 +361,6 @@ erDiagram
     ScopeApplicableProperties }o--|| Property : "property_id"
     ScopeApplicableUnits }o--|| Scope : "scope_id"
     ScopeApplicableUnits }o--|| Unit : "unit_id"
-    Tax }o--|| Unit : "unit_id"
     Unit }o--|| Property : "property_id"
     Unit }o--|| Money : "price_id"
     UnitApplicablePromoCodes }o--|| Unit : "unit_id"
@@ -314,6 +376,7 @@ erDiagram
 - [`channel/`](./channel/README.md)
 - [`identity/`](./identity/README.md)
 - [`organisation/`](./organisation/README.md)
+- [`pricing/`](./pricing/README.md)
 - [`promocode/`](./promocode/README.md)
 - [`property/`](./property/README.md)
 - [`schedule/`](./schedule/README.md)

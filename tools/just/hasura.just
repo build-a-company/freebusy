@@ -136,7 +136,7 @@ regen domain="":
       log "SKIP_CLIENT=1 — skipping client regeneration"
     else
       log "regenerating freebusyql client (buf generate, target=graphql)"
-      ( cd "$REPO_ROOT" && buf generate --template tools/protobuf/buf/orm.buf.gen.yaml )
+      ( cd "$REPO_ROOT" && buf generate --template tools/protobuf/buf/store.buf.gen.yaml )
     fi
 
     log "done — verify with:"

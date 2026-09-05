@@ -50,7 +50,7 @@ enum UnitType {
 }
 
 /// What a unit's price is charged per.
-enum PricingUnit {
+enum PropertyPricingUnit {
   /// A flat price for the whole booking.
   PER_BOOKING
 
@@ -60,8 +60,8 @@ enum PricingUnit {
   /// Price multiplied by party size / units booked.
   PER_PERSON
 
-  /// Maps the enum to the "pricing_unit" type in the database.
-  @@map("pricing_unit")
+  /// Maps the enum to the "property_pricing_unit" type in the database.
+  @@map("property_pricing_unit")
   /// Maps the enum to the "property" schema in the database.
   @@schema("property")
 }

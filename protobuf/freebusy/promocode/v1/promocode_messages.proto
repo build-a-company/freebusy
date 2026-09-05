@@ -160,20 +160,20 @@ message ValidatePromoCodeRequest {
   ];
 
   // Property being booked, for scope checks.
-  // Format: properties/{property}
+  // Format: organizationalUnits/{organizational_unit}
   string property = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+$",
+    (google.api.resource_reference) = {type: "protobufrfc.dev/OrganizationalUnit"},
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
 
   // Unit being booked, for scope checks.
-  // Format: properties/{property}/units/{unit}
+  // Format: resources/{resource}
   string unit = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+$",
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"},
+    (buf.validate.field).string.pattern = "^resources/[^/]+$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
 

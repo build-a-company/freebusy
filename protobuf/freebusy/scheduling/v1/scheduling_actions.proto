@@ -84,10 +84,10 @@ message RescheduleBookingRequest {
   ];
 
   // The new unit, when changing it as part of the reschedule.
-  // Format: properties/{property}/units/{unit}
+  // Format: resources/{resource}
   string unit = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"}
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"}
   ];
 
   // Caller-supplied idempotency key that dedupes retries of this reschedule.

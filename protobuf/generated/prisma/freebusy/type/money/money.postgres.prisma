@@ -26,6 +26,27 @@ model Money {
   /// Number of nano (10^-9) units of the amount. The value must be between -999,999,999 and +999,999,999 inclusive. If `units` is positive, `nanos` must be positive or zero. If `units` is zero, `nanos` can be positive, zero, or negative. If `units` is negative, `nanos` must be negative or zero. For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
   nanos Int? @map("nanos")
 
+  /// Back-relation: RatePlan records that reference this model via price_id.
+  ratePlans RatePlan[]
+
+  /// Back-relation: PricingRateOverride records that reference this model via price_id.
+  rateOverrides PricingRateOverride[]
+
+  /// Back-relation: PricingLosDiscount records that reference this model via amount_off_id.
+  losDiscounts PricingLosDiscount[]
+
+  /// Back-relation: PricingFee records that reference this model via amount_id.
+  fees PricingFee[]
+
+  /// Back-relation: PriceBounds records that reference this model via floor_id.
+  priceBounds PriceBounds[] @relation("PriceBoundsFloor")
+
+  /// Back-relation: PriceBounds records that reference this model via ceiling_id.
+  priceBounds2 PriceBounds[] @relation("PriceBoundsCeiling")
+
+  /// Back-relation: Adjustment records that reference this model via amount_delta_id.
+  adjustments Adjustment[]
+
   /// Back-relation: Redemption records that reference this model via amount_applied_id.
   redemptions Redemption[]
 
@@ -38,14 +59,14 @@ model Money {
   /// Back-relation: Unit records that reference this model via price_id.
   units2 Unit[]
 
-  /// Back-relation: RateOverride records that reference this model via price_id.
-  rateOverrides RateOverride[]
+  /// Back-relation: PropertyRateOverride records that reference this model via price_id.
+  rateOverrides2 PropertyRateOverride[]
 
-  /// Back-relation: LosDiscount records that reference this model via amount_off_id.
-  losDiscounts LosDiscount[]
+  /// Back-relation: PropertyLosDiscount records that reference this model via amount_off_id.
+  losDiscounts2 PropertyLosDiscount[]
 
-  /// Back-relation: Fee records that reference this model via amount_id.
-  fees Fee[]
+  /// Back-relation: PropertyFee records that reference this model via amount_id.
+  fees2 PropertyFee[]
 
   /// Back-relation: Booking records that reference this model via price_id.
   bookings Booking[] @relation("BookingPrice")

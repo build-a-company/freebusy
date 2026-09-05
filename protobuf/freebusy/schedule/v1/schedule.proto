@@ -110,7 +110,7 @@ message AvailabilityException {
   };
 
   // The exception name.
-  // Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}
+  // Format: resources/{resource}/availabilityExceptions/{availability_exception}
   string name = 1 [
     (google.api.field_behavior) = IDENTIFIER,
     (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+/availabilityExceptions/[^/]+$",
@@ -157,7 +157,7 @@ message Schedule {
   };
 
   // The schedule name.
-  // Format: properties/{property}/units/{unit}/schedule
+  // Format: resources/{resource}/schedule
   string name = 1 [
     (google.api.field_behavior) = IDENTIFIER,
     (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+/schedule$",
@@ -175,7 +175,7 @@ message Schedule {
 
   // Resource names of the active exceptions; manage them with the
   // AvailabilityException standard methods.
-  // Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}
+  // Format: resources/{resource}/availabilityExceptions/{availability_exception}
   repeated string exceptions = 5 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (google.api.resource_reference) = {type: "freebusy.schedule.v1/AvailabilityException"}

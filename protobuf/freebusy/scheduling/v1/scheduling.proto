@@ -44,11 +44,11 @@ message Booking {
   reserved 2;
 
   // The unit being booked.
-  // Format: properties/{property}/units/{unit}
+  // Format: resources/{resource}
   string unit = 3 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+$",
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"},
+    (buf.validate.field).string.pattern = "^resources/[^/]+$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
 

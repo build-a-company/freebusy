@@ -19,9 +19,6 @@ erDiagram
     Contact {
         string id PK
     }
-    DateRange {
-        string id PK
-    }
     IdempotencyKey {
         string id PK
     }
@@ -29,6 +26,9 @@ erDiagram
         string id PK
         string booking_id FK
         string amount_id FK
+    }
+    SharedDateRange {
+        string id PK
     }
     TimeWindow {
         string id PK

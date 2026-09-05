@@ -37,10 +37,10 @@ message Channel {
   string name = 1 [(google.api.field_behavior) = IDENTIFIER];
 
   // The property this channel distributes.
-  // Format: properties/{property}
+  // Format: organizationalUnits/{organizational_unit}
   string property = 2 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"}
+    (google.api.resource_reference) = {type: "protobufrfc.dev/OrganizationalUnit"}
   ];
 
   // Which OTA/GDS this connects to. Immutable: the adapter and external ID space
@@ -93,10 +93,10 @@ message UnitMapping {
   string name = 1 [(google.api.field_behavior) = IDENTIFIER];
 
   // The freebusy unit being mapped.
-  // Format: properties/{property}/units/{unit}
+  // Format: resources/{resource}
   string unit = 2 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"}
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"}
   ];
 
   // The channel's room-type id this unit maps to.
@@ -123,10 +123,10 @@ message UnitMapping {
 // and its Schedule's stay constraints for a single date.
 message AriUpdate {
   // The unit this update is for.
-  // Format: properties/{property}/units/{unit}
+  // Format: resources/{resource}
   string unit = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"}
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"}
   ];
 
   // The date (in the unit's timezone) the values apply to.
@@ -176,10 +176,10 @@ message ExternalReservation {
   string external_id = 2 [(google.api.field_behavior) = REQUIRED];
 
   // The resolved freebusy unit being booked.
-  // Format: properties/{property}/units/{unit}
+  // Format: resources/{resource}
   string unit = 3 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"}
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"}
   ];
 
   // Guest contact details supplied by the channel.
@@ -209,8 +209,8 @@ message SyncEvent {
   string channel = 2 [(google.api.resource_reference) = {type: "freebusy.channel.v1/Channel"}];
 
   // The unit involved, when the event is unit-scoped.
-  // Format: properties/{property}/units/{unit}
-  string unit = 3 [(google.api.resource_reference) = {type: "freebusy.property.v1/Unit"}];
+  // Format: resources/{resource}
+  string unit = 3 [(google.api.resource_reference) = {type: "protobufrfc.dev/Resource"}];
 
   // The date the event concerned, when applicable.
   google.type.Date date = 4;

@@ -64,3 +64,9 @@ id = "machanigroup"
 display_name = "Machani Group"
 slug = "machanigroup"
 billing_email = "billing@machanigroup.com"
+# Dev overlay: the cache is on and points at the local Redis container
+# (docker: my-redis, 6379). Flip enabled=false to read straight through.
+[cache]
+enabled = true
+address = "127.0.0.1:6379"
+prefix = "freebusy-dev"

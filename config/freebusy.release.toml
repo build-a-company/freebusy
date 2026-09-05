@@ -64,3 +64,21 @@ admin_secret = ""
 # implied by a zero value.
 [seed]
 enabled = false
+
+# Read-through cache behind protoc-gen-cache's generated decorators.
+#
+# Off by default. The service is correct without it, and turning a cache on
+# before the read it serves has been measured only adds a way to be stale.
+#
+# Resources annotated STRATEGY_INDEXED (PromoCode) need server-side sets, so the
+# address must be Redis or Dragonfly; memcached is refused at construction.
+[cache]
+enabled = false
+address = "127.0.0.1:6379"
+username = ""
+password = ""
+database = 0
+pool_size = 0
+# Separates this deployment's keys from another sharing one server. Set it per
+# environment — it is config, not schema, which is why cache.v1 has no prefix.
+prefix = "freebusy"

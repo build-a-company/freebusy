@@ -91,7 +91,7 @@ model TimeWindow {
 }
 
 /// A half-open range of calendar dates [start_date, end_date), evaluated in the resource's local timezone. The natural query and exception shape for NIGHTLY resources: end_date is the check-out date and is not itself included.
-model DateRange {
+model SharedDateRange {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 
@@ -101,8 +101,8 @@ model DateRange {
   /// Exclusive end date of the range.
   endDate DateTime @freebusy.Date @map("end_date")
 
-  /// Back-relation: RateOverride records that reference this model via date_range_id.
-  rateOverrides RateOverride[]
+  /// Back-relation: PropertyRateOverride records that reference this model via date_range_id.
+  rateOverrides PropertyRateOverride[]
 
   /// Back-relation: AvailabilityException records that reference this model via date_range_id.
   availabilityExceptions AvailabilityException[]

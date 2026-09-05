@@ -118,6 +118,76 @@ definition:
               unique_columns:
                 - id
         - arguments: {}
+          name: pricing_adjustments
+          type: pricing_adjustments
+          uniqueness_constraints:
+            adjustments_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: pricing_date_ranges
+          type: pricing_date_ranges
+          uniqueness_constraints:
+            date_ranges_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: pricing_dynamic_bands
+          type: pricing_dynamic_bands
+          uniqueness_constraints:
+            dynamic_bands_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: pricing_dynamic_rules
+          type: pricing_dynamic_rules
+          uniqueness_constraints:
+            dynamic_rules_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: pricing_fees
+          type: pricing_fees
+          uniqueness_constraints:
+            fees_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: pricing_los_discounts
+          type: pricing_los_discounts
+          uniqueness_constraints:
+            los_discounts_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: pricing_price_bounds
+          type: pricing_price_bounds
+          uniqueness_constraints:
+            price_bounds_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: pricing_rate_overrides
+          type: pricing_rate_overrides
+          uniqueness_constraints:
+            rate_overrides_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: pricing_rate_plans
+          type: pricing_rate_plans
+          uniqueness_constraints:
+            rate_plans_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: pricing_taxes
+          type: pricing_taxes
+          uniqueness_constraints:
+            taxes_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
           name: promocode_discounts
           type: promocode_discounts
           uniqueness_constraints:
@@ -1007,6 +1077,166 @@ definition:
               type:
                 element_type:
                   name: organisation_resource
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_pricing_adjustments_by_id_response:
+          description: Responses from the 'delete_pricing_adjustments_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_adjustments
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_pricing_date_ranges_by_id_response:
+          description: Responses from the 'delete_pricing_date_ranges_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_date_ranges
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_pricing_dynamic_bands_by_id_response:
+          description: Responses from the 'delete_pricing_dynamic_bands_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_dynamic_bands
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_pricing_dynamic_rules_by_id_response:
+          description: Responses from the 'delete_pricing_dynamic_rules_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_dynamic_rules
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_pricing_fees_by_id_response:
+          description: Responses from the 'delete_pricing_fees_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_fees
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_pricing_los_discounts_by_id_response:
+          description: Responses from the 'delete_pricing_los_discounts_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_los_discounts
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_pricing_price_bounds_by_id_response:
+          description: Responses from the 'delete_pricing_price_bounds_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_price_bounds
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_pricing_rate_overrides_by_id_response:
+          description: Responses from the 'delete_pricing_rate_overrides_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_rate_overrides
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_pricing_rate_plans_by_id_response:
+          description: Responses from the 'delete_pricing_rate_plans_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_rate_plans
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_pricing_taxes_by_id_response:
+          description: Responses from the 'delete_pricing_taxes_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_taxes
                   type: named
                 type: array
           foreign_keys: {}
@@ -2986,6 +3216,452 @@ definition:
               type:
                 element_type:
                   name: organisation_resource
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_pricing_adjustments_object:
+          fields:
+            amount_delta_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            percent_delta:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        insert_pricing_adjustments_response:
+          description: Responses from the 'insert_pricing_adjustments' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_adjustments
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_pricing_date_ranges_object:
+          fields:
+            end_date:
+              type:
+                name: date
+                type: named
+            id:
+              type:
+                name: text
+                type: named
+            start_date:
+              type:
+                name: date
+                type: named
+          foreign_keys: {}
+        insert_pricing_date_ranges_response:
+          description: Responses from the 'insert_pricing_date_ranges' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_date_ranges
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_pricing_dynamic_bands_object:
+          fields:
+            adjustment_id:
+              type:
+                name: text
+                type: named
+            display_name:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            dynamic_rule_id:
+              type:
+                name: text
+                type: named
+            id:
+              type:
+                name: text
+                type: named
+            max_threshold:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            min_threshold:
+              type:
+                name: int4
+                type: named
+          foreign_keys: {}
+        insert_pricing_dynamic_bands_response:
+          description: Responses from the 'insert_pricing_dynamic_bands' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_dynamic_bands
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_pricing_dynamic_rules_object:
+          fields:
+            id:
+              type:
+                name: text
+                type: named
+            rate_plan_id:
+              type:
+                name: text
+                type: named
+            trigger:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        insert_pricing_dynamic_rules_response:
+          description: Responses from the 'insert_pricing_dynamic_rules' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_dynamic_rules
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_pricing_fees_object:
+          fields:
+            amount_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            code:
+              type:
+                name: text
+                type: named
+            display_name:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            percent:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            pricing_unit:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            rate_plan_id:
+              type:
+                name: text
+                type: named
+            taxable:
+              type:
+                type: nullable
+                underlying_type:
+                  name: bool
+                  type: named
+          foreign_keys: {}
+        insert_pricing_fees_response:
+          description: Responses from the 'insert_pricing_fees' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_fees
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_pricing_los_discounts_object:
+          fields:
+            amount_off_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            min_nights:
+              type:
+                name: int4
+                type: named
+            percent_off:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            rate_plan_id:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        insert_pricing_los_discounts_response:
+          description: Responses from the 'insert_pricing_los_discounts' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_los_discounts
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_pricing_price_bounds_object:
+          fields:
+            ceiling_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            floor_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        insert_pricing_price_bounds_response:
+          description: Responses from the 'insert_pricing_price_bounds' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_price_bounds
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_pricing_rate_overrides_object:
+          fields:
+            date_range_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            price_id:
+              type:
+                name: text
+                type: named
+            rate_plan_id:
+              type:
+                name: text
+                type: named
+            weekdays:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        insert_pricing_rate_overrides_response:
+          description: Responses from the 'insert_pricing_rate_overrides' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_rate_overrides
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_pricing_rate_plans_object:
+          fields:
+            bounds_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            create_time:
+              type:
+                name: timestamptz
+                type: named
+            description:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            display_name:
+              type:
+                name: text
+                type: named
+            etag:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            name:
+              type:
+                name: text
+                type: named
+            price_id:
+              type:
+                name: text
+                type: named
+            pricing_unit:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            resource:
+              type:
+                name: text
+                type: named
+            state:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            update_time:
+              type:
+                name: timestamptz
+                type: named
+          foreign_keys: {}
+        insert_pricing_rate_plans_response:
+          description: Responses from the 'insert_pricing_rate_plans' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_rate_plans
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_pricing_taxes_object:
+          fields:
+            code:
+              type:
+                name: text
+                type: named
+            display_name:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            percent:
+              type:
+                name: numeric
+                type: named
+            rate_plan_id:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        insert_pricing_taxes_response:
+          description: Responses from the 'insert_pricing_taxes' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_taxes
                   type: named
                 type: array
           foreign_keys: {}
@@ -5080,6 +5756,290 @@ definition:
             update_time:
               type:
                 name: timestamptz
+                type: named
+          foreign_keys: {}
+        pricing_adjustments:
+          fields:
+            amount_delta_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            percent_delta:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        pricing_date_ranges:
+          fields:
+            end_date:
+              type:
+                name: date
+                type: named
+            id:
+              type:
+                name: text
+                type: named
+            start_date:
+              type:
+                name: date
+                type: named
+          foreign_keys: {}
+        pricing_dynamic_bands:
+          fields:
+            adjustment_id:
+              type:
+                name: text
+                type: named
+            display_name:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            dynamic_rule_id:
+              type:
+                name: text
+                type: named
+            id:
+              type:
+                name: text
+                type: named
+            max_threshold:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            min_threshold:
+              type:
+                name: int4
+                type: named
+          foreign_keys: {}
+        pricing_dynamic_rules:
+          fields:
+            id:
+              type:
+                name: text
+                type: named
+            rate_plan_id:
+              type:
+                name: text
+                type: named
+            trigger:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        pricing_fees:
+          fields:
+            amount_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            code:
+              type:
+                name: text
+                type: named
+            display_name:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            percent:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            pricing_unit:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            rate_plan_id:
+              type:
+                name: text
+                type: named
+            taxable:
+              type:
+                type: nullable
+                underlying_type:
+                  name: bool
+                  type: named
+          foreign_keys: {}
+        pricing_los_discounts:
+          fields:
+            amount_off_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            min_nights:
+              type:
+                name: int4
+                type: named
+            percent_off:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            rate_plan_id:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        pricing_price_bounds:
+          fields:
+            ceiling_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            floor_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        pricing_rate_overrides:
+          fields:
+            date_range_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            price_id:
+              type:
+                name: text
+                type: named
+            rate_plan_id:
+              type:
+                name: text
+                type: named
+            weekdays:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        pricing_rate_plans:
+          fields:
+            bounds_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            create_time:
+              type:
+                name: timestamptz
+                type: named
+            description:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            display_name:
+              type:
+                name: text
+                type: named
+            etag:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            name:
+              type:
+                name: text
+                type: named
+            price_id:
+              type:
+                name: text
+                type: named
+            pricing_unit:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            resource:
+              type:
+                name: text
+                type: named
+            state:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            update_time:
+              type:
+                name: timestamptz
+                type: named
+          foreign_keys: {}
+        pricing_taxes:
+          fields:
+            code:
+              type:
+                name: text
+                type: named
+            display_name:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            percent:
+              type:
+                name: numeric
+                type: named
+            rate_plan_id:
+              type:
+                name: text
                 type: named
           foreign_keys: {}
         promocode_discounts:
@@ -8626,6 +9586,525 @@ definition:
                 name: timestamptz
                 type: named
           foreign_keys: {}
+        update_column_pricing_adjustments_amount_delta_id:
+          description: Update the 'amount_delta_id' column in the 'pricing_adjustments' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_adjustments_id:
+          description: Update the 'id' column in the 'pricing_adjustments' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_adjustments_percent_delta:
+          description: Update the 'percent_delta' column in the 'pricing_adjustments' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_date_ranges_end_date:
+          description: Update the 'end_date' column in the 'pricing_date_ranges' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: date
+                type: named
+          foreign_keys: {}
+        update_column_pricing_date_ranges_id:
+          description: Update the 'id' column in the 'pricing_date_ranges' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_date_ranges_start_date:
+          description: Update the 'start_date' column in the 'pricing_date_ranges' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: date
+                type: named
+          foreign_keys: {}
+        update_column_pricing_dynamic_bands_adjustment_id:
+          description: Update the 'adjustment_id' column in the 'pricing_dynamic_bands' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_dynamic_bands_display_name:
+          description: Update the 'display_name' column in the 'pricing_dynamic_bands' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_dynamic_bands_dynamic_rule_id:
+          description: Update the 'dynamic_rule_id' column in the 'pricing_dynamic_bands' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_dynamic_bands_id:
+          description: Update the 'id' column in the 'pricing_dynamic_bands' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_dynamic_bands_max_threshold:
+          description: Update the 'max_threshold' column in the 'pricing_dynamic_bands' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_dynamic_bands_min_threshold:
+          description: Update the 'min_threshold' column in the 'pricing_dynamic_bands' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: int4
+                type: named
+          foreign_keys: {}
+        update_column_pricing_dynamic_rules_id:
+          description: Update the 'id' column in the 'pricing_dynamic_rules' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_dynamic_rules_rate_plan_id:
+          description: Update the 'rate_plan_id' column in the 'pricing_dynamic_rules' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_dynamic_rules_trigger:
+          description: Update the 'trigger' column in the 'pricing_dynamic_rules' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_fees_amount_id:
+          description: Update the 'amount_id' column in the 'pricing_fees' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_fees_code:
+          description: Update the 'code' column in the 'pricing_fees' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_fees_display_name:
+          description: Update the 'display_name' column in the 'pricing_fees' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_fees_id:
+          description: Update the 'id' column in the 'pricing_fees' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_fees_percent:
+          description: Update the 'percent' column in the 'pricing_fees' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_fees_pricing_unit:
+          description: Update the 'pricing_unit' column in the 'pricing_fees' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_fees_rate_plan_id:
+          description: Update the 'rate_plan_id' column in the 'pricing_fees' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_fees_taxable:
+          description: Update the 'taxable' column in the 'pricing_fees' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: bool
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_los_discounts_amount_off_id:
+          description: Update the 'amount_off_id' column in the 'pricing_los_discounts' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_los_discounts_id:
+          description: Update the 'id' column in the 'pricing_los_discounts' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_los_discounts_min_nights:
+          description: Update the 'min_nights' column in the 'pricing_los_discounts' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: int4
+                type: named
+          foreign_keys: {}
+        update_column_pricing_los_discounts_percent_off:
+          description: Update the 'percent_off' column in the 'pricing_los_discounts' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_los_discounts_rate_plan_id:
+          description: Update the 'rate_plan_id' column in the 'pricing_los_discounts' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_price_bounds_ceiling_id:
+          description: Update the 'ceiling_id' column in the 'pricing_price_bounds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_price_bounds_floor_id:
+          description: Update the 'floor_id' column in the 'pricing_price_bounds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_price_bounds_id:
+          description: Update the 'id' column in the 'pricing_price_bounds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_rate_overrides_date_range_id:
+          description: Update the 'date_range_id' column in the 'pricing_rate_overrides' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_rate_overrides_id:
+          description: Update the 'id' column in the 'pricing_rate_overrides' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_rate_overrides_price_id:
+          description: Update the 'price_id' column in the 'pricing_rate_overrides' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_rate_overrides_rate_plan_id:
+          description: Update the 'rate_plan_id' column in the 'pricing_rate_overrides' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_rate_overrides_weekdays:
+          description: Update the 'weekdays' column in the 'pricing_rate_overrides' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_bounds_id:
+          description: Update the 'bounds_id' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_create_time:
+          description: Update the 'create_time' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: timestamptz
+                type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_description:
+          description: Update the 'description' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_display_name:
+          description: Update the 'display_name' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_etag:
+          description: Update the 'etag' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_id:
+          description: Update the 'id' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_name:
+          description: Update the 'name' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_price_id:
+          description: Update the 'price_id' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_pricing_unit:
+          description: Update the 'pricing_unit' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_resource:
+          description: Update the 'resource' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_state:
+          description: Update the 'state' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_rate_plans_update_time:
+          description: Update the 'update_time' column in the 'pricing_rate_plans' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: timestamptz
+                type: named
+          foreign_keys: {}
+        update_column_pricing_taxes_code:
+          description: Update the 'code' column in the 'pricing_taxes' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_taxes_display_name:
+          description: Update the 'display_name' column in the 'pricing_taxes' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_pricing_taxes_id:
+          description: Update the 'id' column in the 'pricing_taxes' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_pricing_taxes_percent:
+          description: Update the 'percent' column in the 'pricing_taxes' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: numeric
+                type: named
+          foreign_keys: {}
+        update_column_pricing_taxes_rate_plan_id:
+          description: Update the 'rate_plan_id' column in the 'pricing_taxes' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
         update_column_promocode_discounts_amount_case:
           description: Update the 'amount_case' column in the 'promocode_discounts' collection
           fields:
@@ -11950,6 +13429,577 @@ definition:
                   name: update_column_organisation_resource_update_time
                   type: named
           foreign_keys: {}
+        update_pricing_adjustments_by_id_response:
+          description: Responses from the 'update_pricing_adjustments_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_adjustments
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_pricing_adjustments_by_id_update_columns:
+          description: Update the columns of the 'pricing_adjustments' collection
+          fields:
+            amount_delta_id:
+              description: Update the 'amount_delta_id' column in the 'pricing_adjustments' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_adjustments_amount_delta_id
+                  type: named
+            id:
+              description: Update the 'id' column in the 'pricing_adjustments' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_adjustments_id
+                  type: named
+            percent_delta:
+              description: Update the 'percent_delta' column in the 'pricing_adjustments' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_adjustments_percent_delta
+                  type: named
+          foreign_keys: {}
+        update_pricing_date_ranges_by_id_response:
+          description: Responses from the 'update_pricing_date_ranges_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_date_ranges
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_pricing_date_ranges_by_id_update_columns:
+          description: Update the columns of the 'pricing_date_ranges' collection
+          fields:
+            end_date:
+              description: Update the 'end_date' column in the 'pricing_date_ranges' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_date_ranges_end_date
+                  type: named
+            id:
+              description: Update the 'id' column in the 'pricing_date_ranges' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_date_ranges_id
+                  type: named
+            start_date:
+              description: Update the 'start_date' column in the 'pricing_date_ranges' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_date_ranges_start_date
+                  type: named
+          foreign_keys: {}
+        update_pricing_dynamic_bands_by_id_response:
+          description: Responses from the 'update_pricing_dynamic_bands_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_dynamic_bands
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_pricing_dynamic_bands_by_id_update_columns:
+          description: Update the columns of the 'pricing_dynamic_bands' collection
+          fields:
+            adjustment_id:
+              description: Update the 'adjustment_id' column in the 'pricing_dynamic_bands' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_dynamic_bands_adjustment_id
+                  type: named
+            display_name:
+              description: Update the 'display_name' column in the 'pricing_dynamic_bands' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_dynamic_bands_display_name
+                  type: named
+            dynamic_rule_id:
+              description: Update the 'dynamic_rule_id' column in the 'pricing_dynamic_bands' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_dynamic_bands_dynamic_rule_id
+                  type: named
+            id:
+              description: Update the 'id' column in the 'pricing_dynamic_bands' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_dynamic_bands_id
+                  type: named
+            max_threshold:
+              description: Update the 'max_threshold' column in the 'pricing_dynamic_bands' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_dynamic_bands_max_threshold
+                  type: named
+            min_threshold:
+              description: Update the 'min_threshold' column in the 'pricing_dynamic_bands' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_dynamic_bands_min_threshold
+                  type: named
+          foreign_keys: {}
+        update_pricing_dynamic_rules_by_id_response:
+          description: Responses from the 'update_pricing_dynamic_rules_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_dynamic_rules
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_pricing_dynamic_rules_by_id_update_columns:
+          description: Update the columns of the 'pricing_dynamic_rules' collection
+          fields:
+            id:
+              description: Update the 'id' column in the 'pricing_dynamic_rules' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_dynamic_rules_id
+                  type: named
+            rate_plan_id:
+              description: Update the 'rate_plan_id' column in the 'pricing_dynamic_rules' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_dynamic_rules_rate_plan_id
+                  type: named
+            trigger:
+              description: Update the 'trigger' column in the 'pricing_dynamic_rules' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_dynamic_rules_trigger
+                  type: named
+          foreign_keys: {}
+        update_pricing_fees_by_id_response:
+          description: Responses from the 'update_pricing_fees_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_fees
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_pricing_fees_by_id_update_columns:
+          description: Update the columns of the 'pricing_fees' collection
+          fields:
+            amount_id:
+              description: Update the 'amount_id' column in the 'pricing_fees' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_fees_amount_id
+                  type: named
+            code:
+              description: Update the 'code' column in the 'pricing_fees' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_fees_code
+                  type: named
+            display_name:
+              description: Update the 'display_name' column in the 'pricing_fees' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_fees_display_name
+                  type: named
+            id:
+              description: Update the 'id' column in the 'pricing_fees' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_fees_id
+                  type: named
+            percent:
+              description: Update the 'percent' column in the 'pricing_fees' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_fees_percent
+                  type: named
+            pricing_unit:
+              description: Update the 'pricing_unit' column in the 'pricing_fees' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_fees_pricing_unit
+                  type: named
+            rate_plan_id:
+              description: Update the 'rate_plan_id' column in the 'pricing_fees' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_fees_rate_plan_id
+                  type: named
+            taxable:
+              description: Update the 'taxable' column in the 'pricing_fees' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_fees_taxable
+                  type: named
+          foreign_keys: {}
+        update_pricing_los_discounts_by_id_response:
+          description: Responses from the 'update_pricing_los_discounts_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_los_discounts
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_pricing_los_discounts_by_id_update_columns:
+          description: Update the columns of the 'pricing_los_discounts' collection
+          fields:
+            amount_off_id:
+              description: Update the 'amount_off_id' column in the 'pricing_los_discounts' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_los_discounts_amount_off_id
+                  type: named
+            id:
+              description: Update the 'id' column in the 'pricing_los_discounts' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_los_discounts_id
+                  type: named
+            min_nights:
+              description: Update the 'min_nights' column in the 'pricing_los_discounts' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_los_discounts_min_nights
+                  type: named
+            percent_off:
+              description: Update the 'percent_off' column in the 'pricing_los_discounts' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_los_discounts_percent_off
+                  type: named
+            rate_plan_id:
+              description: Update the 'rate_plan_id' column in the 'pricing_los_discounts' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_los_discounts_rate_plan_id
+                  type: named
+          foreign_keys: {}
+        update_pricing_price_bounds_by_id_response:
+          description: Responses from the 'update_pricing_price_bounds_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_price_bounds
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_pricing_price_bounds_by_id_update_columns:
+          description: Update the columns of the 'pricing_price_bounds' collection
+          fields:
+            ceiling_id:
+              description: Update the 'ceiling_id' column in the 'pricing_price_bounds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_price_bounds_ceiling_id
+                  type: named
+            floor_id:
+              description: Update the 'floor_id' column in the 'pricing_price_bounds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_price_bounds_floor_id
+                  type: named
+            id:
+              description: Update the 'id' column in the 'pricing_price_bounds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_price_bounds_id
+                  type: named
+          foreign_keys: {}
+        update_pricing_rate_overrides_by_id_response:
+          description: Responses from the 'update_pricing_rate_overrides_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_rate_overrides
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_pricing_rate_overrides_by_id_update_columns:
+          description: Update the columns of the 'pricing_rate_overrides' collection
+          fields:
+            date_range_id:
+              description: Update the 'date_range_id' column in the 'pricing_rate_overrides' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_overrides_date_range_id
+                  type: named
+            id:
+              description: Update the 'id' column in the 'pricing_rate_overrides' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_overrides_id
+                  type: named
+            price_id:
+              description: Update the 'price_id' column in the 'pricing_rate_overrides' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_overrides_price_id
+                  type: named
+            rate_plan_id:
+              description: Update the 'rate_plan_id' column in the 'pricing_rate_overrides' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_overrides_rate_plan_id
+                  type: named
+            weekdays:
+              description: Update the 'weekdays' column in the 'pricing_rate_overrides' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_overrides_weekdays
+                  type: named
+          foreign_keys: {}
+        update_pricing_rate_plans_by_id_response:
+          description: Responses from the 'update_pricing_rate_plans_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_rate_plans
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_pricing_rate_plans_by_id_update_columns:
+          description: Update the columns of the 'pricing_rate_plans' collection
+          fields:
+            bounds_id:
+              description: Update the 'bounds_id' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_bounds_id
+                  type: named
+            create_time:
+              description: Update the 'create_time' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_create_time
+                  type: named
+            description:
+              description: Update the 'description' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_description
+                  type: named
+            display_name:
+              description: Update the 'display_name' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_display_name
+                  type: named
+            etag:
+              description: Update the 'etag' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_etag
+                  type: named
+            id:
+              description: Update the 'id' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_id
+                  type: named
+            name:
+              description: Update the 'name' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_name
+                  type: named
+            price_id:
+              description: Update the 'price_id' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_price_id
+                  type: named
+            pricing_unit:
+              description: Update the 'pricing_unit' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_pricing_unit
+                  type: named
+            resource:
+              description: Update the 'resource' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_resource
+                  type: named
+            state:
+              description: Update the 'state' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_state
+                  type: named
+            update_time:
+              description: Update the 'update_time' column in the 'pricing_rate_plans' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_rate_plans_update_time
+                  type: named
+          foreign_keys: {}
+        update_pricing_taxes_by_id_response:
+          description: Responses from the 'update_pricing_taxes_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: pricing_taxes
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_pricing_taxes_by_id_update_columns:
+          description: Update the columns of the 'pricing_taxes' collection
+          fields:
+            code:
+              description: Update the 'code' column in the 'pricing_taxes' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_taxes_code
+                  type: named
+            display_name:
+              description: Update the 'display_name' column in the 'pricing_taxes' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_taxes_display_name
+                  type: named
+            id:
+              description: Update the 'id' column in the 'pricing_taxes' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_taxes_id
+                  type: named
+            percent:
+              description: Update the 'percent' column in the 'pricing_taxes' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_taxes_percent
+                  type: named
+            rate_plan_id:
+              description: Update the 'rate_plan_id' column in the 'pricing_taxes' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_pricing_taxes_rate_plan_id
+                  type: named
+          foreign_keys: {}
         update_promocode_discounts_by_id_response:
           description: Responses from the 'update_promocode_discounts_by_id' procedure
           fields:
@@ -14660,6 +16710,176 @@ definition:
                 name: text
                 type: named
             pre_check:
+              description: Delete permission predicate over the 'pricing_adjustments' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_adjustments
+                  type: predicate
+          description: Delete any row on the 'pricing_adjustments' collection using the 'id' key
+          name: delete_pricing_adjustments_by_id
+          result_type:
+            name: delete_pricing_adjustments_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'pricing_date_ranges' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_date_ranges
+                  type: predicate
+          description: Delete any row on the 'pricing_date_ranges' collection using the 'id' key
+          name: delete_pricing_date_ranges_by_id
+          result_type:
+            name: delete_pricing_date_ranges_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'pricing_dynamic_bands' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_dynamic_bands
+                  type: predicate
+          description: Delete any row on the 'pricing_dynamic_bands' collection using the 'id' key
+          name: delete_pricing_dynamic_bands_by_id
+          result_type:
+            name: delete_pricing_dynamic_bands_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'pricing_dynamic_rules' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_dynamic_rules
+                  type: predicate
+          description: Delete any row on the 'pricing_dynamic_rules' collection using the 'id' key
+          name: delete_pricing_dynamic_rules_by_id
+          result_type:
+            name: delete_pricing_dynamic_rules_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'pricing_fees' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_fees
+                  type: predicate
+          description: Delete any row on the 'pricing_fees' collection using the 'id' key
+          name: delete_pricing_fees_by_id
+          result_type:
+            name: delete_pricing_fees_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'pricing_los_discounts' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_los_discounts
+                  type: predicate
+          description: Delete any row on the 'pricing_los_discounts' collection using the 'id' key
+          name: delete_pricing_los_discounts_by_id
+          result_type:
+            name: delete_pricing_los_discounts_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'pricing_price_bounds' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_price_bounds
+                  type: predicate
+          description: Delete any row on the 'pricing_price_bounds' collection using the 'id' key
+          name: delete_pricing_price_bounds_by_id
+          result_type:
+            name: delete_pricing_price_bounds_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'pricing_rate_overrides' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_rate_overrides
+                  type: predicate
+          description: Delete any row on the 'pricing_rate_overrides' collection using the 'id' key
+          name: delete_pricing_rate_overrides_by_id
+          result_type:
+            name: delete_pricing_rate_overrides_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'pricing_rate_plans' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_rate_plans
+                  type: predicate
+          description: Delete any row on the 'pricing_rate_plans' collection using the 'id' key
+          name: delete_pricing_rate_plans_by_id
+          result_type:
+            name: delete_pricing_rate_plans_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'pricing_taxes' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_taxes
+                  type: predicate
+          description: Delete any row on the 'pricing_taxes' collection using the 'id' key
+          name: delete_pricing_taxes_by_id
+          result_type:
+            name: delete_pricing_taxes_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
               description: Delete permission predicate over the 'promocode_discounts' collection
               type:
                 type: nullable
@@ -15531,6 +17751,196 @@ definition:
           name: insert_organisation_resource
           result_type:
             name: insert_organisation_resource_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_pricing_adjustments_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'pricing_adjustments' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_adjustments
+                  type: predicate
+          description: Insert into the pricing_adjustments table
+          name: insert_pricing_adjustments
+          result_type:
+            name: insert_pricing_adjustments_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_pricing_date_ranges_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'pricing_date_ranges' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_date_ranges
+                  type: predicate
+          description: Insert into the pricing_date_ranges table
+          name: insert_pricing_date_ranges
+          result_type:
+            name: insert_pricing_date_ranges_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_pricing_dynamic_bands_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'pricing_dynamic_bands' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_dynamic_bands
+                  type: predicate
+          description: Insert into the pricing_dynamic_bands table
+          name: insert_pricing_dynamic_bands
+          result_type:
+            name: insert_pricing_dynamic_bands_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_pricing_dynamic_rules_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'pricing_dynamic_rules' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_dynamic_rules
+                  type: predicate
+          description: Insert into the pricing_dynamic_rules table
+          name: insert_pricing_dynamic_rules
+          result_type:
+            name: insert_pricing_dynamic_rules_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_pricing_fees_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'pricing_fees' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_fees
+                  type: predicate
+          description: Insert into the pricing_fees table
+          name: insert_pricing_fees
+          result_type:
+            name: insert_pricing_fees_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_pricing_los_discounts_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'pricing_los_discounts' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_los_discounts
+                  type: predicate
+          description: Insert into the pricing_los_discounts table
+          name: insert_pricing_los_discounts
+          result_type:
+            name: insert_pricing_los_discounts_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_pricing_price_bounds_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'pricing_price_bounds' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_price_bounds
+                  type: predicate
+          description: Insert into the pricing_price_bounds table
+          name: insert_pricing_price_bounds
+          result_type:
+            name: insert_pricing_price_bounds_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_pricing_rate_overrides_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'pricing_rate_overrides' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_rate_overrides
+                  type: predicate
+          description: Insert into the pricing_rate_overrides table
+          name: insert_pricing_rate_overrides
+          result_type:
+            name: insert_pricing_rate_overrides_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_pricing_rate_plans_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'pricing_rate_plans' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_rate_plans
+                  type: predicate
+          description: Insert into the pricing_rate_plans table
+          name: insert_pricing_rate_plans
+          result_type:
+            name: insert_pricing_rate_plans_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_pricing_taxes_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'pricing_taxes' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_taxes
+                  type: predicate
+          description: Insert into the pricing_taxes table
+          name: insert_pricing_taxes
+          result_type:
+            name: insert_pricing_taxes_response
             type: named
         - arguments:
             objects:
@@ -16607,6 +19017,286 @@ definition:
           name: update_organisation_resource_by_id
           result_type:
             name: update_organisation_resource_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'pricing_adjustments' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_adjustments
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'pricing_adjustments' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_adjustments
+                  type: predicate
+            update_columns:
+              type:
+                name: update_pricing_adjustments_by_id_update_columns
+                type: named
+          description: Update any row on the 'pricing_adjustments' collection using the 'id' key
+          name: update_pricing_adjustments_by_id
+          result_type:
+            name: update_pricing_adjustments_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'pricing_date_ranges' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_date_ranges
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'pricing_date_ranges' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_date_ranges
+                  type: predicate
+            update_columns:
+              type:
+                name: update_pricing_date_ranges_by_id_update_columns
+                type: named
+          description: Update any row on the 'pricing_date_ranges' collection using the 'id' key
+          name: update_pricing_date_ranges_by_id
+          result_type:
+            name: update_pricing_date_ranges_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'pricing_dynamic_bands' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_dynamic_bands
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'pricing_dynamic_bands' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_dynamic_bands
+                  type: predicate
+            update_columns:
+              type:
+                name: update_pricing_dynamic_bands_by_id_update_columns
+                type: named
+          description: Update any row on the 'pricing_dynamic_bands' collection using the 'id' key
+          name: update_pricing_dynamic_bands_by_id
+          result_type:
+            name: update_pricing_dynamic_bands_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'pricing_dynamic_rules' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_dynamic_rules
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'pricing_dynamic_rules' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_dynamic_rules
+                  type: predicate
+            update_columns:
+              type:
+                name: update_pricing_dynamic_rules_by_id_update_columns
+                type: named
+          description: Update any row on the 'pricing_dynamic_rules' collection using the 'id' key
+          name: update_pricing_dynamic_rules_by_id
+          result_type:
+            name: update_pricing_dynamic_rules_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'pricing_fees' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_fees
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'pricing_fees' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_fees
+                  type: predicate
+            update_columns:
+              type:
+                name: update_pricing_fees_by_id_update_columns
+                type: named
+          description: Update any row on the 'pricing_fees' collection using the 'id' key
+          name: update_pricing_fees_by_id
+          result_type:
+            name: update_pricing_fees_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'pricing_los_discounts' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_los_discounts
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'pricing_los_discounts' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_los_discounts
+                  type: predicate
+            update_columns:
+              type:
+                name: update_pricing_los_discounts_by_id_update_columns
+                type: named
+          description: Update any row on the 'pricing_los_discounts' collection using the 'id' key
+          name: update_pricing_los_discounts_by_id
+          result_type:
+            name: update_pricing_los_discounts_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'pricing_price_bounds' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_price_bounds
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'pricing_price_bounds' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_price_bounds
+                  type: predicate
+            update_columns:
+              type:
+                name: update_pricing_price_bounds_by_id_update_columns
+                type: named
+          description: Update any row on the 'pricing_price_bounds' collection using the 'id' key
+          name: update_pricing_price_bounds_by_id
+          result_type:
+            name: update_pricing_price_bounds_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'pricing_rate_overrides' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_rate_overrides
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'pricing_rate_overrides' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_rate_overrides
+                  type: predicate
+            update_columns:
+              type:
+                name: update_pricing_rate_overrides_by_id_update_columns
+                type: named
+          description: Update any row on the 'pricing_rate_overrides' collection using the 'id' key
+          name: update_pricing_rate_overrides_by_id
+          result_type:
+            name: update_pricing_rate_overrides_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'pricing_rate_plans' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_rate_plans
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'pricing_rate_plans' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_rate_plans
+                  type: predicate
+            update_columns:
+              type:
+                name: update_pricing_rate_plans_by_id_update_columns
+                type: named
+          description: Update any row on the 'pricing_rate_plans' collection using the 'id' key
+          name: update_pricing_rate_plans_by_id
+          result_type:
+            name: update_pricing_rate_plans_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'pricing_taxes' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_taxes
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'pricing_taxes' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: pricing_taxes
+                  type: predicate
+            update_columns:
+              type:
+                name: update_pricing_taxes_by_id_update_columns
+                type: named
+          description: Update any row on the 'pricing_taxes' collection using the 'id' key
+          name: update_pricing_taxes_by_id
+          result_type:
+            name: update_pricing_taxes_by_id_response
             type: named
         - arguments:
             key_id:

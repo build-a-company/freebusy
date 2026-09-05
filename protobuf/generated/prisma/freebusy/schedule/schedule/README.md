@@ -49,10 +49,10 @@ erDiagram
     StayConstraints {
         string id PK
     }
-    DateRange {
+    Property {
         string externalStub PK
     }
-    Property {
+    SharedDateRange {
         string externalStub PK
     }
     TimeWindow {
@@ -64,7 +64,7 @@ erDiagram
     AvailabilityException }o--|| Property : "property_id"
     AvailabilityException }o--|| Unit : "unit_id"
     AvailabilityException }o--|| TimeWindow : "window_id"
-    AvailabilityException }o--|| DateRange : "date_range_id"
+    AvailabilityException }o--|| SharedDateRange : "date_range_id"
     RecurringRule }o--|| Schedule : "schedule_id"
     RefundTier }o--|| CancellationPolicy : "cancellation_policy_id"
     Schedule }o--|| Property : "property_id"

@@ -66,8 +66,8 @@ message BookableRange {
 // Availability for one unit, used in batch responses.
 message UnitAvailability {
   // The unit these results are for.
-  // Format: properties/{property}/units/{unit}
-  string unit = 1 [(google.api.resource_reference) = {type: "freebusy.property.v1/Unit"}];
+  // Format: resources/{resource}
+  string unit = 1 [(google.api.resource_reference) = {type: "protobufrfc.dev/Resource"}];
 
   // Which shape is populated, matching the unit's booking_mode.
   freebusy.shared.v1.BookingMode mode = 2;
@@ -86,11 +86,11 @@ message ComputeAvailabilityRequest {
   reserved 4;
 
   // The unit to compute availability for.
-  // Format: properties/{property}/units/{unit}
+  // Format: resources/{resource}
   string unit = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+$"
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"},
+    (buf.validate.field).string.pattern = "^resources/[^/]+$"
   ];
 
   // The period to compute availability over. Exactly one must be set.
@@ -134,11 +134,11 @@ message CheckAvailabilityRequest {
   reserved 4;
 
   // The unit to test.
-  // Format: properties/{property}/units/{unit}
+  // Format: resources/{resource}
   string unit = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+$"
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"},
+    (buf.validate.field).string.pattern = "^resources/[^/]+$"
   ];
 
   // The exact span to test for bookability. Exactly one must be set.
@@ -188,11 +188,11 @@ message ComputeBookableRangesRequest {
   reserved 4;
 
   // The unit to compute bookable ranges for.
-  // Format: properties/{property}/units/{unit}
+  // Format: resources/{resource}
   string unit = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+$"
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"},
+    (buf.validate.field).string.pattern = "^resources/[^/]+$"
   ];
 
   // The period to search within. Exactly one must be set.
@@ -293,11 +293,11 @@ message SearchAvailabilityRequest {
   bool include_unavailable = 8 [(google.api.field_behavior) = OPTIONAL];
 
   // Scope the search to a single property (hotel). Empty searches all properties.
-  // Format: properties/{property}
+  // Format: organizationalUnits/{organizational_unit}
   string property = 9 [
     (google.api.field_behavior) = OPTIONAL,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+$",
+    (google.api.resource_reference) = {type: "protobufrfc.dev/OrganizationalUnit"},
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
 
@@ -316,8 +316,8 @@ message SearchAvailabilityRequest {
 // Detailed slots/nights are fetched per unit via ComputeAvailability.
 message AvailabilityMatch {
   // The matching unit.
-  // Format: properties/{property}/units/{unit}
-  string unit = 1 [(google.api.resource_reference) = {type: "freebusy.property.v1/Unit"}];
+  // Format: resources/{resource}
+  string unit = 1 [(google.api.resource_reference) = {type: "protobufrfc.dev/Resource"}];
 
   // Cached display name of the unit, for convenience.
   string display_name = 2;

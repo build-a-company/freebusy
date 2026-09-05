@@ -208,19 +208,19 @@ message Scope {
   google.type.Money min_subtotal = 1 [(google.api.field_behavior) = OPTIONAL];
 
   // Properties the code applies to. Empty means all properties.
-  // Format: properties/{property}
+  // Format: organizationalUnits/{organizational_unit}
   repeated string applicable_properties = 2 [
     (google.api.field_behavior) = OPTIONAL,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"},
-    (buf.validate.field).repeated.items.string.pattern = "^properties/[^/]+$"
+    (google.api.resource_reference) = {type: "protobufrfc.dev/OrganizationalUnit"},
+    (buf.validate.field).repeated.items.string.pattern = "^organizationalUnits/[^/]+$"
   ];
 
   // Units the code applies to. Empty means all units.
-  // Format: properties/{property}/units/{unit}
+  // Format: resources/{resource}
   repeated string applicable_units = 3 [
     (google.api.field_behavior) = OPTIONAL,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"},
-    (buf.validate.field).repeated.items.string.pattern = "^properties/[^/]+/units/[^/]+$"
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"},
+    (buf.validate.field).repeated.items.string.pattern = "^resources/[^/]+$"
   ];
 }
 
