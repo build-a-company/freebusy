@@ -4,16 +4,16 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"testing"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/identity"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"google.golang.org/genproto/googleapis/type/date"
 )
 
 func TestOccupancyRoundTrip(t *testing.T) {
 	in := &schedulingpbv1.Occupancy{Adults: 2, Children: 1, Infants: 0}
-	out := booking.OccupancyToProto(occupancyToModel(in))
+	out := scheduling.OccupancyToProto(occupancyToModel(in))
 	if out.GetAdults() != 2 || out.GetChildren() != 1 || out.GetInfants() != 0 {
 		t.Fatalf("occupancy round-trip = %+v", out)
 	}

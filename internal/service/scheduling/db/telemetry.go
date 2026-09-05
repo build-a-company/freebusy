@@ -6,8 +6,8 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/graphqlx"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/db/hasura"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"google.golang.org/genproto/googleapis/type/money"
 )
 

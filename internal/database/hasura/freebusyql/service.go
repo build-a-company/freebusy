@@ -17,7 +17,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/allocationql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/bookingql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/channelql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql"
@@ -44,7 +43,6 @@ type Service struct {
 type QueryHandler struct {
 	gql          *runtime.GraphQLClient
 	Allocation   allocationql.QueryHandler
-	Booking      bookingql.QueryHandler
 	Channel      channelql.QueryHandler
 	Common       commonql.QueryHandler
 	Identity     identityql.QueryHandler
@@ -75,7 +73,6 @@ func (h QueryHandler) QueryRaw(ctx context.Context, query string, variables map[
 type MutationHandler struct {
 	gql          *runtime.GraphQLClient
 	Allocation   allocationql.MutationHandler
-	Booking      bookingql.MutationHandler
 	Channel      channelql.MutationHandler
 	Common       commonql.MutationHandler
 	Identity     identityql.MutationHandler
@@ -110,7 +107,6 @@ func (h MutationHandler) Tx() *runtime.Tx { return runtime.NewTx(h.gql) }
 // SubscriptionHandler groups every domain's subscription handlers.
 type SubscriptionHandler struct {
 	Allocation   allocationql.SubscriptionHandler
-	Booking      bookingql.SubscriptionHandler
 	Channel      channelql.SubscriptionHandler
 	Common       commonql.SubscriptionHandler
 	Identity     identityql.SubscriptionHandler
@@ -140,7 +136,6 @@ func New(opts runtime.ConnectionOptions) (*Service, error) {
 		Query: QueryHandler{
 			gql:          gql,
 			Allocation:   allocationql.NewQuery(gql),
-			Booking:      bookingql.NewQuery(gql),
 			Channel:      channelql.NewQuery(gql),
 			Common:       commonql.NewQuery(gql),
 			Identity:     identityql.NewQuery(gql),
@@ -155,7 +150,6 @@ func New(opts runtime.ConnectionOptions) (*Service, error) {
 		Mutation: MutationHandler{
 			gql:          gql,
 			Allocation:   allocationql.NewMutation(gql),
-			Booking:      bookingql.NewMutation(gql),
 			Channel:      channelql.NewMutation(gql),
 			Common:       commonql.NewMutation(gql),
 			Identity:     identityql.NewMutation(gql),
@@ -169,7 +163,6 @@ func New(opts runtime.ConnectionOptions) (*Service, error) {
 		},
 		Subscription: SubscriptionHandler{
 			Allocation:   allocationql.NewSubscription(gql),
-			Booking:      bookingql.NewSubscription(gql),
 			Channel:      channelql.NewSubscription(gql),
 			Common:       commonql.NewSubscription(gql),
 			Identity:     identityql.NewSubscription(gql),

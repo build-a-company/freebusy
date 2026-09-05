@@ -8,8 +8,8 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 	"time"
 
-	resourceql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
 	moneysql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/moneysql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/pricing"
 	"github.com/oh-tarnished/freebusy/internal/types"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
@@ -29,7 +29,7 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 	if w.GetWindow() == nil {
 		return nil, types.ErrInvalidArgument
 	}
-	res, err := r.svc.Query.Booking.Resource.Get(ctx, id)
+	res, err := r.svc.Query.Scheduling.Bookings.Get(ctx, id)
 	if err != nil {
 		return nil, dbutil.MapHasuraErr(err)
 	}
@@ -96,7 +96,7 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 
 	now := time.Now().UTC()
 	window := windowInput(w.GetWindow())
-	patch := resourceql.UpdateInput{
+	patch := bookingsql.UpdateInput{
 		Unit:       graphql.Value(unitID),
 		WindowId:   graphql.Value(window.Id),
 		PriceId:    dbutil.NullableStr(priceID),
@@ -123,9 +123,9 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 	// the guard is the etag alone.)
 	var casErr error
 	if res.Etag != nil {
-		_, casErr = r.svc.Mutation.Booking.Resource.UpdateIfMatch(ctx, id, patch, resourceql.Etag.Eq(*res.Etag))
+		_, casErr = r.svc.Mutation.Scheduling.Bookings.UpdateIfMatch(ctx, id, patch, bookingsql.Etag.Eq(*res.Etag))
 	} else {
-		_, casErr = r.svc.Mutation.Booking.Resource.Update(ctx, id, patch)
+		_, casErr = r.svc.Mutation.Scheduling.Bookings.Update(ctx, id, patch)
 	}
 	if casErr != nil {
 		reap := r.svc.Mutation.Tx()

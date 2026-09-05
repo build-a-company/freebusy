@@ -5,10 +5,10 @@ import (
 	"context"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/promocode"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/shared"
 	"github.com/oh-tarnished/freebusy/internal/types"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
@@ -29,7 +29,7 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 	}
 	var components []*sharedpbv1.PriceComponent
 	err = r.db.Transaction(func(tx *gorm.DB) error {
-		var m booking.Booking
+		var m scheduling.Booking
 		if e := preloadBooking(tx.WithContext(ctx)).First(&m, "id = ?", id).Error; e != nil {
 			return e
 		}
@@ -119,7 +119,7 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 		m.TotalID = totalID
 		m.Etag = repox.Ptr(ulid.GenerateString())
 		m.Contact, m.Window, m.Price, m.Discount, m.Total, m.RefundAmount = nil, nil, nil, nil, nil, nil
-		if e := booking.NewBookingStore(tx).Update(ctx, &m); e != nil {
+		if e := scheduling.NewBookingStore(tx).Update(ctx, &m); e != nil {
 			return e
 		}
 

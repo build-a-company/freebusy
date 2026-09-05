@@ -12,6 +12,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/unitsql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/daterangesql"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
+	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/property/v1/propertypbv1"
 )
@@ -88,7 +89,7 @@ func unitFromParts(p unitParts) *propertypbv1.Unit {
 		out.Taxes = append(out.Taxes, &propertypbv1.Tax{
 			Code:        p.taxes[i].Code,
 			DisplayName: repox.Deref(p.taxes[i].DisplayName),
-			Percent:     p.taxes[i].Percent,
+			Percent:     dbutil.BigdecimalToFloat(p.taxes[i].Percent),
 		})
 	}
 	for i := range p.medias {

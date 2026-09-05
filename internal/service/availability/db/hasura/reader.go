@@ -6,8 +6,10 @@ package hasura
 
 import (
 	"context"
+
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/unitsql"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
+	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql"
 	feesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/feesql"
@@ -118,7 +120,7 @@ func (r *AvailabilityReader) pricing(ctx context.Context, u *unitsql.PropertyUni
 	}
 	taxes := make([]pricing.Tax, 0, len(taxRows))
 	for i := range taxRows {
-		taxes = append(taxes, pricing.Tax{Code: taxRows[i].Code, DisplayName: repox.Deref(taxRows[i].DisplayName), Percent: taxRows[i].Percent})
+		taxes = append(taxes, pricing.Tax{Code: taxRows[i].Code, DisplayName: repox.Deref(taxRows[i].DisplayName), Percent: dbutil.BigdecimalToFloat(taxRows[i].Percent)})
 	}
 	losRows, err := r.svc.Query.Property.LosDiscounts.List(ctx, losdiscountsql.List().Where(losdiscountsql.UnitId.Eq(u.Id)))
 	if err != nil {

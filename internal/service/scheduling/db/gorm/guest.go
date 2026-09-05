@@ -4,11 +4,11 @@ import (
 	"context"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/identity"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 	"gorm.io/gorm"
 )
@@ -23,8 +23,8 @@ import (
 // permanent/local addresses. Occupancy is a booking-local belongs-to value.
 
 // occupancyToModel maps the proto occupancy onto a fresh row.
-func occupancyToModel(o *schedulingpbv1.Occupancy) *booking.Occupancy {
-	m := booking.OccupancyFromProto(o)
+func occupancyToModel(o *schedulingpbv1.Occupancy) *scheduling.Occupancy {
+	m := scheduling.OccupancyFromProto(o)
 	if m != nil {
 		m.ID = ulid.GenerateString()
 	}

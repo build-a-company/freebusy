@@ -10,12 +10,12 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
-	resourceql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
 	guestsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestsql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 	"github.com/the-protobuf-project/runtime-go/network/graphql"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -37,7 +37,7 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 	if err != nil {
 		return nil, err
 	}
-	res, err := r.svc.Query.Booking.Resource.Get(ctx, id)
+	res, err := r.svc.Query.Scheduling.Bookings.Get(ctx, id)
 	if err != nil {
 		return nil, dbutil.MapHasuraErr(err)
 	}
@@ -65,7 +65,7 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 	newOcc := occupancyInput(occupancy)
 	occID := ""
 	if newOcc != nil {
-		if _, e := r.svc.Mutation.Booking.Occupancies.Create(ctx, *newOcc); e != nil {
+		if _, e := r.svc.Mutation.Scheduling.Occupancies.Create(ctx, *newOcc); e != nil {
 			return nil, dbutil.MapHasuraErr(e)
 		}
 		occID = newOcc.Id
@@ -73,18 +73,18 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 
 	// CAS: repoint the occupancy and bump the etag only if the booking is still
 	// editable and unchanged since the read above.
-	match := resourceql.State.In("PENDING_HOLD", "CONFIRMED")
+	match := bookingsql.State.In("PENDING_HOLD", "CONFIRMED")
 	if res.Etag != nil {
-		match = resourceql.And(match, resourceql.Etag.Eq(*res.Etag))
+		match = bookingsql.And(match, bookingsql.Etag.Eq(*res.Etag))
 	}
-	patch := resourceql.UpdateInput{
+	patch := bookingsql.UpdateInput{
 		OccupancyId: dbutil.NullableStr(occID),
 		Etag:        graphql.Value(ulid.GenerateString()),
 		UpdateTime:  graphql.Value(dbutil.TsToStr(timestamppb.New(now))),
 	}
-	if _, e := r.svc.Mutation.Booking.Resource.UpdateIfMatch(ctx, id, patch, match); e != nil {
+	if _, e := r.svc.Mutation.Scheduling.Bookings.UpdateIfMatch(ctx, id, patch, match); e != nil {
 		if occID != "" {
-			_, _ = r.svc.Mutation.Booking.Occupancies.Delete(ctx, occID) // reap the orphan
+			_, _ = r.svc.Mutation.Scheduling.Occupancies.Delete(ctx, occID) // reap the orphan
 		}
 		return nil, dbutil.MapHasuraErr(e)
 	}
@@ -97,8 +97,8 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 	}
 	tx := r.svc.Mutation.Tx()
 	if res.OccupancyId != nil {
-		var delOcc occupanciesql.DeleteBookingOccupanciesByIdResponse
-		tx.Add(r.svc.Mutation.Booking.Occupancies.DeleteOp(*res.OccupancyId, &delOcc))
+		var delOcc occupanciesql.DeleteSchedulingOccupanciesByIdResponse
+		tx.Add(r.svc.Mutation.Scheduling.Occupancies.DeleteOp(*res.OccupancyId, &delOcc))
 	}
 	queueGuestDeletes(tx, r, id, oldGuests)
 	queueGuestInserts(tx, r, buildGuestGraphs(guests, id))

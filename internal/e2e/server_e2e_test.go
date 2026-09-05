@@ -43,7 +43,7 @@ func TestE2E_Gorm(t *testing.T) {
 	gdb := openTestGorm(t)
 	conn := &database.Connection{PgSQLConn: gdb, Provider: database.ProviderGorm}
 	cc := dialServer(t, conn)
-	serverLifecycle(t, cc, conn, property.NewGorm(gdb), booking.NewGorm(gdb))
+	serverLifecycle(t, cc, conn, property.NewGorm(gdb), scheduling.NewGorm(gdb))
 }
 
 // TestE2E_Hasura runs the identical client-visible lifecycle with the server
@@ -52,7 +52,7 @@ func TestE2E_Hasura(t *testing.T) {
 	svc := connectTestGraphQL(t)
 	conn := &database.Connection{Hasura: svc, Provider: database.ProviderHasura}
 	cc := dialServer(t, conn)
-	serverLifecycle(t, cc, conn, property.NewGraphQL(svc), booking.NewGraphQL(svc))
+	serverLifecycle(t, cc, conn, property.NewGraphQL(svc), scheduling.NewGraphQL(svc))
 }
 
 // e2eClients bundles the per-service gRPC clients plus the generated
@@ -69,7 +69,7 @@ type e2eClients struct {
 	avail     availabilitypbv1.AvailabilityServiceClient
 	identity  identitypbv1.IdentityServiceClient
 	propRepos property.Repositories
-	bookRepos booking.Repositories
+	bookRepos scheduling.Repositories
 }
 
 // serverLifecycle drives every service through the wire: interceptor
@@ -77,7 +77,7 @@ type e2eClients struct {
 // expiry, promo validation, and the provider-visible filter divergence on
 // derived state. Each flow registers its own t.Cleanup, so teardown runs LIFO
 // in dependency order.
-func serverLifecycle(t *testing.T, cc *grpc.ClientConn, conn *database.Connection, propRepos property.Repositories, bookRepos booking.Repositories) {
+func serverLifecycle(t *testing.T, cc *grpc.ClientConn, conn *database.Connection, propRepos property.Repositories, bookRepos scheduling.Repositories) {
 	t.Helper()
 	provider := conn.Provider
 	c := &e2eClients{

@@ -8,7 +8,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/moneysql"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
-	resourceql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/internal/types"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
@@ -24,21 +24,21 @@ import (
 func (r *BookingRepository) ExpireHolds(ctx context.Context) (int64, error) {
 	now := time.Now().UTC()
 	nowStr := dbutil.TsToStr(timestamppb.New(now))
-	rows, err := r.svc.Query.Booking.Resource.List(ctx, resourceql.List().Where(resourceql.And(
-		resourceql.State.Eq("PENDING_HOLD"),
-		resourceql.HoldExpireTime.Lt(nowStr),
+	rows, err := r.svc.Query.Scheduling.Bookings.List(ctx, bookingsql.List().Where(bookingsql.And(
+		bookingsql.State.Eq("PENDING_HOLD"),
+		bookingsql.HoldExpireTime.Lt(nowStr),
 	)))
 	if err != nil {
 		return 0, dbutil.MapHasuraErr(err)
 	}
 	var expired int64
 	for i := range rows {
-		patch := resourceql.UpdateInput{
+		patch := bookingsql.UpdateInput{
 			State:      graphql.Value("EXPIRED"),
 			Etag:       graphql.Value(ulid.GenerateString()),
 			UpdateTime: graphql.Value(nowStr),
 		}
-		if _, err := r.svc.Mutation.Booking.Resource.Update(ctx, rows[i].Id, patch); err != nil {
+		if _, err := r.svc.Mutation.Scheduling.Bookings.Update(ctx, rows[i].Id, patch); err != nil {
 			return expired, dbutil.MapHasuraErr(err)
 		}
 		expired++
@@ -52,7 +52,7 @@ func (r *BookingRepository) ConfirmBooking(ctx context.Context, name string) (*s
 	if err != nil {
 		return nil, err
 	}
-	res, err := r.svc.Query.Booking.Resource.Get(ctx, id)
+	res, err := r.svc.Query.Scheduling.Bookings.Get(ctx, id)
 	if err != nil {
 		return nil, dbutil.MapHasuraErr(err)
 	}
@@ -63,7 +63,7 @@ func (r *BookingRepository) ConfirmBooking(ctx context.Context, name string) (*s
 		return nil, fmt.Errorf("%w: only a booking on hold can be confirmed", types.ErrInvalidState)
 	}
 	now := time.Now().UTC()
-	patch := resourceql.UpdateInput{
+	patch := bookingsql.UpdateInput{
 		State:          graphql.Value("CONFIRMED"),
 		ConfirmTime:    graphql.Value(dbutil.TsToStr(timestamppb.New(now))),
 		HoldExpireTime: graphql.Null[string](),
@@ -73,11 +73,11 @@ func (r *BookingRepository) ConfirmBooking(ctx context.Context, name string) (*s
 	// CAS: only a still-held, unchanged booking confirms; a concurrent cancel,
 	// expiry, or double-confirm loses the race and gets Conflict instead of
 	// silently overwriting the state that won.
-	match := resourceql.State.Eq("PENDING_HOLD")
+	match := bookingsql.State.Eq("PENDING_HOLD")
 	if res.Etag != nil {
-		match = resourceql.And(match, resourceql.Etag.Eq(*res.Etag))
+		match = bookingsql.And(match, bookingsql.Etag.Eq(*res.Etag))
 	}
-	if _, err := r.svc.Mutation.Booking.Resource.UpdateIfMatch(ctx, id, patch, match); err != nil {
+	if _, err := r.svc.Mutation.Scheduling.Bookings.UpdateIfMatch(ctx, id, patch, match); err != nil {
 		return nil, dbutil.MapHasuraErr(err)
 	}
 	return r.GetBooking(ctx, name)
@@ -90,7 +90,7 @@ func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reas
 	if err != nil {
 		return nil, err
 	}
-	res, err := r.svc.Query.Booking.Resource.Get(ctx, id)
+	res, err := r.svc.Query.Scheduling.Bookings.Get(ctx, id)
 	if err != nil {
 		return nil, dbutil.MapHasuraErr(err)
 	}
@@ -113,7 +113,7 @@ func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reas
 		return nil, err
 	}
 	now := time.Now().UTC()
-	patch := resourceql.UpdateInput{
+	patch := bookingsql.UpdateInput{
 		State:         graphql.Value("CANCELLED"),
 		CancelTime:    graphql.Value(dbutil.TsToStr(timestamppb.New(now))),
 		CancelReason:  dbutil.NullableStr(cancelReasonToStr(reason)),
@@ -125,9 +125,9 @@ func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reas
 	// (or been otherwise modified) since the read above. The refund Money insert
 	// rides in the same batch; if the guarded update matches no row, the batch
 	// still commits the insert, so the zero-affected-rows path reaps it.
-	match := resourceql.Not(resourceql.State.In("CANCELLED", "EXPIRED"))
+	match := bookingsql.Not(bookingsql.State.In("CANCELLED", "EXPIRED"))
 	if res.Etag != nil {
-		match = resourceql.And(match, resourceql.Etag.Eq(*res.Etag))
+		match = bookingsql.And(match, bookingsql.Etag.Eq(*res.Etag))
 	}
 	tx := r.svc.Mutation.Tx()
 	refundID := ""
@@ -138,8 +138,8 @@ func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reas
 		patch.RefundAmountId = graphql.Value(mi.Id)
 		refundID = mi.Id
 	}
-	var updRes resourceql.UpdateBookingResourceByIdResponse
-	tx.Add(r.svc.Mutation.Booking.Resource.UpdateOp(id, patch, &updRes, resourceql.Update().PreCheck(match)))
+	var updRes bookingsql.UpdateSchedulingBookingsByIdResponse
+	tx.Add(r.svc.Mutation.Scheduling.Bookings.UpdateOp(id, patch, &updRes, bookingsql.Update().PreCheck(match)))
 	if err := tx.Commit(ctx); err != nil {
 		return nil, dbutil.MapHasuraErr(err)
 	}
@@ -151,7 +151,7 @@ func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reas
 		// between our read and our write. If that state is CANCELLED, a concurrent
 		// cancel beat us to it and the caller's intent is still satisfied — same
 		// answer as the already-cancelled path above. Anything else is a real race.
-		current, err := r.svc.Query.Booking.Resource.Get(ctx, id)
+		current, err := r.svc.Query.Scheduling.Bookings.Get(ctx, id)
 		if err != nil {
 			return nil, dbutil.MapHasuraErr(err)
 		}
@@ -170,7 +170,7 @@ func (r *BookingRepository) PreviewCancellation(ctx context.Context, name string
 	if err != nil {
 		return false, 0, nil, nil, "", err
 	}
-	res, err := r.svc.Query.Booking.Resource.Get(ctx, id)
+	res, err := r.svc.Query.Scheduling.Bookings.Get(ctx, id)
 	if err != nil {
 		return false, 0, nil, nil, "", dbutil.MapHasuraErr(err)
 	}

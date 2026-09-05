@@ -6,9 +6,9 @@ import (
 	"context"
 
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
+	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/pricing"
-	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 	"github.com/oh-tarnished/freebusy/internal/types"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"google.golang.org/protobuf/proto"

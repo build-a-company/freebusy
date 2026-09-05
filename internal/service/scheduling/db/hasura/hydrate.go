@@ -9,14 +9,14 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/iddocumentsql"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestsql"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 )
 
 // hydrateBooking loads a booking row's value-objects and resolves its unit name.
-func (r *BookingRepository) hydrateBooking(ctx context.Context, res *resourceql.BookingResource) (*schedulingpbv1.Booking, error) {
+func (r *BookingRepository) hydrateBooking(ctx context.Context, res *bookingsql.SchedulingBookings) (*schedulingpbv1.Booking, error) {
 	parts := bookingParts{res: res}
 
 	unitName, err := r.unitName(ctx, res.Unit)
@@ -62,7 +62,7 @@ func (r *BookingRepository) hydrateBooking(ctx context.Context, res *resourceql.
 	out := bookingFromParts(parts)
 
 	if res.OccupancyId != nil {
-		occ, err := r.svc.Query.Booking.Occupancies.Get(ctx, *res.OccupancyId)
+		occ, err := r.svc.Query.Scheduling.Occupancies.Get(ctx, *res.OccupancyId)
 		if err != nil {
 			return nil, dbutil.MapHasuraErr(err)
 		}

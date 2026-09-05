@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/schedule"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/types"
 	"google.golang.org/genproto/googleapis/type/money"
 	"gorm.io/gorm"
@@ -19,7 +19,7 @@ import (
 // computeRefund resolves the unit's cancellation policy (from its schedule) and
 // returns the refund percent, amount, and a human summary for the booking's lead
 // time. No matching tier (or no policy) means non-refundable.
-func (r *BookingRepository) computeRefund(ctx context.Context, tx *gorm.DB, m *booking.Booking) (int32, *money.Money, string, error) {
+func (r *BookingRepository) computeRefund(ctx context.Context, tx *gorm.DB, m *scheduling.Booking) (int32, *money.Money, string, error) {
 	total := common.MoneyToProto(m.Total)
 	if total == nil {
 		return 0, nil, "non-refundable", nil

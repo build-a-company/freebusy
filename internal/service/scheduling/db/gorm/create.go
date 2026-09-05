@@ -5,10 +5,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/promocode"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/shared"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
@@ -92,14 +92,14 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 		components = p.components
 	}
 
-	state := booking.BookingStatePendingHold
+	state := scheduling.BookingStatePendingHold
 	ttl := defaultHoldTTL
 	if d := b.GetHoldTtl(); d != nil && d.AsDuration() > 0 {
 		ttl = d.AsDuration()
 	}
 	holdExpire := time.Now().UTC().Add(ttl)
 
-	m := &booking.Booking{
+	m := &scheduling.Booking{
 		ID:             id,
 		Name:           name,
 		UnitID:         unitID,
@@ -169,11 +169,11 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 		// Occupancy is belongs-to (created before the booking); guests are has-many
 		// (created after, carrying the booking_id FK).
 		if occupancy != nil {
-			if e := booking.NewOccupancyStore(tx).Create(ctx, occupancy); e != nil {
+			if e := scheduling.NewOccupancyStore(tx).Create(ctx, occupancy); e != nil {
 				return e
 			}
 		}
-		if e := booking.NewBookingStore(tx).Create(ctx, m); e != nil {
+		if e := scheduling.NewBookingStore(tx).Create(ctx, m); e != nil {
 			return e
 		}
 		return persistGuests(ctx, tx, guestGraphs)

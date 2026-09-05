@@ -5,7 +5,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/internal/service/availability/engine"
 	"github.com/the-protobuf-project/runtime-go/network/graphql"
 )
@@ -29,9 +29,9 @@ func (r *AvailabilityReader) activeBookings(ctx context.Context, unitIDs []strin
 	if len(unitIDs) == 0 {
 		return out, nil
 	}
-	rows, err := r.svc.Query.Booking.Resource.List(ctx, resourceql.List().Where(resourceql.And(
-		resourceql.Unit.In(unitIDs...),
-		resourceql.State.In("PENDING_HOLD", "CONFIRMED"),
+	rows, err := r.svc.Query.Scheduling.Bookings.List(ctx, bookingsql.List().Where(bookingsql.And(
+		bookingsql.Unit.In(unitIDs...),
+		bookingsql.State.In("PENDING_HOLD", "CONFIRMED"),
 		notLapsedHold(time.Now()),
 	)))
 	if err != nil {
@@ -68,9 +68,9 @@ func (r *AvailabilityReader) activeBookings(ctx context.Context, unitIDs []strin
 // state, or a PENDING_HOLD whose hold has not yet lapsed. A lapsed hold frees
 // capacity immediately, without waiting for the sweeper to flip its state.
 func notLapsedHold(now time.Time) graphql.Predicate {
-	return resourceql.Or(
-		resourceql.State.Neq("PENDING_HOLD"),
-		resourceql.HoldExpireTime.IsNull(true),
-		resourceql.HoldExpireTime.Gt(now.UTC().Format(time.RFC3339)),
+	return bookingsql.Or(
+		bookingsql.State.Neq("PENDING_HOLD"),
+		bookingsql.HoldExpireTime.IsNull(true),
+		bookingsql.HoldExpireTime.Gt(now.UTC().Format(time.RFC3339)),
 	)
 }

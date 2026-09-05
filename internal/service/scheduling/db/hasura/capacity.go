@@ -6,7 +6,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/timewindowsql"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
@@ -18,14 +18,14 @@ import (
 // Windows are compared as UTC instants, so the check is timezone-safe.
 func (r *BookingRepository) reservedUnits(ctx context.Context, unitID string, target *sharedpbv1.TimeWindow, excludeID string) (int64, error) {
 	preds := []graphql.Predicate{
-		resourceql.Unit.Eq(unitID),
-		resourceql.State.In("PENDING_HOLD", "CONFIRMED"),
+		bookingsql.Unit.Eq(unitID),
+		bookingsql.State.In("PENDING_HOLD", "CONFIRMED"),
 		notLapsedHold(time.Now()),
 	}
 	if excludeID != "" {
-		preds = append(preds, resourceql.Id.Neq(excludeID))
+		preds = append(preds, bookingsql.Id.Neq(excludeID))
 	}
-	rows, err := r.svc.Query.Booking.Resource.List(ctx, resourceql.List().Where(resourceql.And(preds...)))
+	rows, err := r.svc.Query.Scheduling.Bookings.List(ctx, bookingsql.List().Where(bookingsql.And(preds...)))
 	if err != nil {
 		return 0, dbutil.MapHasuraErr(err)
 	}
@@ -49,7 +49,7 @@ func (r *BookingRepository) reservedUnits(ctx context.Context, unitID string, ta
 }
 
 // windowsByID fetches the bookings' time windows in one query, keyed by id.
-func (r *BookingRepository) windowsByID(ctx context.Context, rows []resourceql.BookingResource) (map[string]timewindowsql.SharedTimeWindows, error) {
+func (r *BookingRepository) windowsByID(ctx context.Context, rows []bookingsql.SchedulingBookings) (map[string]timewindowsql.SharedTimeWindows, error) {
 	ids := make([]string, 0, len(rows))
 	for i := range rows {
 		if rows[i].WindowId != "" {
@@ -74,10 +74,10 @@ func (r *BookingRepository) windowsByID(ctx context.Context, rows []resourceql.B
 // state, or a PENDING_HOLD whose hold has not yet lapsed. A lapsed hold frees
 // capacity immediately, without waiting for the sweeper to flip its state.
 func notLapsedHold(now time.Time) graphql.Predicate {
-	return resourceql.Or(
-		resourceql.State.Neq("PENDING_HOLD"),
-		resourceql.HoldExpireTime.IsNull(true),
-		resourceql.HoldExpireTime.Gt(now.UTC().Format(time.RFC3339)),
+	return bookingsql.Or(
+		bookingsql.State.Neq("PENDING_HOLD"),
+		bookingsql.HoldExpireTime.IsNull(true),
+		bookingsql.HoldExpireTime.Gt(now.UTC().Format(time.RFC3339)),
 	)
 }
 

@@ -2,7 +2,7 @@
 package hasura
 
 import (
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/contactsql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/timewindowsql"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
@@ -16,7 +16,7 @@ import (
 // bookingParts is a booking row plus its hydrated value-objects and the unit's
 // full resource name.
 type bookingParts struct {
-	res      *resourceql.BookingResource
+	res      *bookingsql.SchedulingBookings
 	unitName string
 	contact  *contactsql.SharedContacts
 	window   *timewindowsql.SharedTimeWindows

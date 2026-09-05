@@ -6,6 +6,7 @@ package dbutil
 
 import (
 	"errors"
+	"strconv"
 	"strings"
 	"time"
 
@@ -48,4 +49,32 @@ func NullableStr(s string) graphql.Nullable[string] {
 		return graphql.Null[string]()
 	}
 	return graphql.Value(s)
+}
+
+// BigdecimalToFloat reads a graphql.Bigdecimal — an arbitrary-precision decimal
+// carried as its textual form — into a float64.
+//
+// The scalar became a string type when the generated client moved to
+// protoc-gen-store 1.5.x, so that an engine returning "12.5" keeps full
+// precision on the wire instead of being narrowed during JSON decode. The
+// values it guards here are tax percentages, which are small and fixed-point,
+// so float64 is lossless for them; anything monetary must not round-trip
+// through this.
+//
+// An unparseable or empty value yields 0 rather than an error: a malformed
+// percentage should not fail a whole read, and 0 is the safe reading — it
+// charges nothing rather than charging an arbitrary amount.
+func BigdecimalToFloat(v graphql.Bigdecimal) float64 {
+	f, err := strconv.ParseFloat(string(v), 64)
+	if err != nil {
+		return 0
+	}
+	return f
+}
+
+// FloatToBigdecimal renders a float64 as a graphql.Bigdecimal, the inverse of
+// BigdecimalToFloat. 'f' with -1 precision emits the shortest representation
+// that round-trips, so 12.5 stays "12.5" rather than "12.500000".
+func FloatToBigdecimal(f float64) graphql.Bigdecimal {
+	return graphql.Bigdecimal(strconv.FormatFloat(f, 'f', -1, 64))
 }

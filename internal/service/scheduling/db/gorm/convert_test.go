@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/shared"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
@@ -48,8 +48,8 @@ func TestMoneyMath(t *testing.T) {
 }
 
 func TestBookingFromModel(t *testing.T) {
-	state := booking.BookingStatePendingHold
-	m := &booking.Booking{
+	state := scheduling.BookingStatePendingHold
+	m := &scheduling.Booking{
 		ID:     "b1",
 		Name:   "bookings/b1",
 		UnitID: "u1",

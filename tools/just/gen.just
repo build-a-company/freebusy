@@ -1,11 +1,11 @@
-# Code generation: protobuf -> Go, OpenAPI, ORM, TypeScript, docs.
-# Invoked as `just gen <recipe>` (e.g. `just gen orm`). `just gen` runs `all`.
+# Code generation: protobuf -> Go, OpenAPI, database layer + cache, docs.
+# Invoked as `just gen <recipe>` (e.g. `just gen store`). `just gen` runs `all`.
 # Recipes run from the repo root so buf/template paths resolve unchanged.
 set working-directory := '../..'
 
-# Regenerate everything: Go, OpenAPI (+merge+envoy), ORM, TypeScript, docs.
+# Regenerate everything: Go, OpenAPI (+merge+envoy), database layer + cache, docs.
 [group('codegen')]
-all: deps go openapi envoy orm docs
+all: deps go openapi envoy store docs
 
 # Update buf module dependencies.
 [group('codegen')]
@@ -29,10 +29,15 @@ openapi:
 envoy:
     go run ./tools/protobuf/envoy
 
-# Generate the ORM schemas (prisma + gorm). Requires protoc-gen-protorm on PATH.
+# Generate the database layer and its cache decorators: prisma + gorm schemas,
+# the proto-facing repositories, the typed Hasura client, and the read-through
+# cache. Requires protoc-gen-store and protoc-gen-cache on PATH.
+#
+# The graphql target introspects the live DDN engine, so bring it up first
+# (`just hasura regen`) or this recipe fails at that step.
 [group('codegen')]
-orm:
-    buf generate --template tools/protobuf/buf/orm.buf.gen.yaml
+store:
+    buf generate --template tools/protobuf/buf/store.buf.gen.yaml
 
 # Generate protobuf docs (per-module + root README.md) via protodoc.
 [group('codegen')]

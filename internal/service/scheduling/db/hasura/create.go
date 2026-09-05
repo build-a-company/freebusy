@@ -10,8 +10,8 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/timewindowsql"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/moneysql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/pricing"
@@ -106,7 +106,7 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 	window := windowInput(b.GetWindow())
 	contact := contactInput(b.GetContact())
 
-	bi := resourceql.CreateInput{
+	bi := bookingsql.CreateInput{
 		Id:             id,
 		Name:           name,
 		Unit:           unitID,
@@ -150,11 +150,11 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 	// Occupancy is belongs-to (before the booking); guests are has-many (after,
 	// carrying the booking_id FK).
 	if occupancy != nil {
-		var oRes occupanciesql.InsertBookingOccupanciesResponse
-		tx.Add(r.svc.Mutation.Booking.Occupancies.CreateOp(*occupancy, &oRes))
+		var oRes occupanciesql.InsertSchedulingOccupanciesResponse
+		tx.Add(r.svc.Mutation.Scheduling.Occupancies.CreateOp(*occupancy, &oRes))
 	}
-	var bRes resourceql.InsertBookingResourceResponse
-	tx.Add(r.svc.Mutation.Booking.Resource.CreateOp(bi, &bRes))
+	var bRes bookingsql.InsertSchedulingBookingsResponse
+	tx.Add(r.svc.Mutation.Scheduling.Bookings.CreateOp(bi, &bRes))
 	queueGuestInserts(tx, r, guestGraphs)
 	if err := tx.Commit(ctx); err != nil {
 		return nil, dbutil.MapHasuraErr(err)

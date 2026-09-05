@@ -1,3 +1,13 @@
+# protoc-gen-store + protoc-gen-cache: the whole database layer from one proto
+# input — prisma and gorm schemas, the proto-facing repositories, the typed
+# Hasura client, and the read-through cache decorators over the generated
+# stores. Run via `just gen store`.
+#
+# clean: true wipes every `out` dir before writing. Two things living under
+# those paths are NOT generated and are destroyed by it — the prisma migration
+# history under protobuf/generated/prisma/freebusy/migrations, and the
+# hand-written internal/database/hasura/graphqlx package. Restore both after a
+# full run until they are moved outside the cleaned directories.
 version: v2
 clean: true
 managed:
@@ -6,7 +16,7 @@ inputs:
   - directory: protobuf
 
 plugins:
-  # strategy: all is required — orm must see every proto file in one
+  # strategy: all is required — store must see every proto file in one
   # invocation to resolve cross-service references and to merge each service's
   # tables into the single `freebusy` database. With buf's default
   # (strategy: directory) the plugin runs once per folder: cross-service FKs

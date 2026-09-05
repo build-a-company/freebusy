@@ -31,7 +31,7 @@ func (r *BookingRepository) GetBooking(ctx context.Context, name string) (*sched
 	if err != nil {
 		return nil, err
 	}
-	res, err := r.svc.Query.Booking.Resource.Get(ctx, id)
+	res, err := r.svc.Query.Scheduling.Bookings.Get(ctx, id)
 	if err != nil {
 		return nil, dbutil.MapHasuraErr(err)
 	}
@@ -47,7 +47,7 @@ func (r *BookingRepository) ListBookings(ctx context.Context, in repox.ListInput
 	if err != nil {
 		return nil, "", err
 	}
-	rows, next, err := filterx.Hasura(booking.BookingFilterSpec, r.svc.Query.Booking.Resource).
+	rows, next, err := filterx.Hasura(scheduling.BookingFilterSpec, r.svc.Query.Scheduling.Bookings).
 		List(ctx, fin)
 	if err != nil {
 		return nil, "", dbutil.MapHasuraErr(repox.MapFilterxErr(err))

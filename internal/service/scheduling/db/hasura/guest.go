@@ -3,14 +3,14 @@ package hasura
 import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 
-	occupanciesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/occupanciesql"
 	postaladdressql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/postaladdressql"
 	foreignerdetailsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/foreignerdetailsql"
 	guestpreferencesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestpreferencesql"
 	guestsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestsql"
 	iddocumentsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/iddocumentsql"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
+	occupanciesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/occupanciesql"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 )
 
@@ -30,7 +30,7 @@ func occupancyInput(o *schedulingpbv1.Occupancy) *occupanciesql.CreateInput {
 	}
 }
 
-func occupancyFromSchema(o *occupanciesql.BookingOccupancies) *schedulingpbv1.Occupancy {
+func occupancyFromSchema(o *occupanciesql.SchedulingOccupancies) *schedulingpbv1.Occupancy {
 	if o == nil {
 		return nil
 	}

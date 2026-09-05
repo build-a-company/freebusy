@@ -7,13 +7,13 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 	"google.golang.org/genproto/googleapis/type/money"
 	"gorm.io/gorm"
@@ -24,10 +24,10 @@ import (
 // to be called periodically by the hold sweeper.
 func (r *BookingRepository) ExpireHolds(ctx context.Context) (int64, error) {
 	now := time.Now().UTC()
-	res := r.db.WithContext(ctx).Model(&booking.Booking{}).
-		Where("state = ? AND hold_expire_time IS NOT NULL AND hold_expire_time < ?", booking.BookingStatePendingHold, now).
+	res := r.db.WithContext(ctx).Model(&scheduling.Booking{}).
+		Where("state = ? AND hold_expire_time IS NOT NULL AND hold_expire_time < ?", scheduling.BookingStatePendingHold, now).
 		Updates(map[string]any{
-			"state":       booking.BookingStateExpired,
+			"state":       scheduling.BookingStateExpired,
 			"etag":        ulid.GenerateString(),
 			"update_time": now,
 		})
@@ -47,11 +47,11 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 		return nil, err
 	}
 	err = r.db.Transaction(func(tx *gorm.DB) error {
-		var m booking.Booking
+		var m scheduling.Booking
 		if e := tx.WithContext(ctx).First(&m, "id = ?", id).Error; e != nil {
 			return e
 		}
-		if m.State == nil || (*m.State != booking.BookingStatePendingHold && *m.State != booking.BookingStateConfirmed) {
+		if m.State == nil || (*m.State != scheduling.BookingStatePendingHold && *m.State != scheduling.BookingStateConfirmed) {
 			return fmt.Errorf("%w: the party can only be edited while the booking is on hold or confirmed", types.ErrInvalidState)
 		}
 
@@ -71,7 +71,7 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 		oldOccID := m.OccupancyID
 		newOcc := occupancyToModel(occupancy)
 		if newOcc != nil {
-			if e := booking.NewOccupancyStore(tx).Create(ctx, newOcc); e != nil {
+			if e := scheduling.NewOccupancyStore(tx).Create(ctx, newOcc); e != nil {
 				return e
 			}
 			m.OccupancyID = &newOcc.ID
@@ -79,11 +79,11 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 			m.OccupancyID = nil
 		}
 		m.Etag = repox.Ptr(ulid.GenerateString())
-		if e := booking.NewBookingStore(tx).Update(ctx, &m); e != nil {
+		if e := scheduling.NewBookingStore(tx).Update(ctx, &m); e != nil {
 			return e
 		}
 		if oldOccID != nil {
-			if e := booking.NewOccupancyStore(tx).DeleteByID(ctx, *oldOccID); e != nil {
+			if e := scheduling.NewOccupancyStore(tx).DeleteByID(ctx, *oldOccID); e != nil {
 				return e
 			}
 		}
@@ -102,20 +102,20 @@ func (r *BookingRepository) ConfirmBooking(ctx context.Context, name string) (*s
 		return nil, err
 	}
 	err = r.db.Transaction(func(tx *gorm.DB) error {
-		var m booking.Booking
+		var m scheduling.Booking
 		if e := tx.WithContext(ctx).First(&m, "id = ?", id).Error; e != nil {
 			return e
 		}
-		if m.State == nil || *m.State != booking.BookingStatePendingHold {
+		if m.State == nil || *m.State != scheduling.BookingStatePendingHold {
 			return fmt.Errorf("%w: only a booking on hold can be confirmed", types.ErrInvalidState)
 		}
 		now := time.Now().UTC()
-		state := booking.BookingStateConfirmed
+		state := scheduling.BookingStateConfirmed
 		m.State = &state
 		m.ConfirmTime = &now
 		m.HoldExpireTime = nil
 		m.Etag = repox.Ptr(ulid.GenerateString())
-		return booking.NewBookingStore(tx).Update(ctx, &m)
+		return scheduling.NewBookingStore(tx).Update(ctx, &m)
 	})
 	if err != nil {
 		return nil, repox.MapGormErr(err)
@@ -131,7 +131,7 @@ func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reas
 		return nil, err
 	}
 	err = r.db.Transaction(func(tx *gorm.DB) error {
-		var m booking.Booking
+		var m scheduling.Booking
 		if e := preloadBooking(tx.WithContext(ctx)).First(&m, "id = ?", id).Error; e != nil {
 			return e
 		}
@@ -140,12 +140,12 @@ func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reas
 		// re-running the refund would move cancel_time and could land a different
 		// refund percent as the policy's clock advances, which would make a retry
 		// visibly different from the call it retries.
-		if m.State != nil && *m.State == booking.BookingStateCancelled {
+		if m.State != nil && *m.State == scheduling.BookingStateCancelled {
 			return nil
 		}
 		// An expired hold is not a cancellable thing — the inventory was released
 		// when it lapsed. This is a state error, not an inventory conflict.
-		if m.State != nil && *m.State == booking.BookingStateExpired {
+		if m.State != nil && *m.State == scheduling.BookingStateExpired {
 			return fmt.Errorf("%w: the hold expired and cannot be cancelled", types.ErrInvalidState)
 		}
 		pct, amount, _, e := r.computeRefund(ctx, tx, &m)
@@ -153,7 +153,7 @@ func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reas
 			return e
 		}
 		now := time.Now().UTC()
-		state := booking.BookingStateCancelled
+		state := scheduling.BookingStateCancelled
 		m.State = &state
 		m.CancelTime = &now
 		m.CancelReason = cancelReasonToModel(reason)
@@ -167,7 +167,7 @@ func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reas
 			}
 			m.RefundAmountID = &refund.ID
 		}
-		return booking.NewBookingStore(tx).Update(ctx, &m)
+		return scheduling.NewBookingStore(tx).Update(ctx, &m)
 	})
 	if err != nil {
 		return nil, repox.MapGormErr(err)
@@ -182,7 +182,7 @@ func (r *BookingRepository) PreviewCancellation(ctx context.Context, name string
 	if err != nil {
 		return false, 0, nil, nil, "", err
 	}
-	var m booking.Booking
+	var m scheduling.Booking
 	if err = preloadBooking(r.db.WithContext(ctx)).First(&m, "id = ?", id).Error; err != nil {
 		return false, 0, nil, nil, "", repox.MapGormErr(err)
 	}

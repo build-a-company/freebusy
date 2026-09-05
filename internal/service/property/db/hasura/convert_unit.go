@@ -102,7 +102,7 @@ func buildUnitGraph(u *propertypbv1.Unit, propertyID string, now time.Time) *uni
 			Id:          ulid.GenerateString(),
 			Code:        t.GetCode(),
 			DisplayName: t.GetDisplayName(),
-			Percent:     t.GetPercent(),
+			Percent:     dbutil.FloatToBigdecimal(t.GetPercent()),
 		})
 	}
 	for _, m := range u.GetMedia() {

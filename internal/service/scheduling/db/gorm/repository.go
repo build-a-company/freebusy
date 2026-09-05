@@ -10,8 +10,8 @@ import (
 	"errors"
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/filterx"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/types"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
@@ -58,7 +58,7 @@ func (r *BookingRepository) GetBooking(ctx context.Context, name string) (*sched
 	if err != nil {
 		return nil, err
 	}
-	var m booking.Booking
+	var m scheduling.Booking
 	if err := preloadBooking(r.db.WithContext(ctx)).First(&m, "id = ?", id).Error; err != nil {
 		return nil, repox.MapGormErr(err)
 	}
@@ -81,7 +81,7 @@ func (r *BookingRepository) ListBookings(ctx context.Context, in repox.ListInput
 	if err != nil {
 		return nil, "", err
 	}
-	models, next, err := filterx.Gorm[booking.Booking](booking.BookingFilterSpec).
+	models, next, err := filterx.Gorm[scheduling.Booking](scheduling.BookingFilterSpec).
 		List(ctx, preloadBooking(r.db), fin)
 	if err != nil {
 		return nil, "", repox.MapGormErr(repox.MapFilterxErr(err))
@@ -117,7 +117,7 @@ func (r *BookingRepository) unitName(ctx context.Context, unitID string) (string
 }
 
 // unitNames batches the id→name resolution for a page of bookings.
-func (r *BookingRepository) unitNames(ctx context.Context, bookings []booking.Booking) (map[string]string, error) {
+func (r *BookingRepository) unitNames(ctx context.Context, bookings []scheduling.Booking) (map[string]string, error) {
 	ids := make([]string, 0, len(bookings))
 	seen := map[string]bool{}
 	for i := range bookings {

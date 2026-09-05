@@ -11,13 +11,21 @@ import (
 // The generated PromoCodeFilterSpec + filterx.Gorm engine replace the
 // hand-written order allowlist; these tests pin the same guarantees against
 // the spec.
+//
+// Since protoc-gen-store 1.5.x the engine also appends `id ASC` as a
+// tiebreaker. That is a total-order guarantee, not a leak of the allowlist:
+// a caller still cannot sort by id (TestOrderClauseRejectsInjection covers
+// that), but every ORDER BY the engine emits ends in a unique column, so a
+// page boundary falling inside a run of equal sort keys cannot repeat or skip
+// a row. The two tests below pin the tiebreaker so it cannot be dropped
+// silently by a future regeneration.
 
 func TestOrderClauseAllowlisted(t *testing.T) {
 	got, err := filterx.Gorm[promocode.PromoCode](promocode.PromoCodeFilterSpec).OrderClause("create_time desc, code")
 	if err != nil {
 		t.Fatalf("OrderClause: %v", err)
 	}
-	if want := "create_time DESC, code ASC"; got != want {
+	if want := "create_time DESC, code ASC, id ASC"; got != want {
 		t.Fatalf("OrderClause = %q, want %q", got, want)
 	}
 }
@@ -38,8 +46,10 @@ func TestOrderClauseRejectsInjection(t *testing.T) {
 }
 
 func TestOrderClauseEmpty(t *testing.T) {
+	// No order_by still yields the tiebreaker rather than an empty clause: an
+	// unordered List is exactly the case where pagination is least stable.
 	got, err := filterx.Gorm[promocode.PromoCode](promocode.PromoCodeFilterSpec).OrderClause("")
-	if err != nil || got != "" {
-		t.Fatalf("OrderClause(\"\") = (%q, %v), want (\"\", nil)", got, err)
+	if err != nil || got != "id ASC" {
+		t.Fatalf("OrderClause(\"\") = (%q, %v), want (\"id ASC\", nil)", got, err)
 	}
 }

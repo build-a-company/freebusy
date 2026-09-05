@@ -4,8 +4,8 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"time"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/shared"
 	"github.com/oh-tarnished/freebusy/internal/types"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
@@ -132,11 +132,11 @@ func nightsBetween(w *sharedpbv1.TimeWindow, tz string) int64 {
 
 // --- enum + name conversions -------------------------------------------------
 
-func cancelReasonToModel(r schedulingpbv1.CancelReason) *booking.CancelReason {
+func cancelReasonToModel(r schedulingpbv1.CancelReason) *scheduling.CancelReason {
 	if r == schedulingpbv1.CancelReason_CANCEL_REASON_UNSPECIFIED {
 		return nil
 	}
-	v := booking.CancelReasonFromProto(r)
+	v := scheduling.CancelReasonFromProto(r)
 	if v == "" {
 		return nil
 	}
@@ -167,8 +167,8 @@ func promoCodeNameOrEmpty(id *string) string {
 // generated converter, then fills what only the repository can know: the
 // resource names rebuilt from bare FK ids (the unit name is resolved by the
 // caller — the row stores only the unit id).
-func bookingFromModel(m *booking.Booking, unitName string) *schedulingpbv1.Booking {
-	out := booking.BookingToProto(m)
+func bookingFromModel(m *scheduling.Booking, unitName string) *schedulingpbv1.Booking {
+	out := scheduling.BookingToProto(m)
 	out.Unit = unitName
 	out.Customer = userNameOrEmpty(m.CustomerID)
 	out.PromoCode = promoCodeNameOrEmpty(m.PromoCodeID)
