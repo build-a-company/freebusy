@@ -7,7 +7,7 @@ definition:
     - name: attributes
       type: Json
     - name: bookingMode
-      type: Enum!
+      type: String_1!
     - name: capacity
       type: Int32
     - name: createTime
@@ -29,17 +29,17 @@ definition:
     - name: priceId
       type: String_1
     - name: pricingUnit
-      type: Enum
+      type: String_1
     - name: propertyId
       type: String_1!
     - name: state
-      type: Enum
+      type: String_1
     - name: tags
       type: "[String_1]"
     - name: timeZone
       type: String_1!
     - name: type
-      type: Enum!
+      type: String_1!
     - name: updateTime
       type: Timestamptz!
   graphql:
@@ -148,7 +148,7 @@ definition:
         - fieldName: attributes
           booleanExpressionType: JsonbBoolExp
         - fieldName: bookingMode
-          booleanExpressionType: PropertyBookingModeBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: capacity
           booleanExpressionType: Int4BoolExp
         - fieldName: createTime
@@ -170,15 +170,15 @@ definition:
         - fieldName: priceId
           booleanExpressionType: TextBoolExp
         - fieldName: pricingUnit
-          booleanExpressionType: PropertyPricingUnitBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: propertyId
           booleanExpressionType: TextBoolExp
         - fieldName: state
-          booleanExpressionType: PropertyUnitStateBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: timeZone
           booleanExpressionType: TextBoolExp
         - fieldName: type
-          booleanExpressionType: PropertyUnitTypeBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: updateTime
           booleanExpressionType: TimestamptzBoolExp
       comparableRelationships: []
@@ -201,7 +201,7 @@ definition:
         - fieldName: attributes
           aggregateExpression: JsonbAggExp
         - fieldName: bookingMode
-          aggregateExpression: PropertyBookingModeAggExp
+          aggregateExpression: TextAggExp
         - fieldName: capacity
           aggregateExpression: Int4AggExp
         - fieldName: createTime
@@ -223,15 +223,15 @@ definition:
         - fieldName: priceId
           aggregateExpression: TextAggExp
         - fieldName: pricingUnit
-          aggregateExpression: PropertyPricingUnitAggExp
+          aggregateExpression: TextAggExp
         - fieldName: propertyId
           aggregateExpression: TextAggExp
         - fieldName: state
-          aggregateExpression: PropertyUnitStateAggExp
+          aggregateExpression: TextAggExp
         - fieldName: timeZone
           aggregateExpression: TextAggExp
         - fieldName: type
-          aggregateExpression: PropertyUnitTypeAggExp
+          aggregateExpression: TextAggExp
         - fieldName: updateTime
           aggregateExpression: TimestamptzAggExp
   count:
@@ -252,7 +252,7 @@ definition:
         - fieldName: attributes
           orderByExpression: JsonOrderByExp
         - fieldName: bookingMode
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: capacity
           orderByExpression: Int32OrderByExp
         - fieldName: createTime
@@ -274,15 +274,15 @@ definition:
         - fieldName: priceId
           orderByExpression: String1OrderByExp
         - fieldName: pricingUnit
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: propertyId
           orderByExpression: String1OrderByExp
         - fieldName: state
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: timeZone
           orderByExpression: String1OrderByExp
         - fieldName: type
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: updateTime
           orderByExpression: TimestamptzOrderByExp
       orderableRelationships: []

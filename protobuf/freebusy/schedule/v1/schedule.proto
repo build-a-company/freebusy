@@ -14,7 +14,7 @@ import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
-import "orm/v1/annotations.proto";
+import "store/v1/annotations.proto";
 
 option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/schedule/v1/schedulepbv1;schedulepbv1";
 option java_multiple_files = true;
@@ -139,7 +139,7 @@ message AvailabilityException {
   // Human-readable reason (e.g. "Public holiday").
   string reason = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (orm.v1.query) = {search: true}
+    (store.v1.query) = {search: true}
   ];
 
   // Creation timestamp.

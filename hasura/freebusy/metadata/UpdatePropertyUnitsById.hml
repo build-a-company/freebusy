@@ -38,7 +38,7 @@ definition:
   description: Update the 'booking_mode' column in the 'property_units' collection
   fields:
     - name: set
-      type: Enum!
+      type: String_1!
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnPropertyUnitsBookingMode
@@ -390,7 +390,7 @@ definition:
   description: Update the 'pricing_unit' column in the 'property_units' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnPropertyUnitsPricingUnit
@@ -454,7 +454,7 @@ definition:
   description: Update the 'state' column in the 'property_units' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnPropertyUnitsState
@@ -550,7 +550,7 @@ definition:
   description: Update the 'type' column in the 'property_units' collection
   fields:
     - name: set
-      type: Enum!
+      type: String_1!
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnPropertyUnitsType

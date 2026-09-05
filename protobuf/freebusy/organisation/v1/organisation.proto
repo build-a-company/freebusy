@@ -8,7 +8,7 @@ import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
-import "orm/v1/annotations.proto";
+import "store/v1/annotations.proto";
 
 option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1;orgpbv1";
 option java_multiple_files = true;
@@ -42,7 +42,7 @@ message Organisation {
   // Human-friendly organisation name (e.g. "Acme Inc.").
   string display_name = 3 [
     (google.api.field_behavior) = REQUIRED,
-    (orm.v1.query) = {search: true}
+    (store.v1.query) = {search: true}
   ];
 
   // URL-safe slug, unique across organisations.
@@ -56,7 +56,7 @@ message Organisation {
   // Lifecycle state. New organisations start ACTIVE (database default).
   OrganisationState state = 6 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (orm.v1.column) = {default_value: "ACTIVE"}
+    (store.v1.column) = {default_value: "ACTIVE"}
   ];
 
   // Arbitrary organisation-level settings.
@@ -107,7 +107,7 @@ message Member {
   // never brick a role update.
   string email = 4 [
     (google.api.field_behavior) = REQUIRED,
-    (orm.v1.query) = {search: true}
+    (store.v1.query) = {search: true}
   ];
 
   // Cached display name of the member.
@@ -123,7 +123,7 @@ message Member {
   // (database default).
   MemberState state = 7 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (orm.v1.column) = {default_value: "INVITED"}
+    (store.v1.column) = {default_value: "INVITED"}
   ];
 
   // The user who issued the invite.

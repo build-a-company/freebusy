@@ -2,13 +2,13 @@
 package hasura
 
 import (
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/bookingql/resourceql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/contactsql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/timewindowsql"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"time"
 
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"google.golang.org/genproto/googleapis/type/money"
 )
@@ -26,9 +26,9 @@ type bookingParts struct {
 	refund   *money.Money
 }
 
-func bookingFromParts(p bookingParts) *bookingpbv1.Booking {
+func bookingFromParts(p bookingParts) *schedulingpbv1.Booking {
 	r := p.res
-	return &bookingpbv1.Booking{
+	return &schedulingpbv1.Booking{
 		Name:           r.Name,
 		Unit:           p.unitName,
 		Customer:       userNameOrEmpty(r.Customer),

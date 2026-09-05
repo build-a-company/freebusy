@@ -1,0 +1,143 @@
+syntax = "proto3";
+
+package freebusy.allocation.v1;
+
+import "buf/validate/validate.proto";
+import "freebusy/allocation/v1/allocation.proto";
+import "google/api/field_behavior.proto";
+import "google/api/resource.proto";
+import "google/protobuf/duration.proto";
+import "google/type/interval.proto";
+
+option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/allocation/v1/allocationpbv1;allocationpbv1";
+option java_multiple_files = true;
+option java_outer_classname = "HoldMessagesProto";
+option java_package = "dev.ohtarnished.freebusy.allocation.v1";
+
+// Request message for HoldService.CreateHold, AIP-133.
+//
+// The allocating call, in standard-method clothing: the caller states what it
+// wants on the Hold -- window, quantity, and which resources it will accept --
+// and the server picks the concrete resources under a lock. There is
+// deliberately no separate Allocate method, so there is one place where the
+// race is handled.
+message CreateHoldRequest {
+  // The site whose resources may be taken.
+  // Format: organizationalUnits/{organizational_unit}
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).child_type = "freebusy.allocation.v1/Hold",
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+$"
+  ];
+
+  // The hold to take. Its window is required; quantity defaults to 1 and
+  // candidate_resources empty offers every resource the site holds. Supply
+  // idempotency_key to make a retry safe.
+  Hold hold = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).required = true
+  ];
+
+  // Client-assigned id, becoming the last segment of the hold name. The server
+  // generates one when empty.
+  string hold_id = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Request message for HoldService.GetHold, AIP-131.
+message GetHoldRequest {
+  // Name of the hold to retrieve.
+  // Format: organizationalUnits/{organizational_unit}/holds/{hold}
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "freebusy.allocation.v1/Hold",
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+/holds/[^/]+$"
+  ];
+}
+
+// Request message for HoldService.ListHolds, AIP-132.
+message ListHoldsRequest {
+  // The site whose holds to list.
+  // Format: organizationalUnits/{organizational_unit}
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).child_type = "freebusy.allocation.v1/Hold",
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+$"
+  ];
+
+  // Maximum holds to return. Defaults to 50, capped at 1000.
+  int32 page_size = 2 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).int32 = {
+      gte: 0
+      lte: 1000
+    }
+  ];
+
+  // Page token from a previous ListHoldsResponse.next_page_token.
+  string page_token = 3 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter expression, AIP-160, over the hold's own fields, e.g.
+  // `state=HOLD_STATE_ACTIVE`.
+  string filter = 4 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Response message for HoldService.ListHolds, AIP-132.
+message ListHoldsResponse {
+  // The holds on this page.
+  repeated Hold holds = 1;
+
+  // Token for the next page, empty when this is the last page.
+  string next_page_token = 2;
+}
+
+// Request message for HoldService.ExtendHold.
+message ExtendHoldRequest {
+  // Name of the hold to extend.
+  // Format: organizationalUnits/{organizational_unit}/holds/{hold}
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "freebusy.allocation.v1/Hold",
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+/holds/[^/]+$"
+  ];
+
+  // How much further out to push expire_time, measured from now rather than
+  // from the current deadline, so repeated extensions cannot accumulate.
+  google.protobuf.Duration duration = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).required = true
+  ];
+
+  // Opaque version read from the hold; the extension is rejected if the hold
+  // changed since (AIP-154).
+  string etag = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Request message for HoldService.ReleaseHold.
+message ReleaseHoldRequest {
+  // Name of the hold to release.
+  // Format: organizationalUnits/{organizational_unit}/holds/{hold}
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "freebusy.allocation.v1/Hold",
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+/holds/[^/]+$"
+  ];
+
+  // Opaque version read from the hold; the release is rejected if the hold
+  // changed since (AIP-154).
+  string etag = 2 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Request message for HoldService.DeleteHold, AIP-135.
+message DeleteHoldRequest {
+  // Name of the hold to delete.
+  // Format: organizationalUnits/{organizational_unit}/holds/{hold}
+  string name = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "freebusy.allocation.v1/Hold",
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+/holds/[^/]+$"
+  ];
+
+  // Opaque version read from the hold; the delete is rejected if the hold
+  // changed since (AIP-154).
+  string etag = 2 [(google.api.field_behavior) = OPTIONAL];
+}

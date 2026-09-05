@@ -8,10 +8,10 @@ import (
 	"context"
 
 	"github.com/oh-tarnished/freebusy/internal/database"
-	"github.com/oh-tarnished/freebusy/internal/runtime/booking"
+	"github.com/oh-tarnished/freebusy/internal/runtime/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/runtime/property"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
@@ -29,13 +29,13 @@ type Service struct {
 	propertypbv1.LicenceServiceServer
 	orgpbv1.OrganisationServiceServer
 	schedulepbv1.ScheduleServiceServer
-	bookingpbv1.BookingServiceServer
+	schedulingpbv1.SchedulingServiceServer
 	availabilitypbv1.AvailabilityServiceServer
 	identitypbv1.IdentityServiceServer
 
 	// booking is the concrete booking server, retained so background tasks (the
 	// hold sweeper) can be started against it in StartBackground.
-	booking *booking.Server
+	booking *scheduling.Server
 	// conn is the shared database connection every domain runs on, retained so
 	// StartBackground can publish its pool health.
 	conn *database.Connection
@@ -43,7 +43,7 @@ type Service struct {
 
 // NewService wraps the assembled service servers as the registered Service. The
 // booking server is passed as its concrete type so its background hold sweeper can
-// be started; it still satisfies bookingpbv1.BookingServiceServer for embedding.
+// be started; it still satisfies schedulingpbv1.SchedulingServiceServer for embedding.
 // The property server is concrete for the same kind of reason: it implements
 // both the PropertyService and the LicenceService.
 func NewService(
@@ -51,7 +51,7 @@ func NewService(
 	property *property.Server,
 	organisation orgpbv1.OrganisationServiceServer,
 	schedule schedulepbv1.ScheduleServiceServer,
-	booking *booking.Server,
+	booking *scheduling.Server,
 	availability availabilitypbv1.AvailabilityServiceServer,
 	identity identitypbv1.IdentityServiceServer,
 ) *Service {
@@ -61,7 +61,7 @@ func NewService(
 		LicenceServiceServer:      property,
 		OrganisationServiceServer: organisation,
 		ScheduleServiceServer:     schedule,
-		BookingServiceServer:      booking,
+		SchedulingServiceServer:      booking,
 		AvailabilityServiceServer: availability,
 		IdentityServiceServer:     identity,
 		booking:                   booking,
@@ -74,7 +74,7 @@ func NewService(
 // The goroutines exit when ctx is cancelled (on server Stop/Restart).
 func (s *Service) StartBackground(ctx context.Context) {
 	if s.booking != nil {
-		s.booking.StartHoldSweeper(ctx, 0)
+		s.scheduling.StartHoldSweeper(ctx, 0)
 	}
 	database.StartPoolMonitor(ctx, s.conn, 0)
 }

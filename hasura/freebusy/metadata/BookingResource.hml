@@ -9,7 +9,7 @@ definition:
     - name: attributes
       type: Json
     - name: cancelReason
-      type: Enum
+      type: String_1
     - name: cancelTime
       type: Timestamptz
     - name: confirmTime
@@ -45,7 +45,7 @@ definition:
     - name: refundPercent
       type: Int32
     - name: state
-      type: Enum
+      type: String_1
     - name: totalId
       type: String_1
     - name: unit
@@ -192,7 +192,7 @@ definition:
         - fieldName: attributes
           booleanExpressionType: JsonbBoolExp
         - fieldName: cancelReason
-          booleanExpressionType: BookingCancelReasonBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: cancelTime
           booleanExpressionType: TimestamptzBoolExp
         - fieldName: confirmTime
@@ -228,7 +228,7 @@ definition:
         - fieldName: refundPercent
           booleanExpressionType: Int4BoolExp
         - fieldName: state
-          booleanExpressionType: BookingBookingStateBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: totalId
           booleanExpressionType: TextBoolExp
         - fieldName: unit
@@ -261,7 +261,7 @@ definition:
         - fieldName: attributes
           aggregateExpression: JsonbAggExp
         - fieldName: cancelReason
-          aggregateExpression: BookingCancelReasonAggExp
+          aggregateExpression: TextAggExp
         - fieldName: cancelTime
           aggregateExpression: TimestamptzAggExp
         - fieldName: confirmTime
@@ -297,7 +297,7 @@ definition:
         - fieldName: refundPercent
           aggregateExpression: Int4AggExp
         - fieldName: state
-          aggregateExpression: BookingBookingStateAggExp
+          aggregateExpression: TextAggExp
         - fieldName: totalId
           aggregateExpression: TextAggExp
         - fieldName: unit
@@ -328,7 +328,7 @@ definition:
         - fieldName: attributes
           orderByExpression: JsonOrderByExp
         - fieldName: cancelReason
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: cancelTime
           orderByExpression: TimestamptzOrderByExp
         - fieldName: confirmTime
@@ -364,7 +364,7 @@ definition:
         - fieldName: refundPercent
           orderByExpression: Int32OrderByExp
         - fieldName: state
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: totalId
           orderByExpression: String1OrderByExp
         - fieldName: unit

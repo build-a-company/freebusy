@@ -7,12 +7,12 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/booking"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/party"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 	"google.golang.org/genproto/googleapis/type/money"
@@ -41,7 +41,7 @@ func (r *BookingRepository) ExpireHolds(ctx context.Context) (int64, error) {
 // booking. It is allowed only while the booking is PENDING_HOLD or CONFIRMED, and
 // re-validates the new party against the unit's max occupancy. Old guest rows and
 // their sub-rows, and the old occupancy, are removed in the same transaction.
-func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string, guests []*identitypbv1.Guest, occupancy *bookingpbv1.Occupancy) (*bookingpbv1.Booking, error) {
+func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string, guests []*identitypbv1.Guest, occupancy *schedulingpbv1.Occupancy) (*schedulingpbv1.Booking, error) {
 	id, err := types.BookingID(name)
 	if err != nil {
 		return nil, err
@@ -96,7 +96,7 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 }
 
 // ConfirmBooking flips a PENDING_HOLD booking to CONFIRMED.
-func (r *BookingRepository) ConfirmBooking(ctx context.Context, name string) (*bookingpbv1.Booking, error) {
+func (r *BookingRepository) ConfirmBooking(ctx context.Context, name string) (*schedulingpbv1.Booking, error) {
 	id, err := types.BookingID(name)
 	if err != nil {
 		return nil, err
@@ -125,7 +125,7 @@ func (r *BookingRepository) ConfirmBooking(ctx context.Context, name string) (*b
 
 // CancelBooking flips a held or confirmed booking to CANCELLED, computing the
 // refund from the unit's cancellation policy.
-func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reason bookingpbv1.CancelReason) (*bookingpbv1.Booking, error) {
+func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reason schedulingpbv1.CancelReason) (*schedulingpbv1.Booking, error) {
 	id, err := types.BookingID(name)
 	if err != nil {
 		return nil, err

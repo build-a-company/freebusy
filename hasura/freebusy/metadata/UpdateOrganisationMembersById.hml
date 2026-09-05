@@ -262,7 +262,7 @@ definition:
   description: Update the 'role' column in the 'organisation_members' collection
   fields:
     - name: set
-      type: Enum!
+      type: String_1!
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnOrganisationMembersRole
@@ -294,7 +294,7 @@ definition:
   description: Update the 'state' column in the 'organisation_members' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnOrganisationMembersState

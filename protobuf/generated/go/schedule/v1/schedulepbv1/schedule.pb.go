@@ -9,7 +9,7 @@ package schedulepbv1
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	sharedpbv1 "github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
-	_ "github.com/the-protobuf-project/orm/plugin/pb/ormpbv1"
+	_ "github.com/the-protobuf-project/store/plugin/pb/storepbv1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -608,7 +608,7 @@ var File_freebusy_schedule_v1_schedule_proto protoreflect.FileDescriptor
 
 const file_freebusy_schedule_v1_schedule_proto_rawDesc = "" +
 	"\n" +
-	"#freebusy/schedule/v1/schedule.proto\x12\x14freebusy.schedule.v1\x1a\x1bbuf/validate/validate.proto\x1a freebusy/schedule/v1/enums.proto\x1a\x1efreebusy/shared/v1/enums.proto\x1a\x1efreebusy/shared/v1/types.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x18orm/v1/annotations.proto\"\xbb\x01\n" +
+	"#freebusy/schedule/v1/schedule.proto\x12\x14freebusy.schedule.v1\x1a\x1bbuf/validate/validate.proto\x1a freebusy/schedule/v1/enums.proto\x1a\x1efreebusy/shared/v1/enums.proto\x1a\x1efreebusy/shared/v1/types.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1astore/v1/annotations.proto\"\xbb\x01\n" +
 	"\rRecurringRule\x12 \n" +
 	"\x05rrule\x18\x01 \x01(\tB\n" +
 	"\xe0A\x02\xbaH\x04r\x02\x10\x01R\x05rrule\x12B\n" +
@@ -642,7 +642,7 @@ const file_freebusy_schedule_v1_schedule_proto_rawDesc = "" +
 	"\x06window\x18\x04 \x01(\v2\x1e.freebusy.shared.v1.TimeWindowH\x00R\x06window\x12>\n" +
 	"\n" +
 	"date_range\x18\a \x01(\v2\x1d.freebusy.shared.v1.DateRangeH\x00R\tdateRange\x12!\n" +
-	"\x06reason\x18\x05 \x01(\tB\t\xe0A\x01\x9a\xb5\x18\x02\x18\x01R\x06reason\x12@\n" +
+	"\x06reason\x18\x05 \x01(\tB\t\xe0A\x01\xe2\xb5\x18\x02\x18\x01R\x06reason\x12@\n" +
 	"\vcreate_time\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"createTime:\xb3\x01\xeaA\xaf\x01\n" +
 	"*freebusy.schedule.v1/AvailabilityException\x12Rproperties/{property}/units/{unit}/availabilityExceptions/{availability_exception}*\x16availabilityExceptions2\x15availabilityExceptionB\x06\n" +

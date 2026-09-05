@@ -70,7 +70,7 @@ definition:
   description: Update the 'cancel_reason' column in the 'booking_resource' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnBookingResourceCancelReason
@@ -646,7 +646,7 @@ definition:
   description: Update the 'state' column in the 'booking_resource' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnBookingResourceState

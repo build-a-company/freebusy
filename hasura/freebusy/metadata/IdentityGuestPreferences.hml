@@ -7,7 +7,7 @@ definition:
     - name: accessibility
       type: "[String_1]"
     - name: bed
-      type: Enum
+      type: String_1
     - name: dietary
       type: "[String_1]"
     - name: floorPreference
@@ -19,7 +19,7 @@ definition:
     - name: notes
       type: String_1
     - name: smoking
-      type: Enum
+      type: String_1
     - name: specialRequests
       type: "[String_1]"
   graphql:
@@ -86,7 +86,7 @@ definition:
       type: IdentityGuestPreferences
       comparableFields:
         - fieldName: bed
-          booleanExpressionType: IdentityBedPreferenceBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: floorPreference
           booleanExpressionType: Int4BoolExp
         - fieldName: id
@@ -96,7 +96,7 @@ definition:
         - fieldName: notes
           booleanExpressionType: TextBoolExp
         - fieldName: smoking
-          booleanExpressionType: IdentitySmokingPreferenceBoolExp
+          booleanExpressionType: TextBoolExp
       comparableRelationships: []
   logicalOperators:
     enable: true
@@ -115,7 +115,7 @@ definition:
       aggregatedType: IdentityGuestPreferences
       aggregatableFields:
         - fieldName: bed
-          aggregateExpression: IdentityBedPreferenceAggExp
+          aggregateExpression: TextAggExp
         - fieldName: floorPreference
           aggregateExpression: Int4AggExp
         - fieldName: id
@@ -125,7 +125,7 @@ definition:
         - fieldName: notes
           aggregateExpression: TextAggExp
         - fieldName: smoking
-          aggregateExpression: IdentitySmokingPreferenceAggExp
+          aggregateExpression: TextAggExp
   count:
     enable: true
     returnType: Int64
@@ -142,7 +142,7 @@ definition:
       orderedType: IdentityGuestPreferences
       orderableFields:
         - fieldName: bed
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: floorPreference
           orderByExpression: Int32OrderByExp
         - fieldName: id
@@ -152,7 +152,7 @@ definition:
         - fieldName: notes
           orderByExpression: String1OrderByExp
         - fieldName: smoking
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
       orderableRelationships: []
   graphql:
     expressionTypeName: IdentityGuestPreferencesOrderByExp

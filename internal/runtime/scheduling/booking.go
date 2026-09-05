@@ -1,8 +1,8 @@
 // Package booking is the gRPC/protobuf layer for the BookingService: it
-// implements bookingpbv1.BookingServiceServer, owning request validation,
+// implements schedulingpbv1.SchedulingServiceServer, owning request validation,
 // observability, and the mapping of repository errors to gRPC status codes.
 // Persistence and the hold lifecycle stay behind db.BookingRepository.
-package booking
+package scheduling
 
 import (
 	"context"
@@ -11,18 +11,18 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/runtime/rpc"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/db"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/db"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 )
 
-// Server implements bookingpbv1.BookingServiceServer on top of a
+// Server implements schedulingpbv1.SchedulingServiceServer on top of a
 // provider-agnostic db.BookingRepository.
 type Server struct {
-	bookingpbv1.UnimplementedBookingServiceServer
+	schedulingpbv1.UnimplementedSchedulingServiceServer
 	repo db.BookingRepository
 }
 
@@ -39,8 +39,8 @@ func NewServer(repo db.BookingRepository) *Server {
 
 // CreateBooking places a hold on a unit for a window. validate_only checks the
 // request without persisting a hold.
-func (s *Server) CreateBooking(ctx context.Context, req *bookingpbv1.CreateBookingRequest) (*bookingpbv1.Booking, error) {
-	b := proto.Clone(req.GetBooking()).(*bookingpbv1.Booking)
+func (s *Server) CreateBooking(ctx context.Context, req *schedulingpbv1.CreateBookingRequest) (*schedulingpbv1.Booking, error) {
+	b := proto.Clone(req.GetBooking()).(*schedulingpbv1.Booking)
 	if id := req.GetBookingId(); id != "" {
 		name, err := types.BookingName(id)
 		if err != nil {
@@ -52,7 +52,7 @@ func (s *Server) CreateBooking(ctx context.Context, req *bookingpbv1.CreateBooki
 		// Dry run: price it and check availability + occupancy against the real
 		// rules, but place no hold. This used to echo the draft straight back,
 		// which quoted a total of zero.
-		var out *bookingpbv1.Booking
+		var out *schedulingpbv1.Booking
 		err := rpc.Traced(ctx, "BookingService", "CreateBooking", func(ctx context.Context) error {
 			previewed, err := s.repo.PreviewBooking(ctx, b)
 			if err != nil {
@@ -63,7 +63,7 @@ func (s *Server) CreateBooking(ctx context.Context, req *bookingpbv1.CreateBooki
 		})
 		return out, err
 	}
-	var out *bookingpbv1.Booking
+	var out *schedulingpbv1.Booking
 	err := rpc.Traced(ctx, "BookingService", "CreateBooking", func(ctx context.Context) error {
 		created, err := s.repo.CreateBooking(ctx, b)
 		if err != nil {
@@ -76,8 +76,8 @@ func (s *Server) CreateBooking(ctx context.Context, req *bookingpbv1.CreateBooki
 }
 
 // GetBooking returns a single booking by resource name.
-func (s *Server) GetBooking(ctx context.Context, req *bookingpbv1.GetBookingRequest) (*bookingpbv1.Booking, error) {
-	var out *bookingpbv1.Booking
+func (s *Server) GetBooking(ctx context.Context, req *schedulingpbv1.GetBookingRequest) (*schedulingpbv1.Booking, error) {
+	var out *schedulingpbv1.Booking
 	err := rpc.Traced(ctx, "BookingService", "GetBooking", func(ctx context.Context) error {
 		b, err := s.repo.GetBooking(ctx, req.GetName())
 		if err != nil {
@@ -90,8 +90,8 @@ func (s *Server) GetBooking(ctx context.Context, req *bookingpbv1.GetBookingRequ
 }
 
 // ListBookings returns a page of bookings.
-func (s *Server) ListBookings(ctx context.Context, req *bookingpbv1.ListBookingsRequest) (*bookingpbv1.ListBookingsResponse, error) {
-	var out *bookingpbv1.ListBookingsResponse
+func (s *Server) ListBookings(ctx context.Context, req *schedulingpbv1.ListBookingsRequest) (*schedulingpbv1.ListBookingsResponse, error) {
+	var out *schedulingpbv1.ListBookingsResponse
 	err := rpc.Traced(ctx, "BookingService", "ListBookings", func(ctx context.Context) error {
 		items, next, err := s.repo.ListBookings(ctx, repox.ListInput{
 			PageSize:  req.GetPageSize(),
@@ -102,15 +102,15 @@ func (s *Server) ListBookings(ctx context.Context, req *bookingpbv1.ListBookings
 		if err != nil {
 			return toStatusErr(err)
 		}
-		out = &bookingpbv1.ListBookingsResponse{Bookings: items, NextPageToken: next}
+		out = &schedulingpbv1.ListBookingsResponse{Bookings: items, NextPageToken: next}
 		return nil
 	})
 	return out, err
 }
 
 // ConfirmBooking confirms a held booking.
-func (s *Server) ConfirmBooking(ctx context.Context, req *bookingpbv1.ConfirmBookingRequest) (*bookingpbv1.Booking, error) {
-	var out *bookingpbv1.Booking
+func (s *Server) ConfirmBooking(ctx context.Context, req *schedulingpbv1.ConfirmBookingRequest) (*schedulingpbv1.Booking, error) {
+	var out *schedulingpbv1.Booking
 	err := rpc.Traced(ctx, "BookingService", "ConfirmBooking", func(ctx context.Context) error {
 		b, err := s.repo.ConfirmBooking(ctx, req.GetName())
 		if err != nil {
@@ -123,8 +123,8 @@ func (s *Server) ConfirmBooking(ctx context.Context, req *bookingpbv1.ConfirmBoo
 }
 
 // CancelBooking cancels a booking, computing the refund from the cancellation policy.
-func (s *Server) CancelBooking(ctx context.Context, req *bookingpbv1.CancelBookingRequest) (*bookingpbv1.Booking, error) {
-	var out *bookingpbv1.Booking
+func (s *Server) CancelBooking(ctx context.Context, req *schedulingpbv1.CancelBookingRequest) (*schedulingpbv1.Booking, error) {
+	var out *schedulingpbv1.Booking
 	err := rpc.Traced(ctx, "BookingService", "CancelBooking", func(ctx context.Context) error {
 		b, err := s.repo.CancelBooking(ctx, req.GetName(), req.GetReason())
 		if err != nil {
@@ -137,14 +137,14 @@ func (s *Server) CancelBooking(ctx context.Context, req *bookingpbv1.CancelBooki
 }
 
 // PreviewCancellation reports the refund a cancellation would yield now.
-func (s *Server) PreviewCancellation(ctx context.Context, req *bookingpbv1.PreviewCancellationRequest) (*bookingpbv1.PreviewCancellationResponse, error) {
-	var out *bookingpbv1.PreviewCancellationResponse
+func (s *Server) PreviewCancellation(ctx context.Context, req *schedulingpbv1.PreviewCancellationRequest) (*schedulingpbv1.PreviewCancellationResponse, error) {
+	var out *schedulingpbv1.PreviewCancellationResponse
 	err := rpc.Traced(ctx, "BookingService", "PreviewCancellation", func(ctx context.Context) error {
 		refundable, pct, amount, nonRefundable, summary, err := s.repo.PreviewCancellation(ctx, req.GetName())
 		if err != nil {
 			return toStatusErr(err)
 		}
-		out = &bookingpbv1.PreviewCancellationResponse{
+		out = &schedulingpbv1.PreviewCancellationResponse{
 			Refundable:          refundable,
 			RefundPercent:       pct,
 			RefundAmount:        amount,
@@ -167,10 +167,10 @@ func toStatusErr(err error) error {
 }
 
 // RescheduleBooking moves a booking to a new span (and optionally unit).
-func (s *Server) RescheduleBooking(ctx context.Context, req *bookingpbv1.RescheduleBookingRequest) (*bookingpbv1.Booking, error) {
-	var out *bookingpbv1.Booking
+func (s *Server) RescheduleBooking(ctx context.Context, req *schedulingpbv1.RescheduleBookingRequest) (*schedulingpbv1.Booking, error) {
+	var out *schedulingpbv1.Booking
 	err := rpc.Traced(ctx, "BookingService", "RescheduleBooking", func(ctx context.Context) error {
-		b, err := s.repo.RescheduleBooking(ctx, req.GetName(), &bookingpbv1.Booking{Window: req.GetWindow()}, req.GetUnit())
+		b, err := s.repo.RescheduleBooking(ctx, req.GetName(), &schedulingpbv1.Booking{Window: req.GetWindow()}, req.GetUnit())
 		if err != nil {
 			return toStatusErr(err)
 		}

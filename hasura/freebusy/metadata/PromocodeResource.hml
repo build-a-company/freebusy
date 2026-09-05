@@ -29,7 +29,7 @@ definition:
     - name: scopeId
       type: String_1
     - name: state
-      type: Enum
+      type: String_1
     - name: updateTime
       type: Timestamptz!
     - name: windowId
@@ -146,7 +146,7 @@ definition:
         - fieldName: scopeId
           booleanExpressionType: TextBoolExp
         - fieldName: state
-          booleanExpressionType: PromocodePromoCodeStateBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: updateTime
           booleanExpressionType: TimestamptzBoolExp
         - fieldName: windowId
@@ -193,7 +193,7 @@ definition:
         - fieldName: scopeId
           aggregateExpression: TextAggExp
         - fieldName: state
-          aggregateExpression: PromocodePromoCodeStateAggExp
+          aggregateExpression: TextAggExp
         - fieldName: updateTime
           aggregateExpression: TimestamptzAggExp
         - fieldName: windowId
@@ -238,7 +238,7 @@ definition:
         - fieldName: scopeId
           orderByExpression: String1OrderByExp
         - fieldName: state
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: updateTime
           orderByExpression: TimestamptzOrderByExp
         - fieldName: windowId

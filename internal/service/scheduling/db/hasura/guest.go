@@ -3,13 +3,13 @@ package hasura
 import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 
-	occupanciesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/bookingql/occupanciesql"
+	occupanciesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/occupanciesql"
 	postaladdressql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/postaladdressql"
 	foreignerdetailsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/foreignerdetailsql"
 	guestpreferencesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestpreferencesql"
 	guestsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestsql"
 	iddocumentsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/iddocumentsql"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 )
@@ -18,7 +18,7 @@ const dateLayout = "2006-01-02"
 
 // --- occupancy ---------------------------------------------------------------
 
-func occupancyInput(o *bookingpbv1.Occupancy) *occupanciesql.CreateInput {
+func occupancyInput(o *schedulingpbv1.Occupancy) *occupanciesql.CreateInput {
 	if o == nil {
 		return nil
 	}
@@ -30,11 +30,11 @@ func occupancyInput(o *bookingpbv1.Occupancy) *occupanciesql.CreateInput {
 	}
 }
 
-func occupancyFromSchema(o *occupanciesql.BookingOccupancies) *bookingpbv1.Occupancy {
+func occupancyFromSchema(o *occupanciesql.BookingOccupancies) *schedulingpbv1.Occupancy {
 	if o == nil {
 		return nil
 	}
-	return &bookingpbv1.Occupancy{Adults: repox.Deref(o.Adults), Children: repox.Deref(o.Children), Infants: repox.Deref(o.Infants)}
+	return &schedulingpbv1.Occupancy{Adults: repox.Deref(o.Adults), Children: repox.Deref(o.Children), Infants: repox.Deref(o.Infants)}
 }
 
 // --- guest graph -------------------------------------------------------------

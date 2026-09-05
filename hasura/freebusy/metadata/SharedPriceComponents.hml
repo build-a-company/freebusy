@@ -15,7 +15,7 @@ definition:
     - name: id
       type: String_1!
     - name: type
-      type: Enum
+      type: String_1
   graphql:
     typeName: SharedPriceComponents
     inputTypeName: SharedPriceComponentsInput
@@ -78,7 +78,7 @@ definition:
         - fieldName: id
           booleanExpressionType: TextBoolExp
         - fieldName: type
-          booleanExpressionType: SharedTypeBoolExp
+          booleanExpressionType: TextBoolExp
       comparableRelationships: []
   logicalOperators:
     enable: true
@@ -107,7 +107,7 @@ definition:
         - fieldName: id
           aggregateExpression: TextAggExp
         - fieldName: type
-          aggregateExpression: SharedTypeAggExp
+          aggregateExpression: TextAggExp
   count:
     enable: true
     returnType: Int64
@@ -134,7 +134,7 @@ definition:
         - fieldName: id
           orderByExpression: String1OrderByExp
         - fieldName: type
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
       orderableRelationships: []
   graphql:
     expressionTypeName: SharedPriceComponentsOrderByExp

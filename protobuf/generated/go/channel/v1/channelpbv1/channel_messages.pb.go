@@ -1389,10 +1389,10 @@ const file_freebusy_channel_v1_channel_messages_proto_rawDesc = "" +
 	"\baccepted\x18\x01 \x01(\x05R\baccepted\x126\n" +
 	"\x06events\x18\x02 \x03(\v2\x1e.freebusy.channel.v1.SyncEventR\x06events\"k\n" +
 	"\x18ImportReservationRequest\x12O\n" +
-	"\vreservation\x18\x01 \x01(\v2(.freebusy.channel.v1.ExternalReservationB\x03\xe0A\x02R\vreservation\"W\n" +
-	"\x19ImportReservationResponse\x12:\n" +
-	"\abooking\x18\x01 \x01(\tB \xfaA\x1d\n" +
-	"\x1bfreebusy.booking.v1/BookingR\abooking\"`\n" +
+	"\vreservation\x18\x01 \x01(\v2(.freebusy.channel.v1.ExternalReservationB\x03\xe0A\x02R\vreservation\"Z\n" +
+	"\x19ImportReservationResponse\x12=\n" +
+	"\abooking\x18\x01 \x01(\tB#\xfaA \n" +
+	"\x1efreebusy.scheduling.v1/BookingR\abooking\"`\n" +
 	"\x1bGetChannelSyncStatusRequest\x12A\n" +
 	"\x04name\x18\x01 \x01(\tB-\xe0A\x02\xfaA'\n" +
 	"%freebusy.channel.v1/ChannelSyncStatusR\x04name\"\x86\x03\n" +

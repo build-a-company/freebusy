@@ -8,7 +8,7 @@ package sharedpbv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	_ "github.com/the-protobuf-project/orm/plugin/pb/ormpbv1"
+	_ "github.com/the-protobuf-project/store/plugin/entity/pb/entitypbv1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	date "google.golang.org/genproto/googleapis/type/date"
 	money "google.golang.org/genproto/googleapis/type/money"
@@ -448,7 +448,7 @@ var File_freebusy_shared_v1_types_proto protoreflect.FileDescriptor
 
 const file_freebusy_shared_v1_types_proto_rawDesc = "" +
 	"\n" +
-	"\x1efreebusy/shared/v1/types.proto\x12\x12freebusy.shared.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1efreebusy/shared/v1/enums.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x16google/type/date.proto\x1a\x17google/type/money.proto\x1a\x18orm/v1/annotations.proto\"\x94\x01\n" +
+	"\x1efreebusy/shared/v1/types.proto\x12\x12freebusy.shared.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1bentity/v1/annotations.proto\x1a\x1efreebusy/shared/v1/enums.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x16google/type/date.proto\x1a\x17google/type/money.proto\"\x94\x01\n" +
 	"\n" +
 	"TimeWindow\x12D\n" +
 	"\n" +
@@ -482,7 +482,7 @@ const file_freebusy_shared_v1_types_proto_rawDesc = "" +
 	"\acontent\x18\x04 \x01(\fB\x03\xe0A\x01R\acontent\x12\x15\n" +
 	"\x03uri\x18\x05 \x01(\tB\x03\xe0A\x01R\x03uri\x12@\n" +
 	"\vupload_time\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
-	"uploadTime:\x06\x8a\xb5\x18\x02\x18\x01B\xe6\x01\n" +
+	"uploadTime:\x06\xca\xf3\x18\x02\x18\x01B\xe6\x01\n" +
 	"\x16com.freebusy.shared.v1B\n" +
 	"TypesProtoP\x01ZVgithub.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1;sharedpbv1\xa2\x02\x03FSX\xaa\x02\x12Freebusy.Shared.V1\xca\x02\x12Freebusy\\Shared\\V1\xe2\x02\x1eFreebusy\\Shared\\V1\\GPBMetadata\xea\x02\x14Freebusy::Shared::V1b\x06proto3"
 

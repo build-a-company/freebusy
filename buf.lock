@@ -2,14 +2,20 @@
 version: v2
 deps:
   - name: buf.build/bufbuild/protovalidate
-    commit: 435963d1631043e694e56e6bcc3c79c3
-    digest: b5:f4ea07ad2dd94bd7243562f9908b9fb104feef8076040c89d9f7c1dedc074de4d4ce2b997686ef4400f3eccb765a7cfc20ed4acdd70b9a3699351245c61dba97
+    commit: 511051f7f4374c3ca873b53ae68a9288
+    digest: b5:a4a2d4d808a25984cced60769c822c5d496ef0b740f56ac0c9e6b97aaa25b86a9332a00ffd74e0cd202be29e91bd3edfb0bf2ba4dacfe48ff2d8217f9986e3c8
   - name: buf.build/googleapis/googleapis
     commit: c17df5b2beca46928cc87d5656bd5343
     digest: b5:648a01e0170d4512dea7d564016165decd1ed6e34bef79fe54753e51ad7e27545709ad9157d7551270147d551155c595a2fb0bf5bb33b1c83040ddbce915c604
+  - name: buf.build/the-protobuf-project/cache
+    commit: e73eb5f8bce8427e84d30aba90b198f4
+    digest: b5:ae01cb0546052bf2fe58ec20cb061be2ff69cd05b38e7295ece5eece970d9c3e563c10d21fbd0a3a1bce1dc86d37336f4c4b9d1703c06d9b6993981bd833d353
   - name: buf.build/the-protobuf-project/mcp
     commit: d8286d36a0cc4df5bf65e342195ab82d
     digest: b5:8355c7cb9f258ad16c9be3641ded547acaa1717243cd11c345c370b242f092c2e573f55d82c9a81a6a852421d0e84ccee8881dca73f15660eed7044ef0e24ac5
-  - name: buf.build/the-protobuf-project/orm
-    commit: 2f9ad1b022d8468dbd7253d9ff4d0f2e
-    digest: b5:57da7cd1f9b63dc584c1f300c93d825147e1fd90c2461fcbc6a182c54aefd84fe88a61567eb51b58a2a8d58c7c9240c6d9a0379f2829af57e757cb632545a1d9
+  - name: buf.build/the-protobuf-project/rfc
+    commit: 844dfa627e53499ba543aeabdcd2a663
+    digest: b5:67a0225f0d679351971326e7975f94fe23b167e86ed518451d249e78141936afc4e8aaf2491842b7b2b4d4d508b0acac9ebcf2c7dd2ed85e61ebbdf48c0f161d
+  - name: buf.build/the-protobuf-project/store
+    commit: 46824ad9121a472382481b91dc1b84c7
+    digest: b5:83225e7ec350bb6661270ac748538cfe9b44ca9377cf203df28990dfe90e9cb4693d329c8aacf8c5b04f57975a48cfb7811f516d46b4307914f24863445b0128

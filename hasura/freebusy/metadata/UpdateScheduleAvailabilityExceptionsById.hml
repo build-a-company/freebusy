@@ -104,7 +104,7 @@ definition:
   description: Update the 'kind' column in the 'schedule_availability_exceptions' collection
   fields:
     - name: set
-      type: Enum!
+      type: String_1!
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnScheduleAvailabilityExceptionsKind
@@ -235,7 +235,7 @@ definition:
     'schedule_availability_exceptions' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnScheduleAvailabilityExceptionsSpanCase

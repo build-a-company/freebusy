@@ -7,7 +7,7 @@ definition:
     - name: avatarUrl
       type: String_1
     - name: createTime
-      type: Timestamptz
+      type: Timestamptz!
     - name: displayName
       type: String_1
     - name: email

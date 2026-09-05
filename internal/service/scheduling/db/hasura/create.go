@@ -5,18 +5,18 @@ import (
 	"context"
 	"time"
 
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/bookingql/occupanciesql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/occupanciesql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/contactsql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/timewindowsql"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/bookingql/resourceql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/moneysql"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/party"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/pricing"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/pricing"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 	"github.com/the-protobuf-project/runtime-go/network/runtime"
@@ -27,7 +27,7 @@ import (
 // (for capacity, price, booking mode, timezone), computes the full price
 // breakdown, verifies capacity against overlapping active bookings, and persists
 // the booking with its window / contact / money value-objects in one batch.
-func (r *BookingRepository) CreateBooking(ctx context.Context, b *bookingpbv1.Booking) (*bookingpbv1.Booking, error) {
+func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1.Booking) (*schedulingpbv1.Booking, error) {
 	id, name, err := types.ResolveBookingName(b.GetName())
 	if err != nil {
 		return nil, err

@@ -11,7 +11,7 @@ definition:
     - name: id
       type: String_1!
     - name: percent
-      type: Float64!
+      type: Bigdecimal!
     - name: unitId
       type: String_1!
   graphql:

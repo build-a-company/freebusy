@@ -1,13 +1,11 @@
 syntax = "proto3";
 
-package freebusy.booking.v1;
+package freebusy.scheduling.v1;
 
 import "buf/validate/validate.proto";
-import "freebusy/booking/v1/enums.proto";
+import "entity/v1/annotations.proto";
 import "freebusy/identity/v1/guest.proto";
-// (-- api-linter: core::0215::foreign-type-reference=disabled
-//     aip.dev/not-precedent: freebusy.shared.v1 is a deliberate, API-wide
-//     shared-types package; reusing it beats inlining per-package copies. --)
+import "freebusy/scheduling/v1/enums.proto";
 import "freebusy/shared/v1/types.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
@@ -15,12 +13,12 @@ import "google/protobuf/duration.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "google/type/money.proto";
-import "orm/v1/annotations.proto";
+import "store/v1/annotations.proto";
 
-option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1;bookingpbv1";
+option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1;schedulingpbv1";
 option java_multiple_files = true;
-option java_outer_classname = "BookingProto";
-option java_package = "dev.ohtarnished.freebusy.booking.v1";
+option java_outer_classname = "SchedulingProto";
+option java_package = "dev.ohtarnished.freebusy.scheduling.v1";
 
 // A reservation against a unit. The hold lifecycle lives here as states
 // rather than a separate service: CreateBooking places a PENDING_HOLD,
@@ -28,7 +26,7 @@ option java_package = "dev.ohtarnished.freebusy.booking.v1";
 // are never confirmed.
 message Booking {
   option (google.api.resource) = {
-    type: "freebusy.booking.v1/Booking"
+    type: "freebusy.scheduling.v1/Booking"
     pattern: "bookings/{booking}"
     singular: "booking"
     plural: "bookings"
@@ -102,7 +100,7 @@ message Booking {
   // default); confirm/cancel transitions move it explicitly.
   BookingState state = 9 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (orm.v1.column) = {default_value: "PENDING_HOLD"}
+    (store.v1.column) = {default_value: "PENDING_HOLD"}
   ];
 
   // When the pending hold lapses, if not confirmed first.
@@ -200,10 +198,10 @@ message Occupancy {
 // persists on the Booking row graph, so the ORM skips it (a generated table
 // would bolt a second required parent FK onto every guest row).
 message BookingGuests {
-  option (orm.v1.table) = {skip: true};
+  option (entity.v1.table) = {skip: true};
 
   option (google.api.resource) = {
-    type: "freebusy.booking.v1/BookingGuests"
+    type: "freebusy.scheduling.v1/BookingGuests"
     pattern: "bookings/{booking}/guests"
     singular: "bookingGuests"
     plural: "bookingGuests"

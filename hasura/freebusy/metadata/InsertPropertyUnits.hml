@@ -7,11 +7,11 @@ definition:
     - name: attributes
       type: Json
     - name: bookingMode
-      type: Enum
+      type: String_1
     - name: capacity
       type: Int32
     - name: createTime
-      type: Timestamptz
+      type: Timestamptz!
     - name: description
       type: String_1
     - name: displayName
@@ -29,17 +29,17 @@ definition:
     - name: priceId
       type: String_1
     - name: pricingUnit
-      type: Enum
+      type: String_1
     - name: propertyId
       type: String_1!
     - name: state
-      type: Enum
+      type: String_1
     - name: tags
       type: "[String_1]"
     - name: timeZone
       type: String_1!
     - name: type
-      type: Enum
+      type: String_1
     - name: updateTime
       type: Timestamptz!
   graphql:

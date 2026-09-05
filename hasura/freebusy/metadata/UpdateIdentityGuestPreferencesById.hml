@@ -39,7 +39,7 @@ definition:
   description: Update the 'bed' column in the 'identity_guest_preferences' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnIdentityGuestPreferencesBed
@@ -233,7 +233,7 @@ definition:
   description: Update the 'smoking' column in the 'identity_guest_preferences' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnIdentityGuestPreferencesSmoking

@@ -166,7 +166,7 @@ definition:
   description: Update the 'pricing_unit' column in the 'property_fees' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnPropertyFeesPricingUnit

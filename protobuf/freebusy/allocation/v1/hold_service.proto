@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package freebusy.allocation.v1;
+
+import "freebusy/allocation/v1/allocation.proto";
+import "freebusy/allocation/v1/hold_messages.proto";
+import "google/api/annotations.proto";
+import "google/api/client.proto";
+import "google/protobuf/empty.proto";
+import "mcp/protobuf/annotations.proto";
+
+option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/allocation/v1/allocationpbv1;allocationpbv1";
+option java_multiple_files = true;
+option java_outer_classname = "HoldServiceProto";
+option java_package = "dev.ohtarnished.freebusy.allocation.v1";
+
+// HoldService takes and releases expiring claims on resources. It is the only
+// thing in this API that mutates availability.
+//
+// Two things are deliberately not RPCs, following the precedent SchedulingService
+// set: the sweeper that expires lapsed holds is an internal job, not a call,
+// and conversion to a confirmed booking is driven from the booking side, so a
+// hold is never converted by a caller reaching in here.
+//
+// There is no UpdateHold. A hold's window and resources are immutable by
+// construction -- changing either is a different allocation -- so the only
+// mutations are the two custom methods below.
+service HoldService {
+  option (google.api.default_host) = "freebusy.ohtarnished.dev";
+  option (mcp.service) = {
+    app: {
+      name: "Resource Holds"
+      version: "1.0.0"
+      description: "Take, extend and release temporary claims on bookable resources."
+    }
+  };
+
+  // Takes a hold, allocating concrete resources for the window.
+  //
+  // The server chooses which resources are taken from the candidates offered,
+  // under a lock, so two callers racing for the last bay cannot both win.
+  // Requires an idempotency key: a retry after a timeout returns the original
+  // hold rather than taking a second one.
+  rpc CreateHold(CreateHoldRequest) returns (Hold) {
+    option (google.api.http) = {
+      post: "/v1/{parent=organizationalUnits/*}/holds"
+      body: "hold"
+    };
+    option (google.api.method_signature) = "parent,hold,hold_id";
+    option (mcp.tool) = {description: "Hold one or more bookable resources for a window. Requires an idempotency key."};
+  }
+
+  // Retrieves one hold.
+  //
+  // Authoritative on expiry: a hold whose expire_time has passed is reported
+  // EXPIRED here even if the sweeper has not yet written that state, so a
+  // caller never sees an ACTIVE hold that no longer reserves anything.
+  rpc GetHold(GetHoldRequest) returns (Hold) {
+    option (google.api.http) = {get: "/v1/{name=organizationalUnits/*/holds/*}"};
+    option (google.api.method_signature) = "name";
+  }
+
+  // Lists the holds taken at a site.
+  rpc ListHolds(ListHoldsRequest) returns (ListHoldsResponse) {
+    option (google.api.http) = {get: "/v1/{parent=organizationalUnits/*}/holds"};
+    option (google.api.method_signature) = "parent";
+  }
+
+  // Pushes a hold's expiry further out.
+  //
+  // Measured from now rather than from the current deadline, so repeated calls
+  // cannot accumulate an unbounded reservation. Fails on a hold that is not
+  // ACTIVE -- an expired hold is gone, not extendable.
+  rpc ExtendHold(ExtendHoldRequest) returns (Hold) {
+    option (google.api.http) = {
+      post: "/v1/{name=organizationalUnits/*/holds/*}:extend"
+      body: "*"
+    };
+    option (google.api.method_signature) = "name,duration";
+    option (mcp.tool) = {description: "Extend a live hold's expiry, measured from now."};
+  }
+
+  // Gives a hold up before it expires, freeing its resources immediately.
+  //
+  // Idempotent: releasing an already-released or expired hold succeeds and
+  // changes nothing, because the caller's intent is already satisfied.
+  rpc ReleaseHold(ReleaseHoldRequest) returns (Hold) {
+    option (google.api.http) = {
+      post: "/v1/{name=organizationalUnits/*/holds/*}:release"
+      body: "*"
+    };
+    option (google.api.method_signature) = "name";
+    option (mcp.tool) = {description: "Release a hold early, freeing its resources."};
+  }
+
+  // Deletes a hold record.
+  //
+  // Housekeeping for terminal holds, not a way to free resources -- use
+  // ReleaseHold for that. Deleting an ACTIVE hold is rejected, so inventory is
+  // never freed by a path that leaves no audit trail.
+  rpc DeleteHold(DeleteHoldRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {delete: "/v1/{name=organizationalUnits/*/holds/*}"};
+    option (google.api.method_signature) = "name";
+  }
+}

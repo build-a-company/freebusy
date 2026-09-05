@@ -7,7 +7,7 @@ definition:
     - name: channelId
       type: String_1!
     - name: createTime
-      type: Timestamptz
+      type: Timestamptz!
     - name: etag
       type: String_1
     - name: externalRatePlanId
@@ -19,7 +19,7 @@ definition:
     - name: name
       type: String_1!
     - name: state
-      type: Enum
+      type: String_1
     - name: unit
       type: String_1!
     - name: updateTime

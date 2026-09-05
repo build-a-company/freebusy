@@ -1,0 +1,192 @@
+syntax = "proto3";
+
+package freebusy.allocation.v1;
+
+import "buf/validate/validate.proto";
+import "freebusy/allocation/v1/allocation.proto";
+import "freebusy/allocation/v1/enums.proto";
+import "google/api/field_behavior.proto";
+import "google/api/resource.proto";
+import "google/protobuf/duration.proto";
+import "google/type/interval.proto";
+
+option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/allocation/v1/allocationpbv1;allocationpbv1";
+option java_multiple_files = true;
+option java_outer_classname = "AllocationMessagesProto";
+option java_package = "dev.ohtarnished.freebusy.allocation.v1";
+
+// Request message for AllocationService.ComputeAvailability.
+message ComputeAvailabilityRequest {
+  // The site whose resources to compute over.
+  // Format: organizationalUnits/{organizational_unit}
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+$"
+  ];
+
+  // Restrict the computation to these resources. Empty means every resource
+  // the site holds.
+  // Format: resources/{resource}
+  repeated string resources = 2 [
+    (google.api.field_behavior) = OPTIONAL,
+    (google.api.resource_reference).type = "protobufrfc.dev/Resource"
+  ];
+
+  // The window to compute over.
+  google.type.Interval window = 3 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).required = true
+  ];
+
+  // How to slice the window. Defaults by window length.
+  AvailabilityGranularity granularity = 4 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).enum.defined_only = true
+  ];
+
+  // Slot length for SLOT granularity. Ignored for DAY.
+  google.protobuf.Duration slot_duration = 5 [(google.api.field_behavior) = OPTIONAL];
+
+  // IANA time zone the day boundaries are drawn in, e.g. "Asia/Kolkata".
+  // Defaults to the site's zone. Required in effect for DAY granularity, since
+  // "a night" has no meaning without one.
+  string time_zone = 6 [(google.api.field_behavior) = OPTIONAL];
+
+  // Populate AvailabilityBucket.free_resources. Off by default: a large site
+  // would otherwise repeat every resource name in every bucket.
+  bool include_free_resources = 7 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Response message for AllocationService.ComputeAvailability.
+message ComputeAvailabilityResponse {
+  // One bucket per slot or day, in ascending time order.
+  repeated AvailabilityBucket buckets = 1;
+
+  // How many resources were considered across the whole window.
+  int32 total_count = 2;
+}
+
+// Request message for AllocationService.CheckAvailability.
+message CheckAvailabilityRequest {
+  // The site whose resources to check.
+  // Format: organizationalUnits/{organizational_unit}
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+$"
+  ];
+
+  // Restrict the check to these resources. Empty means every resource the site
+  // holds.
+  // Format: resources/{resource}
+  repeated string resources = 2 [
+    (google.api.field_behavior) = OPTIONAL,
+    (google.api.resource_reference).type = "protobufrfc.dev/Resource"
+  ];
+
+  // The exact window to check.
+  google.type.Interval window = 3 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).required = true
+  ];
+
+  // How many resources are needed. Defaults to 1.
+  int32 quantity = 4 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).int32.gte = 0
+  ];
+}
+
+// Response message for AllocationService.CheckAvailability.
+message CheckAvailabilityResponse {
+  // Whether `quantity` resources can be held for the window right now.
+  bool bookable = 1;
+
+  // How many are actually free, which may be fewer than requested.
+  int32 free_count = 2;
+
+  // Why not, when bookable is false. Empty when it is true.
+  repeated UnbookableReason reasons = 3;
+
+  // Which resources would be taken, in the order the allocator would pick
+  // them. Advisory: another caller may take one before a hold is created.
+  // Format: resources/{resource}
+  repeated string candidate_resources = 4 [(google.api.resource_reference).type = "protobufrfc.dev/Resource"];
+}
+
+// Request message for AllocationService.BatchComputeAvailability. Each entry is
+// a full ComputeAvailabilityRequest, so sites, windows and granularities may
+// differ within one batch.
+message BatchComputeAvailabilityRequest {
+  // The computations to run. Capped at 50 to bound the calendar reads a single
+  // call can trigger.
+  repeated ComputeAvailabilityRequest requests = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).repeated = {
+      min_items: 1
+      max_items: 50
+    }
+  ];
+}
+
+// Response message for AllocationService.BatchComputeAvailability.
+message BatchComputeAvailabilityResponse {
+  // One response per request, in the order requested.
+  repeated ComputeAvailabilityResponse responses = 1;
+}
+
+// Request message for AllocationService.SearchAvailability. Sweeps a whole
+// operator for resources free across a window, where ComputeAvailability
+// answers for one site already chosen.
+message SearchAvailabilityRequest {
+  // The operator to search within.
+  // Format: organizations/{organization}
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string.pattern = "^organizations/[^/]+$"
+  ];
+
+  // The window that must be free.
+  google.type.Interval window = 2 [
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).required = true
+  ];
+
+  // Restrict to sites, e.g. one car park or one hotel. Empty searches all.
+  // Format: organizationalUnits/{organizational_unit}
+  repeated string organizational_units = 3 [
+    (google.api.field_behavior) = OPTIONAL,
+    (google.api.resource_reference).type = "protobufrfc.dev/OrganizationalUnit"
+  ];
+
+  // Restrict to RESOURCE-TYPE values, RFC 9073 section 6.3, e.g. "room" or
+  // "parking-bay". Empty matches every type.
+  repeated string resource_types = 4 [(google.api.field_behavior) = OPTIONAL];
+
+  // How many resources must be free together at one site for it to match.
+  // Defaults to 1.
+  int32 quantity = 5 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).int32.gte = 0
+  ];
+
+  // Maximum matches to return. Defaults to 50, capped at 1000.
+  int32 page_size = 6 [
+    (google.api.field_behavior) = OPTIONAL,
+    (buf.validate.field).int32 = {
+      gte: 0
+      lte: 1000
+    }
+  ];
+
+  // Page token from a previous SearchAvailabilityResponse.next_page_token.
+  string page_token = 7 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// Response message for AllocationService.SearchAvailability.
+message SearchAvailabilityResponse {
+  // The free resources found.
+  repeated AvailabilityMatch matches = 1;
+
+  // Token for the next page, empty when this is the last page.
+  string next_page_token = 2;
+}

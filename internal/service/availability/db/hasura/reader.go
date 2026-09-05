@@ -16,7 +16,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/scheduleql/recurringrulesql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/scheduleql/resourceql"
 	"github.com/oh-tarnished/freebusy/internal/service/availability/engine"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/pricing"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/pricing"
 	"github.com/oh-tarnished/freebusy/internal/types"
 	"github.com/oh-tarnished/freebusy/shared/rrule"
 	"google.golang.org/genproto/googleapis/type/money"

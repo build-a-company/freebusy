@@ -9,7 +9,8 @@ package propertypbv1
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	sharedpbv1 "github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
-	_ "github.com/the-protobuf-project/orm/plugin/pb/ormpbv1"
+	_ "github.com/the-protobuf-project/store/plugin/entity/pb/entitypbv1"
+	_ "github.com/the-protobuf-project/store/plugin/pb/storepbv1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	date "google.golang.org/genproto/googleapis/type/date"
 	money "google.golang.org/genproto/googleapis/type/money"
@@ -1242,12 +1243,12 @@ var File_freebusy_property_v1_property_proto protoreflect.FileDescriptor
 
 const file_freebusy_property_v1_property_proto_rawDesc = "" +
 	"\n" +
-	"#freebusy/property/v1/property.proto\x12\x14freebusy.property.v1\x1a\x1bbuf/validate/validate.proto\x1a freebusy/property/v1/enums.proto\x1a\x1efreebusy/shared/v1/enums.proto\x1a\x1efreebusy/shared/v1/types.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x16google/type/date.proto\x1a\x17google/type/money.proto\x1a google/type/postal_address.proto\x1a\x1bgoogle/type/timeofday.proto\x1a\x18orm/v1/annotations.proto\"\xe3\a\n" +
+	"#freebusy/property/v1/property.proto\x12\x14freebusy.property.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1bentity/v1/annotations.proto\x1a freebusy/property/v1/enums.proto\x1a\x1efreebusy/shared/v1/enums.proto\x1a\x1efreebusy/shared/v1/types.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x16google/type/date.proto\x1a\x17google/type/money.proto\x1a google/type/postal_address.proto\x1a\x1bgoogle/type/timeofday.proto\x1a\x1astore/v1/annotations.proto\"\xe3\a\n" +
 	"\bProperty\x123\n" +
 	"\x04name\x18\x01 \x01(\tB\x1f\xe0A\b\xbaH\x19\xd8\x01\x01r\x142\x12^properties/[^/]+$R\x04name\x12p\n" +
 	"\forganisation\x18\x02 \x01(\tBL\xe0A\x02\xfaA'\n" +
 	"%freebusy.organisation.v1/Organisation\xbaH\x1c\xd8\x01\x01r\x172\x15^organisations/[^/]+$R\forganisation\x12,\n" +
-	"\fdisplay_name\x18\x03 \x01(\tB\t\xe0A\x02\x9a\xb5\x18\x02\x18\x01R\vdisplayName\x12%\n" +
+	"\fdisplay_name\x18\x03 \x01(\tB\t\xe0A\x02\xe2\xb5\x18\x02\x18\x01R\vdisplayName\x12%\n" +
 	"\vdescription\x18\x04 \x01(\tB\x03\xe0A\x01R\vdescription\x129\n" +
 	"\aaddress\x18\x05 \x01(\v2\x1a.google.type.PostalAddressB\x03\xe0A\x01R\aaddress\x12 \n" +
 	"\ttime_zone\x18\x06 \x01(\tB\x03\xe0A\x02R\btimeZone\x126\n" +
@@ -1260,14 +1261,14 @@ const file_freebusy_property_v1_property_proto_rawDesc = "" +
 	"attributes\x127\n" +
 	"\x05units\x18\v \x03(\tB!\xe0A\x03\xfaA\x1b\n" +
 	"\x19freebusy.property.v1/UnitR\x05units\x12J\n" +
-	"\x05state\x18\f \x01(\x0e2#.freebusy.property.v1.PropertyStateB\x0f\xe0A\x03\x92\xb5\x18\b\x1a\x06ACTIVER\x05state\x12@\n" +
+	"\x05state\x18\f \x01(\x0e2#.freebusy.property.v1.PropertyStateB\x0f\xe0A\x03ڵ\x18\b\x12\x06ACTIVER\x05state\x12@\n" +
 	"\vcreate_time\x18\r \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"createTime\x12@\n" +
 	"\vupdate_time\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"updateTime\x12\x12\n" +
 	"\x04etag\x18\x0f \x01(\tR\x04etag\x12F\n" +
 	"\blicences\x18\x10 \x03(\tB*\xe0A\x03\xfaA\x1e\n" +
-	"\x1cfreebusy.property.v1/Licence\x92\xb5\x18\x020\x01R\blicences:O\xeaAL\n" +
+	"\x1cfreebusy.property.v1/Licence\xd2\xf3\x18\x02\x10\x01R\blicences:O\xeaAL\n" +
 	"\x1dfreebusy.property.v1/Property\x12\x15properties/{property}*\n" +
 	"properties2\bproperty\"\xcb\x01\n" +
 	"\x06Policy\x12>\n" +
@@ -1279,7 +1280,7 @@ const file_freebusy_property_v1_property_proto_rawDesc = "" +
 	"\n" +
 	"\x04Unit\x12?\n" +
 	"\x04name\x18\x01 \x01(\tB+\xe0A\b\xbaH%\xd8\x01\x01r 2\x1e^properties/[^/]+/units/[^/]+$R\x04name\x12,\n" +
-	"\fdisplay_name\x18\x02 \x01(\tB\t\xe0A\x02\x9a\xb5\x18\x02\x18\x01R\vdisplayName\x12%\n" +
+	"\fdisplay_name\x18\x02 \x01(\tB\t\xe0A\x02\xe2\xb5\x18\x02\x18\x01R\vdisplayName\x12%\n" +
 	"\vdescription\x18\x03 \x01(\tB\x03\xe0A\x01R\vdescription\x127\n" +
 	"\x04type\x18\x04 \x01(\x0e2\x1e.freebusy.property.v1.UnitTypeB\x03\xe0A\x02R\x04type\x12J\n" +
 	"\fbooking_mode\x18\x05 \x01(\x0e2\x1f.freebusy.shared.v1.BookingModeB\x06\xe0A\x02\xe0A\x05R\vbookingMode\x12\x1f\n" +
@@ -1301,7 +1302,7 @@ const file_freebusy_property_v1_property_proto_rawDesc = "" +
 	"\n" +
 	"attributes\x18\x13 \x01(\v2\x17.google.protobuf.StructB\x03\xe0A\x01R\n" +
 	"attributes\x12F\n" +
-	"\x05state\x18\x14 \x01(\x0e2\x1f.freebusy.property.v1.UnitStateB\x0f\xe0A\x03\x92\xb5\x18\b\x1a\x06ACTIVER\x05state\x12@\n" +
+	"\x05state\x18\x14 \x01(\x0e2\x1f.freebusy.property.v1.UnitStateB\x0f\xe0A\x03ڵ\x18\b\x12\x06ACTIVER\x05state\x12@\n" +
 	"\vcreate_time\x18\x15 \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"createTime\x12@\n" +
 	"\vupdate_time\x18\x16 \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
@@ -1335,7 +1336,7 @@ const file_freebusy_property_v1_property_proto_rawDesc = "" +
 	"\tmime_type\x18\x05 \x01(\tB\x03\xe0A\x01R\bmimeType\x12\"\n" +
 	"\n" +
 	"sort_order\x18\x06 \x01(\x05B\x03\xe0A\x01R\tsortOrder\x12\x1d\n" +
-	"\aprimary\x18\a \x01(\bB\x03\xe0A\x01R\aprimary:\x06\x8a\xb5\x18\x02\x18\x01\"\x89\x02\n" +
+	"\aprimary\x18\a \x01(\bB\x03\xe0A\x01R\aprimary:\x06\xca\xf3\x18\x02\x18\x01\"\x89\x02\n" +
 	"\tUnitMedia\x12\x15\n" +
 	"\x03uri\x18\x01 \x01(\tB\x03\xe0A\x02R\x03uri\x126\n" +
 	"\x04type\x18\x02 \x01(\x0e2\x1d.freebusy.shared.v1.MediaTypeB\x03\xe0A\x02R\x04type\x12\x19\n" +
@@ -1344,7 +1345,7 @@ const file_freebusy_property_v1_property_proto_rawDesc = "" +
 	"\tmime_type\x18\x05 \x01(\tB\x03\xe0A\x01R\bmimeType\x12\"\n" +
 	"\n" +
 	"sort_order\x18\x06 \x01(\x05B\x03\xe0A\x01R\tsortOrder\x12\x1d\n" +
-	"\aprimary\x18\a \x01(\bB\x03\xe0A\x01R\aprimary:\x06\x8a\xb5\x18\x02\x18\x01\"e\n" +
+	"\aprimary\x18\a \x01(\bB\x03\xe0A\x01R\aprimary:\x06\xca\xf3\x18\x02\x18\x01\"e\n" +
 	"\x03Tax\x12\x17\n" +
 	"\x04code\x18\x01 \x01(\tB\x03\xe0A\x02R\x04code\x12&\n" +
 	"\fdisplay_name\x18\x02 \x01(\tB\x03\xe0A\x01R\vdisplayName\x12\x1d\n" +
@@ -1353,10 +1354,10 @@ const file_freebusy_property_v1_property_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tB.\xe0A\b\xbaH(\xd8\x01\x01r#2!^properties/[^/]+/licences/[^/]+$R\x04name\x12@\n" +
 	"\x06target\x18\x02 \x01(\x0e2#.freebusy.property.v1.LicenceTargetB\x03\xe0A\x03R\x06target\x12f\n" +
 	"\x04unit\x18\x03 \x01(\tBR\xe0A\x01\xe0A\x05\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/Unit\xbaH%\xd8\x01\x01r 2\x1e^properties/[^/]+/units/[^/]+$\x92\xb5\x18\x02P\x01R\x04unit\x12:\n" +
+	"\x19freebusy.property.v1/Unit\xbaH%\xd8\x01\x01r 2\x1e^properties/[^/]+/units/[^/]+$ڵ\x18\x02@\x01R\x04unit\x12:\n" +
 	"\x04type\x18\x04 \x01(\x0e2!.freebusy.property.v1.LicenceTypeB\x03\xe0A\x02R\x04type\x120\n" +
-	"\x0elicence_number\x18\x05 \x01(\tB\t\xe0A\x01\x9a\xb5\x18\x02\x18\x01R\rlicenceNumber\x126\n" +
-	"\x11issuing_authority\x18\x06 \x01(\tB\t\xe0A\x01\x9a\xb5\x18\x02\x18\x01R\x10issuingAuthority\x125\n" +
+	"\x0elicence_number\x18\x05 \x01(\tB\t\xe0A\x01\xe2\xb5\x18\x02\x18\x01R\rlicenceNumber\x126\n" +
+	"\x11issuing_authority\x18\x06 \x01(\tB\t\xe0A\x01\xe2\xb5\x18\x02\x18\x01R\x10issuingAuthority\x125\n" +
 	"\n" +
 	"issue_date\x18\a \x01(\v2\x11.google.type.DateB\x03\xe0A\x01R\tissueDate\x127\n" +
 	"\vexpiry_date\x18\b \x01(\v2\x11.google.type.DateB\x03\xe0A\x01R\n" +
@@ -1366,13 +1367,13 @@ const file_freebusy_property_v1_property_proto_rawDesc = "" +
 	"attachment\x12\x19\n" +
 	"\x05notes\x18\n" +
 	" \x01(\tB\x03\xe0A\x01R\x05notes\x12I\n" +
-	"\x05state\x18\v \x01(\x0e2\".freebusy.property.v1.LicenceStateB\x0f\xe0A\x03\x92\xb5\x18\b\x1a\x06ACTIVER\x05state\x12@\n" +
+	"\x05state\x18\v \x01(\x0e2\".freebusy.property.v1.LicenceStateB\x0f\xe0A\x03ڵ\x18\b\x12\x06ACTIVER\x05state\x12@\n" +
 	"\vcreate_time\x18\f \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"createTime\x12@\n" +
 	"\vupdate_time\x18\r \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"updateTime\x12\x12\n" +
 	"\x04etag\x18\x0e \x01(\tR\x04etag:d\xeaA[\n" +
-	"\x1cfreebusy.property.v1/Licence\x12(properties/{property}/licences/{licence}*\blicences2\alicence\x8a\xb5\x18\x02\x18\x01B\xf9\x01\n" +
+	"\x1cfreebusy.property.v1/Licence\x12(properties/{property}/licences/{licence}*\blicences2\alicence\xca\xf3\x18\x02\x18\x01B\xf9\x01\n" +
 	"\x18com.freebusy.property.v1B\rPropertyProtoP\x01Z\\github.com/oh-tarnished/freebusy/protobuf/generated/go/property/v1/propertypbv1;propertypbv1\xa2\x02\x03FPX\xaa\x02\x14Freebusy.Property.V1\xca\x02\x14Freebusy\\Property\\V1\xe2\x02 Freebusy\\Property\\V1\\GPBMetadata\xea\x02\x16Freebusy::Property::V1b\x06proto3"
 
 var (

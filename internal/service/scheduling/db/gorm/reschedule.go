@@ -5,13 +5,13 @@ import (
 	"context"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/booking"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/promocode"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/shared"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 	"gorm.io/gorm"
@@ -19,7 +19,7 @@ import (
 
 // RescheduleBooking atomically moves a booking to a new window (and optionally a
 // new unit), re-checking capacity and recomputing the base price.
-func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, w *bookingpbv1.Booking, newUnit string) (*bookingpbv1.Booking, error) {
+func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, w *schedulingpbv1.Booking, newUnit string) (*schedulingpbv1.Booking, error) {
 	id, err := types.BookingID(name)
 	if err != nil {
 		return nil, err

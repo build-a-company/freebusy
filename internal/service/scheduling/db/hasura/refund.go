@@ -4,7 +4,7 @@ package hasura
 import (
 	"context"
 	"fmt"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/bookingql/resourceql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 	"time"
 

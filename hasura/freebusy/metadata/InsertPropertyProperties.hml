@@ -9,7 +9,7 @@ definition:
     - name: attributes
       type: Json
     - name: createTime
-      type: Timestamptz
+      type: Timestamptz!
     - name: description
       type: String_1
     - name: displayName
@@ -25,7 +25,7 @@ definition:
     - name: policyId
       type: String_1
     - name: state
-      type: Enum
+      type: String_1
     - name: tags
       type: "[String_1]"
     - name: timeZone

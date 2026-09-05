@@ -5,7 +5,7 @@ definition:
   name: InsertOrganisationMembersObject
   fields:
     - name: createTime
-      type: Timestamptz
+      type: Timestamptz!
     - name: displayName
       type: String_1
     - name: email
@@ -21,9 +21,9 @@ definition:
     - name: organisationId
       type: String_1!
     - name: role
-      type: Enum
+      type: String_1
     - name: state
-      type: Enum
+      type: String_1
     - name: updateTime
       type: Timestamptz!
     - name: user

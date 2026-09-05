@@ -95,6 +95,128 @@
         "foreignRelations": {},
         "description": null
       },
+      "allocation_holds": {
+        "schemaName": "allocation",
+        "tableName": "holds",
+        "columns": {
+          "candidate_resources": {
+            "name": "candidate_resources",
+            "type": {
+              "arrayType": {
+                "scalarType": "text"
+              }
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "create_time": {
+            "name": "create_time",
+            "type": {
+              "scalarType": "timestamptz"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "etag": {
+            "name": "etag",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "expire_time": {
+            "name": "expire_time",
+            "type": {
+              "scalarType": "timestamptz"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "id": {
+            "name": "id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "idempotency_key": {
+            "name": "idempotency_key",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "name": {
+            "name": "name",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "organizational_unit_id": {
+            "name": "organizational_unit_id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "quantity": {
+            "name": "quantity",
+            "type": {
+              "scalarType": "int4"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "resources": {
+            "name": "resources",
+            "type": {
+              "arrayType": {
+                "scalarType": "text"
+              }
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "state": {
+            "name": "state",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "hasDefault": "hasDefault",
+            "description": null
+          },
+          "update_time": {
+            "name": "update_time",
+            "type": {
+              "scalarType": "timestamptz"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "window": {
+            "name": "window",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          }
+        },
+        "uniquenessConstraints": {
+          "holds_pkey": [
+            "id"
+          ]
+        },
+        "foreignRelations": {},
+        "description": null
+      },
       "booking_occupancies": {
         "schemaName": "booking",
         "tableName": "occupancies",
@@ -163,7 +285,7 @@
           "cancel_reason": {
             "name": "cancel_reason",
             "type": {
-              "scalarType": "booking_cancel_reason"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -198,7 +320,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "customer": {
@@ -308,7 +429,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "booking_booking_state"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "hasDefault": "hasDefault",
@@ -444,7 +565,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "credential_ref": {
@@ -514,7 +634,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "channel_channel_state"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -522,7 +642,7 @@
           "type": {
             "name": "type",
             "type": {
-              "scalarType": "channel_channel_type"
+              "scalarType": "text"
             },
             "nullable": "nonNullable",
             "hasDefault": "hasDefault",
@@ -608,7 +728,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "channel_channel_state"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -640,7 +760,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "etag": {
@@ -686,7 +805,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "channel_mapping_state"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -1007,7 +1126,7 @@
           "bed": {
             "name": "bed",
             "type": {
-              "scalarType": "identity_bed_preference"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -1057,7 +1176,7 @@
           "smoking": {
             "name": "smoking",
             "type": {
-              "scalarType": "identity_smoking_preference"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -1088,7 +1207,7 @@
           "age_group": {
             "name": "age_group",
             "type": {
-              "scalarType": "identity_age_group"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -1136,7 +1255,7 @@
           "gender": {
             "name": "gender",
             "type": {
-              "scalarType": "identity_gender"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -1320,7 +1439,7 @@
           "type": {
             "name": "type",
             "type": {
-              "scalarType": "identity_id_document_type"
+              "scalarType": "text"
             },
             "nullable": "nonNullable",
             "hasDefault": "hasDefault",
@@ -1361,7 +1480,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "display_name": {
@@ -1447,7 +1565,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "display_name": {
@@ -1509,7 +1626,7 @@
           "role": {
             "name": "role",
             "type": {
-              "scalarType": "organisation_organisation_role"
+              "scalarType": "text"
             },
             "nullable": "nonNullable",
             "hasDefault": "hasDefault",
@@ -1518,7 +1635,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "organisation_member_state"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "hasDefault": "hasDefault",
@@ -1589,7 +1706,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "display_name": {
@@ -1651,7 +1767,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "organisation_organisation_state"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "hasDefault": "hasDefault",
@@ -1681,7 +1797,7 @@
           "amount_case": {
             "name": "amount_case",
             "type": {
-              "scalarType": "promocode_discount_amount_case"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -1880,7 +1996,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "description": {
@@ -1966,7 +2081,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "promocode_promo_code_state"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -2258,7 +2373,7 @@
           "pricing_unit": {
             "name": "pricing_unit",
             "type": {
-              "scalarType": "property_pricing_unit"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -2321,7 +2436,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "etag": {
@@ -2399,7 +2513,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "property_licence_state"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "hasDefault": "hasDefault",
@@ -2408,7 +2522,7 @@
           "target": {
             "name": "target",
             "type": {
-              "scalarType": "property_licence_target"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -2416,7 +2530,7 @@
           "type": {
             "name": "type",
             "type": {
-              "scalarType": "property_licence_type"
+              "scalarType": "text"
             },
             "nullable": "nonNullable",
             "hasDefault": "hasDefault",
@@ -2600,7 +2714,7 @@
           "type": {
             "name": "type",
             "type": {
-              "scalarType": "property_media_type"
+              "scalarType": "text"
             },
             "nullable": "nonNullable",
             "hasDefault": "hasDefault",
@@ -2712,7 +2826,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "description": {
@@ -2774,7 +2887,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "property_property_state"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "hasDefault": "hasDefault",
@@ -2943,7 +3056,7 @@
           "percent": {
             "name": "percent",
             "type": {
-              "scalarType": "float8"
+              "scalarType": "numeric"
             },
             "nullable": "nonNullable",
             "description": null
@@ -3080,7 +3193,7 @@
           "type": {
             "name": "type",
             "type": {
-              "scalarType": "property_media_type"
+              "scalarType": "text"
             },
             "nullable": "nonNullable",
             "hasDefault": "hasDefault",
@@ -3134,7 +3247,7 @@
           "booking_mode": {
             "name": "booking_mode",
             "type": {
-              "scalarType": "property_booking_mode"
+              "scalarType": "text"
             },
             "nullable": "nonNullable",
             "hasDefault": "hasDefault",
@@ -3154,7 +3267,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "description": {
@@ -3224,7 +3336,7 @@
           "pricing_unit": {
             "name": "pricing_unit",
             "type": {
-              "scalarType": "property_pricing_unit"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -3240,7 +3352,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "property_unit_state"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "hasDefault": "hasDefault",
@@ -3267,7 +3379,7 @@
           "type": {
             "name": "type",
             "type": {
-              "scalarType": "property_unit_type"
+              "scalarType": "text"
             },
             "nullable": "nonNullable",
             "hasDefault": "hasDefault",
@@ -3375,7 +3487,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "date_range_id": {
@@ -3397,7 +3508,7 @@
           "kind": {
             "name": "kind",
             "type": {
-              "scalarType": "schedule_exception_kind"
+              "scalarType": "text"
             },
             "nullable": "nonNullable",
             "hasDefault": "hasDefault",
@@ -3430,7 +3541,7 @@
           "span_case": {
             "name": "span_case",
             "type": {
-              "scalarType": "schedule_availability_exception_span_case"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -3912,6 +4023,273 @@
         "foreignRelations": {},
         "description": null
       },
+      "scheduling_bookings": {
+        "schemaName": "scheduling",
+        "tableName": "bookings",
+        "columns": {
+          "assigned_unit": {
+            "name": "assigned_unit",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "attributes": {
+            "name": "attributes",
+            "type": {
+              "scalarType": "jsonb"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "cancel_reason": {
+            "name": "cancel_reason",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "cancel_time": {
+            "name": "cancel_time",
+            "type": {
+              "scalarType": "timestamptz"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "confirm_time": {
+            "name": "confirm_time",
+            "type": {
+              "scalarType": "timestamptz"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "contact_id": {
+            "name": "contact_id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "create_time": {
+            "name": "create_time",
+            "type": {
+              "scalarType": "timestamptz"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "customer": {
+            "name": "customer",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "discount_id": {
+            "name": "discount_id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "etag": {
+            "name": "etag",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "hold_expire_time": {
+            "name": "hold_expire_time",
+            "type": {
+              "scalarType": "timestamptz"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "hold_ttl": {
+            "name": "hold_ttl",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "id": {
+            "name": "id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "name": {
+            "name": "name",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "notes": {
+            "name": "notes",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "occupancy_id": {
+            "name": "occupancy_id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "price_id": {
+            "name": "price_id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "promo_code": {
+            "name": "promo_code",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "refund_amount_id": {
+            "name": "refund_amount_id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "refund_percent": {
+            "name": "refund_percent",
+            "type": {
+              "scalarType": "int4"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "state": {
+            "name": "state",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "hasDefault": "hasDefault",
+            "description": null
+          },
+          "total_id": {
+            "name": "total_id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "unit": {
+            "name": "unit",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "units": {
+            "name": "units",
+            "type": {
+              "scalarType": "int4"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "update_time": {
+            "name": "update_time",
+            "type": {
+              "scalarType": "timestamptz"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "window_id": {
+            "name": "window_id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          }
+        },
+        "uniquenessConstraints": {
+          "bookings_pkey": [
+            "id"
+          ]
+        },
+        "foreignRelations": {},
+        "description": null
+      },
+      "scheduling_occupancies": {
+        "schemaName": "scheduling",
+        "tableName": "occupancies",
+        "columns": {
+          "adults": {
+            "name": "adults",
+            "type": {
+              "scalarType": "int4"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "children": {
+            "name": "children",
+            "type": {
+              "scalarType": "int4"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "id": {
+            "name": "id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "infants": {
+            "name": "infants",
+            "type": {
+              "scalarType": "int4"
+            },
+            "nullable": "nullable",
+            "description": null
+          }
+        },
+        "uniquenessConstraints": {
+          "occupancies_pkey": [
+            "id"
+          ]
+        },
+        "foreignRelations": {},
+        "description": null
+      },
       "shared_attachments": {
         "schemaName": "shared",
         "tableName": "attachments",
@@ -4073,7 +4451,6 @@
               "scalarType": "timestamptz"
             },
             "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "id": {
@@ -4119,7 +4496,7 @@
           "state": {
             "name": "state",
             "type": {
-              "scalarType": "shared_idempotency_state"
+              "scalarType": "text"
             },
             "nullable": "nonNullable",
             "hasDefault": "hasDefault",
@@ -4189,7 +4566,7 @@
           "type": {
             "name": "type",
             "type": {
-              "scalarType": "shared_type"
+              "scalarType": "text"
             },
             "nullable": "nullable",
             "description": null
@@ -4258,139 +4635,6 @@
     },
     "types": {
       "scalar": {
-        "booking_booking_state": {
-          "typeName": "booking_state",
-          "schemaName": "booking",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "booking_booking_state"
-            },
-            "min": {
-              "returnType": "booking_booking_state"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "booking_booking_state",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "booking_booking_state",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "booking_booking_state",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "booking_booking_state",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "booking_booking_state",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "booking_booking_state",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "booking_booking_state",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "PENDING_HOLD",
-              "CONFIRMED",
-              "CANCELLED",
-              "EXPIRED",
-              "COMPLETED",
-              "NO_SHOW"
-            ]
-          }
-        },
-        "booking_cancel_reason": {
-          "typeName": "cancel_reason",
-          "schemaName": "booking",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "booking_cancel_reason"
-            },
-            "min": {
-              "returnType": "booking_cancel_reason"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "booking_cancel_reason",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "booking_cancel_reason",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "booking_cancel_reason",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "booking_cancel_reason",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "booking_cancel_reason",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "booking_cancel_reason",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "booking_cancel_reason",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "REQUESTED_BY_CUSTOMER",
-              "REQUESTED_BY_OPERATOR",
-              "PAYMENT_FAILED",
-              "NO_SHOW",
-              "OTHER"
-            ]
-          }
-        },
         "bool": {
           "typeName": "bool",
           "schemaName": "pg_catalog",
@@ -4522,202 +4766,6 @@
           },
           "typeRepresentation": null
         },
-        "channel_channel_state": {
-          "typeName": "channel_state",
-          "schemaName": "channel",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "channel_channel_state"
-            },
-            "min": {
-              "returnType": "channel_channel_state"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "channel_channel_state",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "channel_channel_state",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "channel_channel_state",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "channel_channel_state",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "channel_channel_state",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "channel_channel_state",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "channel_channel_state",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "CONNECTED",
-              "DISABLED",
-              "ERROR"
-            ]
-          }
-        },
-        "channel_channel_type": {
-          "typeName": "channel_type",
-          "schemaName": "channel",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "channel_channel_type"
-            },
-            "min": {
-              "returnType": "channel_channel_type"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "channel_channel_type",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "channel_channel_type",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "channel_channel_type",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "channel_channel_type",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "channel_channel_type",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "channel_channel_type",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "channel_channel_type",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "AGODA",
-              "BOOKING_COM",
-              "EXPEDIA",
-              "AIRBNB",
-              "MAKEMYTRIP",
-              "GOIBIBO",
-              "GDS",
-              "DIRECT"
-            ]
-          }
-        },
-        "channel_mapping_state": {
-          "typeName": "mapping_state",
-          "schemaName": "channel",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "channel_mapping_state"
-            },
-            "min": {
-              "returnType": "channel_mapping_state"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "channel_mapping_state",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "channel_mapping_state",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "channel_mapping_state",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "channel_mapping_state",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "channel_mapping_state",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "channel_mapping_state",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "channel_mapping_state",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "MAPPED",
-              "UNMAPPED"
-            ]
-          }
-        },
         "date": {
           "typeName": "date",
           "schemaName": "pg_catalog",
@@ -4775,413 +4823,6 @@
             }
           },
           "typeRepresentation": "date"
-        },
-        "float8": {
-          "typeName": "float8",
-          "schemaName": "pg_catalog",
-          "description": null,
-          "aggregateFunctions": {
-            "avg": {
-              "returnType": "float8"
-            },
-            "max": {
-              "returnType": "float8"
-            },
-            "min": {
-              "returnType": "float8"
-            },
-            "stddev": {
-              "returnType": "float8"
-            },
-            "stddev_pop": {
-              "returnType": "float8"
-            },
-            "stddev_samp": {
-              "returnType": "float8"
-            },
-            "sum": {
-              "returnType": "float8"
-            },
-            "var_pop": {
-              "returnType": "float8"
-            },
-            "var_samp": {
-              "returnType": "float8"
-            },
-            "variance": {
-              "returnType": "float8"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "float8",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "float8",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "float8",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "float8",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "float8",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "float8",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "<>",
-              "operatorKind": "custom",
-              "argumentType": "float8",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": "float64"
-        },
-        "identity_age_group": {
-          "typeName": "age_group",
-          "schemaName": "identity",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "identity_age_group"
-            },
-            "min": {
-              "returnType": "identity_age_group"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "identity_age_group",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "identity_age_group",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "identity_age_group",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "identity_age_group",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "identity_age_group",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "identity_age_group",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "identity_age_group",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "ADULT",
-              "CHILD",
-              "INFANT"
-            ]
-          }
-        },
-        "identity_bed_preference": {
-          "typeName": "bed_preference",
-          "schemaName": "identity",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "identity_bed_preference"
-            },
-            "min": {
-              "returnType": "identity_bed_preference"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "identity_bed_preference",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "identity_bed_preference",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "identity_bed_preference",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "identity_bed_preference",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "identity_bed_preference",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "identity_bed_preference",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "identity_bed_preference",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "NO_PREFERENCE",
-              "KING",
-              "QUEEN",
-              "TWIN",
-              "SINGLE"
-            ]
-          }
-        },
-        "identity_gender": {
-          "typeName": "gender",
-          "schemaName": "identity",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "identity_gender"
-            },
-            "min": {
-              "returnType": "identity_gender"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "identity_gender",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "identity_gender",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "identity_gender",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "identity_gender",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "identity_gender",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "identity_gender",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "identity_gender",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "MALE",
-              "FEMALE",
-              "OTHER",
-              "UNDISCLOSED"
-            ]
-          }
-        },
-        "identity_id_document_type": {
-          "typeName": "id_document_type",
-          "schemaName": "identity",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "identity_id_document_type"
-            },
-            "min": {
-              "returnType": "identity_id_document_type"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "identity_id_document_type",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "identity_id_document_type",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "identity_id_document_type",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "identity_id_document_type",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "identity_id_document_type",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "identity_id_document_type",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "identity_id_document_type",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "PASSPORT",
-              "NATIONAL_ID",
-              "DRIVING_LICENSE",
-              "AADHAAR",
-              "VOTER_ID",
-              "OTHER"
-            ]
-          }
-        },
-        "identity_smoking_preference": {
-          "typeName": "smoking_preference",
-          "schemaName": "identity",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "identity_smoking_preference"
-            },
-            "min": {
-              "returnType": "identity_smoking_preference"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "identity_smoking_preference",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "identity_smoking_preference",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "identity_smoking_preference",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "identity_smoking_preference",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "identity_smoking_preference",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "identity_smoking_preference",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "identity_smoking_preference",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "NON_SMOKING",
-              "SMOKING"
-            ]
-          }
         },
         "int4": {
           "typeName": "int4",
@@ -5579,1158 +5220,6 @@
             }
           },
           "typeRepresentation": "bigDecimalAsString"
-        },
-        "organisation_member_state": {
-          "typeName": "member_state",
-          "schemaName": "organisation",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "organisation_member_state"
-            },
-            "min": {
-              "returnType": "organisation_member_state"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "organisation_member_state",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "organisation_member_state",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "organisation_member_state",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "organisation_member_state",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "organisation_member_state",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "organisation_member_state",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "organisation_member_state",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "INVITED",
-              "ACTIVE",
-              "SUSPENDED"
-            ]
-          }
-        },
-        "organisation_organisation_role": {
-          "typeName": "organisation_role",
-          "schemaName": "organisation",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "organisation_organisation_role"
-            },
-            "min": {
-              "returnType": "organisation_organisation_role"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "organisation_organisation_role",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "organisation_organisation_role",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "organisation_organisation_role",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "organisation_organisation_role",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "organisation_organisation_role",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "organisation_organisation_role",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "organisation_organisation_role",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "OWNER",
-              "ADMIN",
-              "MEMBER",
-              "VIEWER"
-            ]
-          }
-        },
-        "organisation_organisation_state": {
-          "typeName": "organisation_state",
-          "schemaName": "organisation",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "organisation_organisation_state"
-            },
-            "min": {
-              "returnType": "organisation_organisation_state"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "organisation_organisation_state",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "organisation_organisation_state",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "organisation_organisation_state",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "organisation_organisation_state",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "organisation_organisation_state",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "organisation_organisation_state",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "organisation_organisation_state",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "ACTIVE",
-              "SUSPENDED"
-            ]
-          }
-        },
-        "promocode_discount_amount_case": {
-          "typeName": "discount_amount_case",
-          "schemaName": "promocode",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "promocode_discount_amount_case"
-            },
-            "min": {
-              "returnType": "promocode_discount_amount_case"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "promocode_discount_amount_case",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "promocode_discount_amount_case",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "promocode_discount_amount_case",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "promocode_discount_amount_case",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "promocode_discount_amount_case",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "promocode_discount_amount_case",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "promocode_discount_amount_case",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "PERCENT_OFF",
-              "AMOUNT_OFF"
-            ]
-          }
-        },
-        "promocode_promo_code_state": {
-          "typeName": "promo_code_state",
-          "schemaName": "promocode",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "promocode_promo_code_state"
-            },
-            "min": {
-              "returnType": "promocode_promo_code_state"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "promocode_promo_code_state",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "promocode_promo_code_state",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "promocode_promo_code_state",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "promocode_promo_code_state",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "promocode_promo_code_state",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "promocode_promo_code_state",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "promocode_promo_code_state",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "ACTIVE",
-              "DISABLED",
-              "EXPIRED"
-            ]
-          }
-        },
-        "property_booking_mode": {
-          "typeName": "booking_mode",
-          "schemaName": "property",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "property_booking_mode"
-            },
-            "min": {
-              "returnType": "property_booking_mode"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "property_booking_mode",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "property_booking_mode",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "property_booking_mode",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "property_booking_mode",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "property_booking_mode",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "property_booking_mode",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "property_booking_mode",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "TIME_SLOT",
-              "NIGHTLY"
-            ]
-          }
-        },
-        "property_licence_state": {
-          "typeName": "licence_state",
-          "schemaName": "property",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "property_licence_state"
-            },
-            "min": {
-              "returnType": "property_licence_state"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "property_licence_state",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "property_licence_state",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "property_licence_state",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "property_licence_state",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "property_licence_state",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "property_licence_state",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "property_licence_state",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "ACTIVE",
-              "ARCHIVED"
-            ]
-          }
-        },
-        "property_licence_target": {
-          "typeName": "licence_target",
-          "schemaName": "property",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "property_licence_target"
-            },
-            "min": {
-              "returnType": "property_licence_target"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "property_licence_target",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "property_licence_target",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "property_licence_target",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "property_licence_target",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "property_licence_target",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "property_licence_target",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "property_licence_target",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "PROPERTY",
-              "UNIT"
-            ]
-          }
-        },
-        "property_licence_type": {
-          "typeName": "licence_type",
-          "schemaName": "property",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "property_licence_type"
-            },
-            "min": {
-              "returnType": "property_licence_type"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "property_licence_type",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "property_licence_type",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "property_licence_type",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "property_licence_type",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "property_licence_type",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "property_licence_type",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "property_licence_type",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "TRADE",
-              "FIRE_SAFETY",
-              "LIQUOR",
-              "FOOD_SAFETY",
-              "TOURISM",
-              "HEALTH",
-              "OTHER"
-            ]
-          }
-        },
-        "property_media_type": {
-          "typeName": "media_type",
-          "schemaName": "property",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "property_media_type"
-            },
-            "min": {
-              "returnType": "property_media_type"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "property_media_type",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "property_media_type",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "property_media_type",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "property_media_type",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "property_media_type",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "property_media_type",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "property_media_type",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "IMAGE",
-              "VIDEO",
-              "DOCUMENT",
-              "FLOORPLAN",
-              "VIRTUAL_TOUR"
-            ]
-          }
-        },
-        "property_pricing_unit": {
-          "typeName": "pricing_unit",
-          "schemaName": "property",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "property_pricing_unit"
-            },
-            "min": {
-              "returnType": "property_pricing_unit"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "property_pricing_unit",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "property_pricing_unit",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "property_pricing_unit",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "property_pricing_unit",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "property_pricing_unit",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "property_pricing_unit",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "property_pricing_unit",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "PER_BOOKING",
-              "PER_NIGHT",
-              "PER_PERSON"
-            ]
-          }
-        },
-        "property_property_state": {
-          "typeName": "property_state",
-          "schemaName": "property",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "property_property_state"
-            },
-            "min": {
-              "returnType": "property_property_state"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "property_property_state",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "property_property_state",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "property_property_state",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "property_property_state",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "property_property_state",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "property_property_state",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "property_property_state",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "ACTIVE",
-              "ARCHIVED"
-            ]
-          }
-        },
-        "property_unit_state": {
-          "typeName": "unit_state",
-          "schemaName": "property",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "property_unit_state"
-            },
-            "min": {
-              "returnType": "property_unit_state"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "property_unit_state",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "property_unit_state",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "property_unit_state",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "property_unit_state",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "property_unit_state",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "property_unit_state",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "property_unit_state",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "ACTIVE",
-              "ARCHIVED"
-            ]
-          }
-        },
-        "property_unit_type": {
-          "typeName": "unit_type",
-          "schemaName": "property",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "property_unit_type"
-            },
-            "min": {
-              "returnType": "property_unit_type"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "property_unit_type",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "property_unit_type",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "property_unit_type",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "property_unit_type",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "property_unit_type",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "property_unit_type",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "property_unit_type",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "PROVIDER",
-              "ROOM",
-              "EQUIPMENT",
-              "LODGING",
-              "SPACE"
-            ]
-          }
-        },
-        "schedule_availability_exception_span_case": {
-          "typeName": "availability_exception_span_case",
-          "schemaName": "schedule",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "schedule_availability_exception_span_case"
-            },
-            "min": {
-              "returnType": "schedule_availability_exception_span_case"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "schedule_availability_exception_span_case",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "schedule_availability_exception_span_case",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "schedule_availability_exception_span_case",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "schedule_availability_exception_span_case",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "schedule_availability_exception_span_case",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "schedule_availability_exception_span_case",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "schedule_availability_exception_span_case",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "WINDOW",
-              "DATE_RANGE"
-            ]
-          }
-        },
-        "schedule_exception_kind": {
-          "typeName": "exception_kind",
-          "schemaName": "schedule",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "schedule_exception_kind"
-            },
-            "min": {
-              "returnType": "schedule_exception_kind"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "schedule_exception_kind",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "schedule_exception_kind",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "schedule_exception_kind",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "schedule_exception_kind",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "schedule_exception_kind",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "schedule_exception_kind",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "schedule_exception_kind",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "CLOSURE",
-              "EXTRA_HOURS"
-            ]
-          }
-        },
-        "shared_idempotency_state": {
-          "typeName": "idempotency_state",
-          "schemaName": "shared",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "shared_idempotency_state"
-            },
-            "min": {
-              "returnType": "shared_idempotency_state"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "shared_idempotency_state",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "shared_idempotency_state",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "shared_idempotency_state",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "shared_idempotency_state",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "shared_idempotency_state",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "shared_idempotency_state",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "shared_idempotency_state",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "IN_FLIGHT",
-              "DONE"
-            ]
-          }
-        },
-        "shared_type": {
-          "typeName": "type",
-          "schemaName": "shared",
-          "description": null,
-          "aggregateFunctions": {
-            "max": {
-              "returnType": "shared_type"
-            },
-            "min": {
-              "returnType": "shared_type"
-            }
-          },
-          "comparisonOperators": {
-            "_eq": {
-              "operatorName": "=",
-              "operatorKind": "equal",
-              "argumentType": "shared_type",
-              "isInfix": true
-            },
-            "_gt": {
-              "operatorName": ">",
-              "operatorKind": "greaterThan",
-              "argumentType": "shared_type",
-              "isInfix": true
-            },
-            "_gte": {
-              "operatorName": ">=",
-              "operatorKind": "greaterThanOrEqual",
-              "argumentType": "shared_type",
-              "isInfix": true
-            },
-            "_in": {
-              "operatorName": "IN",
-              "operatorKind": "in",
-              "argumentType": "shared_type",
-              "isInfix": true
-            },
-            "_lt": {
-              "operatorName": "<",
-              "operatorKind": "lessThan",
-              "argumentType": "shared_type",
-              "isInfix": true
-            },
-            "_lte": {
-              "operatorName": "<=",
-              "operatorKind": "lessThanOrEqual",
-              "argumentType": "shared_type",
-              "isInfix": true
-            },
-            "_neq": {
-              "operatorName": "!=",
-              "operatorKind": "custom",
-              "argumentType": "shared_type",
-              "isInfix": true
-            }
-          },
-          "typeRepresentation": {
-            "enum": [
-              "BASE",
-              "FEE",
-              "TAX",
-              "DISCOUNT"
-            ]
-          }
         },
         "text": {
           "typeName": "text",

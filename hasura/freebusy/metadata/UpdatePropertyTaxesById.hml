@@ -102,7 +102,7 @@ definition:
   description: Update the 'percent' column in the 'property_taxes' collection
   fields:
     - name: set
-      type: Float64!
+      type: Bigdecimal!
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnPropertyTaxesPercent

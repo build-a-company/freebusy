@@ -5,7 +5,7 @@ definition:
   name: IdentityGuests
   fields:
     - name: ageGroup
-      type: Enum
+      type: String_1
     - name: birthDate
       type: Date
     - name: bookingId
@@ -17,7 +17,7 @@ definition:
     - name: foreignerId
       type: String_1
     - name: gender
-      type: Enum
+      type: String_1
     - name: id
       type: String_1!
     - name: idDocumentId
@@ -122,7 +122,7 @@ definition:
       type: IdentityGuests
       comparableFields:
         - fieldName: ageGroup
-          booleanExpressionType: IdentityAgeGroupBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: birthDate
           booleanExpressionType: DateBoolExp
         - fieldName: bookingId
@@ -134,7 +134,7 @@ definition:
         - fieldName: foreignerId
           booleanExpressionType: TextBoolExp
         - fieldName: gender
-          booleanExpressionType: IdentityGenderBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: id
           booleanExpressionType: TextBoolExp
         - fieldName: idDocumentId
@@ -169,7 +169,7 @@ definition:
       aggregatedType: IdentityGuests
       aggregatableFields:
         - fieldName: ageGroup
-          aggregateExpression: IdentityAgeGroupAggExp
+          aggregateExpression: TextAggExp
         - fieldName: birthDate
           aggregateExpression: DateAggExp
         - fieldName: bookingId
@@ -181,7 +181,7 @@ definition:
         - fieldName: foreignerId
           aggregateExpression: TextAggExp
         - fieldName: gender
-          aggregateExpression: IdentityGenderAggExp
+          aggregateExpression: TextAggExp
         - fieldName: id
           aggregateExpression: TextAggExp
         - fieldName: idDocumentId
@@ -214,7 +214,7 @@ definition:
       orderedType: IdentityGuests
       orderableFields:
         - fieldName: ageGroup
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: birthDate
           orderByExpression: DateOrderByExp
         - fieldName: bookingId
@@ -226,7 +226,7 @@ definition:
         - fieldName: foreignerId
           orderByExpression: String1OrderByExp
         - fieldName: gender
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: id
           orderByExpression: String1OrderByExp
         - fieldName: idDocumentId

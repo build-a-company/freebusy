@@ -358,7 +358,7 @@ definition:
   description: Update the 'state' column in the 'property_licences' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnPropertyLicencesState
@@ -390,7 +390,7 @@ definition:
   description: Update the 'target' column in the 'property_licences' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnPropertyLicencesTarget
@@ -422,7 +422,7 @@ definition:
   description: Update the 'type' column in the 'property_licences' collection
   fields:
     - name: set
-      type: Enum!
+      type: String_1!
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnPropertyLicencesType

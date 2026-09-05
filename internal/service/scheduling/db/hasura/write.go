@@ -8,9 +8,9 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/moneysql"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
-	resourceql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/bookingql/resourceql"
+	resourceql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 	"github.com/the-protobuf-project/runtime-go/network/graphql"
 	"google.golang.org/genproto/googleapis/type/money"
@@ -47,7 +47,7 @@ func (r *BookingRepository) ExpireHolds(ctx context.Context) (int64, error) {
 }
 
 // ConfirmBooking flips a PENDING_HOLD booking to CONFIRMED.
-func (r *BookingRepository) ConfirmBooking(ctx context.Context, name string) (*bookingpbv1.Booking, error) {
+func (r *BookingRepository) ConfirmBooking(ctx context.Context, name string) (*schedulingpbv1.Booking, error) {
 	id, err := types.BookingID(name)
 	if err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func (r *BookingRepository) ConfirmBooking(ctx context.Context, name string) (*b
 
 // CancelBooking flips a held or confirmed booking to CANCELLED, computing the
 // refund from the unit's cancellation policy, in one batch.
-func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reason bookingpbv1.CancelReason) (*bookingpbv1.Booking, error) {
+func (r *BookingRepository) CancelBooking(ctx context.Context, name string, reason schedulingpbv1.CancelReason) (*schedulingpbv1.Booking, error) {
 	id, err := types.BookingID(name)
 	if err != nil {
 		return nil, err

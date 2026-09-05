@@ -27,6 +27,13 @@ definition:
               unique_columns:
                 - id
         - arguments: {}
+          name: allocation_holds
+          type: allocation_holds
+          uniqueness_constraints:
+            holds_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
           name: booking_occupancies
           type: booking_occupancies
           uniqueness_constraints:
@@ -321,6 +328,20 @@ definition:
               unique_columns:
                 - id
         - arguments: {}
+          name: scheduling_bookings
+          type: scheduling_bookings
+          uniqueness_constraints:
+            bookings_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: scheduling_occupancies
+          type: scheduling_occupancies
+          uniqueness_constraints:
+            occupancies_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
           name: shared_attachments
           type: shared_attachments
           uniqueness_constraints:
@@ -405,6 +426,83 @@ definition:
                 name: timestamptz
                 type: named
           foreign_keys: {}
+        allocation_holds:
+          fields:
+            candidate_resources:
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
+            create_time:
+              type:
+                name: timestamptz
+                type: named
+            etag:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            expire_time:
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            idempotency_key:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            name:
+              type:
+                name: text
+                type: named
+            organizational_unit_id:
+              type:
+                name: text
+                type: named
+            quantity:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            resources:
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
+            state:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            update_time:
+              type:
+                name: timestamptz
+                type: named
+            window:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
         booking_occupancies:
           fields:
             adults:
@@ -448,7 +546,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: booking_cancel_reason
+                  name: text
                   type: named
             cancel_time:
               type:
@@ -550,7 +648,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: booking_booking_state
+                  name: text
                   type: named
             total_id:
               type:
@@ -679,11 +777,11 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: channel_channel_state
+                  name: text
                   type: named
             type:
               type:
-                name: channel_channel_type
+                name: text
                 type: named
             update_time:
               type:
@@ -733,7 +831,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: channel_channel_state
+                  name: text
                   type: named
           foreign_keys: {}
         channel_unit_mappings:
@@ -774,7 +872,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: channel_mapping_state
+                  name: text
                   type: named
             unit:
               type:
@@ -914,6 +1012,22 @@ definition:
               type:
                 element_type:
                   name: _prisma_migrations
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_allocation_holds_by_id_response:
+          description: Responses from the 'delete_allocation_holds_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: allocation_holds
                   type: named
                 type: array
           foreign_keys: {}
@@ -1612,6 +1726,38 @@ definition:
                   type: named
                 type: array
           foreign_keys: {}
+        delete_scheduling_bookings_by_id_response:
+          description: Responses from the 'delete_scheduling_bookings_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: scheduling_bookings
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_scheduling_occupancies_by_id_response:
+          description: Responses from the 'delete_scheduling_occupancies_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: scheduling_occupancies
+                  type: named
+                type: array
+          foreign_keys: {}
         delete_shared_attachments_by_id_response:
           description: Responses from the 'delete_shared_attachments_by_id' procedure
           fields:
@@ -1791,7 +1937,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_bed_preference
+                  name: text
                   type: named
             dietary:
               type:
@@ -1829,7 +1975,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_smoking_preference
+                  name: text
                   type: named
             special_requests:
               type:
@@ -1848,7 +1994,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_age_group
+                  name: text
                   type: named
             birth_date:
               type:
@@ -1880,7 +2026,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_gender
+                  name: text
                   type: named
             id:
               type:
@@ -2001,7 +2147,7 @@ definition:
                 type: named
             type:
               type:
-                name: identity_id_document_type
+                name: text
                 type: named
           foreign_keys:
             id_documents_attachment_id_fkey:
@@ -2125,6 +2271,99 @@ definition:
                   type: named
                 type: array
           foreign_keys: {}
+        insert_allocation_holds_object:
+          fields:
+            candidate_resources:
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
+            create_time:
+              type:
+                name: timestamptz
+                type: named
+            etag:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            expire_time:
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            idempotency_key:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            name:
+              type:
+                name: text
+                type: named
+            organizational_unit_id:
+              type:
+                name: text
+                type: named
+            quantity:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            resources:
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
+            state:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            update_time:
+              type:
+                name: timestamptz
+                type: named
+            window:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        insert_allocation_holds_response:
+          description: Responses from the 'insert_allocation_holds' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: allocation_holds
+                  type: named
+                type: array
+          foreign_keys: {}
         insert_booking_occupancies_object:
           fields:
             adults:
@@ -2184,7 +2423,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: booking_cancel_reason
+                  name: text
                   type: named
             cancel_time:
               type:
@@ -2206,10 +2445,8 @@ definition:
                   type: named
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             customer:
               type:
                 type: nullable
@@ -2288,7 +2525,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: booking_booking_state
+                  name: text
                   type: named
             total_id:
               type:
@@ -2335,10 +2572,8 @@ definition:
           fields:
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             credential_ref:
               type:
                 type: nullable
@@ -2385,13 +2620,13 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: channel_channel_state
+                  name: text
                   type: named
             type:
               type:
                 type: nullable
                 underlying_type:
-                  name: channel_channel_type
+                  name: text
                   type: named
             update_time:
               type:
@@ -2452,7 +2687,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: channel_channel_state
+                  name: text
                   type: named
           foreign_keys: {}
         insert_channel_sync_statuses_response:
@@ -2479,10 +2714,8 @@ definition:
                 type: named
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             etag:
               type:
                 type: nullable
@@ -2511,7 +2744,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: channel_mapping_state
+                  name: text
                   type: named
             unit:
               type:
@@ -2775,7 +3008,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_bed_preference
+                  name: text
                   type: named
             dietary:
               type:
@@ -2813,7 +3046,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_smoking_preference
+                  name: text
                   type: named
             special_requests:
               type:
@@ -2848,7 +3081,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_age_group
+                  name: text
                   type: named
             birth_date:
               type:
@@ -2880,7 +3113,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_gender
+                  name: text
                   type: named
             id:
               type:
@@ -2989,7 +3222,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_id_document_type
+                  name: text
                   type: named
           foreign_keys: {}
         insert_identity_id_documents_response:
@@ -3018,10 +3251,8 @@ definition:
                   type: named
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             display_name:
               type:
                 type: nullable
@@ -3085,10 +3316,8 @@ definition:
           fields:
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             display_name:
               type:
                 type: nullable
@@ -3127,13 +3356,13 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: organisation_organisation_role
+                  name: text
                   type: named
             state:
               type:
                 type: nullable
                 underlying_type:
-                  name: organisation_member_state
+                  name: text
                   type: named
             update_time:
               type:
@@ -3172,10 +3401,8 @@ definition:
                   type: named
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             display_name:
               type:
                 name: text
@@ -3216,7 +3443,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: organisation_organisation_state
+                  name: text
                   type: named
             update_time:
               type:
@@ -3245,7 +3472,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: promocode_discount_amount_case
+                  name: text
                   type: named
             amount_off_id:
               type:
@@ -3374,10 +3601,8 @@ definition:
                 type: named
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             description:
               type:
                 type: nullable
@@ -3436,7 +3661,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: promocode_promo_code_state
+                  name: text
                   type: named
             update_time:
               type:
@@ -3627,7 +3852,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_pricing_unit
+                  name: text
                   type: named
             taxable:
               type:
@@ -3666,10 +3891,8 @@ definition:
                   type: named
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             etag:
               type:
                 type: nullable
@@ -3722,19 +3945,19 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_licence_state
+                  name: text
                   type: named
             target:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_licence_target
+                  name: text
                   type: named
             type:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_licence_type
+                  name: text
                   type: named
             unit:
               type:
@@ -3850,7 +4073,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_media_type
+                  name: text
                   type: named
             uri:
               type:
@@ -3940,10 +4163,8 @@ definition:
                   type: named
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             description:
               type:
                 type: nullable
@@ -3982,7 +4203,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_property_state
+                  name: text
                   type: named
             tags:
               type:
@@ -4080,7 +4301,7 @@ definition:
                 type: named
             percent:
               type:
-                name: float8
+                name: numeric
                 type: named
             unit_id:
               type:
@@ -4174,7 +4395,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_media_type
+                  name: text
                   type: named
             unit_id:
               type:
@@ -4248,7 +4469,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_booking_mode
+                  name: text
                   type: named
             capacity:
               type:
@@ -4258,10 +4479,8 @@ definition:
                   type: named
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             description:
               type:
                 type: nullable
@@ -4308,7 +4527,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_pricing_unit
+                  name: text
                   type: named
             property_id:
               type:
@@ -4318,7 +4537,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_unit_state
+                  name: text
                   type: named
             tags:
               type:
@@ -4338,7 +4557,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_unit_type
+                  name: text
                   type: named
             update_time:
               type:
@@ -4365,10 +4584,8 @@ definition:
           fields:
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             date_range_id:
               type:
                 type: nullable
@@ -4383,7 +4600,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: schedule_exception_kind
+                  name: text
                   type: named
             name:
               type:
@@ -4403,7 +4620,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: schedule_availability_exception_span_case
+                  name: text
                   type: named
             unit_id:
               type:
@@ -4735,6 +4952,210 @@ definition:
                   type: named
                 type: array
           foreign_keys: {}
+        insert_scheduling_bookings_object:
+          fields:
+            assigned_unit:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            attributes:
+              type:
+                type: nullable
+                underlying_type:
+                  name: jsonb
+                  type: named
+            cancel_reason:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            cancel_time:
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+            confirm_time:
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+            contact_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            create_time:
+              type:
+                name: timestamptz
+                type: named
+            customer:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            discount_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            etag:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            hold_expire_time:
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+            hold_ttl:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            name:
+              type:
+                name: text
+                type: named
+            notes:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            occupancy_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            price_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            promo_code:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            refund_amount_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            refund_percent:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            state:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            total_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            unit:
+              type:
+                name: text
+                type: named
+            units:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            update_time:
+              type:
+                name: timestamptz
+                type: named
+            window_id:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        insert_scheduling_bookings_response:
+          description: Responses from the 'insert_scheduling_bookings' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: scheduling_bookings
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_scheduling_occupancies_object:
+          fields:
+            adults:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            children:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            infants:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        insert_scheduling_occupancies_response:
+          description: Responses from the 'insert_scheduling_occupancies' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: scheduling_occupancies
+                  type: named
+                type: array
+          foreign_keys: {}
         insert_shared_attachments_object:
           fields:
             content:
@@ -4870,10 +5291,8 @@ definition:
           fields:
             create_time:
               type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
+                name: timestamptz
+                type: named
             id:
               type:
                 name: text
@@ -4900,7 +5319,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: shared_idempotency_state
+                  name: text
                   type: named
             update_time:
               type:
@@ -4955,7 +5374,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: shared_type
+                  name: text
                   type: named
           foreign_keys: {}
         insert_shared_price_components_response:
@@ -5047,13 +5466,13 @@ definition:
                 type: named
             role:
               type:
-                name: organisation_organisation_role
+                name: text
                 type: named
             state:
               type:
                 type: nullable
                 underlying_type:
-                  name: organisation_member_state
+                  name: text
                   type: named
             update_time:
               type:
@@ -5133,7 +5552,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: organisation_organisation_state
+                  name: text
                   type: named
             update_time:
               type:
@@ -5146,7 +5565,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: promocode_discount_amount_case
+                  name: text
                   type: named
             amount_off_id:
               type:
@@ -5312,7 +5731,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: promocode_promo_code_state
+                  name: text
                   type: named
             update_time:
               type:
@@ -5468,7 +5887,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_pricing_unit
+                  name: text
                   type: named
             taxable:
               type:
@@ -5555,17 +5974,17 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_licence_state
+                  name: text
                   type: named
             target:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_licence_target
+                  name: text
                   type: named
             type:
               type:
-                name: property_licence_type
+                name: text
                 type: named
             unit:
               type:
@@ -5672,7 +6091,7 @@ definition:
                   type: named
             type:
               type:
-                name: property_media_type
+                name: text
                 type: named
             uri:
               type:
@@ -5775,7 +6194,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_property_state
+                  name: text
                   type: named
             tags:
               type:
@@ -5871,7 +6290,7 @@ definition:
                 type: named
             percent:
               type:
-                name: float8
+                name: numeric
                 type: named
             unit_id:
               type:
@@ -5946,7 +6365,7 @@ definition:
                   type: named
             type:
               type:
-                name: property_media_type
+                name: text
                 type: named
             unit_id:
               type:
@@ -5972,7 +6391,7 @@ definition:
                   type: named
             booking_mode:
               type:
-                name: property_booking_mode
+                name: text
                 type: named
             capacity:
               type:
@@ -6030,7 +6449,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_pricing_unit
+                  name: text
                   type: named
             property_id:
               type:
@@ -6040,7 +6459,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_unit_state
+                  name: text
                   type: named
             tags:
               type:
@@ -6058,7 +6477,7 @@ definition:
                 type: named
             type:
               type:
-                name: property_unit_type
+                name: text
                 type: named
             update_time:
               type:
@@ -6122,7 +6541,7 @@ definition:
                 type: named
             kind:
               type:
-                name: schedule_exception_kind
+                name: text
                 type: named
             name:
               type:
@@ -6142,7 +6561,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: schedule_availability_exception_span_case
+                  name: text
                   type: named
             unit_id:
               type:
@@ -6406,6 +6825,178 @@ definition:
                   name: int4
                   type: named
           foreign_keys: {}
+        scheduling_bookings:
+          fields:
+            assigned_unit:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            attributes:
+              type:
+                type: nullable
+                underlying_type:
+                  name: jsonb
+                  type: named
+            cancel_reason:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            cancel_time:
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+            confirm_time:
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+            contact_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            create_time:
+              type:
+                name: timestamptz
+                type: named
+            customer:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            discount_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            etag:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            hold_expire_time:
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+            hold_ttl:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            name:
+              type:
+                name: text
+                type: named
+            notes:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            occupancy_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            price_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            promo_code:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            refund_amount_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            refund_percent:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            state:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            total_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            unit:
+              type:
+                name: text
+                type: named
+            units:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            update_time:
+              type:
+                name: timestamptz
+                type: named
+            window_id:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        scheduling_occupancies:
+          fields:
+            adults:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            children:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            infants:
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
         shared_attachments:
           fields:
             content:
@@ -6519,7 +7110,7 @@ definition:
                   type: named
             state:
               type:
-                name: shared_idempotency_state
+                name: text
                 type: named
             update_time:
               type:
@@ -6558,7 +7149,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: shared_type
+                  name: text
                   type: named
           foreign_keys:
             price_components_amount_id_fkey:
@@ -6660,6 +7251,117 @@ definition:
                 type: nullable
                 underlying_type:
                   name: update_column__prisma_migrations_started_at
+                  type: named
+          foreign_keys: {}
+        update_allocation_holds_by_id_response:
+          description: Responses from the 'update_allocation_holds_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: allocation_holds
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_allocation_holds_by_id_update_columns:
+          description: Update the columns of the 'allocation_holds' collection
+          fields:
+            candidate_resources:
+              description: Update the 'candidate_resources' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_candidate_resources
+                  type: named
+            create_time:
+              description: Update the 'create_time' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_create_time
+                  type: named
+            etag:
+              description: Update the 'etag' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_etag
+                  type: named
+            expire_time:
+              description: Update the 'expire_time' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_expire_time
+                  type: named
+            id:
+              description: Update the 'id' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_id
+                  type: named
+            idempotency_key:
+              description: Update the 'idempotency_key' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_idempotency_key
+                  type: named
+            name:
+              description: Update the 'name' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_name
+                  type: named
+            organizational_unit_id:
+              description: Update the 'organizational_unit_id' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_organizational_unit_id
+                  type: named
+            quantity:
+              description: Update the 'quantity' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_quantity
+                  type: named
+            resources:
+              description: Update the 'resources' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_resources
+                  type: named
+            state:
+              description: Update the 'state' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_state
+                  type: named
+            update_time:
+              description: Update the 'update_time' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_update_time
+                  type: named
+            window:
+              description: Update the 'window' column in the 'allocation_holds' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_allocation_holds_window
                   type: named
           foreign_keys: {}
         update_booking_occupancies_by_id_response:
@@ -7253,6 +7955,145 @@ definition:
                 name: timestamptz
                 type: named
           foreign_keys: {}
+        update_column_allocation_holds_candidate_resources:
+          description: Update the 'candidate_resources' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
+          foreign_keys: {}
+        update_column_allocation_holds_create_time:
+          description: Update the 'create_time' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: timestamptz
+                type: named
+          foreign_keys: {}
+        update_column_allocation_holds_etag:
+          description: Update the 'etag' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_allocation_holds_expire_time:
+          description: Update the 'expire_time' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+          foreign_keys: {}
+        update_column_allocation_holds_id:
+          description: Update the 'id' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_allocation_holds_idempotency_key:
+          description: Update the 'idempotency_key' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_allocation_holds_name:
+          description: Update the 'name' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_allocation_holds_organizational_unit_id:
+          description: Update the 'organizational_unit_id' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_allocation_holds_quantity:
+          description: Update the 'quantity' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        update_column_allocation_holds_resources:
+          description: Update the 'resources' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
+          foreign_keys: {}
+        update_column_allocation_holds_state:
+          description: Update the 'state' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_allocation_holds_update_time:
+          description: Update the 'update_time' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: timestamptz
+                type: named
+          foreign_keys: {}
+        update_column_allocation_holds_window:
+          description: Update the 'window' column in the 'allocation_holds' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
         update_column_booking_occupancies_adults:
           description: Update the 'adults' column in the 'booking_occupancies' collection
           fields:
@@ -7325,7 +8166,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: booking_cancel_reason
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_booking_resource_cancel_time:
@@ -7517,7 +8358,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: booking_booking_state
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_booking_resource_total_id:
@@ -7668,7 +8509,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: channel_channel_state
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_channel_resource_type:
@@ -7677,7 +8518,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: channel_channel_type
+                name: text
                 type: named
           foreign_keys: {}
         update_column_channel_resource_update_time:
@@ -7759,7 +8600,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: channel_channel_state
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_channel_unit_mappings_channel_id:
@@ -7837,7 +8678,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: channel_mapping_state
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_channel_unit_mappings_unit:
@@ -8180,7 +9021,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_bed_preference
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_identity_guest_preferences_dietary:
@@ -8248,7 +9089,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_smoking_preference
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_identity_guest_preferences_special_requests:
@@ -8274,7 +9115,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_age_group
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_identity_guests_birth_date:
@@ -8336,7 +9177,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: identity_gender
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_identity_guests_id:
@@ -8504,7 +9345,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: identity_id_document_type
+                name: text
                 type: named
           foreign_keys: {}
         update_column_identity_users_avatar_url:
@@ -8693,7 +9534,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: organisation_organisation_role
+                name: text
                 type: named
           foreign_keys: {}
         update_column_organisation_members_state:
@@ -8704,7 +9545,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: organisation_member_state
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_organisation_members_update_time:
@@ -8826,7 +9667,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: organisation_organisation_state
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_organisation_resource_update_time:
@@ -8846,7 +9687,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: promocode_discount_amount_case
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_promocode_discounts_amount_off_id:
@@ -9108,7 +9949,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: promocode_promo_code_state
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_promocode_resource_update_time:
@@ -9304,7 +10145,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_pricing_unit
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_property_fees_taxable:
@@ -9448,7 +10289,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_licence_state
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_property_licences_target:
@@ -9459,7 +10300,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_licence_target
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_property_licences_type:
@@ -9468,7 +10309,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: property_licence_type
+                name: text
                 type: named
           foreign_keys: {}
         update_column_property_licences_unit:
@@ -9619,7 +10460,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: property_media_type
+                name: text
                 type: named
           foreign_keys: {}
         update_column_property_medias_uri:
@@ -9796,7 +10637,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_property_state
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_property_properties_tags:
@@ -9916,7 +10757,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: float8
+                name: numeric
                 type: named
           foreign_keys: {}
         update_column_property_taxes_unit_id:
@@ -10025,7 +10866,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: property_media_type
+                name: text
                 type: named
           foreign_keys: {}
         update_column_property_unit_medias_unit_id:
@@ -10063,7 +10904,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: property_booking_mode
+                name: text
                 type: named
           foreign_keys: {}
         update_column_property_units_capacity:
@@ -10212,7 +11053,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_pricing_unit
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_property_units_property_id:
@@ -10232,7 +11073,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: property_unit_state
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_property_units_tags:
@@ -10265,7 +11106,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: property_unit_type
+                name: text
                 type: named
           foreign_keys: {}
         update_column_property_units_update_time:
@@ -10312,7 +11153,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: schedule_exception_kind
+                name: text
                 type: named
           foreign_keys: {}
         update_column_schedule_availability_exceptions_name:
@@ -10352,7 +11193,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: schedule_availability_exception_span_case
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_schedule_availability_exceptions_unit_id:
@@ -10715,6 +11556,322 @@ definition:
                   name: int4
                   type: named
           foreign_keys: {}
+        update_column_scheduling_bookings_assigned_unit:
+          description: Update the 'assigned_unit' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_attributes:
+          description: Update the 'attributes' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: jsonb
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_cancel_reason:
+          description: Update the 'cancel_reason' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_cancel_time:
+          description: Update the 'cancel_time' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_confirm_time:
+          description: Update the 'confirm_time' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_contact_id:
+          description: Update the 'contact_id' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_create_time:
+          description: Update the 'create_time' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: timestamptz
+                type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_customer:
+          description: Update the 'customer' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_discount_id:
+          description: Update the 'discount_id' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_etag:
+          description: Update the 'etag' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_hold_expire_time:
+          description: Update the 'hold_expire_time' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: timestamptz
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_hold_ttl:
+          description: Update the 'hold_ttl' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_id:
+          description: Update the 'id' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_name:
+          description: Update the 'name' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_notes:
+          description: Update the 'notes' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_occupancy_id:
+          description: Update the 'occupancy_id' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_price_id:
+          description: Update the 'price_id' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_promo_code:
+          description: Update the 'promo_code' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_refund_amount_id:
+          description: Update the 'refund_amount_id' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_refund_percent:
+          description: Update the 'refund_percent' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_state:
+          description: Update the 'state' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_total_id:
+          description: Update the 'total_id' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_unit:
+          description: Update the 'unit' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_units:
+          description: Update the 'units' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_update_time:
+          description: Update the 'update_time' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: timestamptz
+                type: named
+          foreign_keys: {}
+        update_column_scheduling_bookings_window_id:
+          description: Update the 'window_id' column in the 'scheduling_bookings' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_scheduling_occupancies_adults:
+          description: Update the 'adults' column in the 'scheduling_occupancies' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_occupancies_children:
+          description: Update the 'children' column in the 'scheduling_occupancies' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
+        update_column_scheduling_occupancies_id:
+          description: Update the 'id' column in the 'scheduling_occupancies' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_scheduling_occupancies_infants:
+          description: Update the 'infants' column in the 'scheduling_occupancies' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: int4
+                  type: named
+          foreign_keys: {}
         update_column_shared_attachments_content:
           description: Update the 'content' column in the 'shared_attachments' collection
           fields:
@@ -10921,7 +12078,7 @@ definition:
             _set:
               description: Set the column to this value
               type:
-                name: shared_idempotency_state
+                name: text
                 type: named
           foreign_keys: {}
         update_column_shared_idempotency_keys_update_time:
@@ -10992,7 +12149,7 @@ definition:
               type:
                 type: nullable
                 underlying_type:
-                  name: shared_type
+                  name: text
                   type: named
           foreign_keys: {}
         update_column_shared_time_windows_end_time:
@@ -13715,6 +14872,256 @@ definition:
                   name: update_column_schedule_stay_constraints_min_nights
                   type: named
           foreign_keys: {}
+        update_scheduling_bookings_by_id_response:
+          description: Responses from the 'update_scheduling_bookings_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: scheduling_bookings
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_scheduling_bookings_by_id_update_columns:
+          description: Update the columns of the 'scheduling_bookings' collection
+          fields:
+            assigned_unit:
+              description: Update the 'assigned_unit' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_assigned_unit
+                  type: named
+            attributes:
+              description: Update the 'attributes' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_attributes
+                  type: named
+            cancel_reason:
+              description: Update the 'cancel_reason' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_cancel_reason
+                  type: named
+            cancel_time:
+              description: Update the 'cancel_time' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_cancel_time
+                  type: named
+            confirm_time:
+              description: Update the 'confirm_time' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_confirm_time
+                  type: named
+            contact_id:
+              description: Update the 'contact_id' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_contact_id
+                  type: named
+            create_time:
+              description: Update the 'create_time' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_create_time
+                  type: named
+            customer:
+              description: Update the 'customer' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_customer
+                  type: named
+            discount_id:
+              description: Update the 'discount_id' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_discount_id
+                  type: named
+            etag:
+              description: Update the 'etag' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_etag
+                  type: named
+            hold_expire_time:
+              description: Update the 'hold_expire_time' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_hold_expire_time
+                  type: named
+            hold_ttl:
+              description: Update the 'hold_ttl' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_hold_ttl
+                  type: named
+            id:
+              description: Update the 'id' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_id
+                  type: named
+            name:
+              description: Update the 'name' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_name
+                  type: named
+            notes:
+              description: Update the 'notes' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_notes
+                  type: named
+            occupancy_id:
+              description: Update the 'occupancy_id' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_occupancy_id
+                  type: named
+            price_id:
+              description: Update the 'price_id' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_price_id
+                  type: named
+            promo_code:
+              description: Update the 'promo_code' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_promo_code
+                  type: named
+            refund_amount_id:
+              description: Update the 'refund_amount_id' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_refund_amount_id
+                  type: named
+            refund_percent:
+              description: Update the 'refund_percent' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_refund_percent
+                  type: named
+            state:
+              description: Update the 'state' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_state
+                  type: named
+            total_id:
+              description: Update the 'total_id' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_total_id
+                  type: named
+            unit:
+              description: Update the 'unit' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_unit
+                  type: named
+            units:
+              description: Update the 'units' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_units
+                  type: named
+            update_time:
+              description: Update the 'update_time' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_update_time
+                  type: named
+            window_id:
+              description: Update the 'window_id' column in the 'scheduling_bookings' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_bookings_window_id
+                  type: named
+          foreign_keys: {}
+        update_scheduling_occupancies_by_id_response:
+          description: Responses from the 'update_scheduling_occupancies_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: scheduling_occupancies
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_scheduling_occupancies_by_id_update_columns:
+          description: Update the columns of the 'scheduling_occupancies' collection
+          fields:
+            adults:
+              description: Update the 'adults' column in the 'scheduling_occupancies' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_occupancies_adults
+                  type: named
+            children:
+              description: Update the 'children' column in the 'scheduling_occupancies' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_occupancies_children
+                  type: named
+            id:
+              description: Update the 'id' column in the 'scheduling_occupancies' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_occupancies_id
+                  type: named
+            infants:
+              description: Update the 'infants' column in the 'scheduling_occupancies' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_scheduling_occupancies_infants
+                  type: named
+          foreign_keys: {}
         update_shared_attachments_by_id_response:
           description: Responses from the 'update_shared_attachments_by_id' procedure
           fields:
@@ -14078,6 +15485,23 @@ definition:
           name: delete__prisma_migrations_by_id
           result_type:
             name: delete__prisma_migrations_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'allocation_holds' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: allocation_holds
+                  type: predicate
+          description: Delete any row on the 'allocation_holds' collection using the 'id' key
+          name: delete_allocation_holds_by_id
+          result_type:
+            name: delete_allocation_holds_by_id_response
             type: named
         - arguments:
             key_id:
@@ -14799,6 +16223,40 @@ definition:
                 name: text
                 type: named
             pre_check:
+              description: Delete permission predicate over the 'scheduling_bookings' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: scheduling_bookings
+                  type: predicate
+          description: Delete any row on the 'scheduling_bookings' collection using the 'id' key
+          name: delete_scheduling_bookings_by_id
+          result_type:
+            name: delete_scheduling_bookings_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
+              description: Delete permission predicate over the 'scheduling_occupancies' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: scheduling_occupancies
+                  type: predicate
+          description: Delete any row on the 'scheduling_occupancies' collection using the 'id' key
+          name: delete_scheduling_occupancies_by_id
+          result_type:
+            name: delete_scheduling_occupancies_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            pre_check:
               description: Delete permission predicate over the 'shared_attachments' collection
               type:
                 type: nullable
@@ -14913,6 +16371,25 @@ definition:
           name: insert__prisma_migrations
           result_type:
             name: insert__prisma_migrations_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_allocation_holds_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'allocation_holds' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: allocation_holds
+                  type: predicate
+          description: Insert into the allocation_holds table
+          name: insert_allocation_holds
+          result_type:
+            name: insert_allocation_holds_response
             type: named
         - arguments:
             objects:
@@ -15716,6 +17193,44 @@ definition:
             objects:
               type:
                 element_type:
+                  name: insert_scheduling_bookings_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'scheduling_bookings' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: scheduling_bookings
+                  type: predicate
+          description: Insert into the scheduling_bookings table
+          name: insert_scheduling_bookings
+          result_type:
+            name: insert_scheduling_bookings_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
+                  name: insert_scheduling_occupancies_object
+                  type: named
+                type: array
+            post_check:
+              description: Insert permission predicate over the 'scheduling_occupancies' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: scheduling_occupancies
+                  type: predicate
+          description: Insert into the scheduling_occupancies table
+          name: insert_scheduling_occupancies
+          result_type:
+            name: insert_scheduling_occupancies_response
+            type: named
+        - arguments:
+            objects:
+              type:
+                element_type:
                   name: insert_shared_attachments_object
                   type: named
                 type: array
@@ -15853,6 +17368,34 @@ definition:
           name: update__prisma_migrations_by_id
           result_type:
             name: update__prisma_migrations_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'allocation_holds' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: allocation_holds
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'allocation_holds' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: allocation_holds
+                  type: predicate
+            update_columns:
+              type:
+                name: update_allocation_holds_by_id_update_columns
+                type: named
+          description: Update any row on the 'allocation_holds' collection using the 'id' key
+          name: update_allocation_holds_by_id
+          result_type:
+            name: update_allocation_holds_by_id_response
             type: named
         - arguments:
             key_id:
@@ -17036,6 +18579,62 @@ definition:
                 name: text
                 type: named
             post_check:
+              description: Update permission post-condition predicate over the 'scheduling_bookings' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: scheduling_bookings
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'scheduling_bookings' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: scheduling_bookings
+                  type: predicate
+            update_columns:
+              type:
+                name: update_scheduling_bookings_by_id_update_columns
+                type: named
+          description: Update any row on the 'scheduling_bookings' collection using the 'id' key
+          name: update_scheduling_bookings_by_id
+          result_type:
+            name: update_scheduling_bookings_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
+              description: Update permission post-condition predicate over the 'scheduling_occupancies' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: scheduling_occupancies
+                  type: predicate
+            pre_check:
+              description: Update permission pre-condition predicate over the 'scheduling_occupancies' collection
+              type:
+                type: nullable
+                underlying_type:
+                  object_type_name: scheduling_occupancies
+                  type: predicate
+            update_columns:
+              type:
+                name: update_scheduling_occupancies_by_id_update_columns
+                type: named
+          description: Update any row on the 'scheduling_occupancies' collection using the 'id' key
+          name: update_scheduling_occupancies_by_id
+          result_type:
+            name: update_scheduling_occupancies_by_id_response
+            type: named
+        - arguments:
+            key_id:
+              type:
+                name: text
+                type: named
+            post_check:
               description: Update permission post-condition predicate over the 'shared_attachments' collection
               type:
                 type: nullable
@@ -17200,73 +18799,6 @@ definition:
             type: named
       request_arguments: null
       scalar_types:
-        booking_booking_state:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: booking_booking_state
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - PENDING_HOLD
-              - CONFIRMED
-              - CANCELLED
-              - EXPIRED
-              - COMPLETED
-              - NO_SHOW
-            type: enum
-        booking_cancel_reason:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: booking_cancel_reason
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - REQUESTED_BY_CUSTOMER
-              - REQUESTED_BY_OPERATOR
-              - PAYMENT_FAILED
-              - NO_SHOW
-              - OTHER
-            type: enum
         bool:
           aggregate_functions:
             bool_and:
@@ -17348,103 +18880,6 @@ definition:
           extraction_functions: {}
           representation:
             type: json
-        channel_channel_state:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: channel_channel_state
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - CONNECTED
-              - DISABLED
-              - ERROR
-            type: enum
-        channel_channel_type:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: channel_channel_type
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - AGODA
-              - BOOKING_COM
-              - EXPEDIA
-              - AIRBNB
-              - MAKEMYTRIP
-              - GOIBIBO
-              - GDS
-              - DIRECT
-            type: enum
-        channel_mapping_state:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: channel_mapping_state
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - MAPPED
-              - UNMAPPED
-            type: enum
         date:
           aggregate_functions:
             max:
@@ -17472,241 +18907,6 @@ definition:
           extraction_functions: {}
           representation:
             type: date
-        float8:
-          aggregate_functions:
-            avg:
-              result_type: float8
-              type: average
-            max:
-              type: max
-            min:
-              type: min
-            stddev:
-              result_type:
-                type: nullable
-                underlying_type:
-                  name: float8
-                  type: named
-              type: custom
-            stddev_pop:
-              result_type:
-                type: nullable
-                underlying_type:
-                  name: float8
-                  type: named
-              type: custom
-            stddev_samp:
-              result_type:
-                type: nullable
-                underlying_type:
-                  name: float8
-                  type: named
-              type: custom
-            sum:
-              result_type: float8
-              type: sum
-            var_pop:
-              result_type:
-                type: nullable
-                underlying_type:
-                  name: float8
-                  type: named
-              type: custom
-            var_samp:
-              result_type:
-                type: nullable
-                underlying_type:
-                  name: float8
-                  type: named
-              type: custom
-            variance:
-              result_type:
-                type: nullable
-                underlying_type:
-                  name: float8
-                  type: named
-              type: custom
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: float8
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            type: float64
-        identity_age_group:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: identity_age_group
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - ADULT
-              - CHILD
-              - INFANT
-            type: enum
-        identity_bed_preference:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: identity_bed_preference
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - NO_PREFERENCE
-              - KING
-              - QUEEN
-              - TWIN
-              - SINGLE
-            type: enum
-        identity_gender:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: identity_gender
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - MALE
-              - FEMALE
-              - OTHER
-              - UNDISCLOSED
-            type: enum
-        identity_id_document_type:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: identity_id_document_type
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - PASSPORT
-              - NATIONAL_ID
-              - DRIVING_LICENSE
-              - AADHAAR
-              - VOTER_ID
-              - OTHER
-            type: enum
-        identity_smoking_preference:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: identity_smoking_preference
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - NON_SMOKING
-              - SMOKING
-            type: enum
         int4:
           aggregate_functions:
             avg:
@@ -18073,564 +19273,6 @@ definition:
           extraction_functions: {}
           representation:
             type: bigdecimal
-        organisation_member_state:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: organisation_member_state
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - INVITED
-              - ACTIVE
-              - SUSPENDED
-            type: enum
-        organisation_organisation_role:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: organisation_organisation_role
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - OWNER
-              - ADMIN
-              - MEMBER
-              - VIEWER
-            type: enum
-        organisation_organisation_state:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: organisation_organisation_state
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - ACTIVE
-              - SUSPENDED
-            type: enum
-        promocode_discount_amount_case:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: promocode_discount_amount_case
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - PERCENT_OFF
-              - AMOUNT_OFF
-            type: enum
-        promocode_promo_code_state:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: promocode_promo_code_state
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - ACTIVE
-              - DISABLED
-              - EXPIRED
-            type: enum
-        property_booking_mode:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: property_booking_mode
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - TIME_SLOT
-              - NIGHTLY
-            type: enum
-        property_licence_state:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: property_licence_state
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - ACTIVE
-              - ARCHIVED
-            type: enum
-        property_licence_target:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: property_licence_target
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - PROPERTY
-              - UNIT
-            type: enum
-        property_licence_type:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: property_licence_type
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - TRADE
-              - FIRE_SAFETY
-              - LIQUOR
-              - FOOD_SAFETY
-              - TOURISM
-              - HEALTH
-              - OTHER
-            type: enum
-        property_media_type:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: property_media_type
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - IMAGE
-              - VIDEO
-              - DOCUMENT
-              - FLOORPLAN
-              - VIRTUAL_TOUR
-            type: enum
-        property_pricing_unit:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: property_pricing_unit
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - PER_BOOKING
-              - PER_NIGHT
-              - PER_PERSON
-            type: enum
-        property_property_state:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: property_property_state
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - ACTIVE
-              - ARCHIVED
-            type: enum
-        property_unit_state:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: property_unit_state
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - ACTIVE
-              - ARCHIVED
-            type: enum
-        property_unit_type:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: property_unit_type
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - PROVIDER
-              - ROOM
-              - EQUIPMENT
-              - LODGING
-              - SPACE
-            type: enum
-        schedule_availability_exception_span_case:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: schedule_availability_exception_span_case
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - WINDOW
-              - DATE_RANGE
-            type: enum
-        schedule_exception_kind:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: schedule_exception_kind
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - CLOSURE
-              - EXTRA_HOURS
-            type: enum
-        shared_idempotency_state:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: shared_idempotency_state
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - IN_FLIGHT
-              - DONE
-            type: enum
-        shared_type:
-          aggregate_functions:
-            max:
-              type: max
-            min:
-              type: min
-          comparison_operators:
-            _eq:
-              type: equal
-            _gt:
-              type: greater_than
-            _gte:
-              type: greater_than_or_equal
-            _in:
-              type: in
-            _lt:
-              type: less_than
-            _lte:
-              type: less_than_or_equal
-            _neq:
-              argument_type:
-                name: shared_type
-                type: named
-              type: custom
-          extraction_functions: {}
-          representation:
-            one_of:
-              - BASE
-              - FEE
-              - TAX
-              - DISCOUNT
-            type: enum
         text:
           aggregate_functions:
             max:

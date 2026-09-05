@@ -17,7 +17,7 @@ definition:
     - name: title
       type: String_1
     - name: type
-      type: Enum
+      type: String_1
     - name: unitId
       type: String_1!
     - name: uri

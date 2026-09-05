@@ -1,0 +1,38 @@
+# Backend layout config for protoc-gen-store's prisma / gorm / repository
+# targets. Split from store.graphql.yaml: the backend targets parse into a
+# stricter config type that rejects the `graphql` and `generate` keys.
+#
+# orm layout config — maps proto packages to one database with a schema per
+# service, so the generated ORM mirrors the freebusy package layout.
+#
+# Without this, orm falls back to its defaults: the database name becomes the
+# last package segment ("v1", the version) and the schema is derived from the AIP
+# resource-type host ("freebusy.ohtarnished.dev"), which is identical for every
+# resource — collapsing all services into one schema. This config fixes both.
+#
+# Passed to the plugin via `opt: [config=tools/protobuf/buf/orm.yaml]` in
+# orm.buf.gen.yaml. Keeping every service in ONE database is required so that
+# cross-service references (booking -> user, booking -> resource, promo_code ->
+# resource, ...) resolve to real cross-schema relations instead of soft FKs.
+
+# Drop the trailing API version from derived schema names (freebusy.schedule.v1
+# -> "schedule", not "schedule_v1").
+strip_version: true
+dedupe_schema_table: true
+
+datasources:
+  # Shared value objects (imported google.type.* like Money, Date, TimeOfDay)
+  # cannot carry a (orm.v1.table) annotation, so route them into one shared
+  # "common" schema. Every service that embeds them then references a single
+  # deduped common.<type> table cross-schema instead of materializing a copy in
+  # its own schema. More specific than the freebusy.** rule, so it wins.
+  - match: "google.type"
+    database: freebusy
+    schema: common
+
+  - match: "freebusy.**" # every freebusy.<service>.<version> package
+    database: freebusy
+    schema: "{leaf}" # the service segment: schedule, identity, booking, ...
+telemetry:
+  enabled: true                # override the telemetry opt's master switch
+  metrics: true                 # ops counter + duration histogram, in addition to spans/logs

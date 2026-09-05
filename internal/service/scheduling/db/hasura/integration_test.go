@@ -28,7 +28,7 @@ import (
 	propertiesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/propertiesql"
 	unitsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/unitsql"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
@@ -121,16 +121,16 @@ func TestBookingLifecycleLive(t *testing.T) {
 	}
 
 	// Create with a one-adult party.
-	created, err := repo.CreateBooking(ctx, &bookingpbv1.Booking{
+	created, err := repo.CreateBooking(ctx, &schedulingpbv1.Booking{
 		Unit:      unitName,
 		Window:    window,
 		Guests:    []*identitypbv1.Guest{guest("Asha", identitypbv1.AgeGroup_AGE_GROUP_ADULT)},
-		Occupancy: &bookingpbv1.Occupancy{Adults: 1},
+		Occupancy: &schedulingpbv1.Occupancy{Adults: 1},
 	})
 	if err != nil {
 		t.Fatalf("CreateBooking: %v", err)
 	}
-	if created.GetState() != bookingpbv1.BookingState_BOOKING_STATE_PENDING_HOLD || len(created.GetGuests()) != 1 {
+	if created.GetState() != schedulingpbv1.BookingState_BOOKING_STATE_PENDING_HOLD || len(created.GetGuests()) != 1 {
 		t.Fatalf("created state=%v guests=%d, want PENDING_HOLD with 1 guest", created.GetState(), len(created.GetGuests()))
 	}
 	name := created.GetName()
@@ -142,7 +142,7 @@ func TestBookingLifecycleLive(t *testing.T) {
 			guest("Asha", identitypbv1.AgeGroup_AGE_GROUP_ADULT),
 			guest("Ravi", identitypbv1.AgeGroup_AGE_GROUP_ADULT),
 		},
-		&bookingpbv1.Occupancy{Adults: 2},
+		&schedulingpbv1.Occupancy{Adults: 2},
 	)
 	if err != nil {
 		t.Fatalf("UpdateBookingGuests: %v", err)
@@ -155,7 +155,7 @@ func TestBookingLifecycleLive(t *testing.T) {
 	}
 
 	// Overflow: 5 adults on a max-occupancy-2 unit is rejected.
-	if _, err := repo.UpdateBookingGuests(ctx, name, nil, &bookingpbv1.Occupancy{Adults: 5}); !errors.Is(err, types.ErrInvalidArgument) {
+	if _, err := repo.UpdateBookingGuests(ctx, name, nil, &schedulingpbv1.Occupancy{Adults: 5}); !errors.Is(err, types.ErrInvalidArgument) {
 		t.Fatalf("overflow party: err=%v, want ErrInvalidArgument", err)
 	}
 
@@ -164,7 +164,7 @@ func TestBookingLifecycleLive(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ConfirmBooking: %v", err)
 	}
-	if confirmed.GetState() != bookingpbv1.BookingState_BOOKING_STATE_CONFIRMED {
+	if confirmed.GetState() != schedulingpbv1.BookingState_BOOKING_STATE_CONFIRMED {
 		t.Fatalf("state=%v, want CONFIRMED", confirmed.GetState())
 	}
 	if _, err := repo.ConfirmBooking(ctx, name); !errors.Is(err, types.ErrInvalidState) {
@@ -174,17 +174,17 @@ func TestBookingLifecycleLive(t *testing.T) {
 	// Party edits stay legal while CONFIRMED.
 	if _, err := repo.UpdateBookingGuests(ctx, name,
 		[]*identitypbv1.Guest{guest("Asha", identitypbv1.AgeGroup_AGE_GROUP_ADULT)},
-		&bookingpbv1.Occupancy{Adults: 1},
+		&schedulingpbv1.Occupancy{Adults: 1},
 	); err != nil {
 		t.Fatalf("UpdateBookingGuests on CONFIRMED: %v", err)
 	}
 
 	// Cancel; then the party is frozen.
-	cancelled, err := repo.CancelBooking(ctx, name, bookingpbv1.CancelReason_CANCEL_REASON_REQUESTED_BY_CUSTOMER)
+	cancelled, err := repo.CancelBooking(ctx, name, schedulingpbv1.CancelReason_CANCEL_REASON_REQUESTED_BY_CUSTOMER)
 	if err != nil {
 		t.Fatalf("CancelBooking: %v", err)
 	}
-	if cancelled.GetState() != bookingpbv1.BookingState_BOOKING_STATE_CANCELLED {
+	if cancelled.GetState() != schedulingpbv1.BookingState_BOOKING_STATE_CANCELLED {
 		t.Fatalf("state=%v, want CANCELLED", cancelled.GetState())
 	}
 	if _, err := repo.UpdateBookingGuests(ctx, name, nil, nil); !errors.Is(err, types.ErrInvalidState) {
@@ -194,11 +194,11 @@ func TestBookingLifecycleLive(t *testing.T) {
 	// Re-cancelling is idempotent: the caller's intent is already satisfied, so it
 	// returns the cancelled booking rather than an error a client cannot tell
 	// apart from someone taking the last room.
-	recancelled, err := repo.CancelBooking(ctx, name, bookingpbv1.CancelReason_CANCEL_REASON_REQUESTED_BY_CUSTOMER)
+	recancelled, err := repo.CancelBooking(ctx, name, schedulingpbv1.CancelReason_CANCEL_REASON_REQUESTED_BY_CUSTOMER)
 	if err != nil {
 		t.Fatalf("re-cancel should be idempotent: %v", err)
 	}
-	if recancelled.GetState() != bookingpbv1.BookingState_BOOKING_STATE_CANCELLED {
+	if recancelled.GetState() != schedulingpbv1.BookingState_BOOKING_STATE_CANCELLED {
 		t.Fatalf("re-cancel state=%v, want CANCELLED", recancelled.GetState())
 	}
 	if recancelled.GetCancelTime().AsTime() != cancelled.GetCancelTime().AsTime() {

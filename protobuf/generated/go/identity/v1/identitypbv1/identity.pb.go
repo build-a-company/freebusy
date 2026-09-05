@@ -8,7 +8,7 @@ package identitypbv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	_ "github.com/the-protobuf-project/orm/plugin/pb/ormpbv1"
+	_ "github.com/the-protobuf-project/store/plugin/pb/storepbv1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -383,11 +383,11 @@ var File_freebusy_identity_v1_identity_proto protoreflect.FileDescriptor
 
 const file_freebusy_identity_v1_identity_proto_rawDesc = "" +
 	"\n" +
-	"#freebusy/identity/v1/identity.proto\x12\x14freebusy.identity.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a google/protobuf/field_mask.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x18orm/v1/annotations.proto\"\xc1\x03\n" +
+	"#freebusy/identity/v1/identity.proto\x12\x14freebusy.identity.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a google/protobuf/field_mask.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1astore/v1/annotations.proto\"\xc1\x03\n" +
 	"\x04User\x12.\n" +
 	"\x04name\x18\x01 \x01(\tB\x1a\xe0A\b\xbaH\x14\xd8\x01\x01r\x0f2\r^users/[^/]+$R\x04name\x12\x19\n" +
 	"\x05email\x18\x03 \x01(\tB\x03\xe0A\x03R\x05email\x12,\n" +
-	"\fdisplay_name\x18\x04 \x01(\tB\t\xe0A\x01\x9a\xb5\x18\x02\x18\x01R\vdisplayName\x12\"\n" +
+	"\fdisplay_name\x18\x04 \x01(\tB\t\xe0A\x01\xe2\xb5\x18\x02\x18\x01R\vdisplayName\x12\"\n" +
 	"\n" +
 	"avatar_url\x18\x05 \x01(\tB\x03\xe0A\x01R\tavatarUrl\x12\x1b\n" +
 	"\x06locale\x18\x06 \x01(\tB\x03\xe0A\x01R\x06locale\x12 \n" +

@@ -9,7 +9,7 @@ package engine
 import (
 	"time"
 
-	"github.com/oh-tarnished/freebusy/internal/service/booking/pricing"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/pricing"
 	"github.com/oh-tarnished/freebusy/shared/rrule"
 	"google.golang.org/genproto/googleapis/type/money"
 )

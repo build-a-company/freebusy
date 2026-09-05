@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package freebusy.booking.v1;
+package freebusy.scheduling.v1;
 
-option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1;bookingpbv1";
+option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1;schedulingpbv1";
 option java_multiple_files = true;
 option java_outer_classname = "EnumsProto";
-option java_package = "dev.ohtarnished.freebusy.booking.v1";
+option java_package = "dev.ohtarnished.freebusy.scheduling.v1";
 
 // Lifecycle state of a booking.
 enum BookingState {

@@ -7,6 +7,7 @@ package freebusy.property.v1;
 //     shared-types package; reusing it beats inlining per-package copies. --)
 
 import "buf/validate/validate.proto";
+import "entity/v1/annotations.proto";
 import "freebusy/property/v1/enums.proto";
 import "freebusy/shared/v1/enums.proto";
 import "freebusy/shared/v1/types.proto";
@@ -19,7 +20,7 @@ import "google/type/date.proto";
 import "google/type/money.proto";
 import "google/type/postal_address.proto";
 import "google/type/timeofday.proto";
-import "orm/v1/annotations.proto";
+import "store/v1/annotations.proto";
 
 option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/property/v1/propertypbv1;propertypbv1";
 option java_multiple_files = true;
@@ -59,7 +60,7 @@ message Property {
   // Human-friendly name (e.g. "Grand Beach Resort, Goa").
   string display_name = 3 [
     (google.api.field_behavior) = REQUIRED,
-    (orm.v1.query) = {search: true}
+    (store.v1.query) = {search: true}
   ];
 
   // Free-form description shown on the property's page.
@@ -97,7 +98,7 @@ message Property {
   // Lifecycle state. New properties start ACTIVE (database default).
   PropertyState state = 12 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (orm.v1.column) = {default_value: "ACTIVE"}
+    (store.v1.column) = {default_value: "ACTIVE"}
   ];
 
   // Creation timestamp.
@@ -117,7 +118,7 @@ message Property {
   repeated string licences = 16 [
     (google.api.field_behavior) = OUTPUT_ONLY,
     (google.api.resource_reference) = {type: "freebusy.property.v1/Licence"},
-    (orm.v1.column) = {skip: true}
+    (entity.v1.column) = {skip: true}
   ];
 }
 
@@ -163,7 +164,7 @@ message Unit {
   // Human-friendly name (e.g. "Deluxe King", "Sea-View Suite").
   string display_name = 2 [
     (google.api.field_behavior) = REQUIRED,
-    (orm.v1.query) = {search: true}
+    (store.v1.query) = {search: true}
   ];
 
   // Free-form description.
@@ -238,7 +239,7 @@ message Unit {
   // Lifecycle state. New units start ACTIVE (database default).
   UnitState state = 20 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (orm.v1.column) = {default_value: "ACTIVE"}
+    (store.v1.column) = {default_value: "ACTIVE"}
   ];
 
   // Creation timestamp.
@@ -309,7 +310,7 @@ message Fee {
 // per-Unit gallery; they are separate messages so the ORM materializes each as a
 // child table with a single owning parent.
 message Media {
-  option (orm.v1.table) = {id: ID_STRATEGY_ULID};
+  option (entity.v1.table) = {id: ID_STRATEGY_ULID};
 
   // Publicly reachable URL of the asset (an S3/CDN link or any HTTPS URL).
   string uri = 1 [(google.api.field_behavior) = REQUIRED];
@@ -337,7 +338,7 @@ message Media {
 // separate message so the ORM gives it its own child table owned solely by the
 // Unit (a single unit_id foreign key).
 message UnitMedia {
-  option (orm.v1.table) = {id: ID_STRATEGY_ULID};
+  option (entity.v1.table) = {id: ID_STRATEGY_ULID};
 
   // Publicly reachable URL of the asset (an S3/CDN link or any HTTPS URL).
   string uri = 1 [(google.api.field_behavior) = REQUIRED];
@@ -384,7 +385,7 @@ message Tax {
 // than an embedded repeated field like Media, so a renewal doesn't require
 // resending the whole Property.
 message Licence {
-  option (orm.v1.table) = {id: ID_STRATEGY_ULID};
+  option (entity.v1.table) = {id: ID_STRATEGY_ULID};
 
   option (google.api.resource) = {
     type: "freebusy.property.v1/Licence"
@@ -412,7 +413,7 @@ message Licence {
     (google.api.field_behavior) = OPTIONAL,
     (google.api.field_behavior) = IMMUTABLE,
     (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"},
-    (orm.v1.column) = {on_delete: REFERENTIAL_ACTION_CASCADE},
+    (store.v1.column) = {on_delete: REFERENTIAL_ACTION_CASCADE},
     (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
@@ -423,13 +424,13 @@ message Licence {
   // Licence/certificate number as printed by the issuing authority.
   string licence_number = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (orm.v1.query) = {search: true}
+    (store.v1.query) = {search: true}
   ];
 
   // The authority or body that issued the licence (e.g. "Municipal Corporation of Goa").
   string issuing_authority = 6 [
     (google.api.field_behavior) = OPTIONAL,
-    (orm.v1.query) = {search: true}
+    (store.v1.query) = {search: true}
   ];
 
   // Date the licence was issued.
@@ -448,7 +449,7 @@ message Licence {
   // Lifecycle state. New licences start ACTIVE (database default).
   LicenceState state = 11 [
     (google.api.field_behavior) = OUTPUT_ONLY,
-    (orm.v1.column) = {default_value: "ACTIVE"}
+    (store.v1.column) = {default_value: "ACTIVE"}
   ];
 
   // Creation timestamp.

@@ -5,7 +5,7 @@ definition:
   name: InsertChannelResourceObject
   fields:
     - name: createTime
-      type: Timestamptz
+      type: Timestamptz!
     - name: credentialRef
       type: String_1
     - name: displayName
@@ -23,9 +23,9 @@ definition:
     - name: property
       type: String_1!
     - name: state
-      type: Enum
+      type: String_1
     - name: type
-      type: Enum
+      type: String_1
     - name: updateTime
       type: Timestamptz!
   graphql:

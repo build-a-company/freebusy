@@ -19,7 +19,7 @@ definition:
     - name: number
       type: String_1!
     - name: type
-      type: Enum
+      type: String_1
   graphql:
     typeName: InsertIdentityIdDocumentsObject
     inputTypeName: InsertIdentityIdDocumentsObjectInput

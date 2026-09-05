@@ -5,7 +5,7 @@ definition:
   name: InsertPromocodeDiscountsObject
   fields:
     - name: amountCase
-      type: Enum
+      type: String_1
     - name: amountOffId
       type: String_1
     - name: id

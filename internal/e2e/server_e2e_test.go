@@ -22,11 +22,11 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal"
 	"github.com/oh-tarnished/freebusy/internal/database"
-	"github.com/oh-tarnished/freebusy/internal/database/repository/freebusy/booking"
+	"github.com/oh-tarnished/freebusy/internal/database/repository/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/freebusy/property"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/db"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/db"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
@@ -64,7 +64,7 @@ type e2eClients struct {
 	props     propertypbv1.PropertyServiceClient
 	licences  propertypbv1.LicenceServiceClient
 	schedules schedulepbv1.ScheduleServiceClient
-	bookings  bookingpbv1.BookingServiceClient
+	bookings  schedulingpbv1.SchedulingServiceClient
 	promos    promocodepbv1.PromoCodeServiceClient
 	avail     availabilitypbv1.AvailabilityServiceClient
 	identity  identitypbv1.IdentityServiceClient
@@ -86,7 +86,7 @@ func serverLifecycle(t *testing.T, cc *grpc.ClientConn, conn *database.Connectio
 		props:     propertypbv1.NewPropertyServiceClient(cc),
 		licences:  propertypbv1.NewLicenceServiceClient(cc),
 		schedules: schedulepbv1.NewScheduleServiceClient(cc),
-		bookings:  bookingpbv1.NewBookingServiceClient(cc),
+		bookings:  schedulingpbv1.NewSchedulingServiceClient(cc),
 		promos:    promocodepbv1.NewPromoCodeServiceClient(cc),
 		avail:     availabilitypbv1.NewAvailabilityServiceClient(cc),
 		identity:  identitypbv1.NewIdentityServiceClient(cc),

@@ -294,7 +294,7 @@ definition:
   description: Update the 'state' column in the 'organisation_resource' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnOrganisationResourceState

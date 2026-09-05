@@ -5,7 +5,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/promocode"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/pricing"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/pricing"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"google.golang.org/genproto/googleapis/type/money"
 )

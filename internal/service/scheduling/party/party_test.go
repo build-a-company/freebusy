@@ -3,13 +3,13 @@ package party
 import (
 	"testing"
 
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 )
 
 func TestSize(t *testing.T) {
 	// Explicit occupancy wins: 2 adults + 1 child = 3 (infants excluded).
-	occ := &bookingpbv1.Occupancy{Adults: 2, Children: 1, Infants: 1}
+	occ := &schedulingpbv1.Occupancy{Adults: 2, Children: 1, Infants: 1}
 	if n := Size(occ, nil); n != 3 {
 		t.Fatalf("Size(occupancy) = %d, want 3", n)
 	}
@@ -26,7 +26,7 @@ func TestSize(t *testing.T) {
 }
 
 func TestFits(t *testing.T) {
-	occ := &bookingpbv1.Occupancy{Adults: 3, Children: 1}
+	occ := &schedulingpbv1.Occupancy{Adults: 3, Children: 1}
 	for _, tc := range []struct {
 		name          string
 		maxOcc, units int32

@@ -3,13 +3,15 @@ syntax = "proto3";
 package freebusy.promocode.v1;
 
 import "buf/validate/validate.proto";
+import "cache/v1/annotations.proto";
+import "entity/v1/annotations.proto";
 import "freebusy/promocode/v1/enums.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 import "google/type/money.proto";
-import "orm/v1/annotations.proto";
+import "store/v1/annotations.proto";
 
 option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1;promocodepbv1";
 option java_multiple_files = true;
@@ -18,7 +20,7 @@ option java_package = "dev.ohtarnished.freebusy.promocode.v1";
 // Promo codes share the freebusy database under their own "promocode" schema, so
 // the imported google.type.Money can be shared cross-schema in "common" (routed
 // via orm.yaml — google.type can't be annotated). See orm.yaml.
-option (orm.v1.datasource) = {
+option (entity.v1.datasource) = {
   database: "freebusy"
   schema: "promocode"
   provider: "postgres"
@@ -35,10 +37,32 @@ message PromoCode {
     singular: "promoCode"
     plural: "promoCodes"
   };
+
+  // Read-through cached. A promo code is validated on the hot path of every
+  // booking that carries one, is looked up far more often than it is edited,
+  // and is small. INDEXED because the lookup that matters is by `code` -- the
+  // string a guest types -- not by resource name.
+  //
+  // ttl is short enough that deactivating a code takes effect on its own; a
+  // write through this API invalidates immediately, so the window only covers
+  // changes made out of band. negative_ttl blunts the obvious abuse: a bot
+  // trying codes generates misses, and remembering an absence keeps that
+  // traffic off the database.
+  //
+  // Not tenant-scoped, deliberately: a promo code is global here (eligibility
+  // is expressed by `scope`, which is a filter, not a tenancy boundary), so
+  // there is no namespace segment to bind. Anything organisation-owned that
+  // gets cached later must carry (cache.v1.cache_scope) instead.
+  option (cache.v1.cache) = {
+    enabled: true
+    strategy: STRATEGY_INDEXED
+    ttl: {seconds: 300}
+    negative_ttl: {seconds: 30}
+  };
   // Surrogate ULID PK; the AIP name is demoted to a UNIQUE lookup column.
   // create_time/update_time are declared as fields below, so no timestamps:true
   // (that would add duplicate created_at/updated_at columns).
-  option (orm.v1.table) = {id: ID_STRATEGY_ULID};
+  option (entity.v1.table) = {id: ID_STRATEGY_ULID};
 
   // The promo code name.
   // Format: promoCodes/{promo_code}
@@ -54,20 +78,21 @@ message PromoCode {
   // The human-entered code, unique across all promo codes (e.g. "SUMMER25").
   string code = 3 [
     (google.api.field_behavior) = REQUIRED,
-    (orm.v1.column) = {unique: true},
-    (orm.v1.query) = {search: true}
+    (store.v1.column) = {unique: true},
+    (store.v1.query) = {search: true},
+    (cache.v1.cache_index) = {}
   ];
 
   // Internal display name (not shown to customers).
   string display_name = 4 [
     (google.api.field_behavior) = OPTIONAL,
-    (orm.v1.query) = {search: true}
+    (store.v1.query) = {search: true}
   ];
 
   // Free-form description.
   string description = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (orm.v1.column) = {type: "TEXT"}
+    (store.v1.column) = {type: "TEXT"}
   ];
 
   // Flat discount/window/limits/scope fields were promoted into the nested value
@@ -105,7 +130,7 @@ message PromoCode {
     // Derived at read time (disabled / window / cap), never written: the stored
     // column is empty, so generated filters must not touch it. The gorm
     // provider filters it via a hand-written engine override instead.
-    (orm.v1.query) = {
+    (store.v1.query) = {
       filterable: false
       sortable: false
     }
@@ -212,7 +237,7 @@ message Redemption {
     singular: "redemption"
     plural: "redemptions"
   };
-  option (orm.v1.table) = {id: ID_STRATEGY_ULID};
+  option (entity.v1.table) = {id: ID_STRATEGY_ULID};
 
   // The redemption resource name.
   // Format: promoCodes/{promo_code}/redemptions/{redemption}
@@ -233,7 +258,7 @@ message Redemption {
   // Format: bookings/{booking}
   string booking = 3 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.booking.v1/Booking"}
+    (google.api.resource_reference) = {type: "freebusy.scheduling.v1/Booking"}
   ];
 
   // When the code was redeemed.

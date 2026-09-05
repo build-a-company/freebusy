@@ -11,7 +11,7 @@ definition:
     - name: id
       type: String_1!
     - name: kind
-      type: Enum!
+      type: String_1!
     - name: name
       type: String_1!
     - name: propertyId
@@ -19,7 +19,7 @@ definition:
     - name: reason
       type: String_1
     - name: spanCase
-      type: Enum
+      type: String_1
     - name: unitId
       type: String_1!
     - name: windowId
@@ -98,7 +98,7 @@ definition:
         - fieldName: id
           booleanExpressionType: TextBoolExp
         - fieldName: kind
-          booleanExpressionType: ScheduleExceptionKindBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: name
           booleanExpressionType: TextBoolExp
         - fieldName: propertyId
@@ -106,7 +106,7 @@ definition:
         - fieldName: reason
           booleanExpressionType: TextBoolExp
         - fieldName: spanCase
-          booleanExpressionType: ScheduleAvailabilityExceptionSpanCaseBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: unitId
           booleanExpressionType: TextBoolExp
         - fieldName: windowId
@@ -135,7 +135,7 @@ definition:
         - fieldName: id
           aggregateExpression: TextAggExp
         - fieldName: kind
-          aggregateExpression: ScheduleExceptionKindAggExp
+          aggregateExpression: TextAggExp
         - fieldName: name
           aggregateExpression: TextAggExp
         - fieldName: propertyId
@@ -143,7 +143,7 @@ definition:
         - fieldName: reason
           aggregateExpression: TextAggExp
         - fieldName: spanCase
-          aggregateExpression: ScheduleAvailabilityExceptionSpanCaseAggExp
+          aggregateExpression: TextAggExp
         - fieldName: unitId
           aggregateExpression: TextAggExp
         - fieldName: windowId
@@ -170,7 +170,7 @@ definition:
         - fieldName: id
           orderByExpression: String1OrderByExp
         - fieldName: kind
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: name
           orderByExpression: String1OrderByExp
         - fieldName: propertyId
@@ -178,7 +178,7 @@ definition:
         - fieldName: reason
           orderByExpression: String1OrderByExp
         - fieldName: spanCase
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: unitId
           orderByExpression: String1OrderByExp
         - fieldName: windowId

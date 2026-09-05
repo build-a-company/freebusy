@@ -230,7 +230,7 @@ definition:
   description: Update the 'type' column in the 'identity_id_documents' collection
   fields:
     - name: set
-      type: Enum!
+      type: String_1!
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnIdentityIdDocumentsType

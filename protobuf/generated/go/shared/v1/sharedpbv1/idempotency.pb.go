@@ -7,7 +7,8 @@
 package sharedpbv1
 
 import (
-	_ "github.com/the-protobuf-project/orm/plugin/pb/ormpbv1"
+	_ "github.com/the-protobuf-project/store/plugin/entity/pb/entitypbv1"
+	_ "github.com/the-protobuf-project/store/plugin/pb/storepbv1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -97,13 +98,22 @@ type IdempotencyKey struct {
 	// Format: idempotencyKeys/{idempotency_key}
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// Fully-qualified RPC that was called, e.g.
-	// "/freebusy.booking.v1.BookingService/CreateBooking". Part of the key: the
+	// "/freebusy.scheduling.v1.SchedulingService/CreateBooking". Part of the key: the
 	// same request_id replayed against a different method is a different request.
 	Method string `protobuf:"bytes,2,opt,name=method,proto3" json:"method,omitempty"`
 	// The caller-supplied idempotency key, verbatim from the request's
 	// `request_id` field.
 	RequestId string `protobuf:"bytes,3,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	// Whether the first call is still running or has settled.
+	// REQUIRED, not OUTPUT_ONLY, and AIP-216's state-field-output-only is
+	// knowingly not satisfied here. protoc-gen-orm reads OUTPUT_ONLY as "the
+	// repository never writes this column": with it set, GORM's Update stops
+	// copying State and the GraphQL create input and update patch both omit it,
+	// so settle()'s transition to DONE is silently dropped and every replay
+	// re-runs the handler. AIP-216 is about a *client* not setting lifecycle;
+	// this record has no client -- no service exposes it and the server is the
+	// only writer -- so the rule's premise does not hold while its cost is a
+	// broken idempotency mechanism. Revisit if orm gains a writable override.
 	State IdempotencyState `protobuf:"varint,4,opt,name=state,proto3,enum=freebusy.shared.v1.IdempotencyState" json:"state,omitempty"`
 	// What the first call returned: a google.protobuf.Any holding the response
 	// message, encoded as protojson. Empty while IN_FLIGHT. Stored as text rather
@@ -202,19 +212,20 @@ var File_freebusy_shared_v1_idempotency_proto protoreflect.FileDescriptor
 
 const file_freebusy_shared_v1_idempotency_proto_rawDesc = "" +
 	"\n" +
-	"$freebusy/shared/v1/idempotency.proto\x12\x12freebusy.shared.v1\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x18orm/v1/annotations.proto\"\xf2\x03\n" +
+	"$freebusy/shared/v1/idempotency.proto\x12\x12freebusy.shared.v1\x1a\x1bentity/v1/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1bgoogle/api/field_info.proto\x1a\x19google/api/resource.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1astore/v1/annotations.proto\"\xfa\x03\n" +
 	"\x0eIdempotencyKey\x12\x17\n" +
 	"\x04name\x18\x01 \x01(\tB\x03\xe0A\bR\x04name\x12\x1b\n" +
-	"\x06method\x18\x02 \x01(\tB\x03\xe0A\x02R\x06method\x12\"\n" +
+	"\x06method\x18\x02 \x01(\tB\x03\xe0A\x02R\x06method\x12*\n" +
 	"\n" +
-	"request_id\x18\x03 \x01(\tB\x03\xe0A\x02R\trequestId\x12N\n" +
-	"\x05state\x18\x04 \x01(\x0e2$.freebusy.shared.v1.IdempotencyStateB\x12\xe0A\x02\x92\xb5\x18\v\x1a\tIN_FLIGHTR\x05state\x12)\n" +
-	"\bresponse\x18\x05 \x01(\tB\r\xe0A\x01\x92\xb5\x18\x06\x12\x04TEXTR\bresponse\x12@\n" +
+	"request_id\x18\x03 \x01(\tB\v\xe0A\x02\xe2\x8c\xcf\xd7\b\x02\b\x01R\trequestId\x12N\n" +
+	"\x05state\x18\x04 \x01(\x0e2$.freebusy.shared.v1.IdempotencyStateB\x12\xe0A\x02ڵ\x18\v\x12\tIN_FLIGHTR\x05state\x12)\n" +
+	"\bresponse\x18\x05 \x01(\tB\r\xe0A\x01ڵ\x18\x06\n" +
+	"\x04TEXTR\bresponse\x12@\n" +
 	"\vcreate_time\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"createTime\x12@\n" +
 	"\vupdate_time\x18\a \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"updateTime:\x86\x01\xeaAg\n" +
-	"!freebusy.shared.v1/IdempotencyKey\x12!idempotencyKeys/{idempotency_key}*\x0fidempotencyKeys2\x0eidempotencyKey\x8a\xb5\x18\x18*\x16\n" +
+	"!freebusy.shared.v1/IdempotencyKey\x12!idempotencyKeys/{idempotency_key}*\x0fidempotencyKeys2\x0eidempotencyKey\xca\xf3\x18\x18*\x16\n" +
 	"\x06method\n" +
 	"\n" +
 	"request_id\x10\x01*r\n" +

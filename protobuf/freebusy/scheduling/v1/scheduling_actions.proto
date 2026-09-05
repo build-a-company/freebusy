@@ -1,13 +1,13 @@
 syntax = "proto3";
 
-package freebusy.booking.v1;
+package freebusy.scheduling.v1;
 
 import "buf/validate/validate.proto";
-import "freebusy/booking/v1/booking.proto";
 // (-- api-linter: core::0215::foreign-type-reference=disabled
 //     aip.dev/not-precedent: freebusy.shared.v1 is a deliberate, API-wide
 //     shared-types package; reusing it beats inlining per-package copies. --)
-import "freebusy/booking/v1/enums.proto";
+import "freebusy/scheduling/v1/enums.proto";
+import "freebusy/scheduling/v1/scheduling.proto";
 import "freebusy/shared/v1/types.proto";
 import "google/api/field_behavior.proto";
 import "google/api/field_info.proto";
@@ -15,10 +15,10 @@ import "google/api/resource.proto";
 import "google/protobuf/field_mask.proto";
 import "google/type/money.proto";
 
-option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1;bookingpbv1";
+option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1;schedulingpbv1";
 option java_multiple_files = true;
-option java_outer_classname = "BookingActionsProto";
-option java_package = "dev.ohtarnished.freebusy.booking.v1";
+option java_outer_classname = "SchedulingActionsProto";
+option java_package = "dev.ohtarnished.freebusy.scheduling.v1";
 
 // Request message for ConfirmBooking. Confirmation normally arrives via the
 // payment webhook rather than a direct client call; either way it flips a
@@ -28,7 +28,7 @@ message ConfirmBookingRequest {
   // Format: bookings/{booking}
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.booking.v1/Booking"},
+    (google.api.resource_reference) = {type: "freebusy.scheduling.v1/Booking"},
     (buf.validate.field).string.pattern = "^bookings/[^/]+$"
   ];
 
@@ -48,7 +48,7 @@ message CancelBookingRequest {
   // Format: bookings/{booking}
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.booking.v1/Booking"},
+    (google.api.resource_reference) = {type: "freebusy.scheduling.v1/Booking"},
     (buf.validate.field).string.pattern = "^bookings/[^/]+$"
   ];
 
@@ -73,7 +73,7 @@ message RescheduleBookingRequest {
   // Format: bookings/{booking}
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.booking.v1/Booking"},
+    (google.api.resource_reference) = {type: "freebusy.scheduling.v1/Booking"},
     (buf.validate.field).string.pattern = "^bookings/[^/]+$"
   ];
 
@@ -121,7 +121,7 @@ message PreviewCancellationRequest {
   // Format: bookings/{booking}
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.booking.v1/Booking"},
+    (google.api.resource_reference) = {type: "freebusy.scheduling.v1/Booking"},
     (buf.validate.field).string.pattern = "^bookings/[^/]+$"
   ];
 }

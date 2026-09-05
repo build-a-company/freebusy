@@ -5,10 +5,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/booking"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/shared"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"google.golang.org/genproto/googleapis/type/money"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -71,7 +71,7 @@ func TestBookingFromModel(t *testing.T) {
 	if out.GetUnit() != "properties/p1/units/u1" || out.GetUnits() != 2 {
 		t.Fatalf("unit/units not preserved: %+v", out)
 	}
-	if out.GetState() != bookingpbv1.BookingState_BOOKING_STATE_PENDING_HOLD {
+	if out.GetState() != schedulingpbv1.BookingState_BOOKING_STATE_PENDING_HOLD {
 		t.Fatalf("state not preserved: %v", out.GetState())
 	}
 	if out.GetPrice().GetUnits() != 24000 || out.GetTotal().GetUnits() != 24000 {

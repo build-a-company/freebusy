@@ -5,7 +5,7 @@ definition:
   name: InsertSharedIdempotencyKeysObject
   fields:
     - name: createTime
-      type: Timestamptz
+      type: Timestamptz!
     - name: id
       type: String_1!
     - name: method
@@ -17,7 +17,7 @@ definition:
     - name: response
       type: String_1
     - name: state
-      type: Enum
+      type: String_1
     - name: updateTime
       type: Timestamptz!
   graphql:

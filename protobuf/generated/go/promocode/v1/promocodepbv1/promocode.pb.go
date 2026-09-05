@@ -8,7 +8,9 @@ package promocodepbv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	_ "github.com/the-protobuf-project/orm/plugin/pb/ormpbv1"
+	_ "github.com/the-protobuf-project/cache/plugin/pb/cachepbv1"
+	_ "github.com/the-protobuf-project/store/plugin/entity/pb/entitypbv1"
+	_ "github.com/the-protobuf-project/store/plugin/pb/storepbv1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	money "google.golang.org/genproto/googleapis/type/money"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -568,26 +570,27 @@ var File_freebusy_promocode_v1_promocode_proto protoreflect.FileDescriptor
 
 const file_freebusy_promocode_v1_promocode_proto_rawDesc = "" +
 	"\n" +
-	"%freebusy/promocode/v1/promocode.proto\x12\x15freebusy.promocode.v1\x1a\x1bbuf/validate/validate.proto\x1a!freebusy/promocode/v1/enums.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x17google/type/money.proto\x1a\x18orm/v1/annotations.proto\"\x9d\a\n" +
+	"%freebusy/promocode/v1/promocode.proto\x12\x15freebusy.promocode.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1acache/v1/annotations.proto\x1a\x1bentity/v1/annotations.proto\x1a!freebusy/promocode/v1/enums.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x17google/type/money.proto\x1a\x1astore/v1/annotations.proto\"\xb2\a\n" +
 	"\tPromoCode\x123\n" +
-	"\x04name\x18\x01 \x01(\tB\x1f\xe0A\b\xbaH\x19\xd8\x01\x01r\x142\x12^promoCodes/[^/]+$R\x04name\x12#\n" +
-	"\x04code\x18\x03 \x01(\tB\x0f\xe0A\x02\x92\xb5\x18\x02 \x01\x9a\xb5\x18\x02\x18\x01R\x04code\x12,\n" +
-	"\fdisplay_name\x18\x04 \x01(\tB\t\xe0A\x01\x9a\xb5\x18\x02\x18\x01R\vdisplayName\x12/\n" +
-	"\vdescription\x18\x05 \x01(\tB\r\xe0A\x01\x92\xb5\x18\x06\x12\x04TEXTR\vdescription\x12@\n" +
+	"\x04name\x18\x01 \x01(\tB\x1f\xe0A\b\xbaH\x19\xd8\x01\x01r\x142\x12^promoCodes/[^/]+$R\x04name\x12'\n" +
+	"\x04code\x18\x03 \x01(\tB\x13\xe0A\x02ڵ\x18\x02\x18\x01\xe2\xb5\x18\x02\x18\x01\x92\xb2\x19\x00R\x04code\x12,\n" +
+	"\fdisplay_name\x18\x04 \x01(\tB\t\xe0A\x01\xe2\xb5\x18\x02\x18\x01R\vdisplayName\x12/\n" +
+	"\vdescription\x18\x05 \x01(\tB\r\xe0A\x01ڵ\x18\x06\n" +
+	"\x04TEXTR\vdescription\x12@\n" +
 	"\bdiscount\x18\x17 \x01(\v2\x1f.freebusy.promocode.v1.DiscountB\x03\xe0A\x02R\bdiscount\x12D\n" +
 	"\x06window\x18\x18 \x01(\v2'.freebusy.promocode.v1.RedemptionWindowB\x03\xe0A\x01R\x06window\x12?\n" +
 	"\x06limits\x18\x19 \x01(\v2\".freebusy.promocode.v1.UsageLimitsB\x03\xe0A\x01R\x06limits\x127\n" +
 	"\x05scope\x18\x1a \x01(\v2\x1c.freebusy.promocode.v1.ScopeB\x03\xe0A\x01R\x05scope\x12.\n" +
 	"\x10redemption_count\x18\x10 \x01(\x03B\x03\xe0A\x03R\x0fredemptionCount\x12H\n" +
-	"\x05state\x18\x11 \x01(\x0e2%.freebusy.promocode.v1.PromoCodeStateB\v\xe0A\x03\x9a\xb5\x18\x04\b\x00\x10\x00R\x05state\x12\x1f\n" +
+	"\x05state\x18\x11 \x01(\x0e2%.freebusy.promocode.v1.PromoCodeStateB\v\xe0A\x03\xe2\xb5\x18\x04\b\x00\x10\x00R\x05state\x12\x1f\n" +
 	"\bdisabled\x18\x14 \x01(\bB\x03\xe0A\x01R\bdisabled\x12@\n" +
 	"\vcreate_time\x18\x12 \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"createTime\x12@\n" +
 	"\vupdate_time\x18\x13 \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"updateTime\x12\x12\n" +
-	"\x04etag\x18\x15 \x01(\tR\x04etag:Z\xeaAQ\n" +
+	"\x04etag\x18\x15 \x01(\tR\x04etag:k\xeaAQ\n" +
 	"\x1ffreebusy.promocode.v1/PromoCode\x12\x17promoCodes/{promo_code}*\n" +
-	"promoCodes2\tpromoCode\x8a\xb5\x18\x02\x18\x01J\x04\b\x02\x10\x03J\x04\b\x06\x10\aJ\x04\b\a\x10\bJ\x04\b\b\x10\tJ\x04\b\t\x10\n" +
+	"promoCodes2\tpromoCode\xca\xf3\x18\x02\x18\x01\x8a\xb2\x19\r\b\x01\x10\x02\x1a\x03\b\xac\x02*\x02\b\x1eJ\x04\b\x02\x10\x03J\x04\b\x06\x10\aJ\x04\b\a\x10\bJ\x04\b\b\x10\tJ\x04\b\t\x10\n" +
 	"J\x04\b\n" +
 	"\x10\vJ\x04\b\v\x10\fJ\x04\b\f\x10\rJ\x04\b\r\x10\x0eJ\x04\b\x0e\x10\x0fJ\x04\b\x0f\x10\x10J\x04\b\x16\x10\x17\"~\n" +
 	"\bDiscount\x12,\n" +
@@ -610,18 +613,18 @@ const file_freebusy_promocode_v1_promocode_proto_rawDesc = "" +
 	"\x15applicable_properties\x18\x02 \x03(\tBC\xe0A\x01\xfaA\x1f\n" +
 	"\x1dfreebusy.property.v1/Property\xbaH\x1b\x92\x01\x18\"\x16r\x142\x12^properties/[^/]+$R\x14applicableProperties\x12v\n" +
 	"\x10applicable_units\x18\x03 \x03(\tBK\xe0A\x01\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/Unit\xbaH'\x92\x01$\"\"r 2\x1e^properties/[^/]+/units/[^/]+$R\x0fapplicableUnits\"\xcf\x03\n" +
+	"\x19freebusy.property.v1/Unit\xbaH'\x92\x01$\"\"r 2\x1e^properties/[^/]+/units/[^/]+$R\x0fapplicableUnits\"\xd2\x03\n" +
 	"\n" +
 	"Redemption\x12E\n" +
 	"\x04name\x18\x01 \x01(\tB1\xe0A\b\xbaH+\xd8\x01\x01r&2$^promoCodes/[^/]+/redemptions/[^/]+$R\x04name\x12=\n" +
 	"\bcustomer\x18\x02 \x01(\tB!\xe0A\x02\xfaA\x1b\n" +
-	"\x19freebusy.identity.v1/UserR\bcustomer\x12=\n" +
-	"\abooking\x18\x03 \x01(\tB#\xe0A\x02\xfaA\x1d\n" +
-	"\x1bfreebusy.booking.v1/BookingR\abooking\x12D\n" +
+	"\x19freebusy.identity.v1/UserR\bcustomer\x12@\n" +
+	"\abooking\x18\x03 \x01(\tB&\xe0A\x02\xfaA \n" +
+	"\x1efreebusy.scheduling.v1/BookingR\abooking\x12D\n" +
 	"\rredeemed_time\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\fredeemedTime\x12>\n" +
 	"\x0eamount_applied\x18\x05 \x01(\v2\x12.google.type.MoneyB\x03\xe0A\x03R\ramountApplied:v\xeaAm\n" +
 	" freebusy.promocode.v1/Redemption\x120promoCodes/{promo_code}/redemptions/{redemption}*\vredemptions2\n" +
-	"redemption\x8a\xb5\x18\x02\x18\x01B\xe7\x02\x82\xb5\x18a\n" +
+	"redemption\xca\xf3\x18\x02\x18\x01B\xe7\x02\xc2\xf3\x18a\n" +
 	"\bfreebusy\x12\tpromocode\x1a@postgresql://postgres:postgrespassword@localhost:5432/freebusydb\"\bpostgres\n" +
 	"\x19com.freebusy.promocode.v1B\x0ePromocodeProtoP\x01Z_github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1;promocodepbv1\xa2\x02\x03FPX\xaa\x02\x15Freebusy.Promocode.V1\xca\x02\x15Freebusy\\Promocode\\V1\xe2\x02!Freebusy\\Promocode\\V1\\GPBMetadata\xea\x02\x17Freebusy::Promocode::V1b\x06proto3"
 

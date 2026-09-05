@@ -8,7 +8,7 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal/database"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"google.golang.org/genproto/googleapis/type/money"
@@ -73,7 +73,7 @@ func bookingFlow(t *testing.T, c *e2eClients, unit string) {
 	t.Helper()
 	ctx := context.Background()
 
-	_, err := c.bookings.RescheduleBooking(ctx, &bookingpbv1.RescheduleBookingRequest{Name: "bookings/nope"})
+	_, err := c.bookings.RescheduleBooking(ctx, &schedulingpbv1.RescheduleBookingRequest{Name: "bookings/nope"})
 	wantCode(t, err, codes.InvalidArgument, "reschedule without window")
 
 	start := time.Now().UTC().AddDate(0, 0, 30).Truncate(24 * time.Hour)
@@ -81,8 +81,8 @@ func bookingFlow(t *testing.T, c *e2eClients, unit string) {
 		StartTime: timestamppb.New(start),
 		EndTime:   timestamppb.New(start.AddDate(0, 0, 2)),
 	}
-	booking, err := c.bookings.CreateBooking(ctx, &bookingpbv1.CreateBookingRequest{
-		Booking: &bookingpbv1.Booking{
+	booking, err := c.bookings.CreateBooking(ctx, &schedulingpbv1.CreateBookingRequest{
+		Booking: &schedulingpbv1.Booking{
 			Unit:    unit,
 			Window:  window,
 			Contact: &sharedpbv1.Contact{DisplayName: "E2E Guest", Email: "guest-" + c.suffix + "@example.com"},
@@ -96,12 +96,12 @@ func bookingFlow(t *testing.T, c *e2eClients, unit string) {
 			t.Logf("delete booking row: %v", err)
 		}
 	})
-	if booking.GetState() != bookingpbv1.BookingState_BOOKING_STATE_PENDING_HOLD {
+	if booking.GetState() != schedulingpbv1.BookingState_BOOKING_STATE_PENDING_HOLD {
 		t.Fatalf("booking state = %v, want PENDING_HOLD", booking.GetState())
 	}
 
-	confirmed, err := c.bookings.ConfirmBooking(ctx, &bookingpbv1.ConfirmBookingRequest{Name: booking.GetName()})
-	if err != nil || confirmed.GetState() != bookingpbv1.BookingState_BOOKING_STATE_CONFIRMED {
+	confirmed, err := c.bookings.ConfirmBooking(ctx, &schedulingpbv1.ConfirmBookingRequest{Name: booking.GetName()})
+	if err != nil || confirmed.GetState() != schedulingpbv1.BookingState_BOOKING_STATE_CONFIRMED {
 		t.Fatalf("ConfirmBooking: %v (state %v)", err, confirmed.GetState())
 	}
 
@@ -117,11 +117,11 @@ func bookingFlow(t *testing.T, c *e2eClients, unit string) {
 		t.Fatal("CheckAvailability: confirmed span still reports bookable")
 	}
 
-	if _, err := c.bookings.PreviewCancellation(ctx, &bookingpbv1.PreviewCancellationRequest{Name: booking.GetName()}); err != nil {
+	if _, err := c.bookings.PreviewCancellation(ctx, &schedulingpbv1.PreviewCancellationRequest{Name: booking.GetName()}); err != nil {
 		t.Fatalf("PreviewCancellation: %v", err)
 	}
-	cancelled, err := c.bookings.CancelBooking(ctx, &bookingpbv1.CancelBookingRequest{Name: booking.GetName()})
-	if err != nil || cancelled.GetState() != bookingpbv1.BookingState_BOOKING_STATE_CANCELLED {
+	cancelled, err := c.bookings.CancelBooking(ctx, &schedulingpbv1.CancelBookingRequest{Name: booking.GetName()})
+	if err != nil || cancelled.GetState() != schedulingpbv1.BookingState_BOOKING_STATE_CANCELLED {
 		t.Fatalf("CancelBooking: %v (state %v)", err, cancelled.GetState())
 	}
 }

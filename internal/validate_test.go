@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
@@ -39,8 +39,8 @@ func TestValidationInterceptor(t *testing.T) {
 	}
 
 	// Bad resource name → InvalidArgument before the handler runs.
-	bad := &bookingpbv1.UpdateBookingGuestsRequest{
-		BookingGuests: &bookingpbv1.BookingGuests{Name: "rooms/nope"},
+	bad := &schedulingpbv1.UpdateBookingGuestsRequest{
+		BookingGuests: &schedulingpbv1.BookingGuests{Name: "rooms/nope"},
 	}
 	if _, err := intercept(context.Background(), bad, nil, handler); status.Code(err) != codes.InvalidArgument {
 		t.Fatalf("bad name: got err %v, want InvalidArgument", err)
@@ -50,10 +50,10 @@ func TestValidationInterceptor(t *testing.T) {
 	}
 
 	// Negative occupancy → InvalidArgument.
-	neg := &bookingpbv1.UpdateBookingGuestsRequest{
-		BookingGuests: &bookingpbv1.BookingGuests{
+	neg := &schedulingpbv1.UpdateBookingGuestsRequest{
+		BookingGuests: &schedulingpbv1.BookingGuests{
 			Name:      "bookings/b1/guests",
-			Occupancy: &bookingpbv1.Occupancy{Adults: -1},
+			Occupancy: &schedulingpbv1.Occupancy{Adults: -1},
 		},
 	}
 	if _, err := intercept(context.Background(), neg, nil, handler); status.Code(err) != codes.InvalidArgument {
@@ -61,10 +61,10 @@ func TestValidationInterceptor(t *testing.T) {
 	}
 
 	// Valid request → handler runs.
-	good := &bookingpbv1.UpdateBookingGuestsRequest{
-		BookingGuests: &bookingpbv1.BookingGuests{
+	good := &schedulingpbv1.UpdateBookingGuestsRequest{
+		BookingGuests: &schedulingpbv1.BookingGuests{
 			Name:      "bookings/b1/guests",
-			Occupancy: &bookingpbv1.Occupancy{Adults: 2, Children: 1},
+			Occupancy: &schedulingpbv1.Occupancy{Adults: 2, Children: 1},
 		},
 	}
 	out, err := intercept(context.Background(), good, nil, handler)
@@ -137,10 +137,10 @@ func TestValidationInterceptor_Services(t *testing.T) {
 		{"promocode validate ok", &promocodepbv1.ValidatePromoCodeRequest{Code: "X", Subtotal: &money.Money{CurrencyCode: "USD", Units: 100}}, false},
 
 		// booking
-		{"booking create missing window", &bookingpbv1.CreateBookingRequest{Booking: &bookingpbv1.Booking{Unit: "properties/p1/units/u1"}}, true},
-		{"booking create ok", &bookingpbv1.CreateBookingRequest{Booking: &bookingpbv1.Booking{Unit: "properties/p1/units/u1", Window: window}}, false},
-		{"booking reschedule missing window", &bookingpbv1.RescheduleBookingRequest{Name: "bookings/b1"}, true},
-		{"booking window missing end", &bookingpbv1.CreateBookingRequest{Booking: &bookingpbv1.Booking{Unit: "properties/p1/units/u1", Window: &sharedpbv1.TimeWindow{StartTime: timestamppb.Now()}}}, true},
+		{"booking create missing window", &schedulingpbv1.CreateBookingRequest{Booking: &schedulingpbv1.Booking{Unit: "properties/p1/units/u1"}}, true},
+		{"booking create ok", &schedulingpbv1.CreateBookingRequest{Booking: &schedulingpbv1.Booking{Unit: "properties/p1/units/u1", Window: window}}, false},
+		{"booking reschedule missing window", &schedulingpbv1.RescheduleBookingRequest{Name: "bookings/b1"}, true},
+		{"booking window missing end", &schedulingpbv1.CreateBookingRequest{Booking: &schedulingpbv1.Booking{Unit: "properties/p1/units/u1", Window: &sharedpbv1.TimeWindow{StartTime: timestamppb.Now()}}}, true},
 
 		// availability
 		{"availability compute no period", &availabilitypbv1.ComputeAvailabilityRequest{Unit: "properties/p1/units/u1"}, true},

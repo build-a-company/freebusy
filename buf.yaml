@@ -9,4 +9,6 @@ deps:
   - buf.build/googleapis/googleapis
   - buf.build/bufbuild/protovalidate
   - buf.build/the-protobuf-project/mcp
-  - buf.build/the-protobuf-project/orm
+  - buf.build/the-protobuf-project/rfc
+  - buf.build/the-protobuf-project/store
+  - buf.build/the-protobuf-project/cache

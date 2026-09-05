@@ -326,7 +326,7 @@ definition:
   description: Update the 'state' column in the 'property_properties' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnPropertyPropertiesState

@@ -1,4 +1,4 @@
-package booking
+package scheduling
 
 import (
 	"context"

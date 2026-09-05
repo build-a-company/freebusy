@@ -2,30 +2,17 @@ syntax = "proto3";
 
 package freebusy.shared.v1;
 
+import "entity/v1/annotations.proto";
 import "google/api/field_behavior.proto";
+import "google/api/field_info.proto";
 import "google/api/resource.proto";
 import "google/protobuf/timestamp.proto";
-import "orm/v1/annotations.proto";
+import "store/v1/annotations.proto";
 
 option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1;sharedpbv1";
 option java_multiple_files = true;
 option java_outer_classname = "IdempotencyProto";
 option java_package = "dev.ohtarnished.freebusy.shared.v1";
-
-// Lifecycle of a recorded request. A key is claimed IN_FLIGHT before the
-// handler runs and settles to DONE once its response is recorded; a handler
-// that fails deletes its key, so the caller may genuinely retry.
-enum IdempotencyState {
-  // Unspecified.
-  IDEMPOTENCY_STATE_UNSPECIFIED = 0;
-
-  // Claimed: a handler is running for this key right now. A second caller
-  // arriving here is a concurrent duplicate, not a replay.
-  IDEMPOTENCY_STATE_IN_FLIGHT = 1;
-
-  // Settled: `response` holds what the first call returned.
-  IDEMPOTENCY_STATE_DONE = 2;
-}
 
 // The record behind every `request_id` field in this API: it remembers what the
 // first call with a given id returned, so a retry replays that response instead
@@ -45,10 +32,13 @@ message IdempotencyKey {
     singular: "idempotencyKey"
     plural: "idempotencyKeys"
   };
-  option (orm.v1.table) = {
+  option (entity.v1.table) = {
     indexes: [
       {
-        columns: ["method", "request_id"]
+        columns: [
+          "method",
+          "request_id"
+        ]
         unique: true
       }
     ]
@@ -59,18 +49,30 @@ message IdempotencyKey {
   string name = 1 [(google.api.field_behavior) = IDENTIFIER];
 
   // Fully-qualified RPC that was called, e.g.
-  // "/freebusy.booking.v1.BookingService/CreateBooking". Part of the key: the
+  // "/freebusy.scheduling.v1.SchedulingService/CreateBooking". Part of the key: the
   // same request_id replayed against a different method is a different request.
   string method = 2 [(google.api.field_behavior) = REQUIRED];
 
   // The caller-supplied idempotency key, verbatim from the request's
   // `request_id` field.
-  string request_id = 3 [(google.api.field_behavior) = REQUIRED];
+  string request_id = 3 [
+    (google.api.field_info).format = UUID4,
+    (google.api.field_behavior) = REQUIRED
+  ];
 
   // Whether the first call is still running or has settled.
+  // REQUIRED, not OUTPUT_ONLY, and AIP-216's state-field-output-only is
+  // knowingly not satisfied here. protoc-gen-orm reads OUTPUT_ONLY as "the
+  // repository never writes this column": with it set, GORM's Update stops
+  // copying State and the GraphQL create input and update patch both omit it,
+  // so settle()'s transition to DONE is silently dropped and every replay
+  // re-runs the handler. AIP-216 is about a *client* not setting lifecycle;
+  // this record has no client -- no service exposes it and the server is the
+  // only writer -- so the rule's premise does not hold while its cost is a
+  // broken idempotency mechanism. Revisit if orm gains a writable override.
   IdempotencyState state = 4 [
     (google.api.field_behavior) = REQUIRED,
-    (orm.v1.column) = {default_value: "IN_FLIGHT"}
+    (store.v1.column) = {default_value: "IN_FLIGHT"}
   ];
 
   // What the first call returned: a google.protobuf.Any holding the response
@@ -80,7 +82,7 @@ message IdempotencyKey {
   // rebuild the exact response message without knowing which RPC wrote it.
   string response = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (orm.v1.column) = {type: "TEXT"}
+    (store.v1.column) = {type: "TEXT"}
   ];
 
   // When the key was claimed.
@@ -88,4 +90,19 @@ message IdempotencyKey {
 
   // When the key settled to DONE.
   google.protobuf.Timestamp update_time = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+// Lifecycle of a recorded request. A key is claimed IN_FLIGHT before the
+// handler runs and settles to DONE once its response is recorded; a handler
+// that fails deletes its key, so the caller may genuinely retry.
+enum IdempotencyState {
+  // Unspecified.
+  IDEMPOTENCY_STATE_UNSPECIFIED = 0;
+
+  // Claimed: a handler is running for this key right now. A second caller
+  // arriving here is a concurrent duplicate, not a replay.
+  IDEMPOTENCY_STATE_IN_FLIGHT = 1;
+
+  // Settled: `response` holds what the first call returned.
+  IDEMPOTENCY_STATE_DONE = 2;
 }

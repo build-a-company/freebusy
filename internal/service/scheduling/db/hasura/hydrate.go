@@ -9,14 +9,14 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/iddocumentsql"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/bookingql/resourceql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/resourceql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestsql"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 )
 
 // hydrateBooking loads a booking row's value-objects and resolves its unit name.
-func (r *BookingRepository) hydrateBooking(ctx context.Context, res *resourceql.BookingResource) (*bookingpbv1.Booking, error) {
+func (r *BookingRepository) hydrateBooking(ctx context.Context, res *resourceql.BookingResource) (*schedulingpbv1.Booking, error) {
 	parts := bookingParts{res: res}
 
 	unitName, err := r.unitName(ctx, res.Unit)

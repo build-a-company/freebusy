@@ -5,13 +5,13 @@ definition:
   name: InsertScheduleAvailabilityExceptionsObject
   fields:
     - name: createTime
-      type: Timestamptz
+      type: Timestamptz!
     - name: dateRangeId
       type: String_1
     - name: id
       type: String_1!
     - name: kind
-      type: Enum
+      type: String_1
     - name: name
       type: String_1!
     - name: propertyId
@@ -19,7 +19,7 @@ definition:
     - name: reason
       type: String_1
     - name: spanCase
-      type: Enum
+      type: String_1
     - name: unitId
       type: String_1!
     - name: windowId

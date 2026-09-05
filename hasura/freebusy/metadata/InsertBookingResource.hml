@@ -9,7 +9,7 @@ definition:
     - name: attributes
       type: Json
     - name: cancelReason
-      type: Enum
+      type: String_1
     - name: cancelTime
       type: Timestamptz
     - name: confirmTime
@@ -17,7 +17,7 @@ definition:
     - name: contactId
       type: String_1
     - name: createTime
-      type: Timestamptz
+      type: Timestamptz!
     - name: customer
       type: String_1
     - name: discountId
@@ -45,7 +45,7 @@ definition:
     - name: refundPercent
       type: Int32
     - name: state
-      type: Enum
+      type: String_1
     - name: totalId
       type: String_1
     - name: unit

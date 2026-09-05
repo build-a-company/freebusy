@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/oh-tarnished/freebusy/internal/service/booking/db"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/db"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -51,22 +51,22 @@ func holdExpiryFlow(t *testing.T, c *e2eClients, unit string, holds db.BookingRe
 	if _, err := holds.ExpireHolds(ctx); err != nil {
 		t.Fatalf("ExpireHolds: %v", err)
 	}
-	got, err := c.bookings.GetBooking(ctx, &bookingpbv1.GetBookingRequest{Name: first.GetName()})
+	got, err := c.bookings.GetBooking(ctx, &schedulingpbv1.GetBookingRequest{Name: first.GetName()})
 	if err != nil {
 		t.Fatalf("GetBooking after sweep: %v", err)
 	}
-	if got.GetState() != bookingpbv1.BookingState_BOOKING_STATE_EXPIRED {
+	if got.GetState() != schedulingpbv1.BookingState_BOOKING_STATE_EXPIRED {
 		t.Fatalf("first booking state = %v, want EXPIRED after sweep", got.GetState())
 	}
 }
 
 // createHold places a short-TTL PENDING_HOLD on unit over window and registers
 // the row's cleanup (bookings have no delete RPC).
-func createHold(t *testing.T, c *e2eClients, unit string, window *sharedpbv1.TimeWindow) *bookingpbv1.Booking {
+func createHold(t *testing.T, c *e2eClients, unit string, window *sharedpbv1.TimeWindow) *schedulingpbv1.Booking {
 	t.Helper()
 	ctx := context.Background()
-	b, err := c.bookings.CreateBooking(ctx, &bookingpbv1.CreateBookingRequest{
-		Booking: &bookingpbv1.Booking{
+	b, err := c.bookings.CreateBooking(ctx, &schedulingpbv1.CreateBookingRequest{
+		Booking: &schedulingpbv1.Booking{
 			Unit:    unit,
 			Window:  window,
 			Contact: &sharedpbv1.Contact{DisplayName: "Hold Expiry", Email: "hold-" + c.suffix + "@example.com"},
@@ -81,7 +81,7 @@ func createHold(t *testing.T, c *e2eClients, unit string, window *sharedpbv1.Tim
 			t.Logf("delete hold row %s: %v", b.GetName(), err)
 		}
 	})
-	if b.GetState() != bookingpbv1.BookingState_BOOKING_STATE_PENDING_HOLD {
+	if b.GetState() != schedulingpbv1.BookingState_BOOKING_STATE_PENDING_HOLD {
 		t.Fatalf("booking state = %v, want PENDING_HOLD", b.GetState())
 	}
 	return b

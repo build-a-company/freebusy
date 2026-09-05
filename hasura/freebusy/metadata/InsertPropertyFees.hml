@@ -15,7 +15,7 @@ definition:
     - name: percent
       type: Int32
     - name: pricingUnit
-      type: Enum
+      type: String_1
     - name: taxable
       type: Boolean_1
     - name: unitId

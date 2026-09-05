@@ -6,7 +6,7 @@ definition:
   description: Update the 'age_group' column in the 'identity_guests' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnIdentityGuestsAgeGroup
@@ -198,7 +198,7 @@ definition:
   description: Update the 'gender' column in the 'identity_guests' collection
   fields:
     - name: set
-      type: Enum
+      type: String_1
       description: Set the column to this value
   graphql:
     typeName: UpdateColumnIdentityGuestsGender

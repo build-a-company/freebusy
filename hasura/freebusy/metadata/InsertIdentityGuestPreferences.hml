@@ -7,7 +7,7 @@ definition:
     - name: accessibility
       type: "[String_1]"
     - name: bed
-      type: Enum
+      type: String_1
     - name: dietary
       type: "[String_1]"
     - name: floorPreference
@@ -19,7 +19,7 @@ definition:
     - name: notes
       type: String_1
     - name: smoking
-      type: Enum
+      type: String_1
     - name: specialRequests
       type: "[String_1]"
   graphql:

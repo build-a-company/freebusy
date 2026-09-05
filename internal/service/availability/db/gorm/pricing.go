@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/pricing"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/pricing"
 )
 
 // feesOf / taxesOf / losOf convert a unit's preloaded pricing children into the

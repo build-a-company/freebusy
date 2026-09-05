@@ -16,7 +16,7 @@ import (
 	contactsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/contactsql"
 	timewindowsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/timewindowsql"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 	"github.com/the-protobuf-project/runtime-go/network/graphql"
@@ -145,25 +145,25 @@ func windowFromSchema(w *timewindowsql.SharedTimeWindows) *sharedpbv1.TimeWindow
 
 // --- enum + name conversions -------------------------------------------------
 
-func stateFromStr(s *string) bookingpbv1.BookingState {
+func stateFromStr(s *string) schedulingpbv1.BookingState {
 	if s == nil || *s == "" {
-		return bookingpbv1.BookingState_BOOKING_STATE_UNSPECIFIED
+		return schedulingpbv1.BookingState_BOOKING_STATE_UNSPECIFIED
 	}
-	return bookingpbv1.BookingState(bookingpbv1.BookingState_value["BOOKING_STATE_"+*s])
+	return schedulingpbv1.BookingState(schedulingpbv1.BookingState_value["BOOKING_STATE_"+*s])
 }
 
-func cancelReasonToStr(r bookingpbv1.CancelReason) string {
-	if r == bookingpbv1.CancelReason_CANCEL_REASON_UNSPECIFIED {
+func cancelReasonToStr(r schedulingpbv1.CancelReason) string {
+	if r == schedulingpbv1.CancelReason_CANCEL_REASON_UNSPECIFIED {
 		return ""
 	}
 	return strings.TrimPrefix(r.String(), "CANCEL_REASON_")
 }
 
-func cancelReasonFromStr(s *string) bookingpbv1.CancelReason {
+func cancelReasonFromStr(s *string) schedulingpbv1.CancelReason {
 	if s == nil || *s == "" {
-		return bookingpbv1.CancelReason_CANCEL_REASON_UNSPECIFIED
+		return schedulingpbv1.CancelReason_CANCEL_REASON_UNSPECIFIED
 	}
-	return bookingpbv1.CancelReason(bookingpbv1.CancelReason_value["CANCEL_REASON_"+*s])
+	return schedulingpbv1.CancelReason(schedulingpbv1.CancelReason_value["CANCEL_REASON_"+*s])
 }
 
 func userNameOrEmpty(id *string) string {

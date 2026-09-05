@@ -5,8 +5,8 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/graphqlx"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/db/hasura"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/db/hasura"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"google.golang.org/genproto/googleapis/type/money"
 )
@@ -34,7 +34,7 @@ func instrumentHasuraBooking(repo *hasura.BookingRepository) BookingRepository {
 	return &instrumentedBookingRepository{repo: repo, t: graphqlx.Default()}
 }
 
-func (i *instrumentedBookingRepository) CreateBooking(ctx context.Context, b *bookingpbv1.Booking) (out *bookingpbv1.Booking, err error) {
+func (i *instrumentedBookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1.Booking) (out *schedulingpbv1.Booking, err error) {
 	err = graphqlx.Wrap(ctx, i.t, bookingResource, "create", func(ctx context.Context) error {
 		out, err = i.repo.CreateBooking(ctx, b)
 		return err
@@ -42,7 +42,7 @@ func (i *instrumentedBookingRepository) CreateBooking(ctx context.Context, b *bo
 	return out, err
 }
 
-func (i *instrumentedBookingRepository) PreviewBooking(ctx context.Context, b *bookingpbv1.Booking) (out *bookingpbv1.Booking, err error) {
+func (i *instrumentedBookingRepository) PreviewBooking(ctx context.Context, b *schedulingpbv1.Booking) (out *schedulingpbv1.Booking, err error) {
 	err = graphqlx.Wrap(ctx, i.t, bookingResource, "preview_create", func(ctx context.Context) error {
 		out, err = i.repo.PreviewBooking(ctx, b)
 		return err
@@ -50,7 +50,7 @@ func (i *instrumentedBookingRepository) PreviewBooking(ctx context.Context, b *b
 	return out, err
 }
 
-func (i *instrumentedBookingRepository) GetBooking(ctx context.Context, name string) (out *bookingpbv1.Booking, err error) {
+func (i *instrumentedBookingRepository) GetBooking(ctx context.Context, name string) (out *schedulingpbv1.Booking, err error) {
 	err = graphqlx.Wrap(ctx, i.t, bookingResource, "get", func(ctx context.Context) error {
 		out, err = i.repo.GetBooking(ctx, name)
 		return err
@@ -58,7 +58,7 @@ func (i *instrumentedBookingRepository) GetBooking(ctx context.Context, name str
 	return out, err
 }
 
-func (i *instrumentedBookingRepository) ListBookings(ctx context.Context, in repox.ListInput) (items []*bookingpbv1.Booking, nextPageToken string, err error) {
+func (i *instrumentedBookingRepository) ListBookings(ctx context.Context, in repox.ListInput) (items []*schedulingpbv1.Booking, nextPageToken string, err error) {
 	err = graphqlx.Wrap(ctx, i.t, bookingResource, "list", func(ctx context.Context) error {
 		items, nextPageToken, err = i.repo.ListBookings(ctx, in)
 		return err
@@ -66,7 +66,7 @@ func (i *instrumentedBookingRepository) ListBookings(ctx context.Context, in rep
 	return items, nextPageToken, err
 }
 
-func (i *instrumentedBookingRepository) ConfirmBooking(ctx context.Context, name string) (out *bookingpbv1.Booking, err error) {
+func (i *instrumentedBookingRepository) ConfirmBooking(ctx context.Context, name string) (out *schedulingpbv1.Booking, err error) {
 	err = graphqlx.Wrap(ctx, i.t, bookingResource, "confirm", func(ctx context.Context) error {
 		out, err = i.repo.ConfirmBooking(ctx, name)
 		return err
@@ -74,7 +74,7 @@ func (i *instrumentedBookingRepository) ConfirmBooking(ctx context.Context, name
 	return out, err
 }
 
-func (i *instrumentedBookingRepository) CancelBooking(ctx context.Context, name string, reason bookingpbv1.CancelReason) (out *bookingpbv1.Booking, err error) {
+func (i *instrumentedBookingRepository) CancelBooking(ctx context.Context, name string, reason schedulingpbv1.CancelReason) (out *schedulingpbv1.Booking, err error) {
 	err = graphqlx.Wrap(ctx, i.t, bookingResource, "cancel", func(ctx context.Context) error {
 		out, err = i.repo.CancelBooking(ctx, name, reason)
 		return err
@@ -90,7 +90,7 @@ func (i *instrumentedBookingRepository) PreviewCancellation(ctx context.Context,
 	return refundable, percent, amount, nonRefundable, summary, err
 }
 
-func (i *instrumentedBookingRepository) RescheduleBooking(ctx context.Context, name string, b *bookingpbv1.Booking, newUnit string) (out *bookingpbv1.Booking, err error) {
+func (i *instrumentedBookingRepository) RescheduleBooking(ctx context.Context, name string, b *schedulingpbv1.Booking, newUnit string) (out *schedulingpbv1.Booking, err error) {
 	err = graphqlx.Wrap(ctx, i.t, bookingResource, "reschedule", func(ctx context.Context) error {
 		out, err = i.repo.RescheduleBooking(ctx, name, b, newUnit)
 		return err
@@ -106,7 +106,7 @@ func (i *instrumentedBookingRepository) ExpireHolds(ctx context.Context) (n int6
 	return n, err
 }
 
-func (i *instrumentedBookingRepository) UpdateBookingGuests(ctx context.Context, name string, guests []*identitypbv1.Guest, occupancy *bookingpbv1.Occupancy) (out *bookingpbv1.Booking, err error) {
+func (i *instrumentedBookingRepository) UpdateBookingGuests(ctx context.Context, name string, guests []*identitypbv1.Guest, occupancy *schedulingpbv1.Occupancy) (out *schedulingpbv1.Booking, err error) {
 	err = graphqlx.Wrap(ctx, i.t, bookingResource, "update_guests", func(ctx context.Context) error {
 		out, err = i.repo.UpdateBookingGuests(ctx, name, guests, occupancy)
 		return err

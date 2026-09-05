@@ -5,14 +5,14 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal/database"
 	"github.com/oh-tarnished/freebusy/internal/runtime/availability"
-	"github.com/oh-tarnished/freebusy/internal/runtime/booking"
+	"github.com/oh-tarnished/freebusy/internal/runtime/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/runtime/identity"
 	"github.com/oh-tarnished/freebusy/internal/runtime/organisation"
 	"github.com/oh-tarnished/freebusy/internal/runtime/promocode"
 	"github.com/oh-tarnished/freebusy/internal/runtime/property"
 	"github.com/oh-tarnished/freebusy/internal/runtime/schedule"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
@@ -38,7 +38,7 @@ func newServiceInstance(conn *database.Connection) (*Service, error) {
 		property.New(conn),
 		organisation.New(conn),
 		schedule.New(conn),
-		booking.New(conn),
+		scheduling.New(conn),
 		availability.New(conn),
 		identity.New(conn),
 	)
@@ -63,7 +63,7 @@ func registerServices(s *grpc.GRPCServer, svc *Service) {
 	propertypbv1.RegisterLicenceServiceServer(s, svc)
 	orgpbv1.RegisterOrganisationServiceServer(s, svc)
 	schedulepbv1.RegisterScheduleServiceServer(s, svc)
-	bookingpbv1.RegisterBookingServiceServer(s, svc)
+	schedulingpbv1.RegisterSchedulingServiceServer(s, svc)
 	availabilitypbv1.RegisterAvailabilityServiceServer(s, svc)
 	identitypbv1.RegisterIdentityServiceServer(s, svc)
 }
@@ -104,7 +104,7 @@ func registerHTTPGateways() grpc.Option {
 		if err := schedulepbv1.RegisterScheduleServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 			return err
 		}
-		if err := bookingpbv1.RegisterBookingServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
+		if err := schedulingpbv1.RegisterSchedulingServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 			return err
 		}
 		if err := availabilitypbv1.RegisterAvailabilityServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
@@ -138,7 +138,7 @@ func registerMCPServices(svc *Service) grpc.Option {
 			return schedulepbv1.ServeScheduleServiceMCP(ctx, svc, cfg)
 		},
 		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
-			return bookingpbv1.ServeBookingServiceMCP(ctx, svc, cfg)
+			return schedulingpbv1.ServeSchedulingServiceMCP(ctx, svc, cfg)
 		},
 		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
 			return availabilitypbv1.ServeAvailabilityServiceMCP(ctx, svc, cfg)

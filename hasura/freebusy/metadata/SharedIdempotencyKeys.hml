@@ -17,7 +17,7 @@ definition:
     - name: response
       type: String_1
     - name: state
-      type: Enum!
+      type: String_1!
     - name: updateTime
       type: Timestamptz!
   graphql:
@@ -92,7 +92,7 @@ definition:
         - fieldName: response
           booleanExpressionType: TextBoolExp
         - fieldName: state
-          booleanExpressionType: SharedIdempotencyStateBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: updateTime
           booleanExpressionType: TimestamptzBoolExp
       comparableRelationships: []
@@ -125,7 +125,7 @@ definition:
         - fieldName: response
           aggregateExpression: TextAggExp
         - fieldName: state
-          aggregateExpression: SharedIdempotencyStateAggExp
+          aggregateExpression: TextAggExp
         - fieldName: updateTime
           aggregateExpression: TimestamptzAggExp
   count:
@@ -156,7 +156,7 @@ definition:
         - fieldName: response
           orderByExpression: String1OrderByExp
         - fieldName: state
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: updateTime
           orderByExpression: TimestamptzOrderByExp
       orderableRelationships: []

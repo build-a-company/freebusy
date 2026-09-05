@@ -1,17 +1,17 @@
 syntax = "proto3";
 
-package freebusy.booking.v1;
+package freebusy.scheduling.v1;
 
 import "buf/validate/validate.proto";
-import "freebusy/booking/v1/booking.proto";
+import "freebusy/scheduling/v1/scheduling.proto";
 import "google/api/field_behavior.proto";
 import "google/api/field_info.proto";
 import "google/api/resource.proto";
 
-option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1;bookingpbv1";
+option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1;schedulingpbv1";
 option java_multiple_files = true;
-option java_outer_classname = "BookingMessagesProto";
-option java_package = "dev.ohtarnished.freebusy.booking.v1";
+option java_outer_classname = "SchedulingMessagesProto";
+option java_package = "dev.ohtarnished.freebusy.scheduling.v1";
 
 // Request message for CreateBooking. This places a hold transactionally; the
 // request_id makes retries safe (the same id always yields the same booking
@@ -68,7 +68,7 @@ message GetBookingRequest {
   // Format: bookings/{booking}
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.booking.v1/Booking"},
+    (google.api.resource_reference) = {type: "freebusy.scheduling.v1/Booking"},
     (buf.validate.field).string.pattern = "^bookings/[^/]+$"
   ];
 }
@@ -79,7 +79,7 @@ message GetBookingGuestsRequest {
   // Format: bookings/{booking}/guests
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.booking.v1/BookingGuests"},
+    (google.api.resource_reference) = {type: "freebusy.scheduling.v1/BookingGuests"},
     (buf.validate.field).string.pattern = "^bookings/[^/]+/guests$"
   ];
 }

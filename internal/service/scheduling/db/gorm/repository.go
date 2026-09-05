@@ -10,11 +10,11 @@ import (
 	"errors"
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/filterx"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/booking"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"gorm.io/gorm"
 )
 
@@ -53,7 +53,7 @@ func preloadBooking(db *gorm.DB) *gorm.DB {
 }
 
 // GetBooking returns the booking addressed by its resource name.
-func (r *BookingRepository) GetBooking(ctx context.Context, name string) (*bookingpbv1.Booking, error) {
+func (r *BookingRepository) GetBooking(ctx context.Context, name string) (*schedulingpbv1.Booking, error) {
 	id, err := types.BookingID(name)
 	if err != nil {
 		return nil, err
@@ -76,7 +76,7 @@ func (r *BookingRepository) GetBooking(ctx context.Context, name string) (*booki
 }
 
 // ListBookings returns a page of bookings ordered by params.OrderBy.
-func (r *BookingRepository) ListBookings(ctx context.Context, in repox.ListInput) ([]*bookingpbv1.Booking, string, error) {
+func (r *BookingRepository) ListBookings(ctx context.Context, in repox.ListInput) ([]*schedulingpbv1.Booking, string, error) {
 	fin, err := types.FilterxFromRaw(in)
 	if err != nil {
 		return nil, "", err
@@ -90,7 +90,7 @@ func (r *BookingRepository) ListBookings(ctx context.Context, in repox.ListInput
 	if err != nil {
 		return nil, "", err
 	}
-	items := make([]*bookingpbv1.Booking, 0, len(models))
+	items := make([]*schedulingpbv1.Booking, 0, len(models))
 	for i := range models {
 		out := bookingFromModel(&models[i], unitNames[models[i].UnitID])
 		guests, err := r.loadGuests(ctx, models[i].ID)

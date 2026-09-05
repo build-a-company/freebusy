@@ -8,7 +8,7 @@ package orgpbv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	_ "github.com/the-protobuf-project/orm/plugin/pb/ormpbv1"
+	_ "github.com/the-protobuf-project/store/plugin/pb/storepbv1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -297,13 +297,13 @@ var File_freebusy_organisation_v1_organisation_proto protoreflect.FileDescriptor
 
 const file_freebusy_organisation_v1_organisation_proto_rawDesc = "" +
 	"\n" +
-	"+freebusy/organisation/v1/organisation.proto\x12\x18freebusy.organisation.v1\x1a\x1bbuf/validate/validate.proto\x1a$freebusy/organisation/v1/enums.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x18orm/v1/annotations.proto\"\xf2\x04\n" +
+	"+freebusy/organisation/v1/organisation.proto\x12\x18freebusy.organisation.v1\x1a\x1bbuf/validate/validate.proto\x1a$freebusy/organisation/v1/enums.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1astore/v1/annotations.proto\"\xf2\x04\n" +
 	"\fOrganisation\x126\n" +
 	"\x04name\x18\x01 \x01(\tB\"\xe0A\b\xbaH\x1c\xd8\x01\x01r\x172\x15^organisations/[^/]+$R\x04name\x12,\n" +
-	"\fdisplay_name\x18\x03 \x01(\tB\t\xe0A\x02\x9a\xb5\x18\x02\x18\x01R\vdisplayName\x12\x17\n" +
+	"\fdisplay_name\x18\x03 \x01(\tB\t\xe0A\x02\xe2\xb5\x18\x02\x18\x01R\vdisplayName\x12\x17\n" +
 	"\x04slug\x18\x04 \x01(\tB\x03\xe0A\x01R\x04slug\x12(\n" +
 	"\rbilling_email\x18\x05 \x01(\tB\x03\xe0A\x01R\fbillingEmail\x12R\n" +
-	"\x05state\x18\x06 \x01(\x0e2+.freebusy.organisation.v1.OrganisationStateB\x0f\xe0A\x03\x92\xb5\x18\b\x1a\x06ACTIVER\x05state\x128\n" +
+	"\x05state\x18\x06 \x01(\x0e2+.freebusy.organisation.v1.OrganisationStateB\x0f\xe0A\x03ڵ\x18\b\x12\x06ACTIVER\x05state\x128\n" +
 	"\bsettings\x18\a \x01(\v2\x17.google.protobuf.StructB\x03\xe0A\x01R\bsettings\x12&\n" +
 	"\fmember_count\x18\b \x01(\x03B\x03\xe0A\x03R\vmemberCount\x12@\n" +
 	"\vcreate_time\x18\t \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
@@ -317,10 +317,10 @@ const file_freebusy_organisation_v1_organisation_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tB0\xe0A\b\xbaH*\xd8\x01\x01r%2#^organisations/[^/]+/members/[^/]+$R\x04name\x125\n" +
 	"\x04user\x18\x03 \x01(\tB!\xe0A\x03\xfaA\x1b\n" +
 	"\x19freebusy.identity.v1/UserR\x04user\x12\x1f\n" +
-	"\x05email\x18\x04 \x01(\tB\t\xe0A\x02\x9a\xb5\x18\x02\x18\x01R\x05email\x12&\n" +
+	"\x05email\x18\x04 \x01(\tB\t\xe0A\x02\xe2\xb5\x18\x02\x18\x01R\x05email\x12&\n" +
 	"\fdisplay_name\x18\x05 \x01(\tB\x03\xe0A\x03R\vdisplayName\x12K\n" +
 	"\x04role\x18\x06 \x01(\x0e2*.freebusy.organisation.v1.OrganisationRoleB\v\xe0A\x02\xbaH\x05\x82\x01\x02\x10\x01R\x04role\x12M\n" +
-	"\x05state\x18\a \x01(\x0e2%.freebusy.organisation.v1.MemberStateB\x10\xe0A\x03\x92\xb5\x18\t\x1a\aINVITEDR\x05state\x12;\n" +
+	"\x05state\x18\a \x01(\x0e2%.freebusy.organisation.v1.MemberStateB\x10\xe0A\x03ڵ\x18\t\x12\aINVITEDR\x05state\x12;\n" +
 	"\ainviter\x18\b \x01(\tB!\xe0A\x03\xfaA\x1b\n" +
 	"\x19freebusy.identity.v1/UserR\ainviter\x12@\n" +
 	"\vcreate_time\x18\t \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +

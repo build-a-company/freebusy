@@ -19,7 +19,7 @@ definition:
     - name: name
       type: String_1!
     - name: state
-      type: Enum
+      type: String_1
     - name: unit
       type: String_1!
     - name: updateTime
@@ -106,7 +106,7 @@ definition:
         - fieldName: name
           booleanExpressionType: TextBoolExp
         - fieldName: state
-          booleanExpressionType: ChannelMappingStateBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: unit
           booleanExpressionType: TextBoolExp
         - fieldName: updateTime
@@ -143,7 +143,7 @@ definition:
         - fieldName: name
           aggregateExpression: TextAggExp
         - fieldName: state
-          aggregateExpression: ChannelMappingStateAggExp
+          aggregateExpression: TextAggExp
         - fieldName: unit
           aggregateExpression: TextAggExp
         - fieldName: updateTime
@@ -178,7 +178,7 @@ definition:
         - fieldName: name
           orderByExpression: String1OrderByExp
         - fieldName: state
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: unit
           orderByExpression: String1OrderByExp
         - fieldName: updateTime

@@ -15,7 +15,7 @@ definition:
     - name: percent
       type: Int32
     - name: pricingUnit
-      type: Enum
+      type: String_1
     - name: taxable
       type: Boolean_1
     - name: unitId
@@ -90,7 +90,7 @@ definition:
         - fieldName: percent
           booleanExpressionType: Int4BoolExp
         - fieldName: pricingUnit
-          booleanExpressionType: PropertyPricingUnitBoolExp
+          booleanExpressionType: TextBoolExp
         - fieldName: taxable
           booleanExpressionType: BoolBoolExp
         - fieldName: unitId
@@ -123,7 +123,7 @@ definition:
         - fieldName: percent
           aggregateExpression: Int4AggExp
         - fieldName: pricingUnit
-          aggregateExpression: PropertyPricingUnitAggExp
+          aggregateExpression: TextAggExp
         - fieldName: taxable
           aggregateExpression: BoolAggExp
         - fieldName: unitId
@@ -154,7 +154,7 @@ definition:
         - fieldName: percent
           orderByExpression: Int32OrderByExp
         - fieldName: pricingUnit
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
         - fieldName: taxable
           orderByExpression: Boolean1OrderByExp
         - fieldName: unitId

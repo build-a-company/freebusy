@@ -1,26 +1,26 @@
 syntax = "proto3";
 
-package freebusy.booking.v1;
+package freebusy.scheduling.v1;
 
-import "freebusy/booking/v1/booking.proto";
-import "freebusy/booking/v1/booking_actions.proto";
-import "freebusy/booking/v1/booking_messages.proto";
+import "freebusy/scheduling/v1/scheduling.proto";
+import "freebusy/scheduling/v1/scheduling_actions.proto";
+import "freebusy/scheduling/v1/scheduling_messages.proto";
 import "google/api/annotations.proto";
 import "google/api/client.proto";
 import "mcp/protobuf/annotations.proto";
 
-option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1;bookingpbv1";
+option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1;schedulingpbv1";
 option java_multiple_files = true;
-option java_outer_classname = "BookingServiceProto";
-option java_package = "dev.ohtarnished.freebusy.booking.v1";
+option java_outer_classname = "SchedulingServiceProto";
+option java_package = "dev.ohtarnished.freebusy.scheduling.v1";
 
-// BookingService is the transactional heart. CreateBooking carries the
+// SchedulingService is the transactional heart. CreateBooking carries the
 // idempotency key, runs policy checks, and does the exclusion-constraint insert
 // that places a hold. The hold lifecycle is modeled as booking states. Two
 // things are deliberately NOT RPCs: the sweeper that releases expired holds is
 // an internal goroutine/cron, and confirmation usually arrives as a payment
 // webhook that calls ConfirmBooking server-side.
-service BookingService {
+service SchedulingService {
   option (google.api.default_host) = "freebusy.ohtarnished.dev";
   option (mcp.service) = {
     app: {
@@ -41,7 +41,7 @@ service BookingService {
     option (mcp.prompt) = {
       name: "book_slot"
       description: "Book a unit at a given time"
-      schema: "freebusy.booking.v1.BookSlotArgs"
+      schema: "freebusy.scheduling.v1.BookSlotArgs"
     };
   }
 

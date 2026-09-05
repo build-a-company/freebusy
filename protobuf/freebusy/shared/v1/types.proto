@@ -3,12 +3,12 @@ syntax = "proto3";
 package freebusy.shared.v1;
 
 import "buf/validate/validate.proto";
+import "entity/v1/annotations.proto";
 import "freebusy/shared/v1/enums.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
 import "google/type/date.proto";
 import "google/type/money.proto";
-import "orm/v1/annotations.proto";
 
 option go_package = "github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1;sharedpbv1";
 option java_multiple_files = true;
@@ -116,7 +116,7 @@ message PriceComponent {
 // migrated to object storage (S3 or any CDN-fronted host). At most one of the
 // two is authoritative at a time — prefer `uri` when both are set.
 message Attachment {
-  option (orm.v1.table) = {id: ID_STRATEGY_ULID};
+  option (entity.v1.table) = {id: ID_STRATEGY_ULID};
 
   // Original filename as uploaded.
   string filename = 1 [(google.api.field_behavior) = OPTIONAL];

@@ -6,11 +6,11 @@ import (
 	"context"
 
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/party"
-	"github.com/oh-tarnished/freebusy/internal/service/booking/pricing"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling/pricing"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/booking/v1/bookingpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -23,7 +23,7 @@ import (
 // same failures: ErrInvalidArgument when the party overflows the unit, and
 // ErrCapacityExhausted when the window is full. What it does not do is write —
 // no hold is placed, so the price it quotes is indicative, not reserved.
-func (r *BookingRepository) PreviewBooking(ctx context.Context, b *bookingpbv1.Booking) (*bookingpbv1.Booking, error) {
+func (r *BookingRepository) PreviewBooking(ctx context.Context, b *schedulingpbv1.Booking) (*schedulingpbv1.Booking, error) {
 	_, unitID, err := types.ParseUnitParent(b.GetUnit())
 	if err != nil {
 		return nil, err
@@ -62,7 +62,7 @@ func (r *BookingRepository) PreviewBooking(ctx context.Context, b *bookingpbv1.B
 		return nil, types.ErrCapacityExhausted
 	}
 
-	out := proto.Clone(b).(*bookingpbv1.Booking)
+	out := proto.Clone(b).(*schedulingpbv1.Booking)
 	in, err := r.pricingInputs(ctx, unit, repox.LastSegment(b.GetPromoCode()))
 	if err != nil {
 		return nil, err

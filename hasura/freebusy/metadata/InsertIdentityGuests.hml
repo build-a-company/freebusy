@@ -5,7 +5,7 @@ definition:
   name: InsertIdentityGuestsObject
   fields:
     - name: ageGroup
-      type: Enum
+      type: String_1
     - name: birthDate
       type: Date
     - name: bookingId
@@ -17,7 +17,7 @@ definition:
     - name: foreignerId
       type: String_1
     - name: gender
-      type: Enum
+      type: String_1
     - name: id
       type: String_1!
     - name: idDocumentId

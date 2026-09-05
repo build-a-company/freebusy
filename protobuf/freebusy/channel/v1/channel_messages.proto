@@ -224,7 +224,7 @@ message ImportReservationRequest {
 message ImportReservationResponse {
   // The freebusy booking created or updated from the reservation.
   // Format: bookings/{booking}
-  string booking = 1 [(google.api.resource_reference) = {type: "freebusy.booking.v1/Booking"}];
+  string booking = 1 [(google.api.resource_reference) = {type: "freebusy.scheduling.v1/Booking"}];
 }
 
 // Request message for GetChannelSyncStatus.

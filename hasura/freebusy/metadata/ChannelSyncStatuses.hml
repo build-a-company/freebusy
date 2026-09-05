@@ -17,7 +17,7 @@ definition:
     - name: pendingCount
       type: Int32
     - name: state
-      type: Enum
+      type: String_1
   graphql:
     typeName: ChannelSyncStatuses
     inputTypeName: ChannelSyncStatusesInput
@@ -86,7 +86,7 @@ definition:
         - fieldName: pendingCount
           booleanExpressionType: Int4BoolExp
         - fieldName: state
-          booleanExpressionType: ChannelChannelStateBoolExp
+          booleanExpressionType: TextBoolExp
       comparableRelationships: []
   logicalOperators:
     enable: true
@@ -117,7 +117,7 @@ definition:
         - fieldName: pendingCount
           aggregateExpression: Int4AggExp
         - fieldName: state
-          aggregateExpression: ChannelChannelStateAggExp
+          aggregateExpression: TextAggExp
   count:
     enable: true
     returnType: Int64
@@ -146,7 +146,7 @@ definition:
         - fieldName: pendingCount
           orderByExpression: Int32OrderByExp
         - fieldName: state
-          orderByExpression: EnumOrderByExp
+          orderByExpression: String1OrderByExp
       orderableRelationships: []
   graphql:
     expressionTypeName: ChannelSyncStatusesOrderByExp
