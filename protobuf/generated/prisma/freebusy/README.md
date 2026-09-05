@@ -6,7 +6,7 @@ Generated from Protobuf by protoc-gen-store. Source of truth is the `.proto` fil
 
 | Models | Enums |
 | ---: | ---: |
-| 59 | 32 |
+| 46 | 26 |
 
 ## Entity relationships
 
@@ -22,14 +22,11 @@ erDiagram
     }
     AvailabilityException {
         string id PK
-        string property_id FK
-        string unit_id FK
         string window_id FK
         string date_range_id FK
     }
     Booking {
         string id PK
-        string unit FK
         string customer FK
         string promo_code FK
         string contact_id FK
@@ -48,7 +45,6 @@ erDiagram
     }
     Channel {
         string id PK
-        string property FK
     }
     ChannelSyncStatus {
         string id PK
@@ -68,6 +64,11 @@ erDiagram
     DynamicRule {
         string id PK
         string rate_plan_id FK
+    }
+    Fee {
+        string id PK
+        string rate_plan_id FK
+        string amount_id FK
     }
     ForeignerDetails {
         string id PK
@@ -96,13 +97,12 @@ erDiagram
     }
     Licence {
         string id PK
-        string unit FK
-        string property_id FK
         string attachment_id FK
     }
-    Media {
+    LosDiscount {
         string id PK
-        string property_id FK
+        string rate_plan_id FK
+        string amount_off_id FK
     }
     Member {
         string id PK
@@ -117,9 +117,6 @@ erDiagram
         string id PK
     }
     Organisation {
-        string id PK
-    }
-    Policy {
         string id PK
     }
     PostalAddress {
@@ -138,26 +135,6 @@ erDiagram
     PricingDateRange {
         string id PK
     }
-    PricingFee {
-        string id PK
-        string rate_plan_id FK
-        string amount_id FK
-    }
-    PricingLosDiscount {
-        string id PK
-        string rate_plan_id FK
-        string amount_off_id FK
-    }
-    PricingRateOverride {
-        string id PK
-        string rate_plan_id FK
-        string date_range_id FK
-        string price_id FK
-    }
-    PricingTax {
-        string id PK
-        string rate_plan_id FK
-    }
     PromoCode {
         string id PK
         string discount_id FK
@@ -165,36 +142,11 @@ erDiagram
         string limits_id FK
         string scope_id FK
     }
-    Property {
+    RateOverride {
         string id PK
-        string organisation FK
-        string address_id FK
-        string policy_id FK
-    }
-    PropertyFee {
-        string id PK
-        string unit_id FK
-        string amount_id FK
-    }
-    PropertyLosDiscount {
-        string id PK
-        string unit_id FK
-        string amount_off_id FK
-    }
-    PropertyRateOverride {
-        string id PK
-        string unit_id FK
+        string rate_plan_id FK
         string date_range_id FK
         string price_id FK
-    }
-    PropertyTax {
-        string id PK
-        string unit_id FK
-    }
-    PropertyUnits {
-        string id PK
-        string property_id FK
-        string unit_id FK
     }
     RatePlan {
         string id PK
@@ -221,7 +173,6 @@ erDiagram
     }
     Schedule {
         string id PK
-        string property_id FK
         string buffers_id FK
         string stay_constraints_id FK
         string cancellation_policy_id FK
@@ -235,43 +186,22 @@ erDiagram
         string id PK
         string min_subtotal_id FK
     }
-    ScopeApplicableProperties {
-        string id PK
-        string scope_id FK
-        string property_id FK
-    }
-    ScopeApplicableUnits {
-        string id PK
-        string scope_id FK
-        string unit_id FK
-    }
     SharedDateRange {
         string id PK
     }
     StayConstraints {
         string id PK
     }
+    Tax {
+        string id PK
+        string rate_plan_id FK
+    }
     TimeWindow {
         string id PK
     }
-    Unit {
-        string id PK
-        string property_id FK
-        string price_id FK
-    }
-    UnitApplicablePromoCodes {
-        string id PK
-        string unit_id FK
-        string promo_code_id FK
-    }
     UnitMapping {
         string id PK
-        string unit FK
         string channel_id FK
-    }
-    UnitMedia {
-        string id PK
-        string unit_id FK
     }
     UsageLimits {
         string id PK
@@ -280,11 +210,8 @@ erDiagram
         string id PK
     }
     Adjustment }o--|| Money : "amount_delta_id"
-    AvailabilityException }o--|| Property : "property_id"
-    AvailabilityException }o--|| Unit : "unit_id"
     AvailabilityException }o--|| TimeWindow : "window_id"
     AvailabilityException }o--|| SharedDateRange : "date_range_id"
-    Booking }o--|| Unit : "unit"
     Booking }o--|| User : "customer"
     Booking }o--|| PromoCode : "promo_code"
     Booking }o--|| Contact : "contact_id"
@@ -294,11 +221,12 @@ erDiagram
     Booking }o--|| Money : "discount_id"
     Booking }o--|| Money : "total_id"
     Booking }o--|| Money : "refund_amount_id"
-    Channel }o--|| Property : "property"
     Discount }o--|| Money : "amount_off_id"
     DynamicBand }o--|| DynamicRule : "dynamic_rule_id"
     DynamicBand }o--|| Adjustment : "adjustment_id"
     DynamicRule }o--|| RatePlan : "rate_plan_id"
+    Fee }o--|| RatePlan : "rate_plan_id"
+    Fee }o--|| Money : "amount_id"
     Guest }o--|| Booking : "booking_id"
     Guest }o--|| IdDocument : "id_document_id"
     Guest }o--|| PostalAddress : "permanent_address_id"
@@ -306,10 +234,9 @@ erDiagram
     Guest }o--|| ForeignerDetails : "foreigner_id"
     Guest }o--|| GuestPreferences : "preferences_id"
     IdDocument }o--|| Attachment : "attachment_id"
-    Licence }o--|| Unit : "unit"
-    Licence }o--|| Property : "property_id"
     Licence }o--|| Attachment : "attachment_id"
-    Media }o--|| Property : "property_id"
+    LosDiscount }o--|| RatePlan : "rate_plan_id"
+    LosDiscount }o--|| Money : "amount_off_id"
     Member }o--|| User : "user"
     Member }o--|| User : "inviter"
     Member }o--|| Organisation : "organisation_id"
@@ -317,31 +244,13 @@ erDiagram
     PriceBounds }o--|| Money : "ceiling_id"
     PriceComponent }o--|| Booking : "booking_id"
     PriceComponent }o--|| Money : "amount_id"
-    PricingFee }o--|| RatePlan : "rate_plan_id"
-    PricingFee }o--|| Money : "amount_id"
-    PricingLosDiscount }o--|| RatePlan : "rate_plan_id"
-    PricingLosDiscount }o--|| Money : "amount_off_id"
-    PricingRateOverride }o--|| RatePlan : "rate_plan_id"
-    PricingRateOverride }o--|| PricingDateRange : "date_range_id"
-    PricingRateOverride }o--|| Money : "price_id"
-    PricingTax }o--|| RatePlan : "rate_plan_id"
     PromoCode }o--|| Discount : "discount_id"
     PromoCode }o--|| RedemptionWindow : "window_id"
     PromoCode }o--|| UsageLimits : "limits_id"
     PromoCode }o--|| Scope : "scope_id"
-    Property }o--|| Organisation : "organisation"
-    Property }o--|| PostalAddress : "address_id"
-    Property }o--|| Policy : "policy_id"
-    PropertyFee }o--|| Unit : "unit_id"
-    PropertyFee }o--|| Money : "amount_id"
-    PropertyLosDiscount }o--|| Unit : "unit_id"
-    PropertyLosDiscount }o--|| Money : "amount_off_id"
-    PropertyRateOverride }o--|| Unit : "unit_id"
-    PropertyRateOverride }o--|| SharedDateRange : "date_range_id"
-    PropertyRateOverride }o--|| Money : "price_id"
-    PropertyTax }o--|| Unit : "unit_id"
-    PropertyUnits }o--|| Property : "property_id"
-    PropertyUnits }o--|| Unit : "unit_id"
+    RateOverride }o--|| RatePlan : "rate_plan_id"
+    RateOverride }o--|| PricingDateRange : "date_range_id"
+    RateOverride }o--|| Money : "price_id"
     RatePlan }o--|| Money : "price_id"
     RatePlan }o--|| PriceBounds : "bounds_id"
     RecurringRule }o--|| Schedule : "schedule_id"
@@ -350,24 +259,14 @@ erDiagram
     Redemption }o--|| PromoCode : "promo_code_id"
     Redemption }o--|| Money : "amount_applied_id"
     RefundTier }o--|| CancellationPolicy : "cancellation_policy_id"
-    Schedule }o--|| Property : "property_id"
     Schedule }o--|| BufferSettings : "buffers_id"
     Schedule }o--|| StayConstraints : "stay_constraints_id"
     Schedule }o--|| CancellationPolicy : "cancellation_policy_id"
     ScheduleExceptions }o--|| Schedule : "schedule_id"
     ScheduleExceptions }o--|| AvailabilityException : "availability_exception_id"
     Scope }o--|| Money : "min_subtotal_id"
-    ScopeApplicableProperties }o--|| Scope : "scope_id"
-    ScopeApplicableProperties }o--|| Property : "property_id"
-    ScopeApplicableUnits }o--|| Scope : "scope_id"
-    ScopeApplicableUnits }o--|| Unit : "unit_id"
-    Unit }o--|| Property : "property_id"
-    Unit }o--|| Money : "price_id"
-    UnitApplicablePromoCodes }o--|| Unit : "unit_id"
-    UnitApplicablePromoCodes }o--|| PromoCode : "promo_code_id"
-    UnitMapping }o--|| Unit : "unit"
+    Tax }o--|| RatePlan : "rate_plan_id"
     UnitMapping }o--|| Channel : "channel_id"
-    UnitMedia }o--|| Unit : "unit_id"
 ```
 
 ## Subfolders

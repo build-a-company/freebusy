@@ -20,11 +20,8 @@ model Channel {
   /// The channel name. Format: channels/{channel}
   name String @unique @map("name")
 
-  /// The property this channel distributes. Format: properties/{property}
-  propertyID String @map("property")
-
-  /// Relation to Property via property.
-  property Property @relation(fields: [propertyID], references: [id])
+  /// The property this channel distributes. Format: organizationalUnits/{organizational_unit} TODO: unresolved reference to OrganizationalUnit (not in this generation set); kept as a plain indexed column.
+  property String @map("property")
 
   /// Which OTA/GDS this connects to. Immutable: the adapter and external ID space are fixed per channel.
   type ChannelType @default(AGODA) @map("type")
@@ -57,7 +54,7 @@ model Channel {
   unitMappings UnitMapping[]
 
   /// Index on [property].
-  @@index([propertyID])
+  @@index([property])
   /// Maps the model to the "resource" table in the database.
   @@map("resource")
   /// Maps the model to the "channel" schema in the database.
@@ -72,11 +69,8 @@ model UnitMapping {
   /// The mapping name. Format: channels/{channel}/unitMappings/{unit_mapping}
   name String @unique @map("name")
 
-  /// The freebusy unit being mapped. Format: properties/{property}/units/{unit}
-  unitID String @map("unit")
-
-  /// Relation to Unit via unit.
-  unit Unit @relation(fields: [unitID], references: [id])
+  /// The freebusy unit being mapped. Format: resources/{resource} TODO: unresolved reference to Resource (not in this generation set); kept as a plain indexed column.
+  unit String @map("unit")
 
   /// The channel's room-type id this unit maps to.
   externalRoomTypeID String @map("external_room_type_id")
@@ -103,7 +97,7 @@ model UnitMapping {
   channel Channel @relation(fields: [channelID], references: [id], onDelete: Cascade)
 
   /// Index on [unit].
-  @@index([unitID])
+  @@index([unit])
   /// Index on [channel_id].
   @@index([channelID])
   /// Maps the model to the "unit_mappings" table in the database.

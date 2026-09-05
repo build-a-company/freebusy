@@ -34,14 +34,14 @@ service LicenceService {
   // Lists the regulatory licences/certificates under a property — both
   // property-wide and per-unit ones.
   rpc ListLicences(ListLicencesRequest) returns (ListLicencesResponse) {
-    option (google.api.http) = {get: "/v1/{parent=properties/*}/licences"};
+    option (google.api.http) = {get: "/v1/{parent=organizationalUnits/*}/licences"};
     option (google.api.method_signature) = "parent";
     option (mcp.tool) = {description: "List a property's regulatory licences/certificates, property-wide and per-unit alike. Filter by type, target, unit, state, or expiry_date to find licences due for renewal."};
   }
 
   // Gets a single licence.
   rpc GetLicence(GetLicenceRequest) returns (Licence) {
-    option (google.api.http) = {get: "/v1/{name=properties/*/licences/*}"};
+    option (google.api.http) = {get: "/v1/{name=organizationalUnits/*/licences/*}"};
     option (google.api.method_signature) = "name";
     option (mcp.tool) = {description: "Get a single licence/certificate by name."};
   }
@@ -51,7 +51,7 @@ service LicenceService {
   // unit instead of the whole property.
   rpc CreateLicence(CreateLicenceRequest) returns (Licence) {
     option (google.api.http) = {
-      post: "/v1/{parent=properties/*}/licences"
+      post: "/v1/{parent=organizationalUnits/*}/licences"
       body: "licence"
     };
     option (google.api.method_signature) = "parent,licence,licence_id";
@@ -61,7 +61,7 @@ service LicenceService {
   // Updates a licence, e.g. to record its renewal.
   rpc UpdateLicence(UpdateLicenceRequest) returns (Licence) {
     option (google.api.http) = {
-      patch: "/v1/{licence.name=properties/*/licences/*}"
+      patch: "/v1/{licence.name=organizationalUnits/*/licences/*}"
       body: "licence"
     };
     option (google.api.method_signature) = "licence,update_mask";
@@ -70,7 +70,7 @@ service LicenceService {
 
   // Deletes a licence.
   rpc DeleteLicence(DeleteLicenceRequest) returns (google.protobuf.Empty) {
-    option (google.api.http) = {delete: "/v1/{name=properties/*/licences/*}"};
+    option (google.api.http) = {delete: "/v1/{name=organizationalUnits/*/licences/*}"};
     option (google.api.method_signature) = "name";
     option (mcp.tool) = {description: "Delete a licence/certificate by name."};
   }

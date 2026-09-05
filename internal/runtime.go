@@ -9,7 +9,6 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/runtime/identity"
 	"github.com/oh-tarnished/freebusy/internal/runtime/organisation"
 	"github.com/oh-tarnished/freebusy/internal/runtime/promocode"
-	"github.com/oh-tarnished/freebusy/internal/runtime/property"
 	"github.com/oh-tarnished/freebusy/internal/runtime/schedule"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
@@ -35,7 +34,6 @@ func newServiceInstance(conn *database.Connection) (*Service, error) {
 	}
 	svc := NewService(
 		promocode.New(conn),
-		property.New(conn),
 		organisation.New(conn),
 		schedule.New(conn),
 		scheduling.New(conn),
@@ -59,8 +57,6 @@ func registerGRPCServers(svc *Service) grpc.Option {
 // suites.
 func registerServices(s *grpc.GRPCServer, svc *Service) {
 	promocodepbv1.RegisterPromoCodeServiceServer(s, svc)
-	propertypbv1.RegisterPropertyServiceServer(s, svc)
-	propertypbv1.RegisterLicenceServiceServer(s, svc)
 	orgpbv1.RegisterOrganisationServiceServer(s, svc)
 	schedulepbv1.RegisterScheduleServiceServer(s, svc)
 	schedulingpbv1.RegisterSchedulingServiceServer(s, svc)

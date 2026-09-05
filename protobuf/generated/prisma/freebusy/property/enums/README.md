@@ -6,16 +6,12 @@ Generated from Protobuf by protoc-gen-store. Source of truth is the `.proto` fil
 
 | Models | Enums |
 | ---: | ---: |
-| 0 | 7 |
+| 0 | 3 |
 
 Schema file: [`enums.postgres.prisma`](./enums.postgres.prisma)
 
 ### Enums
 
-- `PropertyState`: ACTIVE, ARCHIVED
-- `UnitType`: PROVIDER, ROOM, EQUIPMENT, LODGING, SPACE
-- `PropertyPricingUnit`: PER_BOOKING, PER_NIGHT, PER_PERSON
-- `UnitState`: ACTIVE, ARCHIVED
 - `LicenceTarget`: PROPERTY, UNIT
 - `LicenceType`: TRADE, FIRE_SAFETY, LIQUOR, FOOD_SAFETY, TOURISM, HEALTH, OTHER
 - `LicenceState`: ACTIVE, ARCHIVED

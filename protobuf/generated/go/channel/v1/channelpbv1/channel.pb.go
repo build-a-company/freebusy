@@ -37,7 +37,7 @@ type Channel struct {
 	// Format: channels/{channel}
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// The property this channel distributes.
-	// Format: properties/{property}
+	// Format: organizationalUnits/{organizational_unit}
 	Property string `protobuf:"bytes,2,opt,name=property,proto3" json:"property,omitempty"`
 	// Which OTA/GDS this connects to. Immutable: the adapter and external ID space
 	// are fixed per channel.
@@ -180,7 +180,7 @@ type UnitMapping struct {
 	// Format: channels/{channel}/unitMappings/{unit_mapping}
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// The freebusy unit being mapped.
-	// Format: properties/{property}/units/{unit}
+	// Format: resources/{resource}
 	Unit string `protobuf:"bytes,2,opt,name=unit,proto3" json:"unit,omitempty"`
 	// The channel's room-type id this unit maps to.
 	ExternalRoomTypeId string `protobuf:"bytes,3,opt,name=external_room_type_id,json=externalRoomTypeId,proto3" json:"external_room_type_id,omitempty"`
@@ -290,7 +290,7 @@ func (x *UnitMapping) GetEtag() string {
 type AriUpdate struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The unit this update is for.
-	// Format: properties/{property}/units/{unit}
+	// Format: resources/{resource}
 	Unit string `protobuf:"bytes,1,opt,name=unit,proto3" json:"unit,omitempty"`
 	// The date (in the unit's timezone) the values apply to.
 	Date *date.Date `protobuf:"bytes,2,opt,name=date,proto3" json:"date,omitempty"`
@@ -463,7 +463,7 @@ type ExternalReservation struct {
 	// modify/cancel matching).
 	ExternalId string `protobuf:"bytes,2,opt,name=external_id,json=externalId,proto3" json:"external_id,omitempty"`
 	// The resolved freebusy unit being booked.
-	// Format: properties/{property}/units/{unit}
+	// Format: resources/{resource}
 	Unit string `protobuf:"bytes,3,opt,name=unit,proto3" json:"unit,omitempty"`
 	// Guest contact details supplied by the channel.
 	Guest *sharedpbv1.Contact `protobuf:"bytes,4,opt,name=guest,proto3" json:"guest,omitempty"`
@@ -575,7 +575,7 @@ type SyncEvent struct {
 	// Format: channels/{channel}
 	Channel string `protobuf:"bytes,2,opt,name=channel,proto3" json:"channel,omitempty"`
 	// The unit involved, when the event is unit-scoped.
-	// Format: properties/{property}/units/{unit}
+	// Format: resources/{resource}
 	Unit string `protobuf:"bytes,3,opt,name=unit,proto3" json:"unit,omitempty"`
 	// The date the event concerned, when applicable.
 	Date *date.Date `protobuf:"bytes,4,opt,name=date,proto3" json:"date,omitempty"`
@@ -672,11 +672,11 @@ var File_freebusy_channel_v1_channel_proto protoreflect.FileDescriptor
 
 const file_freebusy_channel_v1_channel_proto_rawDesc = "" +
 	"\n" +
-	"!freebusy/channel/v1/channel.proto\x12\x13freebusy.channel.v1\x1a\x1ffreebusy/channel/v1/enums.proto\x1a\x1efreebusy/shared/v1/types.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x16google/type/date.proto\x1a\x17google/type/money.proto\"\x94\x05\n" +
+	"!freebusy/channel/v1/channel.proto\x12\x13freebusy.channel.v1\x1a\x1ffreebusy/channel/v1/enums.proto\x1a\x1efreebusy/shared/v1/types.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x16google/type/date.proto\x1a\x17google/type/money.proto\"\x99\x05\n" +
 	"\aChannel\x12\x17\n" +
-	"\x04name\x18\x01 \x01(\tB\x03\xe0A\bR\x04name\x12A\n" +
-	"\bproperty\x18\x02 \x01(\tB%\xe0A\x02\xfaA\x1f\n" +
-	"\x1dfreebusy.property.v1/PropertyR\bproperty\x12<\n" +
+	"\x04name\x18\x01 \x01(\tB\x03\xe0A\bR\x04name\x12F\n" +
+	"\bproperty\x18\x02 \x01(\tB*\xe0A\x02\xfaA$\n" +
+	"\"protobufrfc.dev/OrganizationalUnitR\bproperty\x12<\n" +
 	"\x04type\x18\x03 \x01(\x0e2 .freebusy.channel.v1.ChannelTypeB\x06\xe0A\x02\xe0A\x05R\x04type\x12&\n" +
 	"\fdisplay_name\x18\x04 \x01(\tB\x03\xe0A\x01R\vdisplayName\x125\n" +
 	"\x14external_property_id\x18\x05 \x01(\tB\x03\xe0A\x01R\x12externalPropertyId\x12*\n" +
@@ -689,11 +689,11 @@ const file_freebusy_channel_v1_channel_proto_rawDesc = "" +
 	" \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"updateTime\x12\x12\n" +
 	"\x04etag\x18\v \x01(\tR\x04etag:G\xeaAD\n" +
-	"\x1bfreebusy.channel.v1/Channel\x12\x12channels/{channel}*\bchannels2\achannel\"\x94\x04\n" +
+	"\x1bfreebusy.channel.v1/Channel\x12\x12channels/{channel}*\bchannels2\achannel\"\x93\x04\n" +
 	"\vUnitMapping\x12\x17\n" +
-	"\x04name\x18\x01 \x01(\tB\x03\xe0A\bR\x04name\x125\n" +
-	"\x04unit\x18\x02 \x01(\tB!\xe0A\x02\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/UnitR\x04unit\x126\n" +
+	"\x04name\x18\x01 \x01(\tB\x03\xe0A\bR\x04name\x124\n" +
+	"\x04unit\x18\x02 \x01(\tB \xe0A\x02\xfaA\x1a\n" +
+	"\x18protobufrfc.dev/ResourceR\x04unit\x126\n" +
 	"\x15external_room_type_id\x18\x03 \x01(\tB\x03\xe0A\x02R\x12externalRoomTypeId\x126\n" +
 	"\x15external_rate_plan_id\x18\x04 \x01(\tB\x03\xe0A\x01R\x12externalRatePlanId\x12<\n" +
 	"\x05state\x18\x05 \x01(\x0e2!.freebusy.channel.v1.MappingStateB\x03\xe0A\x03R\x05state\x12@\n" +
@@ -702,10 +702,10 @@ const file_freebusy_channel_v1_channel_proto_rawDesc = "" +
 	"\vupdate_time\x18\a \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
 	"updateTime\x12\x12\n" +
 	"\x04etag\x18\b \x01(\tR\x04etag:o\xeaAl\n" +
-	"\x1ffreebusy.channel.v1/UnitMapping\x12.channels/{channel}/unitMappings/{unit_mapping}*\funitMappings2\vunitMapping\"\x8a\x02\n" +
-	"\tAriUpdate\x125\n" +
-	"\x04unit\x18\x01 \x01(\tB!\xe0A\x02\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/UnitR\x04unit\x12*\n" +
+	"\x1ffreebusy.channel.v1/UnitMapping\x12.channels/{channel}/unitMappings/{unit_mapping}*\funitMappings2\vunitMapping\"\x89\x02\n" +
+	"\tAriUpdate\x124\n" +
+	"\x04unit\x18\x01 \x01(\tB \xe0A\x02\xfaA\x1a\n" +
+	"\x18protobufrfc.dev/ResourceR\x04unit\x12*\n" +
 	"\x04date\x18\x02 \x01(\v2\x11.google.type.DateB\x03\xe0A\x02R\x04date\x12!\n" +
 	"\tavailable\x18\x03 \x01(\x05B\x03\xe0A\x01R\tavailable\x12+\n" +
 	"\x04rate\x18\x04 \x01(\v2\x12.google.type.MoneyB\x03\xe0A\x01R\x04rate\x12J\n" +
@@ -715,25 +715,25 @@ const file_freebusy_channel_v1_channel_proto_rawDesc = "" +
 	"\bmax_stay\x18\x02 \x01(\x05B\x03\xe0A\x01R\amaxStay\x12*\n" +
 	"\x0earrival_closed\x18\x03 \x01(\bB\x03\xe0A\x01R\rarrivalClosed\x12.\n" +
 	"\x10departure_closed\x18\x04 \x01(\bB\x03\xe0A\x01R\x0fdepartureClosed\x12 \n" +
-	"\tstop_sell\x18\x05 \x01(\bB\x03\xe0A\x01R\bstopSell\"\xa4\x03\n" +
+	"\tstop_sell\x18\x05 \x01(\bB\x03\xe0A\x01R\bstopSell\"\xa3\x03\n" +
 	"\x13ExternalReservation\x12=\n" +
 	"\achannel\x18\x01 \x01(\tB#\xe0A\x02\xfaA\x1d\n" +
 	"\x1bfreebusy.channel.v1/ChannelR\achannel\x12$\n" +
 	"\vexternal_id\x18\x02 \x01(\tB\x03\xe0A\x02R\n" +
-	"externalId\x125\n" +
-	"\x04unit\x18\x03 \x01(\tB!\xe0A\x02\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/UnitR\x04unit\x126\n" +
+	"externalId\x124\n" +
+	"\x04unit\x18\x03 \x01(\tB \xe0A\x02\xfaA\x1a\n" +
+	"\x18protobufrfc.dev/ResourceR\x04unit\x126\n" +
 	"\x05guest\x18\x04 \x01(\v2\x1b.freebusy.shared.v1.ContactB\x03\xe0A\x01R\x05guest\x126\n" +
 	"\x04stay\x18\x05 \x01(\v2\x1d.freebusy.shared.v1.DateRangeB\x03\xe0A\x02R\x04stay\x12\x19\n" +
 	"\x05units\x18\x06 \x01(\x05B\x03\xe0A\x01R\x05units\x12-\n" +
 	"\x05total\x18\a \x01(\v2\x12.google.type.MoneyB\x03\xe0A\x01R\x05total\x127\n" +
-	"\x02op\x18\b \x01(\x0e2\".freebusy.channel.v1.ReservationOpB\x03\xe0A\x02R\x02op\"\xf0\x02\n" +
+	"\x02op\x18\b \x01(\x0e2\".freebusy.channel.v1.ReservationOpB\x03\xe0A\x02R\x02op\"\xef\x02\n" +
 	"\tSyncEvent\x12@\n" +
 	"\tdirection\x18\x01 \x01(\x0e2\".freebusy.channel.v1.SyncDirectionR\tdirection\x12:\n" +
 	"\achannel\x18\x02 \x01(\tB \xfaA\x1d\n" +
-	"\x1bfreebusy.channel.v1/ChannelR\achannel\x122\n" +
-	"\x04unit\x18\x03 \x01(\tB\x1e\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/UnitR\x04unit\x12%\n" +
+	"\x1bfreebusy.channel.v1/ChannelR\achannel\x121\n" +
+	"\x04unit\x18\x03 \x01(\tB\x1d\xfaA\x1a\n" +
+	"\x18protobufrfc.dev/ResourceR\x04unit\x12%\n" +
 	"\x04date\x18\x04 \x01(\v2\x11.google.type.DateR\x04date\x129\n" +
 	"\x05state\x18\x05 \x01(\x0e2\x1e.freebusy.channel.v1.SyncStateB\x03\xe0A\x03R\x05state\x12\x14\n" +
 	"\x05error\x18\x06 \x01(\tR\x05error\x129\n" +

@@ -25,7 +25,7 @@ import (
 )
 
 // LicenceRepository is the provider-agnostic persistence surface for
-// Licence (properties/{property}/licences/{licence}): full-message writes, AIP-160/AIP-132 lists with
+// Licence (organizationalUnits/{organizational_unit}/licences/{licence}): full-message writes, AIP-160/AIP-132 lists with
 // opaque page tokens, field-mask updates, and etag optimistic concurrency.
 type LicenceRepository interface {
 	// Create persists m under parent and returns the stored record.
@@ -59,95 +59,17 @@ type LicenceHooks struct {
 	BeforeDelete func(ctx context.Context, name string) error
 }
 
-// PropertyRepository is the provider-agnostic persistence surface for
-// Property (properties/{property}): full-message writes, AIP-160/AIP-132 lists with
-// opaque page tokens, field-mask updates, and etag optimistic concurrency.
-type PropertyRepository interface {
-	// Create persists m and returns the stored record.
-	Create(ctx context.Context, m *propertypbv1.Property) (*propertypbv1.Property, error)
-	// Get returns the record addressed by its resource name, or
-	// repox.ErrNotFound.
-	Get(ctx context.Context, name string) (*propertypbv1.Property, error)
-	// List returns one page of records.
-	List(ctx context.Context, in repox.ListInput) ([]*propertypbv1.Property, string, error)
-	// Update persists the masked fields of m; an empty mask replaces every
-	// mutable field. m.Etag, when set, guards against concurrent writes
-	// (repox.ErrConflict).
-	Update(ctx context.Context, m *propertypbv1.Property, paths []string) (*propertypbv1.Property, error)
-	// Delete removes the record addressed by its resource name.
-	Delete(ctx context.Context, name string) error
-}
-
-// PropertyHooks lets custom logic run inside the generated Property
-// adapters without editing them: normalization/derivation before writes,
-// derived fields after reads, and guards before deletes. Nil funcs are skipped.
-type PropertyHooks struct {
-	// BeforeCreate runs after name/id resolution, before the row is written.
-	BeforeCreate func(ctx context.Context, m *propertypbv1.Property) error
-	// AfterRead runs on every record a read returns (Get, List, and the
-	// re-reads writes return).
-	AfterRead func(ctx context.Context, m *propertypbv1.Property) error
-	// BeforeUpdate runs after the mask is applied to the merged record,
-	// before it is written.
-	BeforeUpdate func(ctx context.Context, existing, merged *propertypbv1.Property, paths []string) error
-	// BeforeDelete runs before the row is removed; returning an error vetoes.
-	BeforeDelete func(ctx context.Context, name string) error
-}
-
-// UnitRepository is the provider-agnostic persistence surface for
-// Unit (properties/{property}/units/{unit}): full-message writes, AIP-160/AIP-132 lists with
-// opaque page tokens, field-mask updates, and etag optimistic concurrency.
-type UnitRepository interface {
-	// Create persists m under parent and returns the stored record.
-	Create(ctx context.Context, parent string, m *propertypbv1.Unit) (*propertypbv1.Unit, error)
-	// Get returns the record addressed by its resource name, or
-	// repox.ErrNotFound.
-	Get(ctx context.Context, name string) (*propertypbv1.Unit, error)
-	// List returns one page of records under parent.
-	List(ctx context.Context, parent string, in repox.ListInput) ([]*propertypbv1.Unit, string, error)
-	// Update persists the masked fields of m; an empty mask replaces every
-	// mutable field. m.Etag, when set, guards against concurrent writes
-	// (repox.ErrConflict).
-	Update(ctx context.Context, m *propertypbv1.Unit, paths []string) (*propertypbv1.Unit, error)
-	// Delete removes the record addressed by its resource name.
-	Delete(ctx context.Context, name string) error
-}
-
-// UnitHooks lets custom logic run inside the generated Unit
-// adapters without editing them: normalization/derivation before writes,
-// derived fields after reads, and guards before deletes. Nil funcs are skipped.
-type UnitHooks struct {
-	// BeforeCreate runs after name/id resolution, before the row is written.
-	BeforeCreate func(ctx context.Context, m *propertypbv1.Unit) error
-	// AfterRead runs on every record a read returns (Get, List, and the
-	// re-reads writes return).
-	AfterRead func(ctx context.Context, m *propertypbv1.Unit) error
-	// BeforeUpdate runs after the mask is applied to the merged record,
-	// before it is written.
-	BeforeUpdate func(ctx context.Context, existing, merged *propertypbv1.Unit, paths []string) error
-	// BeforeDelete runs before the row is removed; returning an error vetoes.
-	BeforeDelete func(ctx context.Context, name string) error
-}
-
 // Repositories bundles this schema's repository surfaces behind one factory.
 type Repositories struct {
-	Licences   LicenceRepository
-	Properties PropertyRepository
-	Units      UnitRepository
+	Licences LicenceRepository
 }
 
 // options collects the per-resource customizations the factories thread into
 // the adapters they build.
 type options struct {
-	licenceHooks         LicenceHooks
-	licenceOverrides     map[string]filterx.SQLHandler
-	propertyHooks        PropertyHooks
-	propertyOverrides    map[string]filterx.SQLHandler
-	unitHooks            UnitHooks
-	unitOverrides        map[string]filterx.SQLHandler
-	licenceGQLOverrides  map[string]filterx.GraphQLHandler
-	propertyGQLOverrides map[string]filterx.GraphQLHandler
-	unitGQLOverrides     map[string]filterx.GraphQLHandler
+	licenceHooks        LicenceHooks
+	licenceOverrides    map[string]filterx.SQLHandler
+	licenceGQLOverrides map[string]filterx.GraphQLHandler
 }
 
 // Option customizes the adapters a factory builds.
@@ -169,38 +91,6 @@ func WithLicenceListOverride(field string, h filterx.SQLHandler) Option {
 	}
 }
 
-// WithPropertyHooks installs h on the Property adapters.
-func WithPropertyHooks(h PropertyHooks) Option {
-	return func(o *options) { o.propertyHooks = h }
-}
-
-// WithPropertyListOverride substitutes the generated filter dispatch for one
-// Property filter field (e.g. a derived state computed via subqueries).
-func WithPropertyListOverride(field string, h filterx.SQLHandler) Option {
-	return func(o *options) {
-		if o.propertyOverrides == nil {
-			o.propertyOverrides = map[string]filterx.SQLHandler{}
-		}
-		o.propertyOverrides[field] = h
-	}
-}
-
-// WithUnitHooks installs h on the Unit adapters.
-func WithUnitHooks(h UnitHooks) Option {
-	return func(o *options) { o.unitHooks = h }
-}
-
-// WithUnitListOverride substitutes the generated filter dispatch for one
-// Unit filter field (e.g. a derived state computed via subqueries).
-func WithUnitListOverride(field string, h filterx.SQLHandler) Option {
-	return func(o *options) {
-		if o.unitOverrides == nil {
-			o.unitOverrides = map[string]filterx.SQLHandler{}
-		}
-		o.unitOverrides[field] = h
-	}
-}
-
 // WithLicenceGraphQLListOverride substitutes the generated filter dispatch
 // for one Licence filter field on the GraphQL adapters.
 func WithLicenceGraphQLListOverride(field string, h filterx.GraphQLHandler) Option {
@@ -209,28 +99,6 @@ func WithLicenceGraphQLListOverride(field string, h filterx.GraphQLHandler) Opti
 			o.licenceGQLOverrides = map[string]filterx.GraphQLHandler{}
 		}
 		o.licenceGQLOverrides[field] = h
-	}
-}
-
-// WithPropertyGraphQLListOverride substitutes the generated filter dispatch
-// for one Property filter field on the GraphQL adapters.
-func WithPropertyGraphQLListOverride(field string, h filterx.GraphQLHandler) Option {
-	return func(o *options) {
-		if o.propertyGQLOverrides == nil {
-			o.propertyGQLOverrides = map[string]filterx.GraphQLHandler{}
-		}
-		o.propertyGQLOverrides[field] = h
-	}
-}
-
-// WithUnitGraphQLListOverride substitutes the generated filter dispatch
-// for one Unit filter field on the GraphQL adapters.
-func WithUnitGraphQLListOverride(field string, h filterx.GraphQLHandler) Option {
-	return func(o *options) {
-		if o.unitGQLOverrides == nil {
-			o.unitGQLOverrides = map[string]filterx.GraphQLHandler{}
-		}
-		o.unitGQLOverrides[field] = h
 	}
 }
 
@@ -250,9 +118,7 @@ func NewGraphQL(svc *freebusyql.Service, opts ...Option) Repositories {
 		opt(&o)
 	}
 	return Repositories{
-		Licences:   &GraphQLLicenceRepository{Svc: svc, Hooks: o.licenceHooks, ListOverrides: o.licenceGQLOverrides},
-		Properties: &GraphQLPropertyRepository{Svc: svc, Hooks: o.propertyHooks, ListOverrides: o.propertyGQLOverrides},
-		Units:      &GraphQLUnitRepository{Svc: svc, Hooks: o.unitHooks, ListOverrides: o.unitGQLOverrides},
+		Licences: &GraphQLLicenceRepository{Svc: svc, Hooks: o.licenceHooks, ListOverrides: o.licenceGQLOverrides},
 	}
 }
 
@@ -263,8 +129,6 @@ func NewGorm(db *gorm.DB, opts ...Option) Repositories {
 		opt(&o)
 	}
 	return Repositories{
-		Licences:   &GormLicenceRepository{DB: db, Hooks: o.licenceHooks, ListOverrides: o.licenceOverrides},
-		Properties: &GormPropertyRepository{DB: db, Hooks: o.propertyHooks, ListOverrides: o.propertyOverrides},
-		Units:      &GormUnitRepository{DB: db, Hooks: o.unitHooks, ListOverrides: o.unitOverrides},
+		Licences: &GormLicenceRepository{DB: db, Hooks: o.licenceHooks, ListOverrides: o.licenceOverrides},
 	}
 }

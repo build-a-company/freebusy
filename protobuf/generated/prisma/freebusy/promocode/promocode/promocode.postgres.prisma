@@ -88,9 +88,6 @@ model PromoCode {
   /// Back-relation: Redemption records that reference this model via promo_code_id.
   redemptions Redemption[]
 
-  /// Back-relation: UnitApplicablePromoCodes records that reference this model via promo_code_id.
-  unitApplicablePromoCodes UnitApplicablePromoCodes[]
-
   /// Back-relation: Booking records that reference this model via promo_code.
   bookings Booking[]
 
@@ -240,76 +237,23 @@ model Scope {
   /// Relation to Money via min_subtotal_id.
   minSubtotal Money? @relation(fields: [minSubtotalID], references: [id], onDelete: SetNull)
 
+  /// Properties the code applies to. Empty means all properties. Format: organizationalUnits/{organizational_unit}
+  applicableProperties String[] @map("applicable_properties")
+
+  /// Units the code applies to. Empty means all units. Format: resources/{resource}
+  applicableUnits String[] @map("applicable_units")
+
   /// Back-relation: PromoCode records that reference this model via scope_id.
   resource PromoCode[]
 
-  /// Back-relation: ScopeApplicableProperties records that reference this model via scope_id.
-  scopeApplicableProperties ScopeApplicableProperties[]
-
-  /// Back-relation: ScopeApplicableUnits records that reference this model via scope_id.
-  scopeApplicableUnits ScopeApplicableUnits[]
-
   /// Index on [min_subtotal_id].
   @@index([minSubtotalID])
+  /// GIN index: tag containment (@>) cannot use a B-tree.
+  @@index([applicableProperties], type: Gin)
+  /// GIN index: tag containment (@>) cannot use a B-tree.
+  @@index([applicableUnits], type: Gin)
   /// Maps the model to the "scopes" table in the database.
   @@map("scopes")
-  /// Maps the model to the "promocode" schema in the database.
-  @@schema("promocode")
-}
-
-/// Join table for the many-to-many relation Scope.applicable_properties ↔ Property.
-model ScopeApplicableProperties {
-  /// Unique identifier for the record.
-  id String @id @default(ulid()) @map("id")
-
-  /// Foreign key to Scope.
-  scopeID String @map("scope_id")
-
-  /// Relation to Scope via scope_id.
-  scope Scope @relation(fields: [scopeID], references: [id], onDelete: Cascade)
-
-  /// Foreign key to Property.
-  propertyID String @map("property_id")
-
-  /// Relation to Property via property_id.
-  property Property @relation(fields: [propertyID], references: [id], onDelete: Cascade)
-
-  /// Unique constraint on [scope_id, property_id].
-  @@unique([scopeID, propertyID])
-  /// Index on [property_id].
-  @@index([propertyID])
-  /// Maps the model to the "scope_applicable_properties" table in the database.
-  @@map("scope_applicable_properties")
-  /// Maps the model to the "promocode" schema in the database.
-  @@schema("promocode")
-}
-
-/// Join table for the many-to-many relation Scope.applicable_units ↔ Unit.
-model ScopeApplicableUnits {
-  /// Unique identifier for the record.
-  id String @id @default(ulid()) @map("id")
-
-  /// Foreign key to Scope.
-  scopeID String @map("scope_id")
-
-  /// Relation to Scope via scope_id.
-  scope Scope @relation(fields: [scopeID], references: [id], onDelete: Cascade)
-
-  /// Foreign key to Unit.
-  unitID String @map("unit_id")
-
-  /// Relation to Unit via unit_id.
-  unit Unit @relation(fields: [unitID], references: [id], onDelete: Cascade)
-
-  /// Full resource name of the referenced Unit, capturing the parent hierarchy the unit_id id alone omits.
-  unitName String @map("unit_name")
-
-  /// Unique constraint on [scope_id, unit_id].
-  @@unique([scopeID, unitID])
-  /// Index on [unit_id].
-  @@index([unitID])
-  /// Maps the model to the "scope_applicable_units" table in the database.
-  @@map("scope_applicable_units")
   /// Maps the model to the "promocode" schema in the database.
   @@schema("promocode")
 }

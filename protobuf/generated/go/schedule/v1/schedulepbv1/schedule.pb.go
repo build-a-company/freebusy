@@ -273,7 +273,7 @@ func (x *StayConstraints) GetAdvanceMaxDays() int32 {
 type AvailabilityException struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The exception name.
-	// Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}
+	// Format: resources/{resource}/availabilityExceptions/{availability_exception}
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// Whether this span closes the unit or adds extra availability.
 	Kind ExceptionKind `protobuf:"varint,3,opt,name=kind,proto3,enum=freebusy.schedule.v1.ExceptionKind" json:"kind,omitempty"`
@@ -399,7 +399,7 @@ func (*AvailabilityException_DateRange) isAvailabilityException_Span() {}
 type Schedule struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The schedule name.
-	// Format: properties/{property}/units/{unit}/schedule
+	// Format: resources/{resource}/schedule
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// Recurring working hours.
 	RecurringRules []*RecurringRule `protobuf:"bytes,2,rep,name=recurring_rules,json=recurringRules,proto3" json:"recurring_rules,omitempty"`
@@ -409,7 +409,7 @@ type Schedule struct {
 	StayConstraints *StayConstraints `protobuf:"bytes,4,opt,name=stay_constraints,json=stayConstraints,proto3" json:"stay_constraints,omitempty"`
 	// Resource names of the active exceptions; manage them with the
 	// AvailabilityException standard methods.
-	// Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}
+	// Format: resources/{resource}/availabilityExceptions/{availability_exception}
 	Exceptions []string `protobuf:"bytes,5,rep,name=exceptions,proto3" json:"exceptions,omitempty"`
 	// Refund rules applied when a booking on this unit is cancelled. Unset
 	// means cancellations are non-refundable by default.

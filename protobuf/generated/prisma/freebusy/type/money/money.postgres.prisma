@@ -29,14 +29,14 @@ model Money {
   /// Back-relation: RatePlan records that reference this model via price_id.
   ratePlans RatePlan[]
 
-  /// Back-relation: PricingRateOverride records that reference this model via price_id.
-  rateOverrides PricingRateOverride[]
+  /// Back-relation: RateOverride records that reference this model via price_id.
+  rateOverrides RateOverride[]
 
-  /// Back-relation: PricingLosDiscount records that reference this model via amount_off_id.
-  losDiscounts PricingLosDiscount[]
+  /// Back-relation: LosDiscount records that reference this model via amount_off_id.
+  losDiscounts LosDiscount[]
 
-  /// Back-relation: PricingFee records that reference this model via amount_id.
-  fees PricingFee[]
+  /// Back-relation: Fee records that reference this model via amount_id.
+  fees Fee[]
 
   /// Back-relation: PriceBounds records that reference this model via floor_id.
   priceBounds PriceBounds[] @relation("PriceBoundsFloor")
@@ -55,18 +55,6 @@ model Money {
 
   /// Back-relation: Scope records that reference this model via min_subtotal_id.
   scopes Scope[]
-
-  /// Back-relation: Unit records that reference this model via price_id.
-  units2 Unit[]
-
-  /// Back-relation: PropertyRateOverride records that reference this model via price_id.
-  rateOverrides2 PropertyRateOverride[]
-
-  /// Back-relation: PropertyLosDiscount records that reference this model via amount_off_id.
-  losDiscounts2 PropertyLosDiscount[]
-
-  /// Back-relation: PropertyFee records that reference this model via amount_id.
-  fees2 PropertyFee[]
 
   /// Back-relation: Booking records that reference this model via price_id.
   bookings Booking[] @relation("BookingPrice")

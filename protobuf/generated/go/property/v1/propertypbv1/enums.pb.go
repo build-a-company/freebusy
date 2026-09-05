@@ -21,234 +21,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Lifecycle status of a property.
-type PropertyState int32
-
-const (
-	// Unset.
-	PropertyState_PROPERTY_STATE_UNSPECIFIED PropertyState = 0
-	// Live and visible to guests.
-	PropertyState_PROPERTY_STATE_ACTIVE PropertyState = 1
-	// Retired; hidden from storefront and new bookings.
-	PropertyState_PROPERTY_STATE_ARCHIVED PropertyState = 2
-)
-
-// Enum value maps for PropertyState.
-var (
-	PropertyState_name = map[int32]string{
-		0: "PROPERTY_STATE_UNSPECIFIED",
-		1: "PROPERTY_STATE_ACTIVE",
-		2: "PROPERTY_STATE_ARCHIVED",
-	}
-	PropertyState_value = map[string]int32{
-		"PROPERTY_STATE_UNSPECIFIED": 0,
-		"PROPERTY_STATE_ACTIVE":      1,
-		"PROPERTY_STATE_ARCHIVED":    2,
-	}
-)
-
-func (x PropertyState) Enum() *PropertyState {
-	p := new(PropertyState)
-	*p = x
-	return p
-}
-
-func (x PropertyState) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (PropertyState) Descriptor() protoreflect.EnumDescriptor {
-	return file_freebusy_property_v1_enums_proto_enumTypes[0].Descriptor()
-}
-
-func (PropertyState) Type() protoreflect.EnumType {
-	return &file_freebusy_property_v1_enums_proto_enumTypes[0]
-}
-
-func (x PropertyState) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use PropertyState.Descriptor instead.
-func (PropertyState) EnumDescriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_enums_proto_rawDescGZIP(), []int{0}
-}
-
-// Lifecycle status of a unit.
-type UnitState int32
-
-const (
-	// Unset.
-	UnitState_UNIT_STATE_UNSPECIFIED UnitState = 0
-	// Bookable.
-	UnitState_UNIT_STATE_ACTIVE UnitState = 1
-	// Retired; hidden from availability and new bookings.
-	UnitState_UNIT_STATE_ARCHIVED UnitState = 2
-)
-
-// Enum value maps for UnitState.
-var (
-	UnitState_name = map[int32]string{
-		0: "UNIT_STATE_UNSPECIFIED",
-		1: "UNIT_STATE_ACTIVE",
-		2: "UNIT_STATE_ARCHIVED",
-	}
-	UnitState_value = map[string]int32{
-		"UNIT_STATE_UNSPECIFIED": 0,
-		"UNIT_STATE_ACTIVE":      1,
-		"UNIT_STATE_ARCHIVED":    2,
-	}
-)
-
-func (x UnitState) Enum() *UnitState {
-	p := new(UnitState)
-	*p = x
-	return p
-}
-
-func (x UnitState) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (UnitState) Descriptor() protoreflect.EnumDescriptor {
-	return file_freebusy_property_v1_enums_proto_enumTypes[1].Descriptor()
-}
-
-func (UnitState) Type() protoreflect.EnumType {
-	return &file_freebusy_property_v1_enums_proto_enumTypes[1]
-}
-
-func (x UnitState) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use UnitState.Descriptor instead.
-func (UnitState) EnumDescriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_enums_proto_rawDescGZIP(), []int{1}
-}
-
-// Kind of bookable unit.
-type UnitType int32
-
-const (
-	// Unset.
-	UnitType_UNIT_TYPE_UNSPECIFIED UnitType = 0
-	// A person who delivers a service (e.g. a doctor, stylist).
-	UnitType_UNIT_TYPE_PROVIDER UnitType = 1
-	// A bookable room or space (e.g. a hotel room, meeting room).
-	UnitType_UNIT_TYPE_ROOM UnitType = 2
-	// A bookable piece of equipment (e.g. a kayak).
-	UnitType_UNIT_TYPE_EQUIPMENT UnitType = 3
-	// A lodging unit type backed by a pool of identical units (e.g. a room type).
-	UnitType_UNIT_TYPE_LODGING UnitType = 4
-	// A generic space or venue.
-	UnitType_UNIT_TYPE_SPACE UnitType = 5
-)
-
-// Enum value maps for UnitType.
-var (
-	UnitType_name = map[int32]string{
-		0: "UNIT_TYPE_UNSPECIFIED",
-		1: "UNIT_TYPE_PROVIDER",
-		2: "UNIT_TYPE_ROOM",
-		3: "UNIT_TYPE_EQUIPMENT",
-		4: "UNIT_TYPE_LODGING",
-		5: "UNIT_TYPE_SPACE",
-	}
-	UnitType_value = map[string]int32{
-		"UNIT_TYPE_UNSPECIFIED": 0,
-		"UNIT_TYPE_PROVIDER":    1,
-		"UNIT_TYPE_ROOM":        2,
-		"UNIT_TYPE_EQUIPMENT":   3,
-		"UNIT_TYPE_LODGING":     4,
-		"UNIT_TYPE_SPACE":       5,
-	}
-)
-
-func (x UnitType) Enum() *UnitType {
-	p := new(UnitType)
-	*p = x
-	return p
-}
-
-func (x UnitType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (UnitType) Descriptor() protoreflect.EnumDescriptor {
-	return file_freebusy_property_v1_enums_proto_enumTypes[2].Descriptor()
-}
-
-func (UnitType) Type() protoreflect.EnumType {
-	return &file_freebusy_property_v1_enums_proto_enumTypes[2]
-}
-
-func (x UnitType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use UnitType.Descriptor instead.
-func (UnitType) EnumDescriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_enums_proto_rawDescGZIP(), []int{2}
-}
-
-// What a unit's price is charged per.
-type PricingUnit int32
-
-const (
-	// Unset; treated as per-booking.
-	PricingUnit_PRICING_UNIT_UNSPECIFIED PricingUnit = 0
-	// A flat price for the whole booking.
-	PricingUnit_PRICING_UNIT_PER_BOOKING PricingUnit = 1
-	// Price multiplied by the number of nights (NIGHTLY units).
-	PricingUnit_PRICING_UNIT_PER_NIGHT PricingUnit = 2
-	// Price multiplied by party size / units booked.
-	PricingUnit_PRICING_UNIT_PER_PERSON PricingUnit = 3
-)
-
-// Enum value maps for PricingUnit.
-var (
-	PricingUnit_name = map[int32]string{
-		0: "PRICING_UNIT_UNSPECIFIED",
-		1: "PRICING_UNIT_PER_BOOKING",
-		2: "PRICING_UNIT_PER_NIGHT",
-		3: "PRICING_UNIT_PER_PERSON",
-	}
-	PricingUnit_value = map[string]int32{
-		"PRICING_UNIT_UNSPECIFIED": 0,
-		"PRICING_UNIT_PER_BOOKING": 1,
-		"PRICING_UNIT_PER_NIGHT":   2,
-		"PRICING_UNIT_PER_PERSON":  3,
-	}
-)
-
-func (x PricingUnit) Enum() *PricingUnit {
-	p := new(PricingUnit)
-	*p = x
-	return p
-}
-
-func (x PricingUnit) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (PricingUnit) Descriptor() protoreflect.EnumDescriptor {
-	return file_freebusy_property_v1_enums_proto_enumTypes[3].Descriptor()
-}
-
-func (PricingUnit) Type() protoreflect.EnumType {
-	return &file_freebusy_property_v1_enums_proto_enumTypes[3]
-}
-
-func (x PricingUnit) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use PricingUnit.Descriptor instead.
-func (PricingUnit) EnumDescriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_enums_proto_rawDescGZIP(), []int{3}
-}
-
 // Kind of regulatory licence or certificate held by a property or unit.
 type LicenceType int32
 
@@ -306,11 +78,11 @@ func (x LicenceType) String() string {
 }
 
 func (LicenceType) Descriptor() protoreflect.EnumDescriptor {
-	return file_freebusy_property_v1_enums_proto_enumTypes[4].Descriptor()
+	return file_freebusy_property_v1_enums_proto_enumTypes[0].Descriptor()
 }
 
 func (LicenceType) Type() protoreflect.EnumType {
-	return &file_freebusy_property_v1_enums_proto_enumTypes[4]
+	return &file_freebusy_property_v1_enums_proto_enumTypes[0]
 }
 
 func (x LicenceType) Number() protoreflect.EnumNumber {
@@ -319,7 +91,7 @@ func (x LicenceType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use LicenceType.Descriptor instead.
 func (LicenceType) EnumDescriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_enums_proto_rawDescGZIP(), []int{4}
+	return file_freebusy_property_v1_enums_proto_rawDescGZIP(), []int{0}
 }
 
 // What a licence covers: the whole property or a single unit within it.
@@ -360,11 +132,11 @@ func (x LicenceTarget) String() string {
 }
 
 func (LicenceTarget) Descriptor() protoreflect.EnumDescriptor {
-	return file_freebusy_property_v1_enums_proto_enumTypes[5].Descriptor()
+	return file_freebusy_property_v1_enums_proto_enumTypes[1].Descriptor()
 }
 
 func (LicenceTarget) Type() protoreflect.EnumType {
-	return &file_freebusy_property_v1_enums_proto_enumTypes[5]
+	return &file_freebusy_property_v1_enums_proto_enumTypes[1]
 }
 
 func (x LicenceTarget) Number() protoreflect.EnumNumber {
@@ -373,7 +145,7 @@ func (x LicenceTarget) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use LicenceTarget.Descriptor instead.
 func (LicenceTarget) EnumDescriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_enums_proto_rawDescGZIP(), []int{5}
+	return file_freebusy_property_v1_enums_proto_rawDescGZIP(), []int{1}
 }
 
 // Lifecycle status of a licence.
@@ -414,11 +186,11 @@ func (x LicenceState) String() string {
 }
 
 func (LicenceState) Descriptor() protoreflect.EnumDescriptor {
-	return file_freebusy_property_v1_enums_proto_enumTypes[6].Descriptor()
+	return file_freebusy_property_v1_enums_proto_enumTypes[2].Descriptor()
 }
 
 func (LicenceState) Type() protoreflect.EnumType {
-	return &file_freebusy_property_v1_enums_proto_enumTypes[6]
+	return &file_freebusy_property_v1_enums_proto_enumTypes[2]
 }
 
 func (x LicenceState) Number() protoreflect.EnumNumber {
@@ -427,34 +199,14 @@ func (x LicenceState) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use LicenceState.Descriptor instead.
 func (LicenceState) EnumDescriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_enums_proto_rawDescGZIP(), []int{6}
+	return file_freebusy_property_v1_enums_proto_rawDescGZIP(), []int{2}
 }
 
 var File_freebusy_property_v1_enums_proto protoreflect.FileDescriptor
 
 const file_freebusy_property_v1_enums_proto_rawDesc = "" +
 	"\n" +
-	" freebusy/property/v1/enums.proto\x12\x14freebusy.property.v1*g\n" +
-	"\rPropertyState\x12\x1e\n" +
-	"\x1aPROPERTY_STATE_UNSPECIFIED\x10\x00\x12\x19\n" +
-	"\x15PROPERTY_STATE_ACTIVE\x10\x01\x12\x1b\n" +
-	"\x17PROPERTY_STATE_ARCHIVED\x10\x02*W\n" +
-	"\tUnitState\x12\x1a\n" +
-	"\x16UNIT_STATE_UNSPECIFIED\x10\x00\x12\x15\n" +
-	"\x11UNIT_STATE_ACTIVE\x10\x01\x12\x17\n" +
-	"\x13UNIT_STATE_ARCHIVED\x10\x02*\x96\x01\n" +
-	"\bUnitType\x12\x19\n" +
-	"\x15UNIT_TYPE_UNSPECIFIED\x10\x00\x12\x16\n" +
-	"\x12UNIT_TYPE_PROVIDER\x10\x01\x12\x12\n" +
-	"\x0eUNIT_TYPE_ROOM\x10\x02\x12\x17\n" +
-	"\x13UNIT_TYPE_EQUIPMENT\x10\x03\x12\x15\n" +
-	"\x11UNIT_TYPE_LODGING\x10\x04\x12\x13\n" +
-	"\x0fUNIT_TYPE_SPACE\x10\x05*\x82\x01\n" +
-	"\vPricingUnit\x12\x1c\n" +
-	"\x18PRICING_UNIT_UNSPECIFIED\x10\x00\x12\x1c\n" +
-	"\x18PRICING_UNIT_PER_BOOKING\x10\x01\x12\x1a\n" +
-	"\x16PRICING_UNIT_PER_NIGHT\x10\x02\x12\x1b\n" +
-	"\x17PRICING_UNIT_PER_PERSON\x10\x03*\xe3\x01\n" +
+	" freebusy/property/v1/enums.proto\x12\x14freebusy.property.v1*\xe3\x01\n" +
 	"\vLicenceType\x12\x1c\n" +
 	"\x18LICENCE_TYPE_UNSPECIFIED\x10\x00\x12\x16\n" +
 	"\x12LICENCE_TYPE_TRADE\x10\x01\x12\x1c\n" +
@@ -487,15 +239,11 @@ func file_freebusy_property_v1_enums_proto_rawDescGZIP() []byte {
 	return file_freebusy_property_v1_enums_proto_rawDescData
 }
 
-var file_freebusy_property_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 7)
+var file_freebusy_property_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_freebusy_property_v1_enums_proto_goTypes = []any{
-	(PropertyState)(0), // 0: freebusy.property.v1.PropertyState
-	(UnitState)(0),     // 1: freebusy.property.v1.UnitState
-	(UnitType)(0),      // 2: freebusy.property.v1.UnitType
-	(PricingUnit)(0),   // 3: freebusy.property.v1.PricingUnit
-	(LicenceType)(0),   // 4: freebusy.property.v1.LicenceType
-	(LicenceTarget)(0), // 5: freebusy.property.v1.LicenceTarget
-	(LicenceState)(0),  // 6: freebusy.property.v1.LicenceState
+	(LicenceType)(0),   // 0: freebusy.property.v1.LicenceType
+	(LicenceTarget)(0), // 1: freebusy.property.v1.LicenceTarget
+	(LicenceState)(0),  // 2: freebusy.property.v1.LicenceState
 }
 var file_freebusy_property_v1_enums_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -515,7 +263,7 @@ func file_freebusy_property_v1_enums_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_freebusy_property_v1_enums_proto_rawDesc), len(file_freebusy_property_v1_enums_proto_rawDesc)),
-			NumEnums:      7,
+			NumEnums:      3,
 			NumMessages:   0,
 			NumExtensions: 0,
 			NumServices:   0,

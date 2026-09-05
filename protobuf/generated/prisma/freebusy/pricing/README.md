@@ -26,6 +26,16 @@ erDiagram
         string id PK
         string rate_plan_id FK
     }
+    Fee {
+        string id PK
+        string rate_plan_id FK
+        string amount_id FK
+    }
+    LosDiscount {
+        string id PK
+        string rate_plan_id FK
+        string amount_off_id FK
+    }
     PriceBounds {
         string id PK
         string floor_id FK
@@ -34,30 +44,20 @@ erDiagram
     PricingDateRange {
         string id PK
     }
-    PricingFee {
-        string id PK
-        string rate_plan_id FK
-        string amount_id FK
-    }
-    PricingLosDiscount {
-        string id PK
-        string rate_plan_id FK
-        string amount_off_id FK
-    }
-    PricingRateOverride {
+    RateOverride {
         string id PK
         string rate_plan_id FK
         string date_range_id FK
         string price_id FK
     }
-    PricingTax {
-        string id PK
-        string rate_plan_id FK
-    }
     RatePlan {
         string id PK
         string price_id FK
         string bounds_id FK
+    }
+    Tax {
+        string id PK
+        string rate_plan_id FK
     }
     Money {
         string externalStub PK
@@ -66,18 +66,18 @@ erDiagram
     DynamicBand }o--|| DynamicRule : "dynamic_rule_id"
     DynamicBand }o--|| Adjustment : "adjustment_id"
     DynamicRule }o--|| RatePlan : "rate_plan_id"
+    Fee }o--|| RatePlan : "rate_plan_id"
+    Fee }o--|| Money : "amount_id"
+    LosDiscount }o--|| RatePlan : "rate_plan_id"
+    LosDiscount }o--|| Money : "amount_off_id"
     PriceBounds }o--|| Money : "floor_id"
     PriceBounds }o--|| Money : "ceiling_id"
-    PricingFee }o--|| RatePlan : "rate_plan_id"
-    PricingFee }o--|| Money : "amount_id"
-    PricingLosDiscount }o--|| RatePlan : "rate_plan_id"
-    PricingLosDiscount }o--|| Money : "amount_off_id"
-    PricingRateOverride }o--|| RatePlan : "rate_plan_id"
-    PricingRateOverride }o--|| PricingDateRange : "date_range_id"
-    PricingRateOverride }o--|| Money : "price_id"
-    PricingTax }o--|| RatePlan : "rate_plan_id"
+    RateOverride }o--|| RatePlan : "rate_plan_id"
+    RateOverride }o--|| PricingDateRange : "date_range_id"
+    RateOverride }o--|| Money : "price_id"
     RatePlan }o--|| Money : "price_id"
     RatePlan }o--|| PriceBounds : "bounds_id"
+    Tax }o--|| RatePlan : "rate_plan_id"
 ```
 
 ## Subfolders

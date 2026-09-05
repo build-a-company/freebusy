@@ -318,7 +318,7 @@ func RegisterLicenceServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/ListLicences", runtime.WithHTTPPathPattern("/v1/{parent=properties/*}/licences"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/ListLicences", runtime.WithHTTPPathPattern("/v1/{parent=organizationalUnits/*}/licences"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -338,7 +338,7 @@ func RegisterLicenceServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/GetLicence", runtime.WithHTTPPathPattern("/v1/{name=properties/*/licences/*}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/GetLicence", runtime.WithHTTPPathPattern("/v1/{name=organizationalUnits/*/licences/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -358,7 +358,7 @@ func RegisterLicenceServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/CreateLicence", runtime.WithHTTPPathPattern("/v1/{parent=properties/*}/licences"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/CreateLicence", runtime.WithHTTPPathPattern("/v1/{parent=organizationalUnits/*}/licences"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -378,7 +378,7 @@ func RegisterLicenceServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/UpdateLicence", runtime.WithHTTPPathPattern("/v1/{licence.name=properties/*/licences/*}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/UpdateLicence", runtime.WithHTTPPathPattern("/v1/{licence.name=organizationalUnits/*/licences/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -398,7 +398,7 @@ func RegisterLicenceServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/DeleteLicence", runtime.WithHTTPPathPattern("/v1/{name=properties/*/licences/*}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/DeleteLicence", runtime.WithHTTPPathPattern("/v1/{name=organizationalUnits/*/licences/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -456,7 +456,7 @@ func RegisterLicenceServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/ListLicences", runtime.WithHTTPPathPattern("/v1/{parent=properties/*}/licences"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/ListLicences", runtime.WithHTTPPathPattern("/v1/{parent=organizationalUnits/*}/licences"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -473,7 +473,7 @@ func RegisterLicenceServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/GetLicence", runtime.WithHTTPPathPattern("/v1/{name=properties/*/licences/*}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/GetLicence", runtime.WithHTTPPathPattern("/v1/{name=organizationalUnits/*/licences/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -490,7 +490,7 @@ func RegisterLicenceServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/CreateLicence", runtime.WithHTTPPathPattern("/v1/{parent=properties/*}/licences"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/CreateLicence", runtime.WithHTTPPathPattern("/v1/{parent=organizationalUnits/*}/licences"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -507,7 +507,7 @@ func RegisterLicenceServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/UpdateLicence", runtime.WithHTTPPathPattern("/v1/{licence.name=properties/*/licences/*}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/UpdateLicence", runtime.WithHTTPPathPattern("/v1/{licence.name=organizationalUnits/*/licences/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -524,7 +524,7 @@ func RegisterLicenceServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/DeleteLicence", runtime.WithHTTPPathPattern("/v1/{name=properties/*/licences/*}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.property.v1.LicenceService/DeleteLicence", runtime.WithHTTPPathPattern("/v1/{name=organizationalUnits/*/licences/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -541,11 +541,11 @@ func RegisterLicenceServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 }
 
 var (
-	pattern_LicenceService_ListLicences_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2, 2, 3}, []string{"v1", "properties", "parent", "licences"}, ""))
-	pattern_LicenceService_GetLicence_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 4, 4, 5, 3}, []string{"v1", "properties", "licences", "name"}, ""))
-	pattern_LicenceService_CreateLicence_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2, 2, 3}, []string{"v1", "properties", "parent", "licences"}, ""))
-	pattern_LicenceService_UpdateLicence_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 4, 4, 5, 3}, []string{"v1", "properties", "licences", "licence.name"}, ""))
-	pattern_LicenceService_DeleteLicence_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 4, 4, 5, 3}, []string{"v1", "properties", "licences", "name"}, ""))
+	pattern_LicenceService_ListLicences_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2, 2, 3}, []string{"v1", "organizationalUnits", "parent", "licences"}, ""))
+	pattern_LicenceService_GetLicence_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 4, 4, 5, 3}, []string{"v1", "organizationalUnits", "licences", "name"}, ""))
+	pattern_LicenceService_CreateLicence_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2, 2, 3}, []string{"v1", "organizationalUnits", "parent", "licences"}, ""))
+	pattern_LicenceService_UpdateLicence_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 4, 4, 5, 3}, []string{"v1", "organizationalUnits", "licences", "licence.name"}, ""))
+	pattern_LicenceService_DeleteLicence_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 4, 4, 5, 3}, []string{"v1", "organizationalUnits", "licences", "name"}, ""))
 )
 
 var (

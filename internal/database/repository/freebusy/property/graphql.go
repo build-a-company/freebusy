@@ -23,8 +23,6 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/licencesql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/propertiesql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/unitsql"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/property/v1/propertypbv1"
 	"github.com/the-protobuf-project/runtime-go/network/graphql"
@@ -62,13 +60,13 @@ func NewGraphQLLicenceRepository(svc *freebusyql.Service) *GraphQLLicenceReposit
 
 // Create persists in under parent and returns the stored record.
 func (r *GraphQLLicenceRepository) Create(ctx context.Context, parent string, in *propertypbv1.Licence) (*propertypbv1.Licence, error) {
-	parentIDs, err := repox.SplitName(parent, "properties")
+	parentIDs, err := repox.SplitName(parent, "organizationalUnits")
 	if err != nil {
 		return nil, err
 	}
 	id := repox.NewULID()
 	if in.GetName() != "" {
-		ids, err := repox.SplitName(in.GetName(), "properties", "licences")
+		ids, err := repox.SplitName(in.GetName(), "organizationalUnits", "licences")
 		if err != nil {
 			return nil, err
 		}
@@ -88,7 +86,7 @@ func (r *GraphQLLicenceRepository) Create(ctx context.Context, parent string, in
 	}
 	ci := licenceToCreateInput(in)
 	ci.Id = id
-	ci.PropertyId = parentIDs[0]
+	ci.OrganizationalUnitId = parentIDs[0]
 	ci.Etag = repox.NewULID()
 	now := tsToStr(timestamppb.New(time.Now().UTC()))
 	ci.CreateTime = now
@@ -109,7 +107,7 @@ func (r *GraphQLLicenceRepository) Create(ctx context.Context, parent string, in
 
 // Get returns the record addressed by its resource name.
 func (r *GraphQLLicenceRepository) Get(ctx context.Context, name string) (*propertypbv1.Licence, error) {
-	ids, err := repox.SplitName(name, "properties", "licences")
+	ids, err := repox.SplitName(name, "organizationalUnits", "licences")
 	if err != nil {
 		return nil, err
 	}
@@ -152,11 +150,11 @@ func (r *GraphQLLicenceRepository) toProto(ctx context.Context, row *licencesql.
 
 // List returns one page of records under parent.
 func (r *GraphQLLicenceRepository) List(ctx context.Context, parent string, in repox.ListInput) ([]*propertypbv1.Licence, string, error) {
-	parentIDs, err := repox.SplitName(parent, "properties")
+	parentIDs, err := repox.SplitName(parent, "organizationalUnits")
 	if err != nil {
 		return nil, "", err
 	}
-	return r.list(ctx, in, licencesql.PropertyId.Eq(parentIDs[len(parentIDs)-1]))
+	return r.list(ctx, in, licencesql.OrganizationalUnitId.Eq(parentIDs[len(parentIDs)-1]))
 }
 
 func (r *GraphQLLicenceRepository) list(ctx context.Context, in repox.ListInput, scope ...graphql.Predicate) ([]*propertypbv1.Licence, string, error) {
@@ -192,7 +190,7 @@ func (r *GraphQLLicenceRepository) list(ctx context.Context, in repox.ListInput,
 // mutable field. When in.Etag is set the write is guarded server-side
 // (UpdateIfMatch); a stale etag returns repox.ErrConflict.
 func (r *GraphQLLicenceRepository) Update(ctx context.Context, in *propertypbv1.Licence, paths []string) (*propertypbv1.Licence, error) {
-	ids, err := repox.SplitName(in.GetName(), "properties", "licences")
+	ids, err := repox.SplitName(in.GetName(), "organizationalUnits", "licences")
 	if err != nil {
 		return nil, err
 	}
@@ -256,7 +254,7 @@ func (r *GraphQLLicenceRepository) Update(ctx context.Context, in *propertypbv1.
 
 // Delete removes the record addressed by its resource name.
 func (r *GraphQLLicenceRepository) Delete(ctx context.Context, name string) error {
-	ids, err := repox.SplitName(name, "properties", "licences")
+	ids, err := repox.SplitName(name, "organizationalUnits", "licences")
 	if err != nil {
 		return err
 	}
@@ -285,518 +283,3 @@ func (r *GraphQLLicenceRepository) Delete(ctx context.Context, name string) erro
 
 // Compile-time proof the adapter satisfies the interface.
 var _ LicenceRepository = (*GraphQLLicenceRepository)(nil)
-
-// GraphQLPropertyRepository is the GraphQL adapter of PropertyRepository
-// over the generated client: the same flat CRUD the gorm adapter implements,
-// against Property.Properties. Exported fields are the Tier-2 seam.
-type GraphQLPropertyRepository struct {
-	Svc   *freebusyql.Service
-	Hooks PropertyHooks
-	// ListOverrides substitute the generated dispatch for single filter fields.
-	ListOverrides map[string]filterx.GraphQLHandler
-}
-
-// NewGraphQLPropertyRepository returns the GraphQL adapter bound to svc.
-func NewGraphQLPropertyRepository(svc *freebusyql.Service) *GraphQLPropertyRepository {
-	return &GraphQLPropertyRepository{Svc: svc}
-}
-
-// Create persists in and returns the stored record.
-func (r *GraphQLPropertyRepository) Create(ctx context.Context, in *propertypbv1.Property) (*propertypbv1.Property, error) {
-	id := repox.NewULID()
-	if in.GetName() != "" {
-		ids, err := repox.SplitName(in.GetName(), "properties")
-		if err != nil {
-			return nil, err
-		}
-		id = ids[len(ids)-1]
-	}
-	in = proto.Clone(in).(*propertypbv1.Property)
-	in.Name = FormatPropertyName(id)
-	if h := r.Hooks.BeforeCreate; h != nil {
-		if err := h(ctx, in); err != nil {
-			return nil, err
-		}
-	}
-	ci := propertyToCreateInput(in)
-	ci.Id = id
-	ci.Etag = repox.NewULID()
-	now := tsToStr(timestamppb.New(time.Now().UTC()))
-	ci.CreateTime = now
-	ci.UpdateTime = now
-	if v := in.GetAddress(); v != nil {
-		vi := commonPostalAddressToCreateInput(v)
-		vi.Id = repox.NewULID()
-		if _, err := r.Svc.Mutation.Common.PostalAddress.Create(ctx, vi); err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-		ci.AddressId = vi.Id
-	}
-	if v := in.GetPolicy(); v != nil {
-		vi := propertyPolicyToCreateInput(v)
-		vi.Id = repox.NewULID()
-		if _, err := r.Svc.Mutation.Property.Policies.Create(ctx, vi); err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-		ci.PolicyId = vi.Id
-	}
-	if _, err := r.Svc.Mutation.Property.Properties.Create(ctx, ci); err != nil {
-		return nil, mapGraphQLErr(err)
-	}
-	return r.get(ctx, id)
-}
-
-// Get returns the record addressed by its resource name.
-func (r *GraphQLPropertyRepository) Get(ctx context.Context, name string) (*propertypbv1.Property, error) {
-	ids, err := repox.SplitName(name, "properties")
-	if err != nil {
-		return nil, err
-	}
-	return r.get(ctx, ids[len(ids)-1])
-}
-
-// get loads by surrogate key — the private read every generated method
-// re-reads through.
-func (r *GraphQLPropertyRepository) get(ctx context.Context, id string) (*propertypbv1.Property, error) {
-	row, err := r.Svc.Query.Property.Properties.Get(ctx, id)
-	if err != nil {
-		return nil, mapGraphQLErr(err)
-	}
-	if row == nil {
-		return nil, repox.ErrNotFound
-	}
-	return r.toProto(ctx, row)
-}
-
-// toProto converts a loaded row, hydrating value objects through their
-// stored references, and runs the AfterRead hook.
-func (r *GraphQLPropertyRepository) toProto(ctx context.Context, row *propertiesql.PropertyProperties) (*propertypbv1.Property, error) {
-	out := propertyFromRow(row)
-	if id := repox.Deref(row.AddressId); id != "" {
-		w, err := r.Svc.Query.Common.PostalAddress.Get(ctx, id)
-		if err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-		if w != nil {
-			out.Address = commonPostalAddressFromRow(w)
-		}
-	}
-	if id := repox.Deref(row.PolicyId); id != "" {
-		w, err := r.Svc.Query.Property.Policies.Get(ctx, id)
-		if err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-		if w != nil {
-			out.Policy = propertyPolicyFromRow(w)
-		}
-	}
-	if h := r.Hooks.AfterRead; h != nil {
-		if err := h(ctx, out); err != nil {
-			return nil, err
-		}
-	}
-	return out, nil
-}
-
-// List returns one page of records.
-func (r *GraphQLPropertyRepository) List(ctx context.Context, in repox.ListInput) ([]*propertypbv1.Property, string, error) {
-	return r.list(ctx, in)
-}
-
-func (r *GraphQLPropertyRepository) list(ctx context.Context, in repox.ListInput, scope ...graphql.Predicate) ([]*propertypbv1.Property, string, error) {
-	conds, err := filterx.Parse(in.Filter)
-	if err != nil {
-		return nil, "", repox.MapFilterxErr(err)
-	}
-	eng := filterx.Hasura[propertiesql.PropertyProperties](property.PropertyFilterSpec, r.Svc.Query.Property.Properties).Scope(scope...)
-	for f, h := range r.ListOverrides {
-		eng.Override(f, h)
-	}
-	rows, next, err := eng.List(ctx, filterx.ListInput{
-		PageSize:  in.PageSize,
-		PageToken: in.PageToken,
-		OrderBy:   in.OrderBy,
-		Filter:    conds,
-	})
-	if err != nil {
-		return nil, "", repox.MapFilterxErr(err)
-	}
-	items := make([]*propertypbv1.Property, 0, len(rows))
-	for i := range rows {
-		out, err := r.toProto(ctx, &rows[i])
-		if err != nil {
-			return nil, "", err
-		}
-		items = append(items, out)
-	}
-	return items, next, nil
-}
-
-// Update persists the masked fields of in; an empty mask replaces every
-// mutable field. When in.Etag is set the write is guarded server-side
-// (UpdateIfMatch); a stale etag returns repox.ErrConflict.
-func (r *GraphQLPropertyRepository) Update(ctx context.Context, in *propertypbv1.Property, paths []string) (*propertypbv1.Property, error) {
-	ids, err := repox.SplitName(in.GetName(), "properties")
-	if err != nil {
-		return nil, err
-	}
-	id := ids[len(ids)-1]
-	row, err := r.Svc.Query.Property.Properties.Get(ctx, id)
-	if err != nil {
-		return nil, mapGraphQLErr(err)
-	}
-	if row == nil {
-		return nil, repox.ErrNotFound
-	}
-	var staleAddress string
-	var stalePolicy string
-	existingPB := propertyFromRow(row)
-	merged := proto.Clone(existingPB).(*propertypbv1.Property)
-	applyPropertyMask(merged, in, paths)
-	if h := r.Hooks.BeforeUpdate; h != nil {
-		if err := h(ctx, existingPB, merged, paths); err != nil {
-			return nil, err
-		}
-	}
-	patch := propertyToUpdatePatch(merged)
-	patch.Etag = graphql.Value(repox.NewULID())
-	patch.UpdateTime = graphql.Value(tsToStr(timestamppb.New(time.Now().UTC())))
-	if repox.GroupTouched(paths, "address") {
-		staleAddress = repox.Deref(row.AddressId)
-		patch.AddressId = graphql.Null[string]()
-		if v := merged.GetAddress(); v != nil {
-			vi := commonPostalAddressToCreateInput(v)
-			vi.Id = repox.NewULID()
-			if _, err := r.Svc.Mutation.Common.PostalAddress.Create(ctx, vi); err != nil {
-				return nil, mapGraphQLErr(err)
-			}
-			patch.AddressId = graphql.Value(vi.Id)
-		}
-	}
-	if repox.GroupTouched(paths, "policy") {
-		stalePolicy = repox.Deref(row.PolicyId)
-		patch.PolicyId = graphql.Null[string]()
-		if v := merged.GetPolicy(); v != nil {
-			vi := propertyPolicyToCreateInput(v)
-			vi.Id = repox.NewULID()
-			if _, err := r.Svc.Mutation.Property.Policies.Create(ctx, vi); err != nil {
-				return nil, mapGraphQLErr(err)
-			}
-			patch.PolicyId = graphql.Value(vi.Id)
-		}
-	}
-	if in.GetEtag() != "" {
-		if _, err := r.Svc.Mutation.Property.Properties.UpdateIfMatch(ctx, id, patch, propertiesql.Etag.Eq(in.GetEtag())); err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-		if staleAddress != "" {
-			if _, err := r.Svc.Mutation.Common.PostalAddress.Delete(ctx, staleAddress); err != nil {
-				return nil, mapGraphQLErr(err)
-			}
-		}
-		if stalePolicy != "" {
-			if _, err := r.Svc.Mutation.Property.Policies.Delete(ctx, stalePolicy); err != nil {
-				return nil, mapGraphQLErr(err)
-			}
-		}
-		return r.get(ctx, id)
-	}
-	resp, err := r.Svc.Mutation.Property.Properties.Update(ctx, id, patch)
-	if err != nil {
-		return nil, mapGraphQLErr(err)
-	}
-	if resp.AffectedRows == 0 {
-		return nil, repox.ErrNotFound
-	}
-	if staleAddress != "" {
-		if _, err := r.Svc.Mutation.Common.PostalAddress.Delete(ctx, staleAddress); err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-	}
-	if stalePolicy != "" {
-		if _, err := r.Svc.Mutation.Property.Policies.Delete(ctx, stalePolicy); err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-	}
-	return r.get(ctx, id)
-}
-
-// Delete removes the record addressed by its resource name.
-func (r *GraphQLPropertyRepository) Delete(ctx context.Context, name string) error {
-	ids, err := repox.SplitName(name, "properties")
-	if err != nil {
-		return err
-	}
-	if h := r.Hooks.BeforeDelete; h != nil {
-		if err := h(ctx, name); err != nil {
-			return err
-		}
-	}
-	id := ids[len(ids)-1]
-	resp, err := r.Svc.Mutation.Property.Properties.Delete(ctx, id)
-	if err != nil {
-		return mapGraphQLErr(err)
-	}
-	if resp.AffectedRows == 0 {
-		return repox.ErrNotFound
-	}
-	for i := range resp.Returning {
-		if id := repox.Deref(resp.Returning[i].AddressId); id != "" {
-			if _, err := r.Svc.Mutation.Common.PostalAddress.Delete(ctx, id); err != nil {
-				return mapGraphQLErr(err)
-			}
-		}
-	}
-	for i := range resp.Returning {
-		if id := repox.Deref(resp.Returning[i].PolicyId); id != "" {
-			if _, err := r.Svc.Mutation.Property.Policies.Delete(ctx, id); err != nil {
-				return mapGraphQLErr(err)
-			}
-		}
-	}
-	return nil
-}
-
-// Compile-time proof the adapter satisfies the interface.
-var _ PropertyRepository = (*GraphQLPropertyRepository)(nil)
-
-// GraphQLUnitRepository is the GraphQL adapter of UnitRepository
-// over the generated client: the same flat CRUD the gorm adapter implements,
-// against Property.Units. Exported fields are the Tier-2 seam.
-type GraphQLUnitRepository struct {
-	Svc   *freebusyql.Service
-	Hooks UnitHooks
-	// ListOverrides substitute the generated dispatch for single filter fields.
-	ListOverrides map[string]filterx.GraphQLHandler
-}
-
-// NewGraphQLUnitRepository returns the GraphQL adapter bound to svc.
-func NewGraphQLUnitRepository(svc *freebusyql.Service) *GraphQLUnitRepository {
-	return &GraphQLUnitRepository{Svc: svc}
-}
-
-// Create persists in under parent and returns the stored record.
-func (r *GraphQLUnitRepository) Create(ctx context.Context, parent string, in *propertypbv1.Unit) (*propertypbv1.Unit, error) {
-	parentIDs, err := repox.SplitName(parent, "properties")
-	if err != nil {
-		return nil, err
-	}
-	id := repox.NewULID()
-	if in.GetName() != "" {
-		ids, err := repox.SplitName(in.GetName(), "properties", "units")
-		if err != nil {
-			return nil, err
-		}
-		for i := range parentIDs {
-			if ids[i] != parentIDs[i] {
-				return nil, fmt.Errorf("%w: name %q is not under parent %q", repox.ErrInvalidArgument, in.GetName(), parent)
-			}
-		}
-		id = ids[len(ids)-1]
-	}
-	in = proto.Clone(in).(*propertypbv1.Unit)
-	in.Name = FormatUnitName(parentIDs[0], id)
-	if h := r.Hooks.BeforeCreate; h != nil {
-		if err := h(ctx, in); err != nil {
-			return nil, err
-		}
-	}
-	ci := unitToCreateInput(in)
-	ci.Id = id
-	ci.PropertyId = parentIDs[0]
-	ci.Etag = repox.NewULID()
-	now := tsToStr(timestamppb.New(time.Now().UTC()))
-	ci.CreateTime = now
-	ci.UpdateTime = now
-	if v := in.GetPrice(); v != nil {
-		vi := commonMoneyToCreateInput(v)
-		vi.Id = repox.NewULID()
-		if _, err := r.Svc.Mutation.Common.Moneys.Create(ctx, vi); err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-		ci.PriceId = vi.Id
-	}
-	if _, err := r.Svc.Mutation.Property.Units.Create(ctx, ci); err != nil {
-		return nil, mapGraphQLErr(err)
-	}
-	return r.get(ctx, id)
-}
-
-// Get returns the record addressed by its resource name.
-func (r *GraphQLUnitRepository) Get(ctx context.Context, name string) (*propertypbv1.Unit, error) {
-	ids, err := repox.SplitName(name, "properties", "units")
-	if err != nil {
-		return nil, err
-	}
-	return r.get(ctx, ids[len(ids)-1])
-}
-
-// get loads by surrogate key — the private read every generated method
-// re-reads through.
-func (r *GraphQLUnitRepository) get(ctx context.Context, id string) (*propertypbv1.Unit, error) {
-	row, err := r.Svc.Query.Property.Units.Get(ctx, id)
-	if err != nil {
-		return nil, mapGraphQLErr(err)
-	}
-	if row == nil {
-		return nil, repox.ErrNotFound
-	}
-	return r.toProto(ctx, row)
-}
-
-// toProto converts a loaded row, hydrating value objects through their
-// stored references, and runs the AfterRead hook.
-func (r *GraphQLUnitRepository) toProto(ctx context.Context, row *unitsql.PropertyUnits) (*propertypbv1.Unit, error) {
-	out := unitFromRow(row)
-	if id := repox.Deref(row.PriceId); id != "" {
-		w, err := r.Svc.Query.Common.Moneys.Get(ctx, id)
-		if err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-		if w != nil {
-			out.Price = commonMoneyFromRow(w)
-		}
-	}
-	if h := r.Hooks.AfterRead; h != nil {
-		if err := h(ctx, out); err != nil {
-			return nil, err
-		}
-	}
-	return out, nil
-}
-
-// List returns one page of records under parent.
-func (r *GraphQLUnitRepository) List(ctx context.Context, parent string, in repox.ListInput) ([]*propertypbv1.Unit, string, error) {
-	parentIDs, err := repox.SplitName(parent, "properties")
-	if err != nil {
-		return nil, "", err
-	}
-	return r.list(ctx, in, unitsql.PropertyId.Eq(parentIDs[len(parentIDs)-1]))
-}
-
-func (r *GraphQLUnitRepository) list(ctx context.Context, in repox.ListInput, scope ...graphql.Predicate) ([]*propertypbv1.Unit, string, error) {
-	conds, err := filterx.Parse(in.Filter)
-	if err != nil {
-		return nil, "", repox.MapFilterxErr(err)
-	}
-	eng := filterx.Hasura[unitsql.PropertyUnits](property.UnitFilterSpec, r.Svc.Query.Property.Units).Scope(scope...)
-	for f, h := range r.ListOverrides {
-		eng.Override(f, h)
-	}
-	rows, next, err := eng.List(ctx, filterx.ListInput{
-		PageSize:  in.PageSize,
-		PageToken: in.PageToken,
-		OrderBy:   in.OrderBy,
-		Filter:    conds,
-	})
-	if err != nil {
-		return nil, "", repox.MapFilterxErr(err)
-	}
-	items := make([]*propertypbv1.Unit, 0, len(rows))
-	for i := range rows {
-		out, err := r.toProto(ctx, &rows[i])
-		if err != nil {
-			return nil, "", err
-		}
-		items = append(items, out)
-	}
-	return items, next, nil
-}
-
-// Update persists the masked fields of in; an empty mask replaces every
-// mutable field. When in.Etag is set the write is guarded server-side
-// (UpdateIfMatch); a stale etag returns repox.ErrConflict.
-func (r *GraphQLUnitRepository) Update(ctx context.Context, in *propertypbv1.Unit, paths []string) (*propertypbv1.Unit, error) {
-	ids, err := repox.SplitName(in.GetName(), "properties", "units")
-	if err != nil {
-		return nil, err
-	}
-	id := ids[len(ids)-1]
-	row, err := r.Svc.Query.Property.Units.Get(ctx, id)
-	if err != nil {
-		return nil, mapGraphQLErr(err)
-	}
-	if row == nil {
-		return nil, repox.ErrNotFound
-	}
-	var stalePrice string
-	existingPB := unitFromRow(row)
-	merged := proto.Clone(existingPB).(*propertypbv1.Unit)
-	applyUnitMask(merged, in, paths)
-	if h := r.Hooks.BeforeUpdate; h != nil {
-		if err := h(ctx, existingPB, merged, paths); err != nil {
-			return nil, err
-		}
-	}
-	patch := unitToUpdatePatch(merged)
-	patch.Etag = graphql.Value(repox.NewULID())
-	patch.UpdateTime = graphql.Value(tsToStr(timestamppb.New(time.Now().UTC())))
-	if repox.GroupTouched(paths, "price") {
-		stalePrice = repox.Deref(row.PriceId)
-		patch.PriceId = graphql.Null[string]()
-		if v := merged.GetPrice(); v != nil {
-			vi := commonMoneyToCreateInput(v)
-			vi.Id = repox.NewULID()
-			if _, err := r.Svc.Mutation.Common.Moneys.Create(ctx, vi); err != nil {
-				return nil, mapGraphQLErr(err)
-			}
-			patch.PriceId = graphql.Value(vi.Id)
-		}
-	}
-	if in.GetEtag() != "" {
-		if _, err := r.Svc.Mutation.Property.Units.UpdateIfMatch(ctx, id, patch, unitsql.Etag.Eq(in.GetEtag())); err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-		if stalePrice != "" {
-			if _, err := r.Svc.Mutation.Common.Moneys.Delete(ctx, stalePrice); err != nil {
-				return nil, mapGraphQLErr(err)
-			}
-		}
-		return r.get(ctx, id)
-	}
-	resp, err := r.Svc.Mutation.Property.Units.Update(ctx, id, patch)
-	if err != nil {
-		return nil, mapGraphQLErr(err)
-	}
-	if resp.AffectedRows == 0 {
-		return nil, repox.ErrNotFound
-	}
-	if stalePrice != "" {
-		if _, err := r.Svc.Mutation.Common.Moneys.Delete(ctx, stalePrice); err != nil {
-			return nil, mapGraphQLErr(err)
-		}
-	}
-	return r.get(ctx, id)
-}
-
-// Delete removes the record addressed by its resource name.
-func (r *GraphQLUnitRepository) Delete(ctx context.Context, name string) error {
-	ids, err := repox.SplitName(name, "properties", "units")
-	if err != nil {
-		return err
-	}
-	if h := r.Hooks.BeforeDelete; h != nil {
-		if err := h(ctx, name); err != nil {
-			return err
-		}
-	}
-	id := ids[len(ids)-1]
-	resp, err := r.Svc.Mutation.Property.Units.Delete(ctx, id)
-	if err != nil {
-		return mapGraphQLErr(err)
-	}
-	if resp.AffectedRows == 0 {
-		return repox.ErrNotFound
-	}
-	for i := range resp.Returning {
-		if id := repox.Deref(resp.Returning[i].PriceId); id != "" {
-			if _, err := r.Svc.Mutation.Common.Moneys.Delete(ctx, id); err != nil {
-				return mapGraphQLErr(err)
-			}
-		}
-	}
-	return nil
-}
-
-// Compile-time proof the adapter satisfies the interface.
-var _ UnitRepository = (*GraphQLUnitRepository)(nil)

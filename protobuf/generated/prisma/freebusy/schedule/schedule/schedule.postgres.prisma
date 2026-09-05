@@ -31,7 +31,7 @@ model AvailabilityException {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 
-  /// The exception name. Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}
+  /// The exception name. Format: resources/{resource}/availabilityExceptions/{availability_exception}
   name String @unique @map("name")
 
   /// Whether this span closes the unit or adds extra availability.
@@ -46,17 +46,11 @@ model AvailabilityException {
   /// Discriminator: which span oneof member is set (null = none).
   spanCase AvailabilityExceptionSpanCase? @map("span_case")
 
-  /// Parent reference to Property (from the AIP resource pattern).
+  /// Parent reference to Property (from the AIP resource pattern). TODO: unresolved reference to Property (not in this generation set); kept as a plain indexed column.
   propertyID String @map("property_id")
 
-  /// Relation to Property via property_id.
-  property Property @relation(fields: [propertyID], references: [id], onDelete: Cascade)
-
-  /// Parent reference to Unit (from the AIP resource pattern).
+  /// Parent reference to Unit (from the AIP resource pattern). TODO: unresolved reference to Unit (not in this generation set); kept as a plain indexed column.
   unitID String @map("unit_id")
-
-  /// Relation to Unit via unit_id.
-  unit Unit @relation(fields: [unitID], references: [id], onDelete: Cascade)
 
   /// Foreign key to TimeWindow.
   windowID String? @map("window_id")
@@ -94,17 +88,14 @@ model Schedule {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 
-  /// The schedule name. Format: properties/{property}/units/{unit}/schedule
+  /// The schedule name. Format: resources/{resource}/schedule
   name String @unique @map("name")
 
   /// Opaque version for optimistic concurrency (AIP-154); echo on update.
   etag String? @map("etag")
 
-  /// Parent reference to Property (from the AIP resource pattern).
+  /// Parent reference to Property (from the AIP resource pattern). TODO: unresolved reference to Property (not in this generation set); kept as a plain indexed column.
   propertyID String @map("property_id")
-
-  /// Relation to Property via property_id.
-  property Property @relation(fields: [propertyID], references: [id], onDelete: Cascade)
 
   /// Foreign key to BufferSettings.
   buffersID String? @map("buffers_id")

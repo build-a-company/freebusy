@@ -15,8 +15,6 @@ erDiagram
     direction LR
     AvailabilityException {
         string id PK
-        string property_id FK
-        string unit_id FK
         string window_id FK
         string date_range_id FK
     }
@@ -36,7 +34,6 @@ erDiagram
     }
     Schedule {
         string id PK
-        string property_id FK
         string buffers_id FK
         string stay_constraints_id FK
         string cancellation_policy_id FK
@@ -49,25 +46,16 @@ erDiagram
     StayConstraints {
         string id PK
     }
-    Property {
-        string externalStub PK
-    }
     SharedDateRange {
         string externalStub PK
     }
     TimeWindow {
         string externalStub PK
     }
-    Unit {
-        string externalStub PK
-    }
-    AvailabilityException }o--|| Property : "property_id"
-    AvailabilityException }o--|| Unit : "unit_id"
     AvailabilityException }o--|| TimeWindow : "window_id"
     AvailabilityException }o--|| SharedDateRange : "date_range_id"
     RecurringRule }o--|| Schedule : "schedule_id"
     RefundTier }o--|| CancellationPolicy : "cancellation_policy_id"
-    Schedule }o--|| Property : "property_id"
     Schedule }o--|| BufferSettings : "buffers_id"
     Schedule }o--|| StayConstraints : "stay_constraints_id"
     Schedule }o--|| CancellationPolicy : "cancellation_policy_id"

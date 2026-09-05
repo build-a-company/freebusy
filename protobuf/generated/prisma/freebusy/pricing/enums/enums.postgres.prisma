@@ -13,7 +13,7 @@
 // store — https://github.com/the-protobuf-project/store
 
 /// What a price is multiplied by. Ported from freebusy.property.v1 unchanged. The vocabulary is deliberately small: anything more expressive is a rate rule, and rate rules belong in RateOverride where they can be scoped to dates and weekdays.
-enum PricingPricingUnit {
+enum PricingUnit {
   /// A flat price for the whole booking.
   PER_BOOKING
 
@@ -23,8 +23,8 @@ enum PricingPricingUnit {
   /// Price multiplied by party size / resources booked.
   PER_PERSON
 
-  /// Maps the enum to the "pricing_pricing_unit" type in the database.
-  @@map("pricing_pricing_unit")
+  /// Maps the enum to the "pricing_unit" type in the database.
+  @@map("pricing_unit")
   /// Maps the enum to the "pricing" schema in the database.
   @@schema("pricing")
 }

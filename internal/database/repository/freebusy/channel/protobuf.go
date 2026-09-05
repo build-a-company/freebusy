@@ -52,9 +52,7 @@ func strToTs(s string) *timestamppb.Timestamp {
 func channelToCreateInput(in *channelpbv1.Channel) resourceql.CreateInput {
 	var ci resourceql.CreateInput
 	ci.Name = in.GetName()
-	if v := in.GetProperty(); v != "" {
-		ci.Property = repox.LastSegment(v)
-	}
+	ci.Property = in.GetProperty()
 	if v := in.GetType(); v != 0 {
 		ci.Type = strings.TrimPrefix(in.GetType().String(), "CHANNEL_TYPE_")
 	}
@@ -70,7 +68,7 @@ func channelToCreateInput(in *channelpbv1.Channel) resourceql.CreateInput {
 func channelToUpdatePatch(merged *channelpbv1.Channel) resourceql.UpdateInput {
 	var patch resourceql.UpdateInput
 	patch.Name = graphql.Value(merged.GetName())
-	patch.Property = graphql.Value(repox.LastSegment(merged.GetProperty()))
+	patch.Property = graphql.Value(merged.GetProperty())
 	patch.Type = graphql.Value(strings.TrimPrefix(merged.GetType().String(), "CHANNEL_TYPE_"))
 	if v := merged.GetDisplayName(); v != "" {
 		patch.DisplayName = graphql.Value(v)
@@ -98,9 +96,7 @@ func channelFromRow(row *resourceql.ChannelResource) *channelpbv1.Channel {
 	}
 	out := &channelpbv1.Channel{}
 	out.Name = row.Name
-	if row.Property != "" {
-		out.Property = "properties/" + row.Property
-	}
+	out.Property = row.Property
 	out.Type = channelpbv1.ChannelType(channelpbv1.ChannelType_value["CHANNEL_TYPE_"+row.Type])
 	out.DisplayName = repox.Deref(row.DisplayName)
 	out.ExternalPropertyId = repox.Deref(row.ExternalPropertyId)
@@ -118,6 +114,7 @@ func channelFromRow(row *resourceql.ChannelResource) *channelpbv1.Channel {
 func unitMappingToCreateInput(in *channelpbv1.UnitMapping) unitmappingsql.CreateInput {
 	var ci unitmappingsql.CreateInput
 	ci.Name = in.GetName()
+	ci.Unit = in.GetUnit()
 	ci.ExternalRoomTypeId = in.GetExternalRoomTypeId()
 	ci.ExternalRatePlanId = in.GetExternalRatePlanId()
 	return ci
@@ -129,6 +126,7 @@ func unitMappingToCreateInput(in *channelpbv1.UnitMapping) unitmappingsql.Create
 func unitMappingToUpdatePatch(merged *channelpbv1.UnitMapping) unitmappingsql.UpdateInput {
 	var patch unitmappingsql.UpdateInput
 	patch.Name = graphql.Value(merged.GetName())
+	patch.Unit = graphql.Value(merged.GetUnit())
 	patch.ExternalRoomTypeId = graphql.Value(merged.GetExternalRoomTypeId())
 	if v := merged.GetExternalRatePlanId(); v != "" {
 		patch.ExternalRatePlanId = graphql.Value(v)
@@ -146,6 +144,7 @@ func unitMappingFromRow(row *unitmappingsql.ChannelUnitMappings) *channelpbv1.Un
 	}
 	out := &channelpbv1.UnitMapping{}
 	out.Name = row.Name
+	out.Unit = row.Unit
 	out.ExternalRoomTypeId = row.ExternalRoomTypeId
 	out.ExternalRatePlanId = repox.Deref(row.ExternalRatePlanId)
 	out.Etag = repox.Deref(row.Etag)

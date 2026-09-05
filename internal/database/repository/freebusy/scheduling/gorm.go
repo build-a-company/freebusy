@@ -251,6 +251,7 @@ func (r *GormBookingRepository) Update(ctx context.Context, in *schedulingpbv1.B
 		next := scheduling.BookingFromProto(merged)
 		_ = next
 		existing.Name = next.Name
+		existing.Unit = next.Unit
 		if v := merged.GetCustomer(); v != "" {
 			existing.CustomerID = repox.Ptr(repox.LastSegment(v))
 		} else {

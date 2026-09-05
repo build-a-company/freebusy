@@ -65,9 +65,6 @@ func (r *GormChannelRepository) Create(ctx context.Context, in *channelpbv1.Chan
 	m := channel.ChannelFromProto(in)
 	m.ID = id
 	m.Name = in.GetName()
-	if v := in.GetProperty(); v != "" {
-		m.PropertyID = repox.LastSegment(v)
-	}
 	m.Etag = repox.Ptr(repox.NewULID())
 	if err := channel.NewChannelStore(r.DB).Create(ctx, m); err != nil {
 		return nil, repox.MapGormErr(err)
@@ -98,9 +95,6 @@ func (r *GormChannelRepository) get(ctx context.Context, id string) (*channelpbv
 // AfterRead hook.
 func (r *GormChannelRepository) toProto(ctx context.Context, m *channel.Channel) (*channelpbv1.Channel, error) {
 	out := channel.ChannelToProto(m)
-	if m.PropertyID != "" {
-		out.Property = "properties/" + m.PropertyID
-	}
 	if h := r.Hooks.AfterRead; h != nil {
 		if err := h(ctx, out); err != nil {
 			return nil, err
@@ -160,12 +154,6 @@ func (r *GormChannelRepository) Update(ctx context.Context, in *channelpbv1.Chan
 			return repox.ErrConflict
 		}
 		existingPB := channel.ChannelToProto(&existing)
-		{
-			m, out := &existing, existingPB
-			if m.PropertyID != "" {
-				out.Property = "properties/" + m.PropertyID
-			}
-		}
 		merged := proto.Clone(existingPB).(*channelpbv1.Channel)
 		applyChannelMask(merged, in, paths)
 		if h := r.Hooks.BeforeUpdate; h != nil {
@@ -176,7 +164,7 @@ func (r *GormChannelRepository) Update(ctx context.Context, in *channelpbv1.Chan
 		next := channel.ChannelFromProto(merged)
 		_ = next
 		existing.Name = next.Name
-		existing.PropertyID = repox.LastSegment(merged.GetProperty())
+		existing.Property = next.Property
 		existing.Type = next.Type
 		existing.DisplayName = next.DisplayName
 		existing.ExternalPropertyID = next.ExternalPropertyID
@@ -365,6 +353,7 @@ func (r *GormUnitMappingRepository) Update(ctx context.Context, in *channelpbv1.
 		next := channel.UnitMappingFromProto(merged)
 		_ = next
 		existing.Name = next.Name
+		existing.Unit = next.Unit
 		existing.ExternalRoomTypeID = next.ExternalRoomTypeID
 		existing.ExternalRatePlanID = next.ExternalRatePlanID
 		existing.Etag = repox.Ptr(repox.NewULID())

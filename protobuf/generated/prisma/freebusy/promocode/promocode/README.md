@@ -6,7 +6,7 @@ Generated from Protobuf by protoc-gen-store. Source of truth is the `.proto` fil
 
 | Models | Enums |
 | ---: | ---: |
-| 8 | 1 |
+| 6 | 1 |
 
 ## Entity relationships
 
@@ -38,16 +38,6 @@ erDiagram
         string id PK
         string min_subtotal_id FK
     }
-    ScopeApplicableProperties {
-        string id PK
-        string scope_id FK
-        string property_id FK
-    }
-    ScopeApplicableUnits {
-        string id PK
-        string scope_id FK
-        string unit_id FK
-    }
     UsageLimits {
         string id PK
     }
@@ -55,12 +45,6 @@ erDiagram
         string externalStub PK
     }
     Money {
-        string externalStub PK
-    }
-    Property {
-        string externalStub PK
-    }
-    Unit {
         string externalStub PK
     }
     User {
@@ -76,10 +60,6 @@ erDiagram
     Redemption }o--|| PromoCode : "promo_code_id"
     Redemption }o--|| Money : "amount_applied_id"
     Scope }o--|| Money : "min_subtotal_id"
-    ScopeApplicableProperties }o--|| Scope : "scope_id"
-    ScopeApplicableProperties }o--|| Property : "property_id"
-    ScopeApplicableUnits }o--|| Scope : "scope_id"
-    ScopeApplicableUnits }o--|| Unit : "unit_id"
 ```
 
 Schema file: [`promocode.postgres.prisma`](./promocode.postgres.prisma)
@@ -159,27 +139,8 @@ Scope restricts which bookings a code applies to. Nested value object → belong
 | --- | --- | --- |
 | `id` | `CHAR(26)` | not null |
 | `min_subtotal_id` | `CHAR(26)` | nullable |
-
-### `ScopeApplicableProperties` → `scope_applicable_properties`
-
-Join table for the many-to-many relation Scope.applicable_properties ↔ Property.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `scope_id` | `CHAR(26)` | not null |
-| `property_id` | `CHAR(26)` | not null |
-
-### `ScopeApplicableUnits` → `scope_applicable_units`
-
-Join table for the many-to-many relation Scope.applicable_units ↔ Unit.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `scope_id` | `CHAR(26)` | not null |
-| `unit_id` | `CHAR(26)` | not null |
-| `unit_name` | `TEXT` | not null |
+| `applicable_properties` | `VARCHAR(255)[]` | nullable |
+| `applicable_units` | `VARCHAR(255)[]` | nullable |
 
 ### Enums
 

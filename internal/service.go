@@ -8,7 +8,6 @@ import (
 	"context"
 
 	"github.com/oh-tarnished/freebusy/internal/database"
-	"github.com/oh-tarnished/freebusy/internal/runtime/property"
 	"github.com/oh-tarnished/freebusy/internal/runtime/scheduling"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
@@ -25,8 +24,6 @@ import (
 // interfaces composed in here).
 type Service struct {
 	promocodepbv1.PromoCodeServiceServer
-	propertypbv1.PropertyServiceServer
-	propertypbv1.LicenceServiceServer
 	orgpbv1.OrganisationServiceServer
 	schedulepbv1.ScheduleServiceServer
 	schedulingpbv1.SchedulingServiceServer
@@ -48,7 +45,6 @@ type Service struct {
 // both the PropertyService and the LicenceService.
 func NewService(
 	promoCode promocodepbv1.PromoCodeServiceServer,
-	property *property.Server,
 	organisation orgpbv1.OrganisationServiceServer,
 	schedule schedulepbv1.ScheduleServiceServer,
 	scheduling *scheduling.Server,

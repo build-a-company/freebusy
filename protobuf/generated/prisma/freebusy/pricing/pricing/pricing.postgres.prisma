@@ -30,7 +30,7 @@ model RatePlan {
   description String? @map("description")
 
   /// What `price` is charged per. Defaults to per booking.
-  pricingUnit PricingPricingUnit? @map("pricing_unit")
+  pricingUnit PricingUnit? @map("pricing_unit")
 
   /// Lifecycle state. New plans start ACTIVE.
   state RatePlanState? @default(ACTIVE) @map("state")
@@ -56,17 +56,17 @@ model RatePlan {
   /// Relation to PriceBounds via bounds_id.
   bounds PriceBounds? @relation(fields: [boundsID], references: [id], onDelete: SetNull)
 
-  /// Back-relation: PricingRateOverride records that reference this model via rate_plan_id.
-  rateOverrides PricingRateOverride[]
+  /// Back-relation: RateOverride records that reference this model via rate_plan_id.
+  rateOverrides RateOverride[]
 
-  /// Back-relation: PricingLosDiscount records that reference this model via rate_plan_id.
-  losDiscounts PricingLosDiscount[]
+  /// Back-relation: LosDiscount records that reference this model via rate_plan_id.
+  losDiscounts LosDiscount[]
 
-  /// Back-relation: PricingFee records that reference this model via rate_plan_id.
-  fees PricingFee[]
+  /// Back-relation: Fee records that reference this model via rate_plan_id.
+  fees Fee[]
 
-  /// Back-relation: PricingTax records that reference this model via rate_plan_id.
-  taxes PricingTax[]
+  /// Back-relation: Tax records that reference this model via rate_plan_id.
+  taxes Tax[]
 
   /// Back-relation: DynamicRule records that reference this model via rate_plan_id.
   dynamicRules DynamicRule[]
@@ -86,7 +86,7 @@ model RatePlan {
 }
 
 /// A price that replaces a plan's base rate for a span of dates, specific weekdays, or both.
-model PricingRateOverride {
+model RateOverride {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 
@@ -124,7 +124,7 @@ model PricingRateOverride {
 }
 
 /// A discount applied once a stay reaches `min_nights`. Exactly one of `percent_off` or `amount_off` is set.
-model PricingLosDiscount {
+model LosDiscount {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 
@@ -157,7 +157,7 @@ model PricingLosDiscount {
 }
 
 /// A charge added on top of the base subtotal. Exactly one of `amount` or `percent` is set.
-model PricingFee {
+model Fee {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 
@@ -171,7 +171,7 @@ model PricingFee {
   percent Int? @map("percent")
 
   /// What the fee is charged per. Defaults to per booking.
-  pricingUnit PricingPricingUnit? @map("pricing_unit")
+  pricingUnit PricingUnit? @map("pricing_unit")
 
   /// Whether this fee joins the taxable base.
   taxable Boolean? @map("taxable")
@@ -199,7 +199,7 @@ model PricingFee {
 }
 
 /// A tax on the taxable base — the subtotal plus every fee marked taxable.
-model PricingTax {
+model Tax {
   /// Unique identifier for the record.
   id String @id @default(ulid()) @map("id")
 
@@ -292,8 +292,8 @@ model PricingDateRange {
   /// Exclusive end date of the range.
   endDate DateTime @freebusy.Date @map("end_date")
 
-  /// Back-relation: PricingRateOverride records that reference this model via date_range_id.
-  rateOverrides PricingRateOverride[]
+  /// Back-relation: RateOverride records that reference this model via date_range_id.
+  rateOverrides RateOverride[]
 
   /// Maps the model to the "date_ranges" table in the database.
   @@map("date_ranges")

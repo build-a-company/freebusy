@@ -53,6 +53,9 @@ func applyUnitMappingMask(merged, in *channelpbv1.UnitMapping, paths []string) {
 	if repox.InMask(paths, "name") {
 		merged.Name = in.GetName()
 	}
+	if repox.InMask(paths, "unit") {
+		merged.Unit = in.GetUnit()
+	}
 	if repox.InMask(paths, "external_room_type_id") {
 		merged.ExternalRoomTypeId = in.GetExternalRoomTypeId()
 	}

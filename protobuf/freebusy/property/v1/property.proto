@@ -27,378 +27,32 @@ option java_multiple_files = true;
 option java_outer_classname = "PropertyProto";
 option java_package = "dev.ohtarnished.freebusy.property.v1";
 
-// A hotel (or other lodging property): the guest-facing venue a chain operates.
-// A Property belongs to an Organisation (the chain/brand) and carries the
-// showcase media, address, and informational policies shown to guests. Its
-// bookable inventory lives in child Units (room types); pricing and availability
-// are modeled there, not here.
-message Property {
-  option (google.api.resource) = {
-    type: "freebusy.property.v1/Property"
-    pattern: "properties/{property}"
-    singular: "property"
-    plural: "properties"
-  };
-
-  // The property name.
-  // Format: properties/{property}
-  string name = 1 [
-    (google.api.field_behavior) = IDENTIFIER,
-    (buf.validate.field).string.pattern = "^properties/[^/]+$",
-    (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
-  ];
-
-  // The chain/brand that owns this property.
-  // Format: organisations/{organisation}
-  string organisation = 2 [
-    (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.organisation.v1/Organisation"},
-    (buf.validate.field).string.pattern = "^organisations/[^/]+$",
-    (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
-  ];
-
-  // Human-friendly name (e.g. "Grand Beach Resort, Goa").
-  string display_name = 3 [
-    (google.api.field_behavior) = REQUIRED,
-    (store.v1.query) = {search: true}
-  ];
-
-  // Free-form description shown on the property's page.
-  string description = 4 [(google.api.field_behavior) = OPTIONAL];
-
-  // Postal address of the property.
-  google.type.PostalAddress address = 5 [(google.api.field_behavior) = OPTIONAL];
-
-  // IANA timezone (e.g. "Asia/Kolkata") the property operates in.
-  string time_zone = 6 [(google.api.field_behavior) = REQUIRED];
-
-  // Showcase gallery and documents (images, video, floor plans, PDFs).
-  // Documents are Media with type DOCUMENT.
-  repeated Media media = 7 [(google.api.field_behavior) = OPTIONAL];
-
-  // Guest-facing informational policy (display only). The enforced rules
-  // (cancellation, stay constraints, buffers) live per-Unit in the schedule
-  // service, not here.
-  Policy policy = 8 [(google.api.field_behavior) = OPTIONAL];
-
-  // Arbitrary tags for grouping and filtering (e.g. "beachfront", "5-star").
-  repeated string tags = 9 [(google.api.field_behavior) = OPTIONAL];
-
-  // Arbitrary attributes used for templating, policy, and segmentation.
-  google.protobuf.Struct attributes = 10 [(google.api.field_behavior) = OPTIONAL];
-
-  // Resource names of the units (room types) under this property; manage them
-  // with the Unit standard methods.
-  // Format: properties/{property}/units/{unit}
-  repeated string units = 11 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"}
-  ];
-
-  // Lifecycle state. New properties start ACTIVE (database default).
-  PropertyState state = 12 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (store.v1.column) = {default_value: "ACTIVE"}
-  ];
-
-  // Creation timestamp.
-  google.protobuf.Timestamp create_time = 13 [(google.api.field_behavior) = OUTPUT_ONLY];
-
-  // Last-modification timestamp.
-  google.protobuf.Timestamp update_time = 14 [(google.api.field_behavior) = OUTPUT_ONLY];
-
-  // Opaque version for optimistic concurrency (AIP-154); echo on update/delete.
-  string etag = 15;
-
-  // Resource names of the regulatory licences/certificates held by this
-  // property and its units (e.g. trade licence, fire safety NOC); manage them
-  // with the LicenceService. Derived from the licences' parent FK at read
-  // time, so no join table is materialized (orm skip).
-  // Format: properties/{property}/licences/{licence}
-  repeated string licences = 16 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Licence"},
-    (entity.v1.column) = {skip: true}
-  ];
-}
-
-// Guest-facing, informational property policy: what to *display* to a guest
-// (check-in/out hours, house rules). The enforced refund/stay rules that gate
-// bookability live on each Unit's Schedule (freebusy.schedule.v1), not here, so
-// there is a single source of truth for enforcement.
-message Policy {
-  // Local check-in time (e.g. 14:00).
-  google.type.TimeOfDay checkin_time = 1 [(google.api.field_behavior) = OPTIONAL];
-
-  // Local check-out time (e.g. 11:00).
-  google.type.TimeOfDay checkout_time = 2 [(google.api.field_behavior) = OPTIONAL];
-
-  // House rules shown to guests (e.g. "No smoking", "Pets on request").
-  repeated string house_rules = 3 [(google.api.field_behavior) = OPTIONAL];
-
-  // Any additional free-text notes displayed with the policy.
-  string notes = 4 [(google.api.field_behavior) = OPTIONAL];
-}
-
-// A bookable unit type within a property: a pool of `capacity` interchangeable
-// rooms/units of the same kind (e.g. "Deluxe King", capacity 12). A Unit carries
-// its own pricing, media, occupancy limit, and the promo codes advertised for
-// it. The freebusy engine computes how many units are free for a window; its
-// booking_mode decides whether availability is time slots or per-night counts.
-message Unit {
-  option (google.api.resource) = {
-    type: "freebusy.property.v1/Unit"
-    pattern: "properties/{property}/units/{unit}"
-    singular: "unit"
-    plural: "units"
-  };
-
-  // The unit name.
-  // Format: properties/{property}/units/{unit}
-  string name = 1 [
-    (google.api.field_behavior) = IDENTIFIER,
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+$",
-    (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
-  ];
-
-  // Human-friendly name (e.g. "Deluxe King", "Sea-View Suite").
-  string display_name = 2 [
-    (google.api.field_behavior) = REQUIRED,
-    (store.v1.query) = {search: true}
-  ];
-
-  // Free-form description.
-  string description = 3 [(google.api.field_behavior) = OPTIONAL];
-
-  // What kind of unit this is.
-  UnitType type = 4 [(google.api.field_behavior) = REQUIRED];
-
-  // How this unit is booked, and therefore the availability shape it yields.
-  // Immutable: flipping it after bookings exist would invalidate every existing
-  // booking and availability computation.
-  freebusy.shared.v1.BookingMode booking_mode = 5 [
-    (google.api.field_behavior) = REQUIRED,
-    (google.api.field_behavior) = IMMUTABLE
-  ];
-
-  // Number of interchangeable units in the pool. Defaults to 1 when unset.
-  int32 capacity = 6 [(google.api.field_behavior) = OPTIONAL];
-
-  // Maximum guests per unit (occupancy limit). A future policy layer (OPA)
-  // reads this to validate party size on a booking. Zero means unspecified.
-  int32 max_occupancy = 7 [(google.api.field_behavior) = OPTIONAL];
-
-  // IANA timezone the unit's hours and dates are evaluated in. Required so
-  // availability is timezone-correct.
-  string time_zone = 8 [(google.api.field_behavior) = REQUIRED];
-
-  // Base price, interpreted per pricing_unit. For NIGHTLY units this is the
-  // default nightly rate; rate_overrides layer seasonal/weekend rates on top.
-  google.type.Money price = 9 [(google.api.field_behavior) = OPTIONAL];
-
-  // What the price is charged per.
-  PricingUnit pricing_unit = 10 [(google.api.field_behavior) = OPTIONAL];
-
-  // Slot length. Required for TIME_SLOT units; ignored for NIGHTLY.
-  google.protobuf.Duration duration = 11 [(google.api.field_behavior) = OPTIONAL];
-
-  // Rate calendar: date- and weekday-scoped overrides of `price`. For NIGHTLY
-  // units this is the seasonal/weekend rate calendar. `price` is the default
-  // when no override matches. Later-listed overrides win where they overlap.
-  repeated RateOverride rate_overrides = 12 [(google.api.field_behavior) = OPTIONAL];
-
-  // Length-of-stay discounts applied to the NIGHTLY subtotal when a stay is at
-  // least `min_nights` long. The most generous matching discount applies.
-  repeated LosDiscount los_discounts = 13 [(google.api.field_behavior) = OPTIONAL];
-
-  // Fees added on top of the base subtotal (e.g. cleaning, service). Each
-  // surfaces as a TYPE_FEE line in a booking's price_components.
-  repeated Fee fees = 14 [(google.api.field_behavior) = OPTIONAL];
-
-  // Taxes applied to the taxable base (subtotal plus taxable fees). Each
-  // surfaces as a TYPE_TAX line in a booking's price_components.
-  repeated Tax taxes = 15 [(google.api.field_behavior) = OPTIONAL];
-
-  // Showcase gallery and documents for this unit (images, video, floor plans).
-  repeated UnitMedia media = 16 [(google.api.field_behavior) = OPTIONAL];
-
-  // Promo codes advertised as applicable to this unit (an allow-list shown to
-  // guests). Actual eligibility/validation still happens at booking time.
-  // Format: promo-codes/{promo_code}
-  repeated string applicable_promo_codes = 17 [
-    (google.api.field_behavior) = OPTIONAL,
-    (google.api.resource_reference) = {type: "oh-tarnished.dev/PromoCode"}
-  ];
-
-  // Arbitrary tags for grouping and filtering.
-  repeated string tags = 18 [(google.api.field_behavior) = OPTIONAL];
-
-  // Arbitrary attributes used for templating, policy, and segmentation.
-  google.protobuf.Struct attributes = 19 [(google.api.field_behavior) = OPTIONAL];
-
-  // Lifecycle state. New units start ACTIVE (database default).
-  UnitState state = 20 [
-    (google.api.field_behavior) = OUTPUT_ONLY,
-    (store.v1.column) = {default_value: "ACTIVE"}
-  ];
-
-  // Creation timestamp.
-  google.protobuf.Timestamp create_time = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
-
-  // Last-modification timestamp.
-  google.protobuf.Timestamp update_time = 22 [(google.api.field_behavior) = OUTPUT_ONLY];
-
-  // Opaque version for optimistic concurrency (AIP-154); echo on update/delete.
-  string etag = 23;
-}
-
-// A price override for a span of dates and/or specific weekdays, layered over a
-// unit's base `price`. The price is still interpreted per the unit's
-// pricing_unit (per night, per booking, per person).
-message RateOverride {
-  // Dates the override applies to, in the unit's timezone. Unset means it
-  // applies on every date (a pure weekday rule).
-  freebusy.shared.v1.DateRange date_range = 1 [(google.api.field_behavior) = OPTIONAL];
-
-  // Weekdays the override applies to. Empty means every day within date_range.
-  repeated freebusy.shared.v1.Weekday weekdays = 2 [(google.api.field_behavior) = OPTIONAL];
-
-  // The price in effect while this override matches.
-  google.type.Money price = 3 [(google.api.field_behavior) = REQUIRED];
-}
-
-// A discount applied to a NIGHTLY subtotal once the stay reaches a minimum
-// length. Exactly one of percent_off or amount_off is set.
-message LosDiscount {
-  // Minimum nights for the discount to apply.
-  int32 min_nights = 1 [(google.api.field_behavior) = REQUIRED];
-
-  // Percent off the subtotal (1-100), when discounting by percentage.
-  int32 percent_off = 2 [(google.api.field_behavior) = OPTIONAL];
-
-  // Fixed amount off the subtotal, when discounting by a flat amount.
-  google.type.Money amount_off = 3 [(google.api.field_behavior) = OPTIONAL];
-}
-
-// A fee added on top of a unit's base subtotal. Exactly one of `amount` or
-// `percent` is set. Surfaces as a TYPE_FEE line in a booking's price_components.
-message Fee {
-  // Stable machine code, e.g. "cleaning_fee".
-  string code = 1 [(google.api.field_behavior) = REQUIRED];
-
-  // Human-readable label for receipts.
-  string display_name = 2 [(google.api.field_behavior) = OPTIONAL];
-
-  // Fixed fee amount, when charging a flat fee.
-  google.type.Money amount = 3 [(google.api.field_behavior) = OPTIONAL];
-
-  // Percent of the base subtotal (1-100), when charging a proportional fee.
-  int32 percent = 4 [(google.api.field_behavior) = OPTIONAL];
-
-  // What the fee is charged per (per booking, per night, per person). Defaults
-  // to per booking.
-  PricingUnit pricing_unit = 5 [(google.api.field_behavior) = OPTIONAL];
-
-  // Whether this fee is included in the taxable base.
-  bool taxable = 6 [(google.api.field_behavior) = OPTIONAL];
-}
-
-// A media asset in a Property's showcase gallery — an image, video, floor plan,
-// virtual tour, or a document (PDF fact sheet, policy, house rules). The bytes
-// live in object storage (S3 or any HTTP-reachable host); this message only
-// carries the link and its presentation metadata. `UnitMedia` is the identical
-// per-Unit gallery; they are separate messages so the ORM materializes each as a
-// child table with a single owning parent.
-message Media {
-  option (entity.v1.table) = {id: ID_STRATEGY_ULID};
-
-  // Publicly reachable URL of the asset (an S3/CDN link or any HTTPS URL).
-  string uri = 1 [(google.api.field_behavior) = REQUIRED];
-
-  // What kind of asset this is; DOCUMENT covers PDFs/policies/house rules.
-  freebusy.shared.v1.MediaType type = 2 [(google.api.field_behavior) = REQUIRED];
-
-  // Short human-readable caption/title for display.
-  string title = 3 [(google.api.field_behavior) = OPTIONAL];
-
-  // Longer description or alt text.
-  string description = 4 [(google.api.field_behavior) = OPTIONAL];
-
-  // MIME type of the asset (e.g. "image/jpeg", "application/pdf"), when known.
-  string mime_type = 5 [(google.api.field_behavior) = OPTIONAL];
-
-  // Ordering hint within a gallery; lower sorts first.
-  int32 sort_order = 6 [(google.api.field_behavior) = OPTIONAL];
-
-  // Whether this is the primary/hero asset of its gallery.
-  bool primary = 7 [(google.api.field_behavior) = OPTIONAL];
-}
-
-// A media asset in a Unit's gallery. Identical in shape to `Media`; kept a
-// separate message so the ORM gives it its own child table owned solely by the
-// Unit (a single unit_id foreign key).
-message UnitMedia {
-  option (entity.v1.table) = {id: ID_STRATEGY_ULID};
-
-  // Publicly reachable URL of the asset (an S3/CDN link or any HTTPS URL).
-  string uri = 1 [(google.api.field_behavior) = REQUIRED];
-
-  // What kind of asset this is; DOCUMENT covers PDFs/policies/house rules.
-  freebusy.shared.v1.MediaType type = 2 [(google.api.field_behavior) = REQUIRED];
-
-  // Short human-readable caption/title for display.
-  string title = 3 [(google.api.field_behavior) = OPTIONAL];
-
-  // Longer description or alt text.
-  string description = 4 [(google.api.field_behavior) = OPTIONAL];
-
-  // MIME type of the asset (e.g. "image/jpeg", "application/pdf"), when known.
-  string mime_type = 5 [(google.api.field_behavior) = OPTIONAL];
-
-  // Ordering hint within a gallery; lower sorts first.
-  int32 sort_order = 6 [(google.api.field_behavior) = OPTIONAL];
-
-  // Whether this is the primary/hero asset of its gallery.
-  bool primary = 7 [(google.api.field_behavior) = OPTIONAL];
-}
-
-// A tax applied to the taxable base (base subtotal plus taxable fees). Surfaces
-// as a TYPE_TAX line in a booking's price_components.
-message Tax {
-  // Stable machine code, e.g. "occupancy_tax" or "gst".
-  string code = 1 [(google.api.field_behavior) = REQUIRED];
-
-  // Human-readable label for receipts.
-  string display_name = 2 [(google.api.field_behavior) = OPTIONAL];
-
-  // Tax rate as a percentage, e.g. 12 for 12% GST.
-  double percent = 3 [(google.api.field_behavior) = REQUIRED];
-}
-
-// A regulatory licence or certificate held by a Property or one of its Units
-// (e.g. trade licence, fire safety NOC, per-room liquor licence). One resource
-// covers both: every licence is parented by the property, `target` says what it
-// covers, and a unit licence names its unit in `unit`. Tracks the issuing
-// authority and validity window so `expiry_date` can be filtered on to find
-// licences due for renewal; the certificate itself is carried in `attachment`.
-// A standalone resource (own Get/List/Create/Update/Delete), like Unit, rather
-// than an embedded repeated field like Media, so a renewal doesn't require
-// resending the whole Property.
+// A regulatory licence or certificate held by a site or one of its bookable
+// resources (e.g. trade licence, fire safety NOC, per-room liquor licence).
+//
+// Native, and it stays native because no RFC covers it: the IETF standardises
+// calendars and directories, not the paperwork a jurisdiction demands to
+// operate. It parents onto an RFC 4519 organizationalUnit and names an RFC 9073
+// resource, so the only thing freebusy defines here is the licence itself.
+//
+// One resource covers both scopes: `target` says which, and a resource-scoped
+// licence names it in `unit`. `expiry_date` is filterable so renewals due can be
+// listed; the certificate itself rides in `attachment`.
 message Licence {
   option (entity.v1.table) = {id: ID_STRATEGY_ULID};
 
   option (google.api.resource) = {
     type: "freebusy.property.v1/Licence"
-    pattern: "properties/{property}/licences/{licence}"
+    pattern: "organizationalUnits/{organizational_unit}/licences/{licence}"
     singular: "licence"
     plural: "licences"
   };
 
   // The licence name.
-  // Format: properties/{property}/licences/{licence}
+  // Format: organizationalUnits/{organizational_unit}/licences/{licence}
   string name = 1 [
     (google.api.field_behavior) = IDENTIFIER,
-    (buf.validate.field).string.pattern = "^properties/[^/]+/licences/[^/]+$",
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+/licences/[^/]+$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
 
@@ -406,15 +60,18 @@ message Licence {
   // `unit`. Derived from whether `unit` is set at create time.
   LicenceTarget target = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // The unit this licence covers, for a LICENCE_TARGET_UNIT licence; unset for
-  // a property-wide licence. Must belong to the parent property.
-  // Format: properties/{property}/units/{unit}
+  // The bookable resource this licence covers, for a LICENCE_TARGET_UNIT
+  // licence; unset for a site-wide one. Must belong to the parent site.
+  //
+  // An RFC 9073 VRESOURCE, named rather than embedded: AIP-215 says to refer to
+  // a resource by name, and the catalogue is served by the RFC Resources
+  // service, not by this one.
+  // Format: resources/{resource}
   string unit = 3 [
     (google.api.field_behavior) = OPTIONAL,
     (google.api.field_behavior) = IMMUTABLE,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"},
-    (store.v1.column) = {on_delete: REFERENTIAL_ACTION_CASCADE},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+$",
+    (google.api.resource_reference) = {type: "protobufrfc.dev/Resource"},
+    (buf.validate.field).string.pattern = "^resources/[^/]+$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
 

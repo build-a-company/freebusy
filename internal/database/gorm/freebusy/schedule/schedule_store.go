@@ -49,7 +49,6 @@ type ScheduleStoreIface interface {
 	GetByID(ctx context.Context, id string) (*Schedule, error)
 	DeleteByID(ctx context.Context, id string) error
 	GetByName(ctx context.Context, v string) (*Schedule, error)
-	ListByPropertyID(ctx context.Context, id string, opts gormx.ListOptions) ([]Schedule, error)
 	ListByBuffersID(ctx context.Context, id string, opts gormx.ListOptions) ([]Schedule, error)
 	ListByStayConstraintsID(ctx context.Context, id string, opts gormx.ListOptions) ([]Schedule, error)
 	ListByCancellationPolicyID(ctx context.Context, id string, opts gormx.ListOptions) ([]Schedule, error)
@@ -178,21 +177,6 @@ func (s *ScheduleStore) GetByName(ctx context.Context, v string) (*Schedule, err
 		return nil, err
 	}
 	return &m, nil
-}
-
-// ListByPropertyID returns the Schedule records whose property_id matches id, with opts applied.
-func (s *ScheduleStore) ListByPropertyID(ctx context.Context, id string, opts gormx.ListOptions) ([]Schedule, error) {
-	var out []Schedule
-	tel := gormx.OrNop(s.Telemetry)
-	start := time.Now()
-	err := tel.Span(ctx, "schedule.Schedule/ListByPropertyID", nil, func(ctx context.Context) error {
-		return opts.Apply(s.DB.WithContext(ctx).Where("property_id = ?", id)).Find(&out).Error
-	})
-	tel.RecordOp(ctx, "schedule.resource", "list_by_property_id", time.Since(start), err)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 // ListByBuffersID returns the Schedule records whose buffers_id matches id, with opts applied.

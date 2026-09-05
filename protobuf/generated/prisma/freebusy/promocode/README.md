@@ -6,7 +6,7 @@ Generated from Protobuf by protoc-gen-store. Source of truth is the `.proto` fil
 
 | Models | Enums |
 | ---: | ---: |
-| 8 | 2 |
+| 6 | 2 |
 
 ## Entity relationships
 
@@ -38,16 +38,6 @@ erDiagram
         string id PK
         string min_subtotal_id FK
     }
-    ScopeApplicableProperties {
-        string id PK
-        string scope_id FK
-        string property_id FK
-    }
-    ScopeApplicableUnits {
-        string id PK
-        string scope_id FK
-        string unit_id FK
-    }
     UsageLimits {
         string id PK
     }
@@ -55,12 +45,6 @@ erDiagram
         string externalStub PK
     }
     Money {
-        string externalStub PK
-    }
-    Property {
-        string externalStub PK
-    }
-    Unit {
         string externalStub PK
     }
     User {
@@ -76,10 +60,6 @@ erDiagram
     Redemption }o--|| PromoCode : "promo_code_id"
     Redemption }o--|| Money : "amount_applied_id"
     Scope }o--|| Money : "min_subtotal_id"
-    ScopeApplicableProperties }o--|| Scope : "scope_id"
-    ScopeApplicableProperties }o--|| Property : "property_id"
-    ScopeApplicableUnits }o--|| Scope : "scope_id"
-    ScopeApplicableUnits }o--|| Unit : "unit_id"
 ```
 
 ## Subfolders

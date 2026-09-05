@@ -71,8 +71,8 @@ type Channel struct {
 	ID string `gorm:"column:id;primaryKey;not null" json:"id"`
 	// The channel name. Format: channels/{channel}
 	Name string `gorm:"column:name;not null;uniqueIndex" json:"name" validate:"required"`
-	// The property this channel distributes. Format: properties/{property}
-	PropertyID string `gorm:"column:property;not null;index:idx_resource_property" json:"property" validate:"required"`
+	// The property this channel distributes. Format: organizationalUnits/{organizational_unit} TODO: unresolved reference to OrganizationalUnit (not in this generation set); kept as a plain indexed column.
+	Property string `gorm:"column:property;not null;index:idx_resource_property" json:"property" validate:"required"`
 	// Which OTA/GDS this connects to. Immutable: the adapter and external ID space are fixed per channel.
 	Type ChannelType `gorm:"column:type;not null;default:'AGODA';check:chk_resource_type,type IN ('AGODA','BOOKING_COM','EXPEDIA','AIRBNB','MAKEMYTRIP','GOIBIBO','GDS','DIRECT')" json:"type" validate:"required"`
 	// Human-friendly label (e.g. "Booking.com — Goa Resort").
@@ -103,8 +103,8 @@ type UnitMapping struct {
 	ID string `gorm:"column:id;primaryKey;not null" json:"id"`
 	// The mapping name. Format: channels/{channel}/unitMappings/{unit_mapping}
 	Name string `gorm:"column:name;not null;uniqueIndex" json:"name" validate:"required"`
-	// The freebusy unit being mapped. Format: properties/{property}/units/{unit}
-	UnitID string `gorm:"column:unit;not null;index:idx_unit_mappings_unit" json:"unit" validate:"required"`
+	// The freebusy unit being mapped. Format: resources/{resource} TODO: unresolved reference to Resource (not in this generation set); kept as a plain indexed column.
+	Unit string `gorm:"column:unit;not null;index:idx_unit_mappings_unit" json:"unit" validate:"required"`
 	// The channel's room-type id this unit maps to.
 	ExternalRoomTypeID string `gorm:"column:external_room_type_id;not null" json:"external_room_type_id" validate:"required"`
 	// The channel's rate-plan id this unit maps to.

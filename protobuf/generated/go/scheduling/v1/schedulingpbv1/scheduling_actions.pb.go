@@ -178,7 +178,7 @@ type RescheduleBookingRequest struct {
 	// The new reserved span.
 	Window *sharedpbv1.TimeWindow `protobuf:"bytes,2,opt,name=window,proto3" json:"window,omitempty"`
 	// The new unit, when changing it as part of the reschedule.
-	// Format: properties/{property}/units/{unit}
+	// Format: resources/{resource}
 	Unit string `protobuf:"bytes,3,opt,name=unit,proto3" json:"unit,omitempty"`
 	// Caller-supplied idempotency key that dedupes retries of this reschedule.
 	RequestId     string `protobuf:"bytes,4,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
@@ -452,13 +452,13 @@ const file_freebusy_scheduling_v1_scheduling_actions_proto_rawDesc = "" +
 	"\x06reason\x18\x02 \x01(\x0e2$.freebusy.scheduling.v1.CancelReasonB\x03\xe0A\x01R\x06reason\x12\x17\n" +
 	"\x04note\x18\x03 \x01(\tB\x03\xe0A\x01R\x04note\x12*\n" +
 	"\n" +
-	"request_id\x18\x04 \x01(\tB\v\xe0A\x01\xe2\x8c\xcf\xd7\b\x02\b\x01R\trequestId\"\x93\x02\n" +
+	"request_id\x18\x04 \x01(\tB\v\xe0A\x01\xe2\x8c\xcf\xd7\b\x02\b\x01R\trequestId\"\x92\x02\n" +
 	"\x18RescheduleBookingRequest\x12Q\n" +
 	"\x04name\x18\x01 \x01(\tB=\xe0A\x02\xfaA \n" +
 	"\x1efreebusy.scheduling.v1/Booking\xbaH\x14r\x122\x10^bookings/[^/]+$R\x04name\x12A\n" +
-	"\x06window\x18\x02 \x01(\v2\x1e.freebusy.shared.v1.TimeWindowB\t\xe0A\x02\xbaH\x03\xc8\x01\x01R\x06window\x125\n" +
-	"\x04unit\x18\x03 \x01(\tB!\xe0A\x01\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/UnitR\x04unit\x12*\n" +
+	"\x06window\x18\x02 \x01(\v2\x1e.freebusy.shared.v1.TimeWindowB\t\xe0A\x02\xbaH\x03\xc8\x01\x01R\x06window\x124\n" +
+	"\x04unit\x18\x03 \x01(\tB \xe0A\x01\xfaA\x1a\n" +
+	"\x18protobufrfc.dev/ResourceR\x04unit\x12*\n" +
 	"\n" +
 	"request_id\x18\x04 \x01(\tB\v\xe0A\x01\xe2\x8c\xcf\xd7\b\x02\b\x01R\trequestId\"\xb7\x01\n" +
 	"\x1aUpdateBookingGuestsRequest\x12W\n" +

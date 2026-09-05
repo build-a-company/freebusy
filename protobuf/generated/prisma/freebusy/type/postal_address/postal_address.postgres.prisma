@@ -56,9 +56,6 @@ model PostalAddress {
   /// Back-relation: Guest records that reference this model via local_address_id.
   guests2 Guest[] @relation("GuestLocalAddress")
 
-  /// Back-relation: Property records that reference this model via address_id.
-  properties Property[]
-
   /// GIN index: tag containment (@>) cannot use a B-tree.
   @@index([addressLines], type: Gin)
   /// GIN index: tag containment (@>) cannot use a B-tree.

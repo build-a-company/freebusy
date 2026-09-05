@@ -12,6 +12,6 @@ Schema file: [`enums.postgres.prisma`](./enums.postgres.prisma)
 
 ### Enums
 
-- `PricingPricingUnit`: PER_BOOKING, PER_NIGHT, PER_PERSON
+- `PricingUnit`: PER_BOOKING, PER_NIGHT, PER_PERSON
 - `RatePlanState`: ACTIVE, ARCHIVED
 - `DynamicTrigger`: OCCUPANCY, LEAD_TIME, LENGTH_OF_STAY

@@ -8,7 +8,7 @@ Generated from Protobuf by protoc-gen-store. Source of truth is the `.proto` fil
 
 | Models | Enums |
 | ---: | ---: |
-| 59 | 32 |
+| 46 | 26 |
 
 ## Entity relationships
 
@@ -24,14 +24,11 @@ erDiagram
     }
     AvailabilityException {
         string id PK
-        string property_id FK
-        string unit_id FK
         string window_id FK
         string date_range_id FK
     }
     Booking {
         string id PK
-        string unit FK
         string customer FK
         string promo_code FK
         string contact_id FK
@@ -50,7 +47,6 @@ erDiagram
     }
     Channel {
         string id PK
-        string property FK
     }
     ChannelSyncStatus {
         string id PK
@@ -82,11 +78,6 @@ erDiagram
         string rate_plan_id FK
         string amount_id FK
     }
-    Fee {
-        string id PK
-        string unit_id FK
-        string amount_id FK
-    }
     ForeignerDetails {
         string id PK
     }
@@ -114,23 +105,12 @@ erDiagram
     }
     Licence {
         string id PK
-        string unit FK
-        string property_id FK
         string attachment_id FK
     }
     LosDiscount {
         string id PK
         string rate_plan_id FK
         string amount_off_id FK
-    }
-    LosDiscount {
-        string id PK
-        string unit_id FK
-        string amount_off_id FK
-    }
-    Media {
-        string id PK
-        string property_id FK
     }
     Member {
         string id PK
@@ -145,9 +125,6 @@ erDiagram
         string id PK
     }
     Organisation {
-        string id PK
-    }
-    Policy {
         string id PK
     }
     PostalAddress {
@@ -169,23 +146,6 @@ erDiagram
         string window_id FK
         string limits_id FK
         string scope_id FK
-    }
-    Property {
-        string id PK
-        string organisation FK
-        string address_id FK
-        string policy_id FK
-    }
-    PropertyUnits {
-        string id PK
-        string property_id FK
-        string unit_id FK
-    }
-    RateOverride {
-        string id PK
-        string unit_id FK
-        string date_range_id FK
-        string price_id FK
     }
     RateOverride {
         string id PK
@@ -218,7 +178,6 @@ erDiagram
     }
     Schedule {
         string id PK
-        string property_id FK
         string buffers_id FK
         string stay_constraints_id FK
         string cancellation_policy_id FK
@@ -232,22 +191,8 @@ erDiagram
         string id PK
         string min_subtotal_id FK
     }
-    ScopeApplicableProperties {
-        string id PK
-        string scope_id FK
-        string property_id FK
-    }
-    ScopeApplicableUnits {
-        string id PK
-        string scope_id FK
-        string unit_id FK
-    }
     StayConstraints {
         string id PK
-    }
-    Tax {
-        string id PK
-        string unit_id FK
     }
     Tax {
         string id PK
@@ -256,24 +201,9 @@ erDiagram
     TimeWindow {
         string id PK
     }
-    Unit {
-        string id PK
-        string property_id FK
-        string price_id FK
-    }
-    UnitApplicablePromoCodes {
-        string id PK
-        string unit_id FK
-        string promo_code_id FK
-    }
     UnitMapping {
         string id PK
-        string unit FK
         string channel_id FK
-    }
-    UnitMedia {
-        string id PK
-        string unit_id FK
     }
     UsageLimits {
         string id PK
@@ -282,11 +212,8 @@ erDiagram
         string id PK
     }
     Adjustment }o--|| Money : "amount_delta_id"
-    AvailabilityException }o--|| Property : "property_id"
-    AvailabilityException }o--|| Unit : "unit_id"
     AvailabilityException }o--|| TimeWindow : "window_id"
     AvailabilityException }o--|| DateRange : "date_range_id"
-    Booking }o--|| Unit : "unit"
     Booking }o--|| User : "customer"
     Booking }o--|| PromoCode : "promo_code"
     Booking }o--|| Contact : "contact_id"
@@ -296,14 +223,11 @@ erDiagram
     Booking }o--|| Money : "discount_id"
     Booking }o--|| Money : "total_id"
     Booking }o--|| Money : "refund_amount_id"
-    Channel }o--|| Property : "property"
     Discount }o--|| Money : "amount_off_id"
     DynamicBand }o--|| DynamicRule : "dynamic_rule_id"
     DynamicBand }o--|| Adjustment : "adjustment_id"
     DynamicRule }o--|| RatePlan : "rate_plan_id"
     Fee }o--|| RatePlan : "rate_plan_id"
-    Fee }o--|| Money : "amount_id"
-    Fee }o--|| Unit : "unit_id"
     Fee }o--|| Money : "amount_id"
     Guest }o--|| Booking : "booking_id"
     Guest }o--|| IdDocument : "id_document_id"
@@ -312,14 +236,9 @@ erDiagram
     Guest }o--|| ForeignerDetails : "foreigner_id"
     Guest }o--|| GuestPreferences : "preferences_id"
     IdDocument }o--|| Attachment : "attachment_id"
-    Licence }o--|| Unit : "unit"
-    Licence }o--|| Property : "property_id"
     Licence }o--|| Attachment : "attachment_id"
     LosDiscount }o--|| RatePlan : "rate_plan_id"
     LosDiscount }o--|| Money : "amount_off_id"
-    LosDiscount }o--|| Unit : "unit_id"
-    LosDiscount }o--|| Money : "amount_off_id"
-    Media }o--|| Property : "property_id"
     Member }o--|| User : "user"
     Member }o--|| User : "inviter"
     Member }o--|| Organisation : "organisation_id"
@@ -331,14 +250,6 @@ erDiagram
     PromoCode }o--|| RedemptionWindow : "window_id"
     PromoCode }o--|| UsageLimits : "limits_id"
     PromoCode }o--|| Scope : "scope_id"
-    Property }o--|| Organisation : "organisation"
-    Property }o--|| PostalAddress : "address_id"
-    Property }o--|| Policy : "policy_id"
-    PropertyUnits }o--|| Property : "property_id"
-    PropertyUnits }o--|| Unit : "unit_id"
-    RateOverride }o--|| Unit : "unit_id"
-    RateOverride }o--|| DateRange : "date_range_id"
-    RateOverride }o--|| Money : "price_id"
     RateOverride }o--|| RatePlan : "rate_plan_id"
     RateOverride }o--|| DateRange : "date_range_id"
     RateOverride }o--|| Money : "price_id"
@@ -350,26 +261,14 @@ erDiagram
     Redemption }o--|| PromoCode : "promo_code_id"
     Redemption }o--|| Money : "amount_applied_id"
     RefundTier }o--|| CancellationPolicy : "cancellation_policy_id"
-    Schedule }o--|| Property : "property_id"
     Schedule }o--|| BufferSettings : "buffers_id"
     Schedule }o--|| StayConstraints : "stay_constraints_id"
     Schedule }o--|| CancellationPolicy : "cancellation_policy_id"
     ScheduleExceptions }o--|| Schedule : "schedule_id"
     ScheduleExceptions }o--|| AvailabilityException : "availability_exception_id"
     Scope }o--|| Money : "min_subtotal_id"
-    ScopeApplicableProperties }o--|| Scope : "scope_id"
-    ScopeApplicableProperties }o--|| Property : "property_id"
-    ScopeApplicableUnits }o--|| Scope : "scope_id"
-    ScopeApplicableUnits }o--|| Unit : "unit_id"
-    Tax }o--|| Unit : "unit_id"
     Tax }o--|| RatePlan : "rate_plan_id"
-    Unit }o--|| Property : "property_id"
-    Unit }o--|| Money : "price_id"
-    UnitApplicablePromoCodes }o--|| Unit : "unit_id"
-    UnitApplicablePromoCodes }o--|| PromoCode : "promo_code_id"
-    UnitMapping }o--|| Unit : "unit"
     UnitMapping }o--|| Channel : "channel_id"
-    UnitMedia }o--|| Unit : "unit_id"
 ```
 
 ## Output
@@ -419,7 +318,7 @@ A connection between one property and one distribution channel (OTA/GDS). It is 
 | --- | --- | --- |
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
-| `property` | `CHAR(26)` | not null |
+| `property` | `VARCHAR(255)` | not null |
 | `type` | `ChannelType` | not null |
 | `display_name` | `VARCHAR(255)` | nullable |
 | `external_property_id` | `VARCHAR(255)` | nullable |
@@ -438,7 +337,7 @@ Maps a freebusy Unit to its counterpart on the channel. ARI for a unit only flow
 | --- | --- | --- |
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
-| `unit` | `CHAR(26)` | not null |
+| `unit` | `VARCHAR(255)` | not null |
 | `external_room_type_id` | `VARCHAR(255)` | not null |
 | `external_rate_plan_id` | `VARCHAR(255)` | nullable |
 | `state` | `MappingState` | nullable |
@@ -818,27 +717,8 @@ Scope restricts which bookings a code applies to. Nested value object → belong
 | --- | --- | --- |
 | `id` | `CHAR(26)` | not null |
 | `min_subtotal_id` | `CHAR(26)` | nullable |
-
-### `ScopeApplicableProperties` → `scope_applicable_properties`
-
-Join table for the many-to-many relation Scope.applicable_properties ↔ Property.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `scope_id` | `CHAR(26)` | not null |
-| `property_id` | `CHAR(26)` | not null |
-
-### `ScopeApplicableUnits` → `scope_applicable_units`
-
-Join table for the many-to-many relation Scope.applicable_units ↔ Unit.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `scope_id` | `CHAR(26)` | not null |
-| `unit_id` | `CHAR(26)` | not null |
-| `unit_name` | `TEXT` | not null |
+| `applicable_properties` | `VARCHAR(255)[]` | nullable |
+| `applicable_units` | `VARCHAR(255)[]` | nullable |
 
 ### Enums
 
@@ -847,63 +727,16 @@ Join table for the many-to-many relation Scope.applicable_units ↔ Unit.
 
 ## Schema `property`
 
-### `Property` → `properties`
-
-A hotel (or other lodging property): the guest-facing venue a chain operates. A Property belongs to an Organisation (the chain/brand) and carries the showcase media, address, and informational policies shown to guests. Its bookable inventory lives in child Units (room types); pricing and availability are modeled there, not here.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `name` | `VARCHAR(255)` | not null |
-| `organisation` | `CHAR(26)` | not null |
-| `display_name` | `VARCHAR(255)` | not null |
-| `description` | `VARCHAR(255)` | nullable |
-| `time_zone` | `VARCHAR(255)` | not null |
-| `tags` | `VARCHAR(255)[]` | nullable |
-| `attributes` | `JSONB` | nullable |
-| `state` | `PropertyState` | nullable |
-| `create_time` | `TIMESTAMPTZ` | not null |
-| `update_time` | `TIMESTAMPTZ` | not null |
-| `etag` | `VARCHAR(255)` | nullable |
-| `address_id` | `CHAR(26)` | nullable |
-| `policy_id` | `CHAR(26)` | nullable |
-
-### `Unit` → `units`
-
-A bookable unit type within a property: a pool of `capacity` interchangeable rooms/units of the same kind (e.g. "Deluxe King", capacity 12). A Unit carries its own pricing, media, occupancy limit, and the promo codes advertised for it. The freebusy engine computes how many units are free for a window; its booking_mode decides whether availability is time slots or per-night counts.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `name` | `VARCHAR(255)` | not null |
-| `display_name` | `VARCHAR(255)` | not null |
-| `description` | `VARCHAR(255)` | nullable |
-| `type` | `UnitType` | not null |
-| `booking_mode` | `BookingMode` | not null |
-| `capacity` | `INTEGER` | nullable |
-| `max_occupancy` | `INTEGER` | nullable |
-| `time_zone` | `VARCHAR(255)` | not null |
-| `pricing_unit` | `PricingUnit` | nullable |
-| `duration` | `INTERVAL` | nullable |
-| `tags` | `VARCHAR(255)[]` | nullable |
-| `attributes` | `JSONB` | nullable |
-| `state` | `UnitState` | nullable |
-| `create_time` | `TIMESTAMPTZ` | not null |
-| `update_time` | `TIMESTAMPTZ` | not null |
-| `etag` | `VARCHAR(255)` | nullable |
-| `property_id` | `CHAR(26)` | not null |
-| `price_id` | `CHAR(26)` | nullable |
-
 ### `Licence` → `licences`
 
-A regulatory licence or certificate held by a Property or one of its Units (e.g. trade licence, fire safety NOC, per-room liquor licence). One resource covers both: every licence is parented by the property, `target` says what it covers, and a unit licence names its unit in `unit`. Tracks the issuing authority and validity window so `expiry_date` can be filtered on to find licences due for renewal; the certificate itself is carried in `attachment`. A standalone resource (own Get/List/Create/Update/Delete), like Unit, rather than an embedded repeated field like Media, so a renewal doesn't require resending the whole Property.
+A regulatory licence or certificate held by a site or one of its bookable resources (e.g. trade licence, fire safety NOC, per-room liquor licence). Native, and it stays native because no RFC covers it: the IETF standardises calendars and directories, not the paperwork a jurisdiction demands to operate. It parents onto an RFC 4519 organizationalUnit and names an RFC 9073 resource, so the only thing freebusy defines here is the licence itself. One resource covers both scopes: `target` says which, and a resource-scoped licence names it in `unit`. `expiry_date` is filterable so renewals due can be listed; the certificate itself rides in `attachment`.
 
 | Column | Type | Null |
 | --- | --- | --- |
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
 | `target` | `LicenceTarget` | nullable |
-| `unit` | `CHAR(26)` | nullable |
+| `unit` | `VARCHAR(255)` | nullable |
 | `type` | `LicenceType` | not null |
 | `licence_number` | `VARCHAR(255)` | nullable |
 | `issuing_authority` | `VARCHAR(255)` | nullable |
@@ -914,136 +747,14 @@ A regulatory licence or certificate held by a Property or one of its Units (e.g.
 | `create_time` | `TIMESTAMPTZ` | not null |
 | `update_time` | `TIMESTAMPTZ` | not null |
 | `etag` | `VARCHAR(255)` | nullable |
-| `property_id` | `CHAR(26)` | not null |
+| `organizational_unit_id` | `CHAR(26)` | not null |
 | `attachment_id` | `CHAR(26)` | nullable |
-
-### `Media` → `medias`
-
-A media asset in a Property's showcase gallery — an image, video, floor plan, virtual tour, or a document (PDF fact sheet, policy, house rules). The bytes live in object storage (S3 or any HTTP-reachable host); this message only carries the link and its presentation metadata. `UnitMedia` is the identical per-Unit gallery; they are separate messages so the ORM materializes each as a child table with a single owning parent.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `uri` | `VARCHAR(255)` | not null |
-| `type` | `MediaType` | not null |
-| `title` | `VARCHAR(255)` | nullable |
-| `description` | `VARCHAR(255)` | nullable |
-| `mime_type` | `VARCHAR(255)` | nullable |
-| `sort_order` | `INTEGER` | nullable |
-| `primary` | `BOOLEAN` | nullable |
-| `property_id` | `CHAR(26)` | not null |
-
-### `Policy` → `policies`
-
-Guest-facing, informational property policy: what to *display* to a guest (check-in/out hours, house rules). The enforced refund/stay rules that gate bookability live on each Unit's Schedule (freebusy.schedule.v1), not here, so there is a single source of truth for enforcement.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `checkin_time` | `TIME` | nullable |
-| `checkout_time` | `TIME` | nullable |
-| `house_rules` | `VARCHAR(255)[]` | nullable |
-| `notes` | `VARCHAR(255)` | nullable |
-
-### `RateOverride` → `rate_overrides`
-
-A price override for a span of dates and/or specific weekdays, layered over a unit's base `price`. The price is still interpreted per the unit's pricing_unit (per night, per booking, per person).
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `weekdays` | `` | nullable |
-| `unit_id` | `CHAR(26)` | not null |
-| `date_range_id` | `CHAR(26)` | nullable |
-| `price_id` | `CHAR(26)` | not null |
-
-### `LosDiscount` → `los_discounts`
-
-A discount applied to a NIGHTLY subtotal once the stay reaches a minimum length. Exactly one of percent_off or amount_off is set.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `min_nights` | `INTEGER` | not null |
-| `percent_off` | `INTEGER` | nullable |
-| `unit_id` | `CHAR(26)` | not null |
-| `amount_off_id` | `CHAR(26)` | nullable |
-
-### `Fee` → `fees`
-
-A fee added on top of a unit's base subtotal. Exactly one of `amount` or `percent` is set. Surfaces as a TYPE_FEE line in a booking's price_components.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `code` | `VARCHAR(255)` | not null |
-| `display_name` | `VARCHAR(255)` | nullable |
-| `percent` | `INTEGER` | nullable |
-| `pricing_unit` | `PricingUnit` | nullable |
-| `taxable` | `BOOLEAN` | nullable |
-| `unit_id` | `CHAR(26)` | not null |
-| `amount_id` | `CHAR(26)` | nullable |
-
-### `Tax` → `taxes`
-
-A tax applied to the taxable base (base subtotal plus taxable fees). Surfaces as a TYPE_TAX line in a booking's price_components.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `code` | `VARCHAR(255)` | not null |
-| `display_name` | `VARCHAR(255)` | nullable |
-| `percent` | `DOUBLE PRECISION` | not null |
-| `unit_id` | `CHAR(26)` | not null |
-
-### `UnitMedia` → `unit_medias`
-
-A media asset in a Unit's gallery. Identical in shape to `Media`; kept a separate message so the ORM gives it its own child table owned solely by the Unit (a single unit_id foreign key).
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `uri` | `VARCHAR(255)` | not null |
-| `type` | `MediaType` | not null |
-| `title` | `VARCHAR(255)` | nullable |
-| `description` | `VARCHAR(255)` | nullable |
-| `mime_type` | `VARCHAR(255)` | nullable |
-| `sort_order` | `INTEGER` | nullable |
-| `primary` | `BOOLEAN` | nullable |
-| `unit_id` | `CHAR(26)` | not null |
-
-### `PropertyUnits` → `units_link`
-
-Join table for the many-to-many relation Property.units ↔ Unit.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `property_id` | `CHAR(26)` | not null |
-| `unit_id` | `CHAR(26)` | not null |
-| `unit_name` | `TEXT` | not null |
-
-### `UnitApplicablePromoCodes` → `unit_applicable_promo_codes`
-
-Join table for the many-to-many relation Unit.applicable_promo_codes ↔ PromoCode.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `unit_id` | `CHAR(26)` | not null |
-| `promo_code_id` | `CHAR(26)` | not null |
 
 ### Enums
 
-- `PropertyState`: ACTIVE, ARCHIVED
-- `UnitType`: PROVIDER, ROOM, EQUIPMENT, LODGING, SPACE
-- `BookingMode`: TIME_SLOT, NIGHTLY
-- `PricingUnit`: PER_BOOKING, PER_NIGHT, PER_PERSON
-- `UnitState`: ACTIVE, ARCHIVED
 - `LicenceTarget`: PROPERTY, UNIT
 - `LicenceType`: TRADE, FIRE_SAFETY, LIQUOR, FOOD_SAFETY, TOURISM, HEALTH, OTHER
 - `LicenceState`: ACTIVE, ARCHIVED
-- `MediaType`: IMAGE, VIDEO, DOCUMENT, FLOORPLAN, VIRTUAL_TOUR
 
 ## Schema `schedule`
 
@@ -1162,7 +873,7 @@ A reservation against a unit. The hold lifecycle lives here as states rather tha
 | --- | --- | --- |
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
-| `unit` | `CHAR(26)` | not null |
+| `unit` | `VARCHAR(255)` | not null |
 | `customer` | `CHAR(26)` | nullable |
 | `units` | `INTEGER` | nullable |
 | `assigned_unit` | `VARCHAR(255)` | nullable |

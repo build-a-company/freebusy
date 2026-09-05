@@ -14,265 +14,15 @@ option java_multiple_files = true;
 option java_outer_classname = "PropertyMessagesProto";
 option java_package = "dev.ohtarnished.freebusy.property.v1";
 
-// Request message for ListProperties.
-message ListPropertiesRequest {
-  // Maximum number of properties to return. Must be at most 1000; larger values are rejected.
-  int32 page_size = 1 [
-    (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
-      gte: 0
-      lte: 1000
-    }
-  ];
-
-  // Page token from a previous ListProperties call, for pagination.
-  string page_token = 2 [(google.api.field_behavior) = OPTIONAL];
-
-  // Filter expression (AIP-160), e.g. `organisation = "organisations/7"`,
-  // `state = PROPERTY_STATE_ACTIVE`, `tags:"beachfront"`, or a display_name match.
-  string filter = 3 [(google.api.field_behavior) = OPTIONAL];
-
-  // Sort order, e.g. "display_name" or "create_time desc".
-  string order_by = 4 [(google.api.field_behavior) = OPTIONAL];
-}
-
-// Response message for ListProperties.
-message ListPropertiesResponse {
-  // The page of properties.
-  repeated Property properties = 1;
-
-  // Next page token, if more results remain. Omitted if this is the last page.
-  string next_page_token = 2;
-}
-
-// Request message for GetProperty.
-message GetPropertyRequest {
-  // The property to retrieve.
-  // Format: properties/{property}
-  string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+$"
-  ];
-}
-
-// Request message for CreateProperty.
-message CreatePropertyRequest {
-  // The property to create. The name, state, and units fields are ignored.
-  Property property = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (buf.validate.field).required = true,
-    (buf.validate.field).cel = {
-      id: "create_property.organisation"
-      message: "property.organisation is required"
-      expression: "this.organisation != ''"
-    },
-    (buf.validate.field).cel = {
-      id: "create_property.display_name"
-      message: "property.display_name is required"
-      expression: "this.display_name != ''"
-    },
-    (buf.validate.field).cel = {
-      id: "create_property.time_zone"
-      message: "property.time_zone is required"
-      expression: "this.time_zone != ''"
-    }
-  ];
-
-  // Optional caller-chosen ID for the property; the server generates one if unset.
-  string property_id = 2 [
-    (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).string.pattern = "^[a-z0-9-]{1,63}$",
-    (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
-  ];
-
-  // Caller-supplied idempotency key; identical retries return the first result.
-  string request_id = 3 [
-    (google.api.field_info).format = UUID4,
-    (google.api.field_behavior) = OPTIONAL
-  ];
-}
-
-// Request message for UpdateProperty.
-message UpdatePropertyRequest {
-  // The property to update; its name identifies the target.
-  Property property = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (buf.validate.field).required = true,
-    (buf.validate.field).cel = {
-      id: "update_property.name"
-      message: "property.name must be of the form properties/{property}"
-      expression: "this.name.matches('^properties/[^/]+$')"
-    }
-  ];
-
-  // Fields to overwrite. Omit to replace all mutable fields.
-  google.protobuf.FieldMask update_mask = 2 [(google.api.field_behavior) = OPTIONAL];
-}
-
-// Request message for ArchiveProperty.
-message ArchivePropertyRequest {
-  // The property to archive.
-  // Format: properties/{property}
-  string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+$"
-  ];
-}
-
-// Request message for UnarchiveProperty.
-message UnarchivePropertyRequest {
-  // The property to restore to the active state.
-  // Format: properties/{property}
-  string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+$"
-  ];
-}
-
-// Request message for ListUnits.
-message ListUnitsRequest {
-  // The parent property whose units to list.
-  // Format: properties/{property}
-  string parent = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+$"
-  ];
-
-  // Maximum number of units to return. Must be at most 1000; larger values are rejected.
-  int32 page_size = 2 [
-    (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).int32 = {
-      gte: 0
-      lte: 1000
-    }
-  ];
-
-  // Page token from a previous ListUnits call's next_page_token.
-  string page_token = 3 [(google.api.field_behavior) = OPTIONAL];
-
-  // Filter expression (AIP-160), e.g. `type = UNIT_TYPE_ROOM`,
-  // `state = UNIT_STATE_ACTIVE`, or a match on display_name.
-  string filter = 4 [(google.api.field_behavior) = OPTIONAL];
-
-  // Sort order, e.g. "display_name" or "create_time desc".
-  string order_by = 5 [(google.api.field_behavior) = OPTIONAL];
-}
-
-// Response message for ListUnits.
-message ListUnitsResponse {
-  // The page of units.
-  repeated Unit units = 1;
-
-  // Next page token. Omitted if this is the last page.
-  string next_page_token = 2;
-}
-
-// Request message for GetUnit.
-message GetUnitRequest {
-  // The unit to retrieve.
-  // Format: properties/{property}/units/{unit}
-  string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+$"
-  ];
-}
-
-// Request message for CreateUnit.
-message CreateUnitRequest {
-  // The property to attach the unit to.
-  // Format: properties/{property}
-  string parent = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+$"
-  ];
-
-  // The unit to create. Its name and state fields are ignored.
-  Unit unit = 2 [
-    (google.api.field_behavior) = REQUIRED,
-    (buf.validate.field).required = true,
-    (buf.validate.field).cel = {
-      id: "create_unit.display_name"
-      message: "unit.display_name is required"
-      expression: "this.display_name != ''"
-    },
-    (buf.validate.field).cel = {
-      id: "create_unit.type"
-      message: "unit.type is required"
-      expression: "this.type != 0"
-    },
-    (buf.validate.field).cel = {
-      id: "create_unit.booking_mode"
-      message: "unit.booking_mode is required"
-      expression: "this.booking_mode != 0"
-    },
-    (buf.validate.field).cel = {
-      id: "create_unit.time_zone"
-      message: "unit.time_zone is required"
-      expression: "this.time_zone != ''"
-    }
-  ];
-
-  // Optional caller-chosen ID for the unit; the server generates one if unset.
-  string unit_id = 3 [
-    (google.api.field_behavior) = OPTIONAL,
-    (buf.validate.field).string.pattern = "^[a-z0-9-]{1,63}$",
-    (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
-  ];
-
-  // Caller-supplied idempotency key; identical retries return the first result.
-  string request_id = 4 [
-    (google.api.field_info).format = UUID4,
-    (google.api.field_behavior) = OPTIONAL
-  ];
-}
-
-// Request message for UpdateUnit.
-message UpdateUnitRequest {
-  // The unit to update; its name identifies the target.
-  Unit unit = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (buf.validate.field).required = true,
-    (buf.validate.field).cel = {
-      id: "update_unit.name"
-      message: "unit.name must be of the form properties/{property}/units/{unit}"
-      expression: "this.name.matches('^properties/[^/]+/units/[^/]+$')"
-    }
-  ];
-
-  // Fields to overwrite. Omit to replace all mutable fields.
-  google.protobuf.FieldMask update_mask = 2 [(google.api.field_behavior) = OPTIONAL];
-}
-
-// Request message for DeleteUnit.
-message DeleteUnitRequest {
-  // The unit to delete.
-  // Format: properties/{property}/units/{unit}
-  string name = 1 [
-    (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Unit"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+$"
-  ];
-
-  // Whether to delete the unit's child licences along with it. Required to be
-  // true if any exist; otherwise the delete is rejected.
-  bool force = 2 [(google.api.field_behavior) = OPTIONAL];
-}
-
 // Request message for ListLicences.
 message ListLicencesRequest {
   // The parent property whose licences to list — property-wide and per-unit
   // ones alike; narrow with `filter`.
-  // Format: properties/{property}
+  // Format: organizationalUnits/{organizational_unit}
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+$"
+    (google.api.resource_reference) = {type: "protobufrfc.dev/OrganizationalUnit"},
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+$"
   ];
 
   // Maximum number of licences to return. Must be at most 1000; larger values are rejected.
@@ -288,7 +38,7 @@ message ListLicencesRequest {
   string page_token = 3 [(google.api.field_behavior) = OPTIONAL];
 
   // Filter expression (AIP-160), e.g. `type = LICENCE_TYPE_FIRE_SAFETY`,
-  // `target = LICENCE_TARGET_UNIT`, `unit = properties/p1/units/u1`, or
+  // `target = LICENCE_TARGET_UNIT`, `unit = resources/bay-l2-014`, or
   // `expiry_date <= 2026-08-01` to find licences due for renewal.
   string filter = 4 [(google.api.field_behavior) = OPTIONAL];
 
@@ -308,11 +58,11 @@ message ListLicencesResponse {
 // Request message for GetLicence.
 message GetLicenceRequest {
   // The licence to retrieve.
-  // Format: properties/{property}/licences/{licence}
+  // Format: organizationalUnits/{organizational_unit}/licences/{licence}
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {type: "freebusy.property.v1/Licence"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/licences/[^/]+$"
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+/licences/[^/]+$"
   ];
 }
 
@@ -328,11 +78,11 @@ message CreateLicenceRequest {
 
   // The property to attach the licence to. A licence covering a single unit
   // also lives under the property: set the licence's `unit` field.
-  // Format: properties/{property}
+  // Format: organizationalUnits/{organizational_unit}
   string parent = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.property.v1/Property"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+$"
+    (google.api.resource_reference) = {type: "protobufrfc.dev/OrganizationalUnit"},
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+$"
   ];
 
   // The licence to create. Its name, target, and state fields are ignored;
@@ -369,8 +119,8 @@ message UpdateLicenceRequest {
     (buf.validate.field).required = true,
     (buf.validate.field).cel = {
       id: "update_licence.name"
-      message: "licence.name must be of the form properties/{property}/licences/{licence}"
-      expression: "this.name.matches('^properties/[^/]+/licences/[^/]+$')"
+      message: "licence.name must be of the form organizationalUnits/{organizational_unit}/licences/{licence}"
+      expression: "this.name.matches('^organizationalUnits/[^/]+/licences/[^/]+$')"
     }
   ];
 
@@ -381,10 +131,10 @@ message UpdateLicenceRequest {
 // Request message for DeleteLicence.
 message DeleteLicenceRequest {
   // The licence to delete.
-  // Format: properties/{property}/licences/{licence}
+  // Format: organizationalUnits/{organizational_unit}/licences/{licence}
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {type: "freebusy.property.v1/Licence"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/licences/[^/]+$"
+    (buf.validate.field).string.pattern = "^organizationalUnits/[^/]+/licences/[^/]+$"
   ];
 }

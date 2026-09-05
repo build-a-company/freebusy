@@ -17,6 +17,7 @@ package promocode
 import (
 	"time"
 
+	"github.com/lib/pq"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -236,6 +237,8 @@ func ScopeToProto(m *Scope) *promocodepbv1.Scope {
 		return nil
 	}
 	out := &promocodepbv1.Scope{}
+	out.ApplicableProperties = []string(m.ApplicableProperties)
+	out.ApplicableUnits = []string(m.ApplicableUnits)
 	out.MinSubtotal = common.MoneyToProto(m.MinSubtotal)
 	return out
 }
@@ -249,6 +252,8 @@ func ScopeFromProto(pb *promocodepbv1.Scope) *Scope {
 	}
 	m := &Scope{}
 	// not mapped here: min_subtotal (sub-row graph)
+	m.ApplicableProperties = pq.StringArray(pb.GetApplicableProperties())
+	m.ApplicableUnits = pq.StringArray(pb.GetApplicableUnits())
 	return m
 }
 

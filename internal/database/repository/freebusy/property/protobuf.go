@@ -20,22 +20,13 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/moneysql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/postaladdressql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/licencesql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/policiesql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/propertiesql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/unitsql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/sharedql/attachmentsql"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/property/v1/propertypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"github.com/the-protobuf-project/runtime-go/network/graphql"
 	"google.golang.org/genproto/googleapis/type/date"
-	"google.golang.org/genproto/googleapis/type/money"
-	"google.golang.org/genproto/googleapis/type/postaladdress"
-	"google.golang.org/protobuf/types/known/durationpb"
-	"google.golang.org/protobuf/types/known/structpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"strings"
 	"time"
@@ -77,29 +68,6 @@ func strToDate(s string) *date.Date {
 	return &date.Date{Year: int32(t.Year()), Month: int32(t.Month()), Day: int32(t.Day())}
 }
 
-// structToJSON / jsonToStruct cross the jsonb boundary as raw JSON.
-func structToJSON(s *structpb.Struct) json.RawMessage {
-	if s == nil {
-		return nil
-	}
-	b, err := s.MarshalJSON()
-	if err != nil {
-		return nil
-	}
-	return b
-}
-
-func jsonToStruct(r *json.RawMessage) *structpb.Struct {
-	if r == nil || len(*r) == 0 {
-		return nil
-	}
-	s := &structpb.Struct{}
-	if err := s.UnmarshalJSON(*r); err != nil {
-		return nil
-	}
-	return s
-}
-
 // bytesToRaw / rawToBytes cross the bytea boundary in Postgres hex form
 // ("\x<hex>"), the representation ndc-postgres round-trips.
 func bytesToRaw(b []byte) json.RawMessage {
@@ -131,57 +99,13 @@ func rawToBytes(r *json.RawMessage) []byte {
 	return b
 }
 
-// durToStr / strToDur cross the interval boundary as Go duration strings.
-func durToStr(d *durationpb.Duration) string {
-	if d == nil {
-		return ""
-	}
-	return d.AsDuration().String()
-}
-
-func strToDur(s string) *durationpb.Duration {
-	if s == "" {
-		return nil
-	}
-	d, err := time.ParseDuration(s)
-	if err != nil {
-		return nil
-	}
-	return durationpb.New(d)
-}
-
-// strPtrsToSlice / strSliceToPtrs cross the text[] boundary: the client
-// represents array elements as nullable (*string).
-func strPtrsToSlice(in []*string) []string {
-	if len(in) == 0 {
-		return nil
-	}
-	out := make([]string, 0, len(in))
-	for _, p := range in {
-		if p != nil {
-			out = append(out, *p)
-		}
-	}
-	return out
-}
-
-func strSliceToPtrs(in []string) []*string {
-	if len(in) == 0 {
-		return nil
-	}
-	out := make([]*string, 0, len(in))
-	for i := range in {
-		out = append(out, &in[i])
-	}
-	return out
-}
-
 // licenceToCreateInput maps the proto onto the client's insert input.
 // Identity (id, name resolution), parentage, audit timestamps, and etag are
 // set by the adapter.
 func licenceToCreateInput(in *propertypbv1.Licence) licencesql.CreateInput {
 	var ci licencesql.CreateInput
 	ci.Name = in.GetName()
+	ci.Unit = in.GetUnit()
 	if v := in.GetType(); v != 0 {
 		ci.Type = strings.TrimPrefix(in.GetType().String(), "LICENCE_TYPE_")
 	}
@@ -203,6 +127,11 @@ func licenceToCreateInput(in *propertypbv1.Licence) licencesql.CreateInput {
 func licenceToUpdatePatch(merged *propertypbv1.Licence) licencesql.UpdateInput {
 	var patch licencesql.UpdateInput
 	patch.Name = graphql.Value(merged.GetName())
+	if v := merged.GetUnit(); v != "" {
+		patch.Unit = graphql.Value(v)
+	} else {
+		patch.Unit = graphql.Null[string]()
+	}
 	patch.Type = graphql.Value(strings.TrimPrefix(merged.GetType().String(), "LICENCE_TYPE_"))
 	if v := merged.GetLicenceNumber(); v != "" {
 		patch.LicenceNumber = graphql.Value(v)
@@ -240,6 +169,7 @@ func licenceFromRow(row *licencesql.PropertyLicences) *propertypbv1.Licence {
 	}
 	out := &propertypbv1.Licence{}
 	out.Name = row.Name
+	out.Unit = repox.Deref(row.Unit)
 	out.Type = propertypbv1.LicenceType(propertypbv1.LicenceType_value["LICENCE_TYPE_"+row.Type])
 	out.LicenceNumber = repox.Deref(row.LicenceNumber)
 	out.IssuingAuthority = repox.Deref(row.IssuingAuthority)
@@ -251,159 +181,6 @@ func licenceFromRow(row *licencesql.PropertyLicences) *propertypbv1.Licence {
 	out.UpdateTime = strToTs(row.UpdateTime)
 	out.Target = propertypbv1.LicenceTarget(propertypbv1.LicenceTarget_value["LICENCE_TARGET_"+repox.Deref(row.Target)])
 	out.State = propertypbv1.LicenceState(propertypbv1.LicenceState_value["LICENCE_STATE_"+repox.Deref(row.State)])
-	return out
-}
-
-// propertyToCreateInput maps the proto onto the client's insert input.
-// Identity (id, name resolution), parentage, audit timestamps, and etag are
-// set by the adapter.
-func propertyToCreateInput(in *propertypbv1.Property) propertiesql.CreateInput {
-	var ci propertiesql.CreateInput
-	ci.Name = in.GetName()
-	if v := in.GetOrganisation(); v != "" {
-		ci.Organisation = repox.LastSegment(v)
-	}
-	ci.DisplayName = in.GetDisplayName()
-	ci.Description = in.GetDescription()
-	ci.TimeZone = in.GetTimeZone()
-	ci.Tags = strSliceToPtrs(in.GetTags())
-	ci.Attributes = structToJSON(in.GetAttributes())
-	return ci
-}
-
-// propertyToUpdatePatch maps the merged proto onto a replace-write
-// patch of every mutable column (mask semantics already applied to merged),
-// mirroring the gorm adapter's write-back exactly.
-func propertyToUpdatePatch(merged *propertypbv1.Property) propertiesql.UpdateInput {
-	var patch propertiesql.UpdateInput
-	patch.Name = graphql.Value(merged.GetName())
-	patch.Organisation = graphql.Value(repox.LastSegment(merged.GetOrganisation()))
-	patch.DisplayName = graphql.Value(merged.GetDisplayName())
-	if v := merged.GetDescription(); v != "" {
-		patch.Description = graphql.Value(v)
-	} else {
-		patch.Description = graphql.Null[string]()
-	}
-	patch.TimeZone = graphql.Value(merged.GetTimeZone())
-	patch.Tags = graphql.Value(strSliceToPtrs(merged.GetTags()))
-	patch.Attributes = graphql.Value(structToJSON(merged.GetAttributes()))
-	return patch
-}
-
-// propertyFromRow re-hydrates the proto from a client row, decorating
-// reference names from their stored bare ids.
-func propertyFromRow(row *propertiesql.PropertyProperties) *propertypbv1.Property {
-	if row == nil {
-		return nil
-	}
-	out := &propertypbv1.Property{}
-	out.Name = row.Name
-	if row.Organisation != "" {
-		out.Organisation = "organisations/" + row.Organisation
-	}
-	out.DisplayName = row.DisplayName
-	out.Description = repox.Deref(row.Description)
-	out.TimeZone = row.TimeZone
-	out.Tags = strPtrsToSlice(row.Tags)
-	out.Attributes = jsonToStruct(row.Attributes)
-	out.Etag = repox.Deref(row.Etag)
-	out.CreateTime = strToTs(row.CreateTime)
-	out.UpdateTime = strToTs(row.UpdateTime)
-	out.State = propertypbv1.PropertyState(propertypbv1.PropertyState_value["PROPERTY_STATE_"+repox.Deref(row.State)])
-	return out
-}
-
-// unitToCreateInput maps the proto onto the client's insert input.
-// Identity (id, name resolution), parentage, audit timestamps, and etag are
-// set by the adapter.
-func unitToCreateInput(in *propertypbv1.Unit) unitsql.CreateInput {
-	var ci unitsql.CreateInput
-	ci.Name = in.GetName()
-	ci.DisplayName = in.GetDisplayName()
-	ci.Description = in.GetDescription()
-	if v := in.GetType(); v != 0 {
-		ci.Type = strings.TrimPrefix(in.GetType().String(), "UNIT_TYPE_")
-	}
-	if v := in.GetBookingMode(); v != 0 {
-		ci.BookingMode = strings.TrimPrefix(in.GetBookingMode().String(), "BOOKING_MODE_")
-	}
-	ci.Capacity = int32(in.GetCapacity())
-	ci.MaxOccupancy = int32(in.GetMaxOccupancy())
-	ci.TimeZone = in.GetTimeZone()
-	if v := in.GetPricingUnit(); v != 0 {
-		ci.PricingUnit = strings.TrimPrefix(in.GetPricingUnit().String(), "PRICING_UNIT_")
-	}
-	if v := durToStr(in.GetDuration()); v != "" {
-		ci.Duration = v
-	}
-	ci.Tags = strSliceToPtrs(in.GetTags())
-	ci.Attributes = structToJSON(in.GetAttributes())
-	return ci
-}
-
-// unitToUpdatePatch maps the merged proto onto a replace-write
-// patch of every mutable column (mask semantics already applied to merged),
-// mirroring the gorm adapter's write-back exactly.
-func unitToUpdatePatch(merged *propertypbv1.Unit) unitsql.UpdateInput {
-	var patch unitsql.UpdateInput
-	patch.Name = graphql.Value(merged.GetName())
-	patch.DisplayName = graphql.Value(merged.GetDisplayName())
-	if v := merged.GetDescription(); v != "" {
-		patch.Description = graphql.Value(v)
-	} else {
-		patch.Description = graphql.Null[string]()
-	}
-	patch.Type = graphql.Value(strings.TrimPrefix(merged.GetType().String(), "UNIT_TYPE_"))
-	patch.BookingMode = graphql.Value(strings.TrimPrefix(merged.GetBookingMode().String(), "BOOKING_MODE_"))
-	if v := int32(merged.GetCapacity()); v != 0 {
-		patch.Capacity = graphql.Value(v)
-	} else {
-		patch.Capacity = graphql.Null[int32]()
-	}
-	if v := int32(merged.GetMaxOccupancy()); v != 0 {
-		patch.MaxOccupancy = graphql.Value(v)
-	} else {
-		patch.MaxOccupancy = graphql.Null[int32]()
-	}
-	patch.TimeZone = graphql.Value(merged.GetTimeZone())
-	if v := strings.TrimPrefix(merged.GetPricingUnit().String(), "PRICING_UNIT_"); v != "UNSPECIFIED" {
-		patch.PricingUnit = graphql.Value(v)
-	} else {
-		patch.PricingUnit = graphql.Null[string]()
-	}
-	if v := durToStr(merged.GetDuration()); v != "" {
-		patch.Duration = graphql.Value(v)
-	} else {
-		patch.Duration = graphql.Null[string]()
-	}
-	patch.Tags = graphql.Value(strSliceToPtrs(merged.GetTags()))
-	patch.Attributes = graphql.Value(structToJSON(merged.GetAttributes()))
-	return patch
-}
-
-// unitFromRow re-hydrates the proto from a client row, decorating
-// reference names from their stored bare ids.
-func unitFromRow(row *unitsql.PropertyUnits) *propertypbv1.Unit {
-	if row == nil {
-		return nil
-	}
-	out := &propertypbv1.Unit{}
-	out.Name = row.Name
-	out.DisplayName = row.DisplayName
-	out.Description = repox.Deref(row.Description)
-	out.Type = propertypbv1.UnitType(propertypbv1.UnitType_value["UNIT_TYPE_"+row.Type])
-	out.BookingMode = sharedpbv1.BookingMode(sharedpbv1.BookingMode_value["BOOKING_MODE_"+row.BookingMode])
-	out.Capacity = int32(repox.Deref(row.Capacity))
-	out.MaxOccupancy = int32(repox.Deref(row.MaxOccupancy))
-	out.TimeZone = row.TimeZone
-	out.PricingUnit = propertypbv1.PricingUnit(propertypbv1.PricingUnit_value["PRICING_UNIT_"+repox.Deref(row.PricingUnit)])
-	out.Duration = strToDur(repox.Deref(row.Duration))
-	out.Tags = strPtrsToSlice(row.Tags)
-	out.Attributes = jsonToStruct(row.Attributes)
-	out.Etag = repox.Deref(row.Etag)
-	out.CreateTime = strToTs(row.CreateTime)
-	out.UpdateTime = strToTs(row.UpdateTime)
-	out.State = propertypbv1.UnitState(propertypbv1.UnitState_value["UNIT_STATE_"+repox.Deref(row.State)])
 	return out
 }
 
@@ -432,87 +209,5 @@ func sharedAttachmentFromRow(row *attachmentsql.SharedAttachments) *sharedpbv1.A
 	out.Content = rawToBytes(row.Content)
 	out.Uri = repox.Deref(row.Uri)
 	out.UploadTime = strToTs(repox.Deref(row.UploadTime))
-	return out
-}
-
-// commonPostalAddressToCreateInput maps the value-object proto onto its client
-// insert input; the adapter mints the id and wires the reference.
-func commonPostalAddressToCreateInput(in *postaladdress.PostalAddress) postaladdressql.CreateInput {
-	var ci postaladdressql.CreateInput
-	ci.Revision = int32(in.GetRevision())
-	ci.RegionCode = in.GetRegionCode()
-	ci.LanguageCode = in.GetLanguageCode()
-	ci.PostalCode = in.GetPostalCode()
-	ci.SortingCode = in.GetSortingCode()
-	ci.AdministrativeArea = in.GetAdministrativeArea()
-	ci.Locality = in.GetLocality()
-	ci.Sublocality = in.GetSublocality()
-	ci.AddressLines = strSliceToPtrs(in.GetAddressLines())
-	ci.Recipients = strSliceToPtrs(in.GetRecipients())
-	ci.Organization = in.GetOrganization()
-	return ci
-}
-
-// commonPostalAddressFromRow re-hydrates the value-object proto from a client row.
-func commonPostalAddressFromRow(row *postaladdressql.CommonPostalAddress) *postaladdress.PostalAddress {
-	if row == nil {
-		return nil
-	}
-	out := &postaladdress.PostalAddress{}
-	out.Revision = int32(repox.Deref(row.Revision))
-	out.RegionCode = repox.Deref(row.RegionCode)
-	out.LanguageCode = repox.Deref(row.LanguageCode)
-	out.PostalCode = repox.Deref(row.PostalCode)
-	out.SortingCode = repox.Deref(row.SortingCode)
-	out.AdministrativeArea = repox.Deref(row.AdministrativeArea)
-	out.Locality = repox.Deref(row.Locality)
-	out.Sublocality = repox.Deref(row.Sublocality)
-	out.AddressLines = strPtrsToSlice(row.AddressLines)
-	out.Recipients = strPtrsToSlice(row.Recipients)
-	out.Organization = repox.Deref(row.Organization)
-	return out
-}
-
-// propertyPolicyToCreateInput maps the value-object proto onto its client
-// insert input; the adapter mints the id and wires the reference.
-func propertyPolicyToCreateInput(in *propertypbv1.Policy) policiesql.CreateInput {
-	var ci policiesql.CreateInput
-	// not mapped here: checkin_time (unsupported scalar shape)
-	// not mapped here: checkout_time (unsupported scalar shape)
-	ci.HouseRules = strSliceToPtrs(in.GetHouseRules())
-	ci.Notes = in.GetNotes()
-	return ci
-}
-
-// propertyPolicyFromRow re-hydrates the value-object proto from a client row.
-func propertyPolicyFromRow(row *policiesql.PropertyPolicies) *propertypbv1.Policy {
-	if row == nil {
-		return nil
-	}
-	out := &propertypbv1.Policy{}
-	out.HouseRules = strPtrsToSlice(row.HouseRules)
-	out.Notes = repox.Deref(row.Notes)
-	return out
-}
-
-// commonMoneyToCreateInput maps the value-object proto onto its client
-// insert input; the adapter mints the id and wires the reference.
-func commonMoneyToCreateInput(in *money.Money) moneysql.CreateInput {
-	var ci moneysql.CreateInput
-	ci.CurrencyCode = in.GetCurrencyCode()
-	ci.Units = graphql.Int64(in.GetUnits())
-	ci.Nanos = int32(in.GetNanos())
-	return ci
-}
-
-// commonMoneyFromRow re-hydrates the value-object proto from a client row.
-func commonMoneyFromRow(row *moneysql.CommonMoneys) *money.Money {
-	if row == nil {
-		return nil
-	}
-	out := &money.Money{}
-	out.CurrencyCode = repox.Deref(row.CurrencyCode)
-	out.Units = int64(repox.Deref(row.Units))
-	out.Nanos = int32(repox.Deref(row.Nanos))
 	return out
 }

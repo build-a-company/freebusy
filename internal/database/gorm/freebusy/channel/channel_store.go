@@ -49,7 +49,6 @@ type ChannelStoreIface interface {
 	GetByID(ctx context.Context, id string) (*Channel, error)
 	DeleteByID(ctx context.Context, id string) error
 	GetByName(ctx context.Context, v string) (*Channel, error)
-	ListByPropertyID(ctx context.Context, id string, opts gormx.ListOptions) ([]Channel, error)
 }
 
 // ChannelStore provides typed CRUD access to Channel records.
@@ -175,19 +174,4 @@ func (s *ChannelStore) GetByName(ctx context.Context, v string) (*Channel, error
 		return nil, err
 	}
 	return &m, nil
-}
-
-// ListByPropertyID returns the Channel records whose property matches id, with opts applied.
-func (s *ChannelStore) ListByPropertyID(ctx context.Context, id string, opts gormx.ListOptions) ([]Channel, error) {
-	var out []Channel
-	tel := gormx.OrNop(s.Telemetry)
-	start := time.Now()
-	err := tel.Span(ctx, "channel.Channel/ListByPropertyID", nil, func(ctx context.Context) error {
-		return opts.Apply(s.DB.WithContext(ctx).Where("property = ?", id)).Find(&out).Error
-	})
-	tel.RecordOp(ctx, "channel.resource", "list_by_property", time.Since(start), err)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }

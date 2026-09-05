@@ -19,7 +19,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/filterx"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/shared"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
@@ -49,13 +48,13 @@ func NewGormLicenceRepository(db *gorm.DB) *GormLicenceRepository {
 
 // Create persists in under parent and returns the stored record.
 func (r *GormLicenceRepository) Create(ctx context.Context, parent string, in *propertypbv1.Licence) (*propertypbv1.Licence, error) {
-	parentIDs, err := repox.SplitName(parent, "properties")
+	parentIDs, err := repox.SplitName(parent, "organizationalUnits")
 	if err != nil {
 		return nil, err
 	}
 	id := repox.NewULID()
 	if in.GetName() != "" {
-		ids, err := repox.SplitName(in.GetName(), "properties", "licences")
+		ids, err := repox.SplitName(in.GetName(), "organizationalUnits", "licences")
 		if err != nil {
 			return nil, err
 		}
@@ -76,7 +75,7 @@ func (r *GormLicenceRepository) Create(ctx context.Context, parent string, in *p
 	m := property.LicenceFromProto(in)
 	m.ID = id
 	m.Name = in.GetName()
-	m.PropertyID = parentIDs[0]
+	m.OrganizationalUnitID = parentIDs[0]
 	m.Etag = repox.Ptr(repox.NewULID())
 	if err := r.DB.Transaction(func(tx *gorm.DB) error {
 		if v := in.GetAttachment(); v != nil {
@@ -96,7 +95,7 @@ func (r *GormLicenceRepository) Create(ctx context.Context, parent string, in *p
 
 // Get returns the record addressed by its resource name.
 func (r *GormLicenceRepository) Get(ctx context.Context, name string) (*propertypbv1.Licence, error) {
-	ids, err := repox.SplitName(name, "properties", "licences")
+	ids, err := repox.SplitName(name, "organizationalUnits", "licences")
 	if err != nil {
 		return nil, err
 	}
@@ -127,11 +126,11 @@ func (r *GormLicenceRepository) toProto(ctx context.Context, m *property.Licence
 
 // List returns one page of records under parent.
 func (r *GormLicenceRepository) List(ctx context.Context, parent string, in repox.ListInput) ([]*propertypbv1.Licence, string, error) {
-	parentIDs, err := repox.SplitName(parent, "properties")
+	parentIDs, err := repox.SplitName(parent, "organizationalUnits")
 	if err != nil {
 		return nil, "", err
 	}
-	scope := r.DB.Where("property_id = ?", parentIDs[len(parentIDs)-1])
+	scope := r.DB.Where("organizational_unit_id = ?", parentIDs[len(parentIDs)-1])
 	return r.list(ctx, scope, in)
 }
 
@@ -167,7 +166,7 @@ func (r *GormLicenceRepository) list(ctx context.Context, scope *gorm.DB, in rep
 // Update persists the masked fields of in; an empty mask replaces every
 // mutable field. The write happens in one transaction guarded by in.Etag.
 func (r *GormLicenceRepository) Update(ctx context.Context, in *propertypbv1.Licence, paths []string) (*propertypbv1.Licence, error) {
-	ids, err := repox.SplitName(in.GetName(), "properties", "licences")
+	ids, err := repox.SplitName(in.GetName(), "organizationalUnits", "licences")
 	if err != nil {
 		return nil, err
 	}
@@ -192,6 +191,7 @@ func (r *GormLicenceRepository) Update(ctx context.Context, in *propertypbv1.Lic
 		next := property.LicenceFromProto(merged)
 		_ = next
 		existing.Name = next.Name
+		existing.Unit = next.Unit
 		existing.Type = next.Type
 		existing.LicenceNumber = next.LicenceNumber
 		existing.IssuingAuthority = next.IssuingAuthority
@@ -231,7 +231,7 @@ func (r *GormLicenceRepository) Update(ctx context.Context, in *propertypbv1.Lic
 
 // Delete removes the record addressed by its resource name.
 func (r *GormLicenceRepository) Delete(ctx context.Context, name string) error {
-	ids, err := repox.SplitName(name, "properties", "licences")
+	ids, err := repox.SplitName(name, "organizationalUnits", "licences")
 	if err != nil {
 		return err
 	}
@@ -260,504 +260,3 @@ func (r *GormLicenceRepository) Delete(ctx context.Context, name string) error {
 
 // Compile-time proof the adapter satisfies the interface.
 var _ LicenceRepository = (*GormLicenceRepository)(nil)
-
-// GormPropertyRepository is the GORM adapter of PropertyRepository: flat
-// CRUD over the generated model, store, converters, and filterx spec. Exported
-// fields and helpers are the Tier-2 seam — embed it and override whole methods
-// for behavior the schema cannot express; generated methods only call private
-// helpers, never the public interface, so overrides never re-enter generated
-// code.
-type GormPropertyRepository struct {
-	DB    *gorm.DB
-	Hooks PropertyHooks
-	// ListOverrides substitute the generated dispatch for single filter fields
-	// (e.g. a derived state computed via subqueries).
-	ListOverrides map[string]filterx.SQLHandler
-}
-
-// NewGormPropertyRepository returns the GORM adapter bound to db.
-func NewGormPropertyRepository(db *gorm.DB) *GormPropertyRepository {
-	return &GormPropertyRepository{DB: db}
-}
-
-// Create persists in and returns the stored record.
-func (r *GormPropertyRepository) Create(ctx context.Context, in *propertypbv1.Property) (*propertypbv1.Property, error) {
-	id := repox.NewULID()
-	if in.GetName() != "" {
-		ids, err := repox.SplitName(in.GetName(), "properties")
-		if err != nil {
-			return nil, err
-		}
-		id = ids[len(ids)-1]
-	}
-	in = proto.Clone(in).(*propertypbv1.Property)
-	in.Name = FormatPropertyName(id)
-	if h := r.Hooks.BeforeCreate; h != nil {
-		if err := h(ctx, in); err != nil {
-			return nil, err
-		}
-	}
-	m := property.PropertyFromProto(in)
-	m.ID = id
-	m.Name = in.GetName()
-	if v := in.GetOrganisation(); v != "" {
-		m.OrganisationID = repox.LastSegment(v)
-	}
-	m.Etag = repox.Ptr(repox.NewULID())
-	if err := r.DB.Transaction(func(tx *gorm.DB) error {
-		if v := in.GetAddress(); v != nil {
-			vo := common.PostalAddressFromProto(v)
-			vo.ID = repox.NewULID()
-			if err := tx.WithContext(ctx).Create(vo).Error; err != nil {
-				return err
-			}
-			m.AddressID = repox.Ptr(vo.ID)
-		}
-		if v := in.GetPolicy(); v != nil {
-			vo := property.PolicyFromProto(v)
-			vo.ID = repox.NewULID()
-			if err := tx.WithContext(ctx).Create(vo).Error; err != nil {
-				return err
-			}
-			m.PolicyID = repox.Ptr(vo.ID)
-		}
-		return property.NewPropertyStore(tx).Create(ctx, m)
-	}); err != nil {
-		return nil, repox.MapGormErr(err)
-	}
-	return r.get(ctx, id)
-}
-
-// Get returns the record addressed by its resource name.
-func (r *GormPropertyRepository) Get(ctx context.Context, name string) (*propertypbv1.Property, error) {
-	ids, err := repox.SplitName(name, "properties")
-	if err != nil {
-		return nil, err
-	}
-	return r.get(ctx, ids[len(ids)-1])
-}
-
-// get loads by surrogate key — the private read every generated method re-reads
-// through, so Tier-2 overrides of Get never re-enter generated writes.
-func (r *GormPropertyRepository) get(ctx context.Context, id string) (*propertypbv1.Property, error) {
-	var m property.Property
-	if err := r.DB.WithContext(ctx).Preload("Address").Preload("Policy").First(&m, "id = ?", id).Error; err != nil {
-		return nil, repox.MapGormErr(err)
-	}
-	return r.toProto(ctx, &m)
-}
-
-// toProto converts a loaded row, decorating reference names and running the
-// AfterRead hook.
-func (r *GormPropertyRepository) toProto(ctx context.Context, m *property.Property) (*propertypbv1.Property, error) {
-	out := property.PropertyToProto(m)
-	if m.OrganisationID != "" {
-		out.Organisation = "organisations/" + m.OrganisationID
-	}
-	if h := r.Hooks.AfterRead; h != nil {
-		if err := h(ctx, out); err != nil {
-			return nil, err
-		}
-	}
-	return out, nil
-}
-
-// List returns one page of records.
-func (r *GormPropertyRepository) List(ctx context.Context, in repox.ListInput) ([]*propertypbv1.Property, string, error) {
-	return r.list(ctx, r.DB, in)
-}
-
-func (r *GormPropertyRepository) list(ctx context.Context, scope *gorm.DB, in repox.ListInput) ([]*propertypbv1.Property, string, error) {
-	conds, err := filterx.Parse(in.Filter)
-	if err != nil {
-		return nil, "", repox.MapFilterxErr(err)
-	}
-	eng := filterx.Gorm[property.Property](property.PropertyFilterSpec)
-	for f, h := range r.ListOverrides {
-		eng.Override(f, h)
-	}
-	rows, next, err := eng.List(ctx, scope.Preload("Address").Preload("Policy"), filterx.ListInput{
-		PageSize:  in.PageSize,
-		PageToken: in.PageToken,
-		OrderBy:   in.OrderBy,
-		Filter:    conds,
-	})
-	if err != nil {
-		return nil, "", repox.MapFilterxErr(err)
-	}
-	items := make([]*propertypbv1.Property, 0, len(rows))
-	for i := range rows {
-		out, err := r.toProto(ctx, &rows[i])
-		if err != nil {
-			return nil, "", err
-		}
-		items = append(items, out)
-	}
-	return items, next, nil
-}
-
-// Update persists the masked fields of in; an empty mask replaces every
-// mutable field. The write happens in one transaction guarded by in.Etag.
-func (r *GormPropertyRepository) Update(ctx context.Context, in *propertypbv1.Property, paths []string) (*propertypbv1.Property, error) {
-	ids, err := repox.SplitName(in.GetName(), "properties")
-	if err != nil {
-		return nil, err
-	}
-	id := ids[len(ids)-1]
-	err = r.DB.Transaction(func(tx *gorm.DB) error {
-		var existing property.Property
-		if err := tx.WithContext(ctx).Preload("Address").Preload("Policy").First(&existing, "id = ?", id).Error; err != nil {
-			return err
-		}
-		var staleAddress string
-		var stalePolicy string
-		if in.GetEtag() != "" && existing.Etag != nil && *existing.Etag != in.GetEtag() {
-			return repox.ErrConflict
-		}
-		existingPB := property.PropertyToProto(&existing)
-		{
-			m, out := &existing, existingPB
-			if m.OrganisationID != "" {
-				out.Organisation = "organisations/" + m.OrganisationID
-			}
-		}
-		merged := proto.Clone(existingPB).(*propertypbv1.Property)
-		applyPropertyMask(merged, in, paths)
-		if h := r.Hooks.BeforeUpdate; h != nil {
-			if err := h(ctx, existingPB, merged, paths); err != nil {
-				return err
-			}
-		}
-		next := property.PropertyFromProto(merged)
-		_ = next
-		existing.Name = next.Name
-		existing.OrganisationID = repox.LastSegment(merged.GetOrganisation())
-		existing.DisplayName = next.DisplayName
-		existing.Description = next.Description
-		existing.TimeZone = next.TimeZone
-		existing.Tags = next.Tags
-		existing.Attributes = next.Attributes
-		if repox.GroupTouched(paths, "address") {
-			if existing.AddressID != nil {
-				staleAddress = *existing.AddressID
-			}
-			existing.AddressID = nil
-			if v := merged.GetAddress(); v != nil {
-				vo := common.PostalAddressFromProto(v)
-				vo.ID = repox.NewULID()
-				if err := tx.WithContext(ctx).Create(vo).Error; err != nil {
-					return err
-				}
-				existing.AddressID = repox.Ptr(vo.ID)
-			}
-		}
-		if repox.GroupTouched(paths, "policy") {
-			if existing.PolicyID != nil {
-				stalePolicy = *existing.PolicyID
-			}
-			existing.PolicyID = nil
-			if v := merged.GetPolicy(); v != nil {
-				vo := property.PolicyFromProto(v)
-				vo.ID = repox.NewULID()
-				if err := tx.WithContext(ctx).Create(vo).Error; err != nil {
-					return err
-				}
-				existing.PolicyID = repox.Ptr(vo.ID)
-			}
-		}
-		existing.Etag = repox.Ptr(repox.NewULID())
-		if err := property.NewPropertyStore(tx).Update(ctx, &existing); err != nil {
-			return err
-		}
-		if staleAddress != "" {
-			if err := tx.WithContext(ctx).Delete(&common.PostalAddress{}, "id = ?", staleAddress).Error; err != nil {
-				return err
-			}
-		}
-		if stalePolicy != "" {
-			if err := tx.WithContext(ctx).Delete(&property.Policy{}, "id = ?", stalePolicy).Error; err != nil {
-				return err
-			}
-		}
-		return nil
-	})
-	if err != nil {
-		return nil, repox.MapGormErr(err)
-	}
-	return r.get(ctx, id)
-}
-
-// Delete removes the record addressed by its resource name.
-func (r *GormPropertyRepository) Delete(ctx context.Context, name string) error {
-	ids, err := repox.SplitName(name, "properties")
-	if err != nil {
-		return err
-	}
-	if h := r.Hooks.BeforeDelete; h != nil {
-		if err := h(ctx, name); err != nil {
-			return err
-		}
-	}
-	id := ids[len(ids)-1]
-	var existing property.Property
-	if err := r.DB.WithContext(ctx).First(&existing, "id = ?", id).Error; err != nil {
-		return repox.MapGormErr(err)
-	}
-	return repox.MapGormErr(r.DB.Transaction(func(tx *gorm.DB) error {
-		if err := property.NewPropertyStore(tx).DeleteByID(ctx, id); err != nil {
-			return err
-		}
-		if existing.AddressID != nil {
-			if err := tx.WithContext(ctx).Delete(&common.PostalAddress{}, "id = ?", *existing.AddressID).Error; err != nil {
-				return err
-			}
-		}
-		if existing.PolicyID != nil {
-			if err := tx.WithContext(ctx).Delete(&property.Policy{}, "id = ?", *existing.PolicyID).Error; err != nil {
-				return err
-			}
-		}
-		return nil
-	}))
-}
-
-// Compile-time proof the adapter satisfies the interface.
-var _ PropertyRepository = (*GormPropertyRepository)(nil)
-
-// GormUnitRepository is the GORM adapter of UnitRepository: flat
-// CRUD over the generated model, store, converters, and filterx spec. Exported
-// fields and helpers are the Tier-2 seam — embed it and override whole methods
-// for behavior the schema cannot express; generated methods only call private
-// helpers, never the public interface, so overrides never re-enter generated
-// code.
-type GormUnitRepository struct {
-	DB    *gorm.DB
-	Hooks UnitHooks
-	// ListOverrides substitute the generated dispatch for single filter fields
-	// (e.g. a derived state computed via subqueries).
-	ListOverrides map[string]filterx.SQLHandler
-}
-
-// NewGormUnitRepository returns the GORM adapter bound to db.
-func NewGormUnitRepository(db *gorm.DB) *GormUnitRepository {
-	return &GormUnitRepository{DB: db}
-}
-
-// Create persists in under parent and returns the stored record.
-func (r *GormUnitRepository) Create(ctx context.Context, parent string, in *propertypbv1.Unit) (*propertypbv1.Unit, error) {
-	parentIDs, err := repox.SplitName(parent, "properties")
-	if err != nil {
-		return nil, err
-	}
-	id := repox.NewULID()
-	if in.GetName() != "" {
-		ids, err := repox.SplitName(in.GetName(), "properties", "units")
-		if err != nil {
-			return nil, err
-		}
-		for i := range parentIDs {
-			if ids[i] != parentIDs[i] {
-				return nil, fmt.Errorf("%w: name %q is not under parent %q", repox.ErrInvalidArgument, in.GetName(), parent)
-			}
-		}
-		id = ids[len(ids)-1]
-	}
-	in = proto.Clone(in).(*propertypbv1.Unit)
-	in.Name = FormatUnitName(parentIDs[0], id)
-	if h := r.Hooks.BeforeCreate; h != nil {
-		if err := h(ctx, in); err != nil {
-			return nil, err
-		}
-	}
-	m := property.UnitFromProto(in)
-	m.ID = id
-	m.Name = in.GetName()
-	m.PropertyID = parentIDs[0]
-	m.Etag = repox.Ptr(repox.NewULID())
-	if err := r.DB.Transaction(func(tx *gorm.DB) error {
-		if v := in.GetPrice(); v != nil {
-			vo := common.MoneyFromProto(v)
-			vo.ID = repox.NewULID()
-			if err := tx.WithContext(ctx).Create(vo).Error; err != nil {
-				return err
-			}
-			m.PriceID = repox.Ptr(vo.ID)
-		}
-		return property.NewUnitStore(tx).Create(ctx, m)
-	}); err != nil {
-		return nil, repox.MapGormErr(err)
-	}
-	return r.get(ctx, id)
-}
-
-// Get returns the record addressed by its resource name.
-func (r *GormUnitRepository) Get(ctx context.Context, name string) (*propertypbv1.Unit, error) {
-	ids, err := repox.SplitName(name, "properties", "units")
-	if err != nil {
-		return nil, err
-	}
-	return r.get(ctx, ids[len(ids)-1])
-}
-
-// get loads by surrogate key — the private read every generated method re-reads
-// through, so Tier-2 overrides of Get never re-enter generated writes.
-func (r *GormUnitRepository) get(ctx context.Context, id string) (*propertypbv1.Unit, error) {
-	var m property.Unit
-	if err := r.DB.WithContext(ctx).Preload("Price").First(&m, "id = ?", id).Error; err != nil {
-		return nil, repox.MapGormErr(err)
-	}
-	return r.toProto(ctx, &m)
-}
-
-// toProto converts a loaded row, decorating reference names and running the
-// AfterRead hook.
-func (r *GormUnitRepository) toProto(ctx context.Context, m *property.Unit) (*propertypbv1.Unit, error) {
-	out := property.UnitToProto(m)
-	if h := r.Hooks.AfterRead; h != nil {
-		if err := h(ctx, out); err != nil {
-			return nil, err
-		}
-	}
-	return out, nil
-}
-
-// List returns one page of records under parent.
-func (r *GormUnitRepository) List(ctx context.Context, parent string, in repox.ListInput) ([]*propertypbv1.Unit, string, error) {
-	parentIDs, err := repox.SplitName(parent, "properties")
-	if err != nil {
-		return nil, "", err
-	}
-	scope := r.DB.Where("property_id = ?", parentIDs[len(parentIDs)-1])
-	return r.list(ctx, scope, in)
-}
-
-func (r *GormUnitRepository) list(ctx context.Context, scope *gorm.DB, in repox.ListInput) ([]*propertypbv1.Unit, string, error) {
-	conds, err := filterx.Parse(in.Filter)
-	if err != nil {
-		return nil, "", repox.MapFilterxErr(err)
-	}
-	eng := filterx.Gorm[property.Unit](property.UnitFilterSpec)
-	for f, h := range r.ListOverrides {
-		eng.Override(f, h)
-	}
-	rows, next, err := eng.List(ctx, scope.Preload("Price"), filterx.ListInput{
-		PageSize:  in.PageSize,
-		PageToken: in.PageToken,
-		OrderBy:   in.OrderBy,
-		Filter:    conds,
-	})
-	if err != nil {
-		return nil, "", repox.MapFilterxErr(err)
-	}
-	items := make([]*propertypbv1.Unit, 0, len(rows))
-	for i := range rows {
-		out, err := r.toProto(ctx, &rows[i])
-		if err != nil {
-			return nil, "", err
-		}
-		items = append(items, out)
-	}
-	return items, next, nil
-}
-
-// Update persists the masked fields of in; an empty mask replaces every
-// mutable field. The write happens in one transaction guarded by in.Etag.
-func (r *GormUnitRepository) Update(ctx context.Context, in *propertypbv1.Unit, paths []string) (*propertypbv1.Unit, error) {
-	ids, err := repox.SplitName(in.GetName(), "properties", "units")
-	if err != nil {
-		return nil, err
-	}
-	id := ids[len(ids)-1]
-	err = r.DB.Transaction(func(tx *gorm.DB) error {
-		var existing property.Unit
-		if err := tx.WithContext(ctx).Preload("Price").First(&existing, "id = ?", id).Error; err != nil {
-			return err
-		}
-		var stalePrice string
-		if in.GetEtag() != "" && existing.Etag != nil && *existing.Etag != in.GetEtag() {
-			return repox.ErrConflict
-		}
-		existingPB := property.UnitToProto(&existing)
-		merged := proto.Clone(existingPB).(*propertypbv1.Unit)
-		applyUnitMask(merged, in, paths)
-		if h := r.Hooks.BeforeUpdate; h != nil {
-			if err := h(ctx, existingPB, merged, paths); err != nil {
-				return err
-			}
-		}
-		next := property.UnitFromProto(merged)
-		_ = next
-		existing.Name = next.Name
-		existing.DisplayName = next.DisplayName
-		existing.Description = next.Description
-		existing.Type = next.Type
-		existing.BookingMode = next.BookingMode
-		existing.Capacity = next.Capacity
-		existing.MaxOccupancy = next.MaxOccupancy
-		existing.TimeZone = next.TimeZone
-		existing.PricingUnit = next.PricingUnit
-		existing.Duration = next.Duration
-		existing.Tags = next.Tags
-		existing.Attributes = next.Attributes
-		if repox.GroupTouched(paths, "price") {
-			if existing.PriceID != nil {
-				stalePrice = *existing.PriceID
-			}
-			existing.PriceID = nil
-			if v := merged.GetPrice(); v != nil {
-				vo := common.MoneyFromProto(v)
-				vo.ID = repox.NewULID()
-				if err := tx.WithContext(ctx).Create(vo).Error; err != nil {
-					return err
-				}
-				existing.PriceID = repox.Ptr(vo.ID)
-			}
-		}
-		existing.Etag = repox.Ptr(repox.NewULID())
-		if err := property.NewUnitStore(tx).Update(ctx, &existing); err != nil {
-			return err
-		}
-		if stalePrice != "" {
-			if err := tx.WithContext(ctx).Delete(&common.Money{}, "id = ?", stalePrice).Error; err != nil {
-				return err
-			}
-		}
-		return nil
-	})
-	if err != nil {
-		return nil, repox.MapGormErr(err)
-	}
-	return r.get(ctx, id)
-}
-
-// Delete removes the record addressed by its resource name.
-func (r *GormUnitRepository) Delete(ctx context.Context, name string) error {
-	ids, err := repox.SplitName(name, "properties", "units")
-	if err != nil {
-		return err
-	}
-	if h := r.Hooks.BeforeDelete; h != nil {
-		if err := h(ctx, name); err != nil {
-			return err
-		}
-	}
-	id := ids[len(ids)-1]
-	var existing property.Unit
-	if err := r.DB.WithContext(ctx).First(&existing, "id = ?", id).Error; err != nil {
-		return repox.MapGormErr(err)
-	}
-	return repox.MapGormErr(r.DB.Transaction(func(tx *gorm.DB) error {
-		if err := property.NewUnitStore(tx).DeleteByID(ctx, id); err != nil {
-			return err
-		}
-		if existing.PriceID != nil {
-			if err := tx.WithContext(ctx).Delete(&common.Money{}, "id = ?", *existing.PriceID).Error; err != nil {
-				return err
-			}
-		}
-		return nil
-	}))
-}
-
-// Compile-time proof the adapter satisfies the interface.
-var _ UnitRepository = (*GormUnitRepository)(nil)

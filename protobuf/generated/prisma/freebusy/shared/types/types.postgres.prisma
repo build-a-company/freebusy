@@ -101,9 +101,6 @@ model SharedDateRange {
   /// Exclusive end date of the range.
   endDate DateTime @freebusy.Date @map("end_date")
 
-  /// Back-relation: PropertyRateOverride records that reference this model via date_range_id.
-  rateOverrides PropertyRateOverride[]
-
   /// Back-relation: AvailabilityException records that reference this model via date_range_id.
   availabilityExceptions AvailabilityException[]
 

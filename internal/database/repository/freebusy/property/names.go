@@ -19,52 +19,19 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 )
 
-// FormatLicenceName builds "properties/{property}/licences/{licence}" from bare ids.
-func FormatLicenceName(property, licence string) string {
-	return "properties" + "/" + property + "/" + "licences" + "/" + licence
+// FormatLicenceName builds "organizationalUnits/{organizational_unit}/licences/{licence}" from bare ids.
+func FormatLicenceName(organizationalUnit, licence string) string {
+	return "organizationalUnits" + "/" + organizationalUnit + "/" + "licences" + "/" + licence
 }
 
-// ParseLicenceName splits a "properties/{property}/licences/{licence}" resource name into its bare ids,
+// ParseLicenceName splits a "organizationalUnits/{organizational_unit}/licences/{licence}" resource name into its bare ids,
 // rejecting other shapes with repox.ErrInvalidArgument.
-func ParseLicenceName(name string) (property, licence string, err error) {
-	ids, err := repox.SplitName(name, "properties", "licences")
+func ParseLicenceName(name string) (organizationalUnit, licence string, err error) {
+	ids, err := repox.SplitName(name, "organizationalUnits", "licences")
 	if err != nil {
 		return
 	}
-	property = ids[0]
+	organizationalUnit = ids[0]
 	licence = ids[1]
-	return
-}
-
-// FormatPropertyName builds "properties/{property}" from bare ids.
-func FormatPropertyName(property string) string {
-	return "properties" + "/" + property
-}
-
-// ParsePropertyName splits a "properties/{property}" resource name into its bare ids,
-// rejecting other shapes with repox.ErrInvalidArgument.
-func ParsePropertyName(name string) (property string, err error) {
-	ids, err := repox.SplitName(name, "properties")
-	if err != nil {
-		return
-	}
-	property = ids[0]
-	return
-}
-
-// FormatUnitName builds "properties/{property}/units/{unit}" from bare ids.
-func FormatUnitName(property, unit string) string {
-	return "properties" + "/" + property + "/" + "units" + "/" + unit
-}
-
-// ParseUnitName splits a "properties/{property}/units/{unit}" resource name into its bare ids,
-// rejecting other shapes with repox.ErrInvalidArgument.
-func ParseUnitName(name string) (property, unit string, err error) {
-	ids, err := repox.SplitName(name, "properties", "units")
-	if err != nil {
-		return
-	}
-	property = ids[0]
-	unit = ids[1]
 	return
 }

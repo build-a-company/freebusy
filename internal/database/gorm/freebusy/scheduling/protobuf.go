@@ -143,8 +143,9 @@ func BookingToProto(m *Booking) *schedulingpbv1.Booking {
 		return nil
 	}
 	out := &schedulingpbv1.Booking{}
-	// not mapped here: unit (resource reference), customer (resource reference), promo_code (resource reference)
+	// not mapped here: customer (resource reference), promo_code (resource reference)
 	out.Name = m.Name
+	out.Unit = m.Unit
 	out.Units = fromPtr(m.Units)
 	out.AssignedUnit = fromPtr(m.AssignedUnit)
 	out.State = BookingStatePtrToProto(m.State)
@@ -177,8 +178,9 @@ func BookingFromProto(pb *schedulingpbv1.Booking) *Booking {
 		return nil
 	}
 	m := &Booking{}
-	// not mapped here: unit (resource reference), customer (resource reference), promo_code (resource reference), contact (sub-row graph), occupancy (sub-row graph), window (sub-row graph), price (sub-row graph), discount (sub-row graph), total (sub-row graph), refund_amount (sub-row graph)
+	// not mapped here: customer (resource reference), promo_code (resource reference), contact (sub-row graph), occupancy (sub-row graph), window (sub-row graph), price (sub-row graph), discount (sub-row graph), total (sub-row graph), refund_amount (sub-row graph)
 	m.Name = pb.GetName()
+	m.Unit = pb.GetUnit()
 	m.Units = toPtr(pb.GetUnits())
 	m.AssignedUnit = toPtr(pb.GetAssignedUnit())
 	m.State = BookingStatePtrFromProto(pb.GetState())

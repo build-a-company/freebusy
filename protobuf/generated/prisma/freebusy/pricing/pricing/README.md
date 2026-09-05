@@ -26,6 +26,16 @@ erDiagram
         string id PK
         string rate_plan_id FK
     }
+    Fee {
+        string id PK
+        string rate_plan_id FK
+        string amount_id FK
+    }
+    LosDiscount {
+        string id PK
+        string rate_plan_id FK
+        string amount_off_id FK
+    }
     PriceBounds {
         string id PK
         string floor_id FK
@@ -34,30 +44,20 @@ erDiagram
     PricingDateRange {
         string id PK
     }
-    PricingFee {
-        string id PK
-        string rate_plan_id FK
-        string amount_id FK
-    }
-    PricingLosDiscount {
-        string id PK
-        string rate_plan_id FK
-        string amount_off_id FK
-    }
-    PricingRateOverride {
+    RateOverride {
         string id PK
         string rate_plan_id FK
         string date_range_id FK
         string price_id FK
     }
-    PricingTax {
-        string id PK
-        string rate_plan_id FK
-    }
     RatePlan {
         string id PK
         string price_id FK
         string bounds_id FK
+    }
+    Tax {
+        string id PK
+        string rate_plan_id FK
     }
     Money {
         string externalStub PK
@@ -66,18 +66,18 @@ erDiagram
     DynamicBand }o--|| DynamicRule : "dynamic_rule_id"
     DynamicBand }o--|| Adjustment : "adjustment_id"
     DynamicRule }o--|| RatePlan : "rate_plan_id"
+    Fee }o--|| RatePlan : "rate_plan_id"
+    Fee }o--|| Money : "amount_id"
+    LosDiscount }o--|| RatePlan : "rate_plan_id"
+    LosDiscount }o--|| Money : "amount_off_id"
     PriceBounds }o--|| Money : "floor_id"
     PriceBounds }o--|| Money : "ceiling_id"
-    PricingFee }o--|| RatePlan : "rate_plan_id"
-    PricingFee }o--|| Money : "amount_id"
-    PricingLosDiscount }o--|| RatePlan : "rate_plan_id"
-    PricingLosDiscount }o--|| Money : "amount_off_id"
-    PricingRateOverride }o--|| RatePlan : "rate_plan_id"
-    PricingRateOverride }o--|| PricingDateRange : "date_range_id"
-    PricingRateOverride }o--|| Money : "price_id"
-    PricingTax }o--|| RatePlan : "rate_plan_id"
+    RateOverride }o--|| RatePlan : "rate_plan_id"
+    RateOverride }o--|| PricingDateRange : "date_range_id"
+    RateOverride }o--|| Money : "price_id"
     RatePlan }o--|| Money : "price_id"
     RatePlan }o--|| PriceBounds : "bounds_id"
+    Tax }o--|| RatePlan : "rate_plan_id"
 ```
 
 Schema file: [`pricing.postgres.prisma`](./pricing.postgres.prisma)
@@ -93,7 +93,7 @@ A RatePlan is what a bookable resource costs: a base price, the calendar of over
 | `resource` | `VARCHAR(255)` | not null |
 | `display_name` | `VARCHAR(255)` | not null |
 | `description` | `TEXT` | nullable |
-| `pricing_unit` | `PricingPricingUnit` | nullable |
+| `pricing_unit` | `PricingUnit` | nullable |
 | `state` | `RatePlanState` | nullable |
 | `create_time` | `TIMESTAMPTZ` | not null |
 | `update_time` | `TIMESTAMPTZ` | not null |
@@ -101,7 +101,7 @@ A RatePlan is what a bookable resource costs: a base price, the calendar of over
 | `price_id` | `CHAR(26)` | not null |
 | `bounds_id` | `CHAR(26)` | nullable |
 
-### `PricingRateOverride` → `rate_overrides`
+### `RateOverride` → `rate_overrides`
 
 A price that replaces a plan's base rate for a span of dates, specific weekdays, or both.
 
@@ -113,7 +113,7 @@ A price that replaces a plan's base rate for a span of dates, specific weekdays,
 | `date_range_id` | `CHAR(26)` | nullable |
 | `price_id` | `CHAR(26)` | not null |
 
-### `PricingLosDiscount` → `los_discounts`
+### `LosDiscount` → `los_discounts`
 
 A discount applied once a stay reaches `min_nights`. Exactly one of `percent_off` or `amount_off` is set.
 
@@ -125,7 +125,7 @@ A discount applied once a stay reaches `min_nights`. Exactly one of `percent_off
 | `rate_plan_id` | `CHAR(26)` | not null |
 | `amount_off_id` | `CHAR(26)` | nullable |
 
-### `PricingFee` → `fees`
+### `Fee` → `fees`
 
 A charge added on top of the base subtotal. Exactly one of `amount` or `percent` is set.
 
@@ -135,12 +135,12 @@ A charge added on top of the base subtotal. Exactly one of `amount` or `percent`
 | `code` | `VARCHAR(255)` | not null |
 | `display_name` | `VARCHAR(255)` | nullable |
 | `percent` | `INTEGER` | nullable |
-| `pricing_unit` | `PricingPricingUnit` | nullable |
+| `pricing_unit` | `PricingUnit` | nullable |
 | `taxable` | `BOOLEAN` | nullable |
 | `rate_plan_id` | `CHAR(26)` | not null |
 | `amount_id` | `CHAR(26)` | nullable |
 
-### `PricingTax` → `taxes`
+### `Tax` → `taxes`
 
 A tax on the taxable base — the subtotal plus every fee marked taxable.
 

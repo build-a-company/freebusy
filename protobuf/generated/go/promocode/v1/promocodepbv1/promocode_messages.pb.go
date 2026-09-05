@@ -444,10 +444,10 @@ type ValidatePromoCodeRequest struct {
 	// Subtotal the discount would apply to.
 	Subtotal *money.Money `protobuf:"bytes,2,opt,name=subtotal,proto3" json:"subtotal,omitempty"`
 	// Property being booked, for scope checks.
-	// Format: properties/{property}
+	// Format: organizationalUnits/{organizational_unit}
 	Property string `protobuf:"bytes,3,opt,name=property,proto3" json:"property,omitempty"`
 	// Unit being booked, for scope checks.
-	// Format: properties/{property}/units/{unit}
+	// Format: resources/{resource}
 	Unit string `protobuf:"bytes,4,opt,name=unit,proto3" json:"unit,omitempty"`
 	// Customer redeeming the code, for per-customer limit checks.
 	// Format: users/{user}
@@ -854,11 +854,11 @@ const file_freebusy_promocode_v1_promocode_messages_proto_rawDesc = "" +
 	"\x18ValidatePromoCodeRequest\x12\x1e\n" +
 	"\x04code\x18\x01 \x01(\tB\n" +
 	"\xe0A\x02\xbaH\x04r\x02\x10\x01R\x04code\x129\n" +
-	"\bsubtotal\x18\x02 \x01(\v2\x12.google.type.MoneyB\t\xe0A\x02\xbaH\x03\xc8\x01\x01R\bsubtotal\x12]\n" +
-	"\bproperty\x18\x03 \x01(\tBA\xe0A\x01\xfaA\x1f\n" +
-	"\x1dfreebusy.property.v1/Property\xbaH\x19\xd8\x01\x01r\x142\x12^properties/[^/]+$R\bproperty\x12]\n" +
-	"\x04unit\x18\x04 \x01(\tBI\xe0A\x01\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/Unit\xbaH%\xd8\x01\x01r 2\x1e^properties/[^/]+/units/[^/]+$R\x04unit\x12T\n" +
+	"\bsubtotal\x18\x02 \x01(\v2\x12.google.type.MoneyB\t\xe0A\x02\xbaH\x03\xc8\x01\x01R\bsubtotal\x12k\n" +
+	"\bproperty\x18\x03 \x01(\tBO\xe0A\x01\xfaA$\n" +
+	"\"protobufrfc.dev/OrganizationalUnit\xbaH\"\xd8\x01\x01r\x1d2\x1b^organizationalUnits/[^/]+$R\bproperty\x12O\n" +
+	"\x04unit\x18\x04 \x01(\tB;\xe0A\x01\xfaA\x1a\n" +
+	"\x18protobufrfc.dev/Resource\xbaH\x18\xd8\x01\x01r\x132\x11^resources/[^/]+$R\x04unit\x12T\n" +
 	"\bcustomer\x18\x05 \x01(\tB8\xe0A\x01\xfaA\x1b\n" +
 	"\x19freebusy.identity.v1/User\xbaH\x14\xd8\x01\x01r\x0f2\r^users/[^/]+$R\bcustomer\"\xd6\x02\n" +
 	"\x19ValidatePromoCodeResponse\x12\x14\n" +

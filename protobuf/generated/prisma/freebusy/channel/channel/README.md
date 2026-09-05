@@ -15,21 +15,11 @@ erDiagram
     direction LR
     Channel {
         string id PK
-        string property FK
     }
     UnitMapping {
         string id PK
-        string unit FK
         string channel_id FK
     }
-    Property {
-        string externalStub PK
-    }
-    Unit {
-        string externalStub PK
-    }
-    Channel }o--|| Property : "property"
-    UnitMapping }o--|| Unit : "unit"
     UnitMapping }o--|| Channel : "channel_id"
 ```
 
@@ -43,7 +33,7 @@ A connection between one property and one distribution channel (OTA/GDS). It is 
 | --- | --- | --- |
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
-| `property` | `CHAR(26)` | not null |
+| `property` | `VARCHAR(255)` | not null |
 | `type` | `ChannelType` | not null |
 | `display_name` | `VARCHAR(255)` | nullable |
 | `external_property_id` | `VARCHAR(255)` | nullable |
@@ -62,7 +52,7 @@ Maps a freebusy Unit to its counterpart on the channel. ARI for a unit only flow
 | --- | --- | --- |
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
-| `unit` | `CHAR(26)` | not null |
+| `unit` | `VARCHAR(255)` | not null |
 | `external_room_type_id` | `VARCHAR(255)` | not null |
 | `external_rate_plan_id` | `VARCHAR(255)` | nullable |
 | `state` | `MappingState` | nullable |

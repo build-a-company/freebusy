@@ -49,7 +49,6 @@ type UnitMappingStoreIface interface {
 	GetByID(ctx context.Context, id string) (*UnitMapping, error)
 	DeleteByID(ctx context.Context, id string) error
 	GetByName(ctx context.Context, v string) (*UnitMapping, error)
-	ListByUnitID(ctx context.Context, id string, opts gormx.ListOptions) ([]UnitMapping, error)
 	ListByChannelID(ctx context.Context, id string, opts gormx.ListOptions) ([]UnitMapping, error)
 }
 
@@ -176,21 +175,6 @@ func (s *UnitMappingStore) GetByName(ctx context.Context, v string) (*UnitMappin
 		return nil, err
 	}
 	return &m, nil
-}
-
-// ListByUnitID returns the UnitMapping records whose unit matches id, with opts applied.
-func (s *UnitMappingStore) ListByUnitID(ctx context.Context, id string, opts gormx.ListOptions) ([]UnitMapping, error) {
-	var out []UnitMapping
-	tel := gormx.OrNop(s.Telemetry)
-	start := time.Now()
-	err := tel.Span(ctx, "channel.UnitMapping/ListByUnitID", nil, func(ctx context.Context) error {
-		return opts.Apply(s.DB.WithContext(ctx).Where("unit = ?", id)).Find(&out).Error
-	})
-	tel.RecordOp(ctx, "channel.unit_mappings", "list_by_unit", time.Since(start), err)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 // ListByChannelID returns the UnitMapping records whose channel_id matches id, with opts applied.

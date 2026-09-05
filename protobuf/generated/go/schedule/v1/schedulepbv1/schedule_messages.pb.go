@@ -28,7 +28,7 @@ const (
 type GetScheduleRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The schedule to read.
-	// Format: properties/{property}/units/{unit}/schedule
+	// Format: resources/{resource}/schedule
 	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -132,7 +132,7 @@ func (x *UpdateScheduleRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
 type ListAvailabilityExceptionsRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The unit whose exceptions to list.
-	// Format: properties/{property}/units/{unit}
+	// Format: resources/{resource}
 	Parent string `protobuf:"bytes,1,opt,name=parent,proto3" json:"parent,omitempty"`
 	// Maximum number of exceptions to return.
 	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
@@ -270,7 +270,7 @@ func (x *ListAvailabilityExceptionsResponse) GetNextPageToken() string {
 type GetAvailabilityExceptionRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The exception to retrieve.
-	// Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}
+	// Format: resources/{resource}/availabilityExceptions/{availability_exception}
 	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -317,7 +317,7 @@ func (x *GetAvailabilityExceptionRequest) GetName() string {
 type CreateAvailabilityExceptionRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The unit to add the exception to.
-	// Format: properties/{property}/units/{unit}
+	// Format: resources/{resource}
 	Parent string `protobuf:"bytes,1,opt,name=parent,proto3" json:"parent,omitempty"`
 	// The exception to add. Its name field is ignored.
 	AvailabilityException *AvailabilityException `protobuf:"bytes,2,opt,name=availability_exception,json=availabilityException,proto3" json:"availability_exception,omitempty"`
@@ -391,7 +391,7 @@ func (x *CreateAvailabilityExceptionRequest) GetRequestId() string {
 type DeleteAvailabilityExceptionRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The exception to remove.
-	// Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}
+	// Format: resources/{resource}/availabilityExceptions/{availability_exception}
 	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -446,10 +446,10 @@ const file_freebusy_schedule_v1_schedule_messages_proto_rawDesc = "" +
 	"\bschedule\x18\x01 \x01(\v2\x1e.freebusy.schedule.v1.ScheduleB\xb1\x01\xe0A\x02\xbaH\xaa\x01\xba\x01\xa3\x01\n" +
 	"\x14update_schedule.name\x12Mschedule.name must be of the form properties/{property}/units/{unit}/schedule\x1a<this.name.matches('^properties/[^/]+/units/[^/]+/schedule$')\xc8\x01\x01R\bschedule\x12@\n" +
 	"\vupdate_mask\x18\x02 \x01(\v2\x1a.google.protobuf.FieldMaskB\x03\xe0A\x01R\n" +
-	"updateMask\"\x90\x02\n" +
-	"!ListAvailabilityExceptionsRequest\x12^\n" +
-	"\x06parent\x18\x01 \x01(\tBF\xe0A\x02\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/Unit\xbaH\"r 2\x1e^properties/[^/]+/units/[^/]+$R\x06parent\x12*\n" +
+	"updateMask\"\x82\x02\n" +
+	"!ListAvailabilityExceptionsRequest\x12P\n" +
+	"\x06parent\x18\x01 \x01(\tB8\xe0A\x02\xfaA\x1a\n" +
+	"\x18protobufrfc.dev/Resource\xbaH\x15r\x132\x11^resources/[^/]+$R\x06parent\x12*\n" +
 	"\tpage_size\x18\x02 \x01(\x05B\r\xe0A\x01\xbaH\a\x1a\x05\x18\xe8\a(\x00R\bpageSize\x12\"\n" +
 	"\n" +
 	"page_token\x18\x03 \x01(\tB\x03\xe0A\x01R\tpageToken\x12\x1b\n" +
@@ -460,10 +460,10 @@ const file_freebusy_schedule_v1_schedule_messages_proto_rawDesc = "" +
 	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"\xac\x01\n" +
 	"\x1fGetAvailabilityExceptionRequest\x12\x88\x01\n" +
 	"\x04name\x18\x01 \x01(\tBt\xe0A\x02\xfaA,\n" +
-	"*freebusy.schedule.v1/AvailabilityException\xbaH?r=2;^properties/[^/]+/units/[^/]+/availabilityExceptions/[^/]+$R\x04name\"\xee\x04\n" +
-	"\"CreateAvailabilityExceptionRequest\x12^\n" +
-	"\x06parent\x18\x01 \x01(\tBF\xe0A\x02\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/Unit\xbaH\"r 2\x1e^properties/[^/]+/units/[^/]+$R\x06parent\x12\xdf\x02\n" +
+	"*freebusy.schedule.v1/AvailabilityException\xbaH?r=2;^properties/[^/]+/units/[^/]+/availabilityExceptions/[^/]+$R\x04name\"\xe0\x04\n" +
+	"\"CreateAvailabilityExceptionRequest\x12P\n" +
+	"\x06parent\x18\x01 \x01(\tB8\xe0A\x02\xfaA\x1a\n" +
+	"\x18protobufrfc.dev/Resource\xbaH\x15r\x132\x11^resources/[^/]+$R\x06parent\x12\xdf\x02\n" +
 	"\x16availability_exception\x18\x02 \x01(\v2+.freebusy.schedule.v1.AvailabilityExceptionB\xfa\x01\xe0A\x02\xbaH\xf3\x01\xba\x01]\n" +
 	"\"create_availability_exception.kind\x12'availability_exception.kind is required\x1a\x0ethis.kind != 0\xba\x01\x8c\x01\n" +
 	"\"create_availability_exception.span\x12<availability_exception must set a span: window or date_range\x1a(has(this.window) || has(this.date_range)\xc8\x01\x01R\x15availabilityException\x12Z\n" +

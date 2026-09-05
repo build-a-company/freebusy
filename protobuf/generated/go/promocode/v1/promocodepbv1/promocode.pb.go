@@ -416,10 +416,10 @@ type Scope struct {
 	// Normalized into the shared common.moneys table (belongs-to via min_subtotal_id).
 	MinSubtotal *money.Money `protobuf:"bytes,1,opt,name=min_subtotal,json=minSubtotal,proto3" json:"min_subtotal,omitempty"`
 	// Properties the code applies to. Empty means all properties.
-	// Format: properties/{property}
+	// Format: organizationalUnits/{organizational_unit}
 	ApplicableProperties []string `protobuf:"bytes,2,rep,name=applicable_properties,json=applicableProperties,proto3" json:"applicable_properties,omitempty"`
 	// Units the code applies to. Empty means all units.
-	// Format: properties/{property}/units/{unit}
+	// Format: resources/{resource}
 	ApplicableUnits []string `protobuf:"bytes,3,rep,name=applicable_units,json=applicableUnits,proto3" json:"applicable_units,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
@@ -607,13 +607,13 @@ const file_freebusy_promocode_v1_promocode_proto_rawDesc = "" +
 	"\x0fmax_redemptions\x18\x01 \x01(\v2\x1b.google.protobuf.Int64ValueB\n" +
 	"\xe0A\x01\xbaH\x04\"\x02(\x00R\x0emaxRedemptions\x12U\n" +
 	"\x12per_customer_limit\x18\x02 \x01(\v2\x1b.google.protobuf.Int32ValueB\n" +
-	"\xe0A\x01\xbaH\x04\x1a\x02(\x00R\x10perCustomerLimit\"\xb5\x02\n" +
+	"\xe0A\x01\xbaH\x04\x1a\x02(\x00R\x10perCustomerLimit\"\xb6\x02\n" +
 	"\x05Scope\x12:\n" +
-	"\fmin_subtotal\x18\x01 \x01(\v2\x12.google.type.MoneyB\x03\xe0A\x01R\vminSubtotal\x12x\n" +
-	"\x15applicable_properties\x18\x02 \x03(\tBC\xe0A\x01\xfaA\x1f\n" +
-	"\x1dfreebusy.property.v1/Property\xbaH\x1b\x92\x01\x18\"\x16r\x142\x12^properties/[^/]+$R\x14applicableProperties\x12v\n" +
-	"\x10applicable_units\x18\x03 \x03(\tBK\xe0A\x01\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/Unit\xbaH'\x92\x01$\"\"r 2\x1e^properties/[^/]+/units/[^/]+$R\x0fapplicableUnits\"\xd2\x03\n" +
+	"\fmin_subtotal\x18\x01 \x01(\v2\x12.google.type.MoneyB\x03\xe0A\x01R\vminSubtotal\x12\x86\x01\n" +
+	"\x15applicable_properties\x18\x02 \x03(\tBQ\xe0A\x01\xfaA$\n" +
+	"\"protobufrfc.dev/OrganizationalUnit\xbaH$\x92\x01!\"\x1fr\x1d2\x1b^organizationalUnits/[^/]+$R\x14applicableProperties\x12h\n" +
+	"\x10applicable_units\x18\x03 \x03(\tB=\xe0A\x01\xfaA\x1a\n" +
+	"\x18protobufrfc.dev/Resource\xbaH\x1a\x92\x01\x17\"\x15r\x132\x11^resources/[^/]+$R\x0fapplicableUnits\"\xd2\x03\n" +
 	"\n" +
 	"Redemption\x12E\n" +
 	"\x04name\x18\x01 \x01(\tB1\xe0A\b\xbaH+\xd8\x01\x01r&2$^promoCodes/[^/]+/redemptions/[^/]+$R\x04name\x12=\n" +

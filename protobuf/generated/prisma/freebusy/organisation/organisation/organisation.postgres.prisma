@@ -50,9 +50,6 @@ model Organisation {
   /// Back-relation: Member records that reference this model via organisation_id.
   members Member[]
 
-  /// Back-relation: Property records that reference this model via organisation.
-  properties Property[]
-
   /// GIN index: case-insensitive contains (ILIKE '%…%') cannot use a B-tree.
   @@index([displayName(ops: raw("gin_trgm_ops"))], type: Gin)
   /// Maps the model to the "resource" table in the database.

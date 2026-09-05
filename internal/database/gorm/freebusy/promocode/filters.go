@@ -108,3 +108,15 @@ var UsageLimitsFilterSpec = filterx.Spec{
 	},
 	PK: []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
 }
+
+// ScopeFilterSpec is Scope's AIP-160 filter / AIP-132 order_by surface,
+// consumed by the filterx.Gorm and filterx.Hasura engines.
+var ScopeFilterSpec = filterx.Spec{
+	Table: `"promocode"."scopes"`,
+	Fields: map[string]filterx.FieldSpec{
+		"applicable_properties": {Column: "applicable_properties", Kind: filterx.KindTags},
+		"applicable_units":      {Column: "applicable_units", Kind: filterx.KindTags},
+	},
+	Sort: map[string]filterx.SortSpec{},
+	PK:   []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
+}

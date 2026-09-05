@@ -24,780 +24,19 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Request message for ListProperties.
-type ListPropertiesRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Maximum number of properties to return. Must be at most 1000; larger values are rejected.
-	PageSize int32 `protobuf:"varint,1,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	// Page token from a previous ListProperties call, for pagination.
-	PageToken string `protobuf:"bytes,2,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
-	// Filter expression (AIP-160), e.g. `organisation = "organisations/7"`,
-	// `state = PROPERTY_STATE_ACTIVE`, `tags:"beachfront"`, or a display_name match.
-	Filter string `protobuf:"bytes,3,opt,name=filter,proto3" json:"filter,omitempty"`
-	// Sort order, e.g. "display_name" or "create_time desc".
-	OrderBy       string `protobuf:"bytes,4,opt,name=order_by,json=orderBy,proto3" json:"order_by,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ListPropertiesRequest) Reset() {
-	*x = ListPropertiesRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ListPropertiesRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListPropertiesRequest) ProtoMessage() {}
-
-func (x *ListPropertiesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListPropertiesRequest.ProtoReflect.Descriptor instead.
-func (*ListPropertiesRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *ListPropertiesRequest) GetPageSize() int32 {
-	if x != nil {
-		return x.PageSize
-	}
-	return 0
-}
-
-func (x *ListPropertiesRequest) GetPageToken() string {
-	if x != nil {
-		return x.PageToken
-	}
-	return ""
-}
-
-func (x *ListPropertiesRequest) GetFilter() string {
-	if x != nil {
-		return x.Filter
-	}
-	return ""
-}
-
-func (x *ListPropertiesRequest) GetOrderBy() string {
-	if x != nil {
-		return x.OrderBy
-	}
-	return ""
-}
-
-// Response message for ListProperties.
-type ListPropertiesResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The page of properties.
-	Properties []*Property `protobuf:"bytes,1,rep,name=properties,proto3" json:"properties,omitempty"`
-	// Next page token, if more results remain. Omitted if this is the last page.
-	NextPageToken string `protobuf:"bytes,2,opt,name=next_page_token,json=nextPageToken,proto3" json:"next_page_token,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ListPropertiesResponse) Reset() {
-	*x = ListPropertiesResponse{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ListPropertiesResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListPropertiesResponse) ProtoMessage() {}
-
-func (x *ListPropertiesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListPropertiesResponse.ProtoReflect.Descriptor instead.
-func (*ListPropertiesResponse) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *ListPropertiesResponse) GetProperties() []*Property {
-	if x != nil {
-		return x.Properties
-	}
-	return nil
-}
-
-func (x *ListPropertiesResponse) GetNextPageToken() string {
-	if x != nil {
-		return x.NextPageToken
-	}
-	return ""
-}
-
-// Request message for GetProperty.
-type GetPropertyRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The property to retrieve.
-	// Format: properties/{property}
-	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetPropertyRequest) Reset() {
-	*x = GetPropertyRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetPropertyRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetPropertyRequest) ProtoMessage() {}
-
-func (x *GetPropertyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetPropertyRequest.ProtoReflect.Descriptor instead.
-func (*GetPropertyRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *GetPropertyRequest) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-// Request message for CreateProperty.
-type CreatePropertyRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The property to create. The name, state, and units fields are ignored.
-	Property *Property `protobuf:"bytes,1,opt,name=property,proto3" json:"property,omitempty"`
-	// Optional caller-chosen ID for the property; the server generates one if unset.
-	PropertyId string `protobuf:"bytes,2,opt,name=property_id,json=propertyId,proto3" json:"property_id,omitempty"`
-	// Caller-supplied idempotency key; identical retries return the first result.
-	RequestId     string `protobuf:"bytes,3,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CreatePropertyRequest) Reset() {
-	*x = CreatePropertyRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CreatePropertyRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CreatePropertyRequest) ProtoMessage() {}
-
-func (x *CreatePropertyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CreatePropertyRequest.ProtoReflect.Descriptor instead.
-func (*CreatePropertyRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *CreatePropertyRequest) GetProperty() *Property {
-	if x != nil {
-		return x.Property
-	}
-	return nil
-}
-
-func (x *CreatePropertyRequest) GetPropertyId() string {
-	if x != nil {
-		return x.PropertyId
-	}
-	return ""
-}
-
-func (x *CreatePropertyRequest) GetRequestId() string {
-	if x != nil {
-		return x.RequestId
-	}
-	return ""
-}
-
-// Request message for UpdateProperty.
-type UpdatePropertyRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The property to update; its name identifies the target.
-	Property *Property `protobuf:"bytes,1,opt,name=property,proto3" json:"property,omitempty"`
-	// Fields to overwrite. Omit to replace all mutable fields.
-	UpdateMask    *fieldmaskpb.FieldMask `protobuf:"bytes,2,opt,name=update_mask,json=updateMask,proto3" json:"update_mask,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UpdatePropertyRequest) Reset() {
-	*x = UpdatePropertyRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[4]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UpdatePropertyRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdatePropertyRequest) ProtoMessage() {}
-
-func (x *UpdatePropertyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[4]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdatePropertyRequest.ProtoReflect.Descriptor instead.
-func (*UpdatePropertyRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *UpdatePropertyRequest) GetProperty() *Property {
-	if x != nil {
-		return x.Property
-	}
-	return nil
-}
-
-func (x *UpdatePropertyRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
-	if x != nil {
-		return x.UpdateMask
-	}
-	return nil
-}
-
-// Request message for ArchiveProperty.
-type ArchivePropertyRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The property to archive.
-	// Format: properties/{property}
-	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ArchivePropertyRequest) Reset() {
-	*x = ArchivePropertyRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ArchivePropertyRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ArchivePropertyRequest) ProtoMessage() {}
-
-func (x *ArchivePropertyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ArchivePropertyRequest.ProtoReflect.Descriptor instead.
-func (*ArchivePropertyRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *ArchivePropertyRequest) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-// Request message for UnarchiveProperty.
-type UnarchivePropertyRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The property to restore to the active state.
-	// Format: properties/{property}
-	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UnarchivePropertyRequest) Reset() {
-	*x = UnarchivePropertyRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UnarchivePropertyRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UnarchivePropertyRequest) ProtoMessage() {}
-
-func (x *UnarchivePropertyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UnarchivePropertyRequest.ProtoReflect.Descriptor instead.
-func (*UnarchivePropertyRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *UnarchivePropertyRequest) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-// Request message for ListUnits.
-type ListUnitsRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The parent property whose units to list.
-	// Format: properties/{property}
-	Parent string `protobuf:"bytes,1,opt,name=parent,proto3" json:"parent,omitempty"`
-	// Maximum number of units to return. Must be at most 1000; larger values are rejected.
-	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	// Page token from a previous ListUnits call's next_page_token.
-	PageToken string `protobuf:"bytes,3,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
-	// Filter expression (AIP-160), e.g. `type = UNIT_TYPE_ROOM`,
-	// `state = UNIT_STATE_ACTIVE`, or a match on display_name.
-	Filter string `protobuf:"bytes,4,opt,name=filter,proto3" json:"filter,omitempty"`
-	// Sort order, e.g. "display_name" or "create_time desc".
-	OrderBy       string `protobuf:"bytes,5,opt,name=order_by,json=orderBy,proto3" json:"order_by,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ListUnitsRequest) Reset() {
-	*x = ListUnitsRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[7]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ListUnitsRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListUnitsRequest) ProtoMessage() {}
-
-func (x *ListUnitsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[7]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListUnitsRequest.ProtoReflect.Descriptor instead.
-func (*ListUnitsRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *ListUnitsRequest) GetParent() string {
-	if x != nil {
-		return x.Parent
-	}
-	return ""
-}
-
-func (x *ListUnitsRequest) GetPageSize() int32 {
-	if x != nil {
-		return x.PageSize
-	}
-	return 0
-}
-
-func (x *ListUnitsRequest) GetPageToken() string {
-	if x != nil {
-		return x.PageToken
-	}
-	return ""
-}
-
-func (x *ListUnitsRequest) GetFilter() string {
-	if x != nil {
-		return x.Filter
-	}
-	return ""
-}
-
-func (x *ListUnitsRequest) GetOrderBy() string {
-	if x != nil {
-		return x.OrderBy
-	}
-	return ""
-}
-
-// Response message for ListUnits.
-type ListUnitsResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The page of units.
-	Units []*Unit `protobuf:"bytes,1,rep,name=units,proto3" json:"units,omitempty"`
-	// Next page token. Omitted if this is the last page.
-	NextPageToken string `protobuf:"bytes,2,opt,name=next_page_token,json=nextPageToken,proto3" json:"next_page_token,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ListUnitsResponse) Reset() {
-	*x = ListUnitsResponse{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[8]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ListUnitsResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListUnitsResponse) ProtoMessage() {}
-
-func (x *ListUnitsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[8]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListUnitsResponse.ProtoReflect.Descriptor instead.
-func (*ListUnitsResponse) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *ListUnitsResponse) GetUnits() []*Unit {
-	if x != nil {
-		return x.Units
-	}
-	return nil
-}
-
-func (x *ListUnitsResponse) GetNextPageToken() string {
-	if x != nil {
-		return x.NextPageToken
-	}
-	return ""
-}
-
-// Request message for GetUnit.
-type GetUnitRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The unit to retrieve.
-	// Format: properties/{property}/units/{unit}
-	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetUnitRequest) Reset() {
-	*x = GetUnitRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[9]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetUnitRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetUnitRequest) ProtoMessage() {}
-
-func (x *GetUnitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[9]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetUnitRequest.ProtoReflect.Descriptor instead.
-func (*GetUnitRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *GetUnitRequest) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-// Request message for CreateUnit.
-type CreateUnitRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The property to attach the unit to.
-	// Format: properties/{property}
-	Parent string `protobuf:"bytes,1,opt,name=parent,proto3" json:"parent,omitempty"`
-	// The unit to create. Its name and state fields are ignored.
-	Unit *Unit `protobuf:"bytes,2,opt,name=unit,proto3" json:"unit,omitempty"`
-	// Optional caller-chosen ID for the unit; the server generates one if unset.
-	UnitId string `protobuf:"bytes,3,opt,name=unit_id,json=unitId,proto3" json:"unit_id,omitempty"`
-	// Caller-supplied idempotency key; identical retries return the first result.
-	RequestId     string `protobuf:"bytes,4,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CreateUnitRequest) Reset() {
-	*x = CreateUnitRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[10]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CreateUnitRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CreateUnitRequest) ProtoMessage() {}
-
-func (x *CreateUnitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[10]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CreateUnitRequest.ProtoReflect.Descriptor instead.
-func (*CreateUnitRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *CreateUnitRequest) GetParent() string {
-	if x != nil {
-		return x.Parent
-	}
-	return ""
-}
-
-func (x *CreateUnitRequest) GetUnit() *Unit {
-	if x != nil {
-		return x.Unit
-	}
-	return nil
-}
-
-func (x *CreateUnitRequest) GetUnitId() string {
-	if x != nil {
-		return x.UnitId
-	}
-	return ""
-}
-
-func (x *CreateUnitRequest) GetRequestId() string {
-	if x != nil {
-		return x.RequestId
-	}
-	return ""
-}
-
-// Request message for UpdateUnit.
-type UpdateUnitRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The unit to update; its name identifies the target.
-	Unit *Unit `protobuf:"bytes,1,opt,name=unit,proto3" json:"unit,omitempty"`
-	// Fields to overwrite. Omit to replace all mutable fields.
-	UpdateMask    *fieldmaskpb.FieldMask `protobuf:"bytes,2,opt,name=update_mask,json=updateMask,proto3" json:"update_mask,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UpdateUnitRequest) Reset() {
-	*x = UpdateUnitRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[11]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UpdateUnitRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateUnitRequest) ProtoMessage() {}
-
-func (x *UpdateUnitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[11]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateUnitRequest.ProtoReflect.Descriptor instead.
-func (*UpdateUnitRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{11}
-}
-
-func (x *UpdateUnitRequest) GetUnit() *Unit {
-	if x != nil {
-		return x.Unit
-	}
-	return nil
-}
-
-func (x *UpdateUnitRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
-	if x != nil {
-		return x.UpdateMask
-	}
-	return nil
-}
-
-// Request message for DeleteUnit.
-type DeleteUnitRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// The unit to delete.
-	// Format: properties/{property}/units/{unit}
-	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// Whether to delete the unit's child licences along with it. Required to be
-	// true if any exist; otherwise the delete is rejected.
-	Force         bool `protobuf:"varint,2,opt,name=force,proto3" json:"force,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *DeleteUnitRequest) Reset() {
-	*x = DeleteUnitRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[12]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *DeleteUnitRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeleteUnitRequest) ProtoMessage() {}
-
-func (x *DeleteUnitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[12]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeleteUnitRequest.ProtoReflect.Descriptor instead.
-func (*DeleteUnitRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *DeleteUnitRequest) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *DeleteUnitRequest) GetForce() bool {
-	if x != nil {
-		return x.Force
-	}
-	return false
-}
-
 // Request message for ListLicences.
 type ListLicencesRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The parent property whose licences to list — property-wide and per-unit
 	// ones alike; narrow with `filter`.
-	// Format: properties/{property}
+	// Format: organizationalUnits/{organizational_unit}
 	Parent string `protobuf:"bytes,1,opt,name=parent,proto3" json:"parent,omitempty"`
 	// Maximum number of licences to return. Must be at most 1000; larger values are rejected.
 	PageSize int32 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	// Page token from a previous ListLicences call's next_page_token.
 	PageToken string `protobuf:"bytes,3,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
 	// Filter expression (AIP-160), e.g. `type = LICENCE_TYPE_FIRE_SAFETY`,
-	// `target = LICENCE_TARGET_UNIT`, `unit = properties/p1/units/u1`, or
+	// `target = LICENCE_TARGET_UNIT`, `unit = resources/bay-l2-014`, or
 	// `expiry_date <= 2026-08-01` to find licences due for renewal.
 	Filter string `protobuf:"bytes,4,opt,name=filter,proto3" json:"filter,omitempty"`
 	// Sort order, e.g. "expiry_date" or "create_time desc".
@@ -808,7 +47,7 @@ type ListLicencesRequest struct {
 
 func (x *ListLicencesRequest) Reset() {
 	*x = ListLicencesRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[13]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -820,7 +59,7 @@ func (x *ListLicencesRequest) String() string {
 func (*ListLicencesRequest) ProtoMessage() {}
 
 func (x *ListLicencesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[13]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -833,7 +72,7 @@ func (x *ListLicencesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListLicencesRequest.ProtoReflect.Descriptor instead.
 func (*ListLicencesRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{13}
+	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *ListLicencesRequest) GetParent() string {
@@ -884,7 +123,7 @@ type ListLicencesResponse struct {
 
 func (x *ListLicencesResponse) Reset() {
 	*x = ListLicencesResponse{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[14]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -896,7 +135,7 @@ func (x *ListLicencesResponse) String() string {
 func (*ListLicencesResponse) ProtoMessage() {}
 
 func (x *ListLicencesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[14]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -909,7 +148,7 @@ func (x *ListLicencesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListLicencesResponse.ProtoReflect.Descriptor instead.
 func (*ListLicencesResponse) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{14}
+	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *ListLicencesResponse) GetLicences() []*Licence {
@@ -930,7 +169,7 @@ func (x *ListLicencesResponse) GetNextPageToken() string {
 type GetLicenceRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The licence to retrieve.
-	// Format: properties/{property}/licences/{licence}
+	// Format: organizationalUnits/{organizational_unit}/licences/{licence}
 	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -938,7 +177,7 @@ type GetLicenceRequest struct {
 
 func (x *GetLicenceRequest) Reset() {
 	*x = GetLicenceRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[15]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -950,7 +189,7 @@ func (x *GetLicenceRequest) String() string {
 func (*GetLicenceRequest) ProtoMessage() {}
 
 func (x *GetLicenceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[15]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -963,7 +202,7 @@ func (x *GetLicenceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetLicenceRequest.ProtoReflect.Descriptor instead.
 func (*GetLicenceRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{15}
+	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetLicenceRequest) GetName() string {
@@ -978,7 +217,7 @@ type CreateLicenceRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The property to attach the licence to. A licence covering a single unit
 	// also lives under the property: set the licence's `unit` field.
-	// Format: properties/{property}
+	// Format: organizationalUnits/{organizational_unit}
 	Parent string `protobuf:"bytes,1,opt,name=parent,proto3" json:"parent,omitempty"`
 	// The licence to create. Its name, target, and state fields are ignored;
 	// target derives from whether `unit` is set.
@@ -993,7 +232,7 @@ type CreateLicenceRequest struct {
 
 func (x *CreateLicenceRequest) Reset() {
 	*x = CreateLicenceRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[16]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1005,7 +244,7 @@ func (x *CreateLicenceRequest) String() string {
 func (*CreateLicenceRequest) ProtoMessage() {}
 
 func (x *CreateLicenceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[16]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1018,7 +257,7 @@ func (x *CreateLicenceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateLicenceRequest.ProtoReflect.Descriptor instead.
 func (*CreateLicenceRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{16}
+	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CreateLicenceRequest) GetParent() string {
@@ -1062,7 +301,7 @@ type UpdateLicenceRequest struct {
 
 func (x *UpdateLicenceRequest) Reset() {
 	*x = UpdateLicenceRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[17]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1074,7 +313,7 @@ func (x *UpdateLicenceRequest) String() string {
 func (*UpdateLicenceRequest) ProtoMessage() {}
 
 func (x *UpdateLicenceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[17]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1087,7 +326,7 @@ func (x *UpdateLicenceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateLicenceRequest.ProtoReflect.Descriptor instead.
 func (*UpdateLicenceRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{17}
+	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UpdateLicenceRequest) GetLicence() *Licence {
@@ -1108,7 +347,7 @@ func (x *UpdateLicenceRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
 type DeleteLicenceRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The licence to delete.
-	// Format: properties/{property}/licences/{licence}
+	// Format: organizationalUnits/{organizational_unit}/licences/{licence}
 	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1116,7 +355,7 @@ type DeleteLicenceRequest struct {
 
 func (x *DeleteLicenceRequest) Reset() {
 	*x = DeleteLicenceRequest{}
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[18]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1128,7 +367,7 @@ func (x *DeleteLicenceRequest) String() string {
 func (*DeleteLicenceRequest) ProtoMessage() {}
 
 func (x *DeleteLicenceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[18]
+	mi := &file_freebusy_property_v1_property_messages_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1141,7 +380,7 @@ func (x *DeleteLicenceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteLicenceRequest.ProtoReflect.Descriptor instead.
 func (*DeleteLicenceRequest) Descriptor() ([]byte, []int) {
-	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{18}
+	return file_freebusy_property_v1_property_messages_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *DeleteLicenceRequest) GetName() string {
@@ -1155,78 +394,10 @@ var File_freebusy_property_v1_property_messages_proto protoreflect.FileDescripto
 
 const file_freebusy_property_v1_property_messages_proto_rawDesc = "" +
 	"\n" +
-	",freebusy/property/v1/property_messages.proto\x12\x14freebusy.property.v1\x1a\x1bbuf/validate/validate.proto\x1a#freebusy/property/v1/property.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1bgoogle/api/field_info.proto\x1a\x19google/api/resource.proto\x1a google/protobuf/field_mask.proto\"\xa4\x01\n" +
-	"\x15ListPropertiesRequest\x12*\n" +
-	"\tpage_size\x18\x01 \x01(\x05B\r\xe0A\x01\xbaH\a\x1a\x05\x18\xe8\a(\x00R\bpageSize\x12\"\n" +
-	"\n" +
-	"page_token\x18\x02 \x01(\tB\x03\xe0A\x01R\tpageToken\x12\x1b\n" +
-	"\x06filter\x18\x03 \x01(\tB\x03\xe0A\x01R\x06filter\x12\x1e\n" +
-	"\border_by\x18\x04 \x01(\tB\x03\xe0A\x01R\aorderBy\"\x80\x01\n" +
-	"\x16ListPropertiesResponse\x12>\n" +
-	"\n" +
-	"properties\x18\x01 \x03(\v2\x1e.freebusy.property.v1.PropertyR\n" +
-	"properties\x12&\n" +
-	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"h\n" +
-	"\x12GetPropertyRequest\x12R\n" +
-	"\x04name\x18\x01 \x01(\tB>\xe0A\x02\xfaA\x1f\n" +
-	"\x1dfreebusy.property.v1/Property\xbaH\x16r\x142\x12^properties/[^/]+$R\x04name\"\xdc\x03\n" +
-	"\x15CreatePropertyRequest\x12\xd5\x02\n" +
-	"\bproperty\x18\x01 \x01(\v2\x1e.freebusy.property.v1.PropertyB\x98\x02\xe0A\x02\xbaH\x91\x02\xba\x01Z\n" +
-	"\x1ccreate_property.organisation\x12!property.organisation is required\x1a\x17this.organisation != ''\xba\x01Z\n" +
-	"\x1ccreate_property.display_name\x12!property.display_name is required\x1a\x17this.display_name != ''\xba\x01Q\n" +
-	"\x19create_property.time_zone\x12\x1eproperty.time_zone is required\x1a\x14this.time_zone != ''\xc8\x01\x01R\bproperty\x12?\n" +
-	"\vproperty_id\x18\x02 \x01(\tB\x1e\xe0A\x01\xbaH\x18\xd8\x01\x01r\x132\x11^[a-z0-9-]{1,63}$R\n" +
-	"propertyId\x12*\n" +
-	"\n" +
-	"request_id\x18\x03 \x01(\tB\v\xe0A\x01\xe2\x8c\xcf\xd7\b\x02\b\x01R\trequestId\"\x9d\x02\n" +
-	"\x15UpdatePropertyRequest\x12\xc1\x01\n" +
-	"\bproperty\x18\x01 \x01(\v2\x1e.freebusy.property.v1.PropertyB\x84\x01\xe0A\x02\xbaH~\xba\x01x\n" +
-	"\x14update_property.name\x127property.name must be of the form properties/{property}\x1a'this.name.matches('^properties/[^/]+$')\xc8\x01\x01R\bproperty\x12@\n" +
-	"\vupdate_mask\x18\x02 \x01(\v2\x1a.google.protobuf.FieldMaskB\x03\xe0A\x01R\n" +
-	"updateMask\"l\n" +
-	"\x16ArchivePropertyRequest\x12R\n" +
-	"\x04name\x18\x01 \x01(\tB>\xe0A\x02\xfaA\x1f\n" +
-	"\x1dfreebusy.property.v1/Property\xbaH\x16r\x142\x12^properties/[^/]+$R\x04name\"n\n" +
-	"\x18UnarchivePropertyRequest\x12R\n" +
-	"\x04name\x18\x01 \x01(\tB>\xe0A\x02\xfaA\x1f\n" +
-	"\x1dfreebusy.property.v1/Property\xbaH\x16r\x142\x12^properties/[^/]+$R\x04name\"\xf7\x01\n" +
-	"\x10ListUnitsRequest\x12V\n" +
-	"\x06parent\x18\x01 \x01(\tB>\xe0A\x02\xfaA\x1f\n" +
-	"\x1dfreebusy.property.v1/Property\xbaH\x16r\x142\x12^properties/[^/]+$R\x06parent\x12*\n" +
-	"\tpage_size\x18\x02 \x01(\x05B\r\xe0A\x01\xbaH\a\x1a\x05\x18\xe8\a(\x00R\bpageSize\x12\"\n" +
-	"\n" +
-	"page_token\x18\x03 \x01(\tB\x03\xe0A\x01R\tpageToken\x12\x1b\n" +
-	"\x06filter\x18\x04 \x01(\tB\x03\xe0A\x01R\x06filter\x12\x1e\n" +
-	"\border_by\x18\x05 \x01(\tB\x03\xe0A\x01R\aorderBy\"m\n" +
-	"\x11ListUnitsResponse\x120\n" +
-	"\x05units\x18\x01 \x03(\v2\x1a.freebusy.property.v1.UnitR\x05units\x12&\n" +
-	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"l\n" +
-	"\x0eGetUnitRequest\x12Z\n" +
-	"\x04name\x18\x01 \x01(\tBF\xe0A\x02\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/Unit\xbaH\"r 2\x1e^properties/[^/]+/units/[^/]+$R\x04name\"\xbf\x04\n" +
-	"\x11CreateUnitRequest\x12V\n" +
-	"\x06parent\x18\x01 \x01(\tB>\xe0A\x02\xfaA\x1f\n" +
-	"\x1dfreebusy.property.v1/Property\xbaH\x16r\x142\x12^properties/[^/]+$R\x06parent\x12\xec\x02\n" +
-	"\x04unit\x18\x02 \x01(\v2\x1a.freebusy.property.v1.UnitB\xbb\x02\xe0A\x02\xbaH\xb4\x02\xba\x01R\n" +
-	"\x18create_unit.display_name\x12\x1dunit.display_name is required\x1a\x17this.display_name != ''\xba\x019\n" +
-	"\x10create_unit.type\x12\x15unit.type is required\x1a\x0ethis.type != 0\xba\x01Q\n" +
-	"\x18create_unit.booking_mode\x12\x1dunit.booking_mode is required\x1a\x16this.booking_mode != 0\xba\x01I\n" +
-	"\x15create_unit.time_zone\x12\x1aunit.time_zone is required\x1a\x14this.time_zone != ''\xc8\x01\x01R\x04unit\x127\n" +
-	"\aunit_id\x18\x03 \x01(\tB\x1e\xe0A\x01\xbaH\x18\xd8\x01\x01r\x132\x11^[a-z0-9-]{1,63}$R\x06unitId\x12*\n" +
-	"\n" +
-	"request_id\x18\x04 \x01(\tB\v\xe0A\x01\xe2\x8c\xcf\xd7\b\x02\b\x01R\trequestId\"\xa0\x02\n" +
-	"\x11UpdateUnitRequest\x12\xc8\x01\n" +
-	"\x04unit\x18\x01 \x01(\v2\x1a.freebusy.property.v1.UnitB\x97\x01\xe0A\x02\xbaH\x90\x01\xba\x01\x89\x01\n" +
-	"\x10update_unit.name\x12@unit.name must be of the form properties/{property}/units/{unit}\x1a3this.name.matches('^properties/[^/]+/units/[^/]+$')\xc8\x01\x01R\x04unit\x12@\n" +
-	"\vupdate_mask\x18\x02 \x01(\v2\x1a.google.protobuf.FieldMaskB\x03\xe0A\x01R\n" +
-	"updateMask\"\x8a\x01\n" +
-	"\x11DeleteUnitRequest\x12Z\n" +
-	"\x04name\x18\x01 \x01(\tBF\xe0A\x02\xfaA\x1b\n" +
-	"\x19freebusy.property.v1/Unit\xbaH\"r 2\x1e^properties/[^/]+/units/[^/]+$R\x04name\x12\x19\n" +
-	"\x05force\x18\x02 \x01(\bB\x03\xe0A\x01R\x05force\"\xfa\x01\n" +
-	"\x13ListLicencesRequest\x12V\n" +
-	"\x06parent\x18\x01 \x01(\tB>\xe0A\x02\xfaA\x1f\n" +
-	"\x1dfreebusy.property.v1/Property\xbaH\x16r\x142\x12^properties/[^/]+$R\x06parent\x12*\n" +
+	",freebusy/property/v1/property_messages.proto\x12\x14freebusy.property.v1\x1a\x1bbuf/validate/validate.proto\x1a#freebusy/property/v1/property.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1bgoogle/api/field_info.proto\x1a\x19google/api/resource.proto\x1a google/protobuf/field_mask.proto\"\x88\x02\n" +
+	"\x13ListLicencesRequest\x12d\n" +
+	"\x06parent\x18\x01 \x01(\tBL\xe0A\x02\xfaA$\n" +
+	"\"protobufrfc.dev/OrganizationalUnit\xbaH\x1fr\x1d2\x1b^organizationalUnits/[^/]+$R\x06parent\x12*\n" +
 	"\tpage_size\x18\x02 \x01(\x05B\r\xe0A\x01\xbaH\a\x1a\x05\x18\xe8\a(\x00R\bpageSize\x12\"\n" +
 	"\n" +
 	"page_token\x18\x03 \x01(\tB\x03\xe0A\x01R\tpageToken\x12\x1b\n" +
@@ -1234,28 +405,28 @@ const file_freebusy_property_v1_property_messages_proto_rawDesc = "" +
 	"\border_by\x18\x05 \x01(\tB\x03\xe0A\x01R\aorderBy\"y\n" +
 	"\x14ListLicencesResponse\x129\n" +
 	"\blicences\x18\x01 \x03(\v2\x1d.freebusy.property.v1.LicenceR\blicences\x12&\n" +
-	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"u\n" +
-	"\x11GetLicenceRequest\x12`\n" +
-	"\x04name\x18\x01 \x01(\tBL\xe0A\x02\xfaA\x1e\n" +
-	"\x1cfreebusy.property.v1/Licence\xbaH%r#2!^properties/[^/]+/licences/[^/]+$R\x04name\"\x9f\x04\n" +
-	"\x14CreateLicenceRequest\x12V\n" +
-	"\x06parent\x18\x01 \x01(\tB>\xe0A\x02\xfaA\x1f\n" +
-	"\x1dfreebusy.property.v1/Property\xbaH\x16r\x142\x12^properties/[^/]+$R\x06parent\x12\x84\x01\n" +
+	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken\"~\n" +
+	"\x11GetLicenceRequest\x12i\n" +
+	"\x04name\x18\x01 \x01(\tBU\xe0A\x02\xfaA\x1e\n" +
+	"\x1cfreebusy.property.v1/Licence\xbaH.r,2*^organizationalUnits/[^/]+/licences/[^/]+$R\x04name\"\xad\x04\n" +
+	"\x14CreateLicenceRequest\x12d\n" +
+	"\x06parent\x18\x01 \x01(\tBL\xe0A\x02\xfaA$\n" +
+	"\"protobufrfc.dev/OrganizationalUnit\xbaH\x1fr\x1d2\x1b^organizationalUnits/[^/]+$R\x06parent\x12\x84\x01\n" +
 	"\alicence\x18\x02 \x01(\v2\x1d.freebusy.property.v1.LicenceBK\xe0A\x02\xbaHE\xba\x01?\n" +
 	"\x13create_licence.type\x12\x18licence.type is required\x1a\x0ethis.type != 0\xc8\x01\x01R\alicence\x12=\n" +
 	"\n" +
 	"licence_id\x18\x03 \x01(\tB\x1e\xe0A\x01\xbaH\x18\xd8\x01\x01r\x132\x11^[a-z0-9-]{1,63}$R\tlicenceId\x12*\n" +
 	"\n" +
 	"request_id\x18\x04 \x01(\tB\v\xe0A\x01\xe2\x8c\xcf\xd7\b\x02\b\x01R\trequestId:\xbc\x01\xbaH\xb8\x01\x1a\xb5\x01\n" +
-	"\x1acreate_licence.unit_parent\x12/licence.unit must belong to the parent property\x1af!has(this.licence) || this.licence.unit == '' || this.licence.unit.startsWith(this.parent + '/units/')\"\xbb\x02\n" +
-	"\x14UpdateLicenceRequest\x12\xe0\x01\n" +
-	"\alicence\x18\x01 \x01(\v2\x1d.freebusy.property.v1.LicenceB\xa6\x01\xe0A\x02\xbaH\x9f\x01\xba\x01\x98\x01\n" +
-	"\x13update_licence.name\x12Ilicence.name must be of the form properties/{property}/licences/{licence}\x1a6this.name.matches('^properties/[^/]+/licences/[^/]+$')\xc8\x01\x01R\alicence\x12@\n" +
+	"\x1acreate_licence.unit_parent\x12/licence.unit must belong to the parent property\x1af!has(this.licence) || this.licence.unit == '' || this.licence.unit.startsWith(this.parent + '/units/')\"\xd8\x02\n" +
+	"\x14UpdateLicenceRequest\x12\xfd\x01\n" +
+	"\alicence\x18\x01 \x01(\v2\x1d.freebusy.property.v1.LicenceB\xc3\x01\xe0A\x02\xbaH\xbc\x01\xba\x01\xb5\x01\n" +
+	"\x13update_licence.name\x12]licence.name must be of the form organizationalUnits/{organizational_unit}/licences/{licence}\x1a?this.name.matches('^organizationalUnits/[^/]+/licences/[^/]+$')\xc8\x01\x01R\alicence\x12@\n" +
 	"\vupdate_mask\x18\x02 \x01(\v2\x1a.google.protobuf.FieldMaskB\x03\xe0A\x01R\n" +
-	"updateMask\"x\n" +
-	"\x14DeleteLicenceRequest\x12`\n" +
-	"\x04name\x18\x01 \x01(\tBL\xe0A\x02\xfaA\x1e\n" +
-	"\x1cfreebusy.property.v1/Licence\xbaH%r#2!^properties/[^/]+/licences/[^/]+$R\x04nameB\x81\x02\n" +
+	"updateMask\"\x81\x01\n" +
+	"\x14DeleteLicenceRequest\x12i\n" +
+	"\x04name\x18\x01 \x01(\tBU\xe0A\x02\xfaA\x1e\n" +
+	"\x1cfreebusy.property.v1/Licence\xbaH.r,2*^organizationalUnits/[^/]+/licences/[^/]+$R\x04nameB\x81\x02\n" +
 	"\x18com.freebusy.property.v1B\x15PropertyMessagesProtoP\x01Z\\github.com/oh-tarnished/freebusy/protobuf/generated/go/property/v1/propertypbv1;propertypbv1\xa2\x02\x03FPX\xaa\x02\x14Freebusy.Property.V1\xca\x02\x14Freebusy\\Property\\V1\xe2\x02 Freebusy\\Property\\V1\\GPBMetadata\xea\x02\x16Freebusy::Property::V1b\x06proto3"
 
 var (
@@ -1270,50 +441,27 @@ func file_freebusy_property_v1_property_messages_proto_rawDescGZIP() []byte {
 	return file_freebusy_property_v1_property_messages_proto_rawDescData
 }
 
-var file_freebusy_property_v1_property_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_freebusy_property_v1_property_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_freebusy_property_v1_property_messages_proto_goTypes = []any{
-	(*ListPropertiesRequest)(nil),    // 0: freebusy.property.v1.ListPropertiesRequest
-	(*ListPropertiesResponse)(nil),   // 1: freebusy.property.v1.ListPropertiesResponse
-	(*GetPropertyRequest)(nil),       // 2: freebusy.property.v1.GetPropertyRequest
-	(*CreatePropertyRequest)(nil),    // 3: freebusy.property.v1.CreatePropertyRequest
-	(*UpdatePropertyRequest)(nil),    // 4: freebusy.property.v1.UpdatePropertyRequest
-	(*ArchivePropertyRequest)(nil),   // 5: freebusy.property.v1.ArchivePropertyRequest
-	(*UnarchivePropertyRequest)(nil), // 6: freebusy.property.v1.UnarchivePropertyRequest
-	(*ListUnitsRequest)(nil),         // 7: freebusy.property.v1.ListUnitsRequest
-	(*ListUnitsResponse)(nil),        // 8: freebusy.property.v1.ListUnitsResponse
-	(*GetUnitRequest)(nil),           // 9: freebusy.property.v1.GetUnitRequest
-	(*CreateUnitRequest)(nil),        // 10: freebusy.property.v1.CreateUnitRequest
-	(*UpdateUnitRequest)(nil),        // 11: freebusy.property.v1.UpdateUnitRequest
-	(*DeleteUnitRequest)(nil),        // 12: freebusy.property.v1.DeleteUnitRequest
-	(*ListLicencesRequest)(nil),      // 13: freebusy.property.v1.ListLicencesRequest
-	(*ListLicencesResponse)(nil),     // 14: freebusy.property.v1.ListLicencesResponse
-	(*GetLicenceRequest)(nil),        // 15: freebusy.property.v1.GetLicenceRequest
-	(*CreateLicenceRequest)(nil),     // 16: freebusy.property.v1.CreateLicenceRequest
-	(*UpdateLicenceRequest)(nil),     // 17: freebusy.property.v1.UpdateLicenceRequest
-	(*DeleteLicenceRequest)(nil),     // 18: freebusy.property.v1.DeleteLicenceRequest
-	(*Property)(nil),                 // 19: freebusy.property.v1.Property
-	(*fieldmaskpb.FieldMask)(nil),    // 20: google.protobuf.FieldMask
-	(*Unit)(nil),                     // 21: freebusy.property.v1.Unit
-	(*Licence)(nil),                  // 22: freebusy.property.v1.Licence
+	(*ListLicencesRequest)(nil),   // 0: freebusy.property.v1.ListLicencesRequest
+	(*ListLicencesResponse)(nil),  // 1: freebusy.property.v1.ListLicencesResponse
+	(*GetLicenceRequest)(nil),     // 2: freebusy.property.v1.GetLicenceRequest
+	(*CreateLicenceRequest)(nil),  // 3: freebusy.property.v1.CreateLicenceRequest
+	(*UpdateLicenceRequest)(nil),  // 4: freebusy.property.v1.UpdateLicenceRequest
+	(*DeleteLicenceRequest)(nil),  // 5: freebusy.property.v1.DeleteLicenceRequest
+	(*Licence)(nil),               // 6: freebusy.property.v1.Licence
+	(*fieldmaskpb.FieldMask)(nil), // 7: google.protobuf.FieldMask
 }
 var file_freebusy_property_v1_property_messages_proto_depIdxs = []int32{
-	19, // 0: freebusy.property.v1.ListPropertiesResponse.properties:type_name -> freebusy.property.v1.Property
-	19, // 1: freebusy.property.v1.CreatePropertyRequest.property:type_name -> freebusy.property.v1.Property
-	19, // 2: freebusy.property.v1.UpdatePropertyRequest.property:type_name -> freebusy.property.v1.Property
-	20, // 3: freebusy.property.v1.UpdatePropertyRequest.update_mask:type_name -> google.protobuf.FieldMask
-	21, // 4: freebusy.property.v1.ListUnitsResponse.units:type_name -> freebusy.property.v1.Unit
-	21, // 5: freebusy.property.v1.CreateUnitRequest.unit:type_name -> freebusy.property.v1.Unit
-	21, // 6: freebusy.property.v1.UpdateUnitRequest.unit:type_name -> freebusy.property.v1.Unit
-	20, // 7: freebusy.property.v1.UpdateUnitRequest.update_mask:type_name -> google.protobuf.FieldMask
-	22, // 8: freebusy.property.v1.ListLicencesResponse.licences:type_name -> freebusy.property.v1.Licence
-	22, // 9: freebusy.property.v1.CreateLicenceRequest.licence:type_name -> freebusy.property.v1.Licence
-	22, // 10: freebusy.property.v1.UpdateLicenceRequest.licence:type_name -> freebusy.property.v1.Licence
-	20, // 11: freebusy.property.v1.UpdateLicenceRequest.update_mask:type_name -> google.protobuf.FieldMask
-	12, // [12:12] is the sub-list for method output_type
-	12, // [12:12] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	6, // 0: freebusy.property.v1.ListLicencesResponse.licences:type_name -> freebusy.property.v1.Licence
+	6, // 1: freebusy.property.v1.CreateLicenceRequest.licence:type_name -> freebusy.property.v1.Licence
+	6, // 2: freebusy.property.v1.UpdateLicenceRequest.licence:type_name -> freebusy.property.v1.Licence
+	7, // 3: freebusy.property.v1.UpdateLicenceRequest.update_mask:type_name -> google.protobuf.FieldMask
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_freebusy_property_v1_property_messages_proto_init() }
@@ -1328,7 +476,7 @@ func file_freebusy_property_v1_property_messages_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_freebusy_property_v1_property_messages_proto_rawDesc), len(file_freebusy_property_v1_property_messages_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   19,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

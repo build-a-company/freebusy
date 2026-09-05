@@ -49,8 +49,6 @@ type AvailabilityExceptionStoreIface interface {
 	GetByID(ctx context.Context, id string) (*AvailabilityException, error)
 	DeleteByID(ctx context.Context, id string) error
 	GetByName(ctx context.Context, v string) (*AvailabilityException, error)
-	ListByPropertyID(ctx context.Context, id string, opts gormx.ListOptions) ([]AvailabilityException, error)
-	ListByUnitID(ctx context.Context, id string, opts gormx.ListOptions) ([]AvailabilityException, error)
 	ListByWindowID(ctx context.Context, id string, opts gormx.ListOptions) ([]AvailabilityException, error)
 	ListByDateRangeID(ctx context.Context, id string, opts gormx.ListOptions) ([]AvailabilityException, error)
 }
@@ -180,36 +178,6 @@ func (s *AvailabilityExceptionStore) GetByName(ctx context.Context, v string) (*
 		return nil, err
 	}
 	return &m, nil
-}
-
-// ListByPropertyID returns the AvailabilityException records whose property_id matches id, with opts applied.
-func (s *AvailabilityExceptionStore) ListByPropertyID(ctx context.Context, id string, opts gormx.ListOptions) ([]AvailabilityException, error) {
-	var out []AvailabilityException
-	tel := gormx.OrNop(s.Telemetry)
-	start := time.Now()
-	err := tel.Span(ctx, "schedule.AvailabilityException/ListByPropertyID", nil, func(ctx context.Context) error {
-		return opts.Apply(s.DB.WithContext(ctx).Where("property_id = ?", id)).Find(&out).Error
-	})
-	tel.RecordOp(ctx, "schedule.availability_exceptions", "list_by_property_id", time.Since(start), err)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// ListByUnitID returns the AvailabilityException records whose unit_id matches id, with opts applied.
-func (s *AvailabilityExceptionStore) ListByUnitID(ctx context.Context, id string, opts gormx.ListOptions) ([]AvailabilityException, error) {
-	var out []AvailabilityException
-	tel := gormx.OrNop(s.Telemetry)
-	start := time.Now()
-	err := tel.Span(ctx, "schedule.AvailabilityException/ListByUnitID", nil, func(ctx context.Context) error {
-		return opts.Apply(s.DB.WithContext(ctx).Where("unit_id = ?", id)).Find(&out).Error
-	})
-	tel.RecordOp(ctx, "schedule.availability_exceptions", "list_by_unit_id", time.Since(start), err)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 // ListByWindowID returns the AvailabilityException records whose window_id matches id, with opts applied.

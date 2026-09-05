@@ -15,24 +15,14 @@ erDiagram
     direction LR
     Channel {
         string id PK
-        string property FK
     }
     ChannelSyncStatus {
         string id PK
     }
     UnitMapping {
         string id PK
-        string unit FK
         string channel_id FK
     }
-    Property {
-        string externalStub PK
-    }
-    Unit {
-        string externalStub PK
-    }
-    Channel }o--|| Property : "property"
-    UnitMapping }o--|| Unit : "unit"
     UnitMapping }o--|| Channel : "channel_id"
 ```
 

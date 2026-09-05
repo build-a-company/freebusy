@@ -49,13 +49,11 @@ type LicenceStoreIface interface {
 	GetByID(ctx context.Context, id string) (*Licence, error)
 	DeleteByID(ctx context.Context, id string) error
 	GetByName(ctx context.Context, v string) (*Licence, error)
-	ListByUnitID(ctx context.Context, id string, opts gormx.ListOptions) ([]Licence, error)
-	ListByPropertyID(ctx context.Context, id string, opts gormx.ListOptions) ([]Licence, error)
 	ListByAttachmentID(ctx context.Context, id string, opts gormx.ListOptions) ([]Licence, error)
 }
 
 // LicenceStore provides typed CRUD access to Licence records.
-// A regulatory licence or certificate held by a Property or one of its Units (e.g. trade licence, fire safety NOC, per-room liquor licence). One resource covers both: every licence is parented by the property, `target` says what it covers, and a unit licence names its unit in `unit`. Tracks the issuing authority and validity window so `expiry_date` can be filtered on to find licences due for renewal; the certificate itself is carried in `attachment`. A standalone resource (own Get/List/Create/Update/Delete), like Unit, rather than an embedded repeated field like Media, so a renewal doesn't require resending the whole Property.
+// A regulatory licence or certificate held by a site or one of its bookable resources (e.g. trade licence, fire safety NOC, per-room liquor licence). Native, and it stays native because no RFC covers it: the IETF standardises calendars and directories, not the paperwork a jurisdiction demands to operate. It parents onto an RFC 4519 organizationalUnit and names an RFC 9073 resource, so the only thing freebusy defines here is the licence itself. One resource covers both scopes: `target` says which, and a resource-scoped licence names it in `unit`. `expiry_date` is filterable so renewals due can be listed; the certificate itself rides in `attachment`.
 type LicenceStore struct {
 	DB *gorm.DB
 	// Telemetry observes every operation; nil is a no-op. Wire the generated
@@ -177,36 +175,6 @@ func (s *LicenceStore) GetByName(ctx context.Context, v string) (*Licence, error
 		return nil, err
 	}
 	return &m, nil
-}
-
-// ListByUnitID returns the Licence records whose unit matches id, with opts applied.
-func (s *LicenceStore) ListByUnitID(ctx context.Context, id string, opts gormx.ListOptions) ([]Licence, error) {
-	var out []Licence
-	tel := gormx.OrNop(s.Telemetry)
-	start := time.Now()
-	err := tel.Span(ctx, "property.Licence/ListByUnitID", nil, func(ctx context.Context) error {
-		return opts.Apply(s.DB.WithContext(ctx).Where("unit = ?", id)).Find(&out).Error
-	})
-	tel.RecordOp(ctx, "property.licences", "list_by_unit", time.Since(start), err)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// ListByPropertyID returns the Licence records whose property_id matches id, with opts applied.
-func (s *LicenceStore) ListByPropertyID(ctx context.Context, id string, opts gormx.ListOptions) ([]Licence, error) {
-	var out []Licence
-	tel := gormx.OrNop(s.Telemetry)
-	start := time.Now()
-	err := tel.Span(ctx, "property.Licence/ListByPropertyID", nil, func(ctx context.Context) error {
-		return opts.Apply(s.DB.WithContext(ctx).Where("property_id = ?", id)).Find(&out).Error
-	})
-	tel.RecordOp(ctx, "property.licences", "list_by_property_id", time.Since(start), err)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 // ListByAttachmentID returns the Licence records whose attachment_id matches id, with opts applied.

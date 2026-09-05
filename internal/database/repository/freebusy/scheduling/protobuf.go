@@ -101,6 +101,7 @@ func strToDur(s string) *durationpb.Duration {
 func bookingToCreateInput(in *schedulingpbv1.Booking) bookingsql.CreateInput {
 	var ci bookingsql.CreateInput
 	ci.Name = in.GetName()
+	ci.Unit = in.GetUnit()
 	if v := in.GetCustomer(); v != "" {
 		ci.Customer = repox.LastSegment(v)
 	}
@@ -122,6 +123,7 @@ func bookingToCreateInput(in *schedulingpbv1.Booking) bookingsql.CreateInput {
 func bookingToUpdatePatch(merged *schedulingpbv1.Booking) bookingsql.UpdateInput {
 	var patch bookingsql.UpdateInput
 	patch.Name = graphql.Value(merged.GetName())
+	patch.Unit = graphql.Value(merged.GetUnit())
 	if v := repox.LastSegment(merged.GetCustomer()); v != "" {
 		patch.Customer = graphql.Value(v)
 	} else {
@@ -159,6 +161,7 @@ func bookingFromRow(row *bookingsql.SchedulingBookings) *schedulingpbv1.Booking 
 	}
 	out := &schedulingpbv1.Booking{}
 	out.Name = row.Name
+	out.Unit = row.Unit
 	if v := repox.Deref(row.Customer); v != "" {
 		out.Customer = "users/" + v
 	}

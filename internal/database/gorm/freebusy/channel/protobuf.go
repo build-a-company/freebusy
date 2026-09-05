@@ -179,8 +179,8 @@ func ChannelToProto(m *Channel) *channelpbv1.Channel {
 		return nil
 	}
 	out := &channelpbv1.Channel{}
-	// not mapped here: property (resource reference)
 	out.Name = m.Name
+	out.Property = m.Property
 	out.Type = ChannelTypeToProto(m.Type)
 	out.DisplayName = fromPtr(m.DisplayName)
 	out.ExternalPropertyId = fromPtr(m.ExternalPropertyID)
@@ -201,8 +201,8 @@ func ChannelFromProto(pb *channelpbv1.Channel) *Channel {
 		return nil
 	}
 	m := &Channel{}
-	// not mapped here: property (resource reference)
 	m.Name = pb.GetName()
+	m.Property = pb.GetProperty()
 	m.Type = ChannelTypeFromProto(pb.GetType())
 	m.DisplayName = toPtr(pb.GetDisplayName())
 	m.ExternalPropertyID = toPtr(pb.GetExternalPropertyId())
@@ -220,8 +220,8 @@ func UnitMappingToProto(m *UnitMapping) *channelpbv1.UnitMapping {
 		return nil
 	}
 	out := &channelpbv1.UnitMapping{}
-	// not mapped here: unit (resource reference)
 	out.Name = m.Name
+	out.Unit = m.Unit
 	out.ExternalRoomTypeId = m.ExternalRoomTypeID
 	out.ExternalRatePlanId = fromPtr(m.ExternalRatePlanID)
 	out.State = MappingStatePtrToProto(m.State)
@@ -239,8 +239,8 @@ func UnitMappingFromProto(pb *channelpbv1.UnitMapping) *UnitMapping {
 		return nil
 	}
 	m := &UnitMapping{}
-	// not mapped here: unit (resource reference)
 	m.Name = pb.GetName()
+	m.Unit = pb.GetUnit()
 	m.ExternalRoomTypeID = pb.GetExternalRoomTypeId()
 	m.ExternalRatePlanID = toPtr(pb.GetExternalRatePlanId())
 	m.State = MappingStatePtrFromProto(pb.GetState())

@@ -28,6 +28,9 @@ func applyLicenceMask(merged, in *propertypbv1.Licence, paths []string) {
 	if repox.InMask(paths, "name") {
 		merged.Name = in.GetName()
 	}
+	if repox.InMask(paths, "unit") {
+		merged.Unit = in.GetUnit()
+	}
 	if repox.InMask(paths, "type") {
 		merged.Type = in.GetType()
 	}
@@ -48,85 +51,5 @@ func applyLicenceMask(merged, in *propertypbv1.Licence, paths []string) {
 	}
 	if repox.GroupTouched(paths, "attachment") {
 		merged.Attachment = in.GetAttachment()
-	}
-}
-
-// applyPropertyMask merges the masked fields of in onto merged. An empty
-// mask replaces every mutable field; identity, parentage, timestamps, and etag
-// are repository-managed and never masked. Message-typed fields are replaced
-// wholesale when the mask touches them or any of their subpaths.
-func applyPropertyMask(merged, in *propertypbv1.Property, paths []string) {
-	if repox.InMask(paths, "name") {
-		merged.Name = in.GetName()
-	}
-	if repox.InMask(paths, "organisation") {
-		merged.Organisation = in.GetOrganisation()
-	}
-	if repox.InMask(paths, "display_name") {
-		merged.DisplayName = in.GetDisplayName()
-	}
-	if repox.InMask(paths, "description") {
-		merged.Description = in.GetDescription()
-	}
-	if repox.InMask(paths, "time_zone") {
-		merged.TimeZone = in.GetTimeZone()
-	}
-	if repox.InMask(paths, "tags") {
-		merged.Tags = in.GetTags()
-	}
-	if repox.GroupTouched(paths, "attributes") {
-		merged.Attributes = in.GetAttributes()
-	}
-	if repox.GroupTouched(paths, "address") {
-		merged.Address = in.GetAddress()
-	}
-	if repox.GroupTouched(paths, "policy") {
-		merged.Policy = in.GetPolicy()
-	}
-}
-
-// applyUnitMask merges the masked fields of in onto merged. An empty
-// mask replaces every mutable field; identity, parentage, timestamps, and etag
-// are repository-managed and never masked. Message-typed fields are replaced
-// wholesale when the mask touches them or any of their subpaths.
-func applyUnitMask(merged, in *propertypbv1.Unit, paths []string) {
-	if repox.InMask(paths, "name") {
-		merged.Name = in.GetName()
-	}
-	if repox.InMask(paths, "display_name") {
-		merged.DisplayName = in.GetDisplayName()
-	}
-	if repox.InMask(paths, "description") {
-		merged.Description = in.GetDescription()
-	}
-	if repox.InMask(paths, "type") {
-		merged.Type = in.GetType()
-	}
-	if repox.InMask(paths, "booking_mode") {
-		merged.BookingMode = in.GetBookingMode()
-	}
-	if repox.InMask(paths, "capacity") {
-		merged.Capacity = in.GetCapacity()
-	}
-	if repox.InMask(paths, "max_occupancy") {
-		merged.MaxOccupancy = in.GetMaxOccupancy()
-	}
-	if repox.InMask(paths, "time_zone") {
-		merged.TimeZone = in.GetTimeZone()
-	}
-	if repox.InMask(paths, "pricing_unit") {
-		merged.PricingUnit = in.GetPricingUnit()
-	}
-	if repox.GroupTouched(paths, "duration") {
-		merged.Duration = in.GetDuration()
-	}
-	if repox.InMask(paths, "tags") {
-		merged.Tags = in.GetTags()
-	}
-	if repox.GroupTouched(paths, "attributes") {
-		merged.Attributes = in.GetAttributes()
-	}
-	if repox.GroupTouched(paths, "price") {
-		merged.Price = in.GetPrice()
 	}
 }

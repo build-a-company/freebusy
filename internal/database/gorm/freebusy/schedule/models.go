@@ -46,7 +46,7 @@ const (
 type AvailabilityException struct {
 	// Unique identifier for the record.
 	ID string `gorm:"column:id;primaryKey;not null" json:"id"`
-	// The exception name. Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}
+	// The exception name. Format: resources/{resource}/availabilityExceptions/{availability_exception}
 	Name string `gorm:"column:name;not null;uniqueIndex" json:"name" validate:"required"`
 	// Whether this span closes the unit or adds extra availability.
 	Kind ExceptionKind `gorm:"column:kind;not null;default:'CLOSURE';check:chk_availability_exceptions_kind,kind IN ('CLOSURE','EXTRA_HOURS')" json:"kind" validate:"required"`
@@ -56,9 +56,9 @@ type AvailabilityException struct {
 	CreateTime time.Time `gorm:"column:create_time;type:timestamptz;not null;autoCreateTime" json:"create_time"`
 	// Discriminator: which span oneof member is set (null = none).
 	SpanCase *AvailabilityExceptionSpanCase `gorm:"column:span_case;check:chk_availability_exceptions_span_case,span_case IN ('WINDOW','DATE_RANGE')" json:"span_case,omitempty"`
-	// Parent reference to Property (from the AIP resource pattern).
+	// Parent reference to Property (from the AIP resource pattern). TODO: unresolved reference to Property (not in this generation set); kept as a plain indexed column.
 	PropertyID string `gorm:"column:property_id;not null;index:idx_availability_exceptions_property_id" json:"property_id" validate:"required"`
-	// Parent reference to Unit (from the AIP resource pattern).
+	// Parent reference to Unit (from the AIP resource pattern). TODO: unresolved reference to Unit (not in this generation set); kept as a plain indexed column.
 	UnitID string `gorm:"column:unit_id;not null;index:idx_availability_exceptions_unit_id" json:"unit_id" validate:"required"`
 	// Foreign key to TimeWindow.
 	WindowID *string            `gorm:"column:window_id;index:idx_availability_exceptions_window_id" json:"window_id,omitempty"`
@@ -76,11 +76,11 @@ func (*AvailabilityException) TableName() string { return "schedule.availability
 type Schedule struct {
 	// Unique identifier for the record.
 	ID string `gorm:"column:id;primaryKey;not null" json:"id"`
-	// The schedule name. Format: properties/{property}/units/{unit}/schedule
+	// The schedule name. Format: resources/{resource}/schedule
 	Name string `gorm:"column:name;not null;uniqueIndex" json:"name" validate:"required"`
 	// Opaque version for optimistic concurrency (AIP-154); echo on update.
 	Etag *string `gorm:"column:etag" json:"etag,omitempty"`
-	// Parent reference to Property (from the AIP resource pattern).
+	// Parent reference to Property (from the AIP resource pattern). TODO: unresolved reference to Property (not in this generation set); kept as a plain indexed column.
 	PropertyID string `gorm:"column:property_id;not null;index:idx_resource_property_id" json:"property_id" validate:"required"`
 	// Foreign key to BufferSettings.
 	BuffersID *string         `gorm:"column:buffers_id;index:idx_resource_buffers_id" json:"buffers_id,omitempty"`

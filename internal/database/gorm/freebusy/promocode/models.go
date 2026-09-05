@@ -17,6 +17,7 @@ package promocode
 import (
 	"time"
 
+	"github.com/lib/pq"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 )
 
@@ -160,40 +161,12 @@ type Scope struct {
 	// Foreign key to Money.
 	MinSubtotalID *string       `gorm:"column:min_subtotal_id;index:idx_scopes_min_subtotal_id" json:"min_subtotal_id,omitempty"`
 	MinSubtotal   *common.Money `gorm:"foreignKey:MinSubtotalID;constraint:OnDelete:SET NULL" json:"minsubtotal,omitempty"`
+	// Properties the code applies to. Empty means all properties. Format: organizationalUnits/{organizational_unit}
+	ApplicableProperties pq.StringArray `gorm:"column:applicable_properties;type:text[];index:idx_scopes_applicable_properties_gin,type:gin" json:"applicable_properties,omitempty"`
+	// Units the code applies to. Empty means all units. Format: resources/{resource}
+	ApplicableUnits pq.StringArray `gorm:"column:applicable_units;type:text[];index:idx_scopes_applicable_units_gin,type:gin" json:"applicable_units,omitempty"`
 	// Back-relation: PromoCode records that reference this via scope_id.
 	Resource []PromoCode `gorm:"foreignKey:ScopeID" json:"resource,omitempty"`
-	// Back-relation: ScopeApplicableProperties records that reference this via scope_id.
-	ScopeApplicableProperties []ScopeApplicableProperties `gorm:"foreignKey:ScopeID" json:"scopeapplicableproperties,omitempty"`
-	// Back-relation: ScopeApplicableUnits records that reference this via scope_id.
-	ScopeApplicableUnits []ScopeApplicableUnits `gorm:"foreignKey:ScopeID" json:"scopeapplicableunits,omitempty"`
 }
 
 func (*Scope) TableName() string { return "promocode.scopes" }
-
-// Join table for the many-to-many relation Scope.applicable_properties ↔ Property.
-type ScopeApplicableProperties struct {
-	// Unique identifier for the record.
-	ID string `gorm:"column:id;primaryKey;not null" json:"id"`
-	// Foreign key to Scope.
-	ScopeID string `gorm:"column:scope_id;not null;uniqueIndex:idx_scope_applicable_properties_scope_id_property_id,priority:1" json:"scope_id" validate:"required"`
-	Scope   *Scope `gorm:"foreignKey:ScopeID;constraint:OnDelete:CASCADE" json:"scope,omitempty"`
-	// Foreign key to Property.
-	PropertyID string `gorm:"column:property_id;not null;uniqueIndex:idx_scope_applicable_properties_scope_id_property_id,priority:2;index:idx_scope_applicable_properties_property_id" json:"property_id" validate:"required"`
-}
-
-func (*ScopeApplicableProperties) TableName() string { return "promocode.scope_applicable_properties" }
-
-// Join table for the many-to-many relation Scope.applicable_units ↔ Unit.
-type ScopeApplicableUnits struct {
-	// Unique identifier for the record.
-	ID string `gorm:"column:id;primaryKey;not null" json:"id"`
-	// Foreign key to Scope.
-	ScopeID string `gorm:"column:scope_id;not null;uniqueIndex:idx_scope_applicable_units_scope_id_unit_id,priority:1" json:"scope_id" validate:"required"`
-	Scope   *Scope `gorm:"foreignKey:ScopeID;constraint:OnDelete:CASCADE" json:"scope,omitempty"`
-	// Foreign key to Unit.
-	UnitID string `gorm:"column:unit_id;not null;uniqueIndex:idx_scope_applicable_units_scope_id_unit_id,priority:2;index:idx_scope_applicable_units_unit_id" json:"unit_id" validate:"required"`
-	// Full resource name of the referenced Unit, capturing the parent hierarchy the unit_id id alone omits.
-	UnitName string `gorm:"column:unit_name;not null" json:"unit_name" validate:"required"`
-}
-
-func (*ScopeApplicableUnits) TableName() string { return "promocode.scope_applicable_units" }

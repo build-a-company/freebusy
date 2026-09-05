@@ -7,66 +7,6 @@ option java_multiple_files = true;
 option java_outer_classname = "EnumsProto";
 option java_package = "dev.ohtarnished.freebusy.property.v1";
 
-// Lifecycle status of a property.
-enum PropertyState {
-  // Unset.
-  PROPERTY_STATE_UNSPECIFIED = 0;
-
-  // Live and visible to guests.
-  PROPERTY_STATE_ACTIVE = 1;
-
-  // Retired; hidden from storefront and new bookings.
-  PROPERTY_STATE_ARCHIVED = 2;
-}
-
-// Lifecycle status of a unit.
-enum UnitState {
-  // Unset.
-  UNIT_STATE_UNSPECIFIED = 0;
-
-  // Bookable.
-  UNIT_STATE_ACTIVE = 1;
-
-  // Retired; hidden from availability and new bookings.
-  UNIT_STATE_ARCHIVED = 2;
-}
-
-// Kind of bookable unit.
-enum UnitType {
-  // Unset.
-  UNIT_TYPE_UNSPECIFIED = 0;
-
-  // A person who delivers a service (e.g. a doctor, stylist).
-  UNIT_TYPE_PROVIDER = 1;
-
-  // A bookable room or space (e.g. a hotel room, meeting room).
-  UNIT_TYPE_ROOM = 2;
-
-  // A bookable piece of equipment (e.g. a kayak).
-  UNIT_TYPE_EQUIPMENT = 3;
-
-  // A lodging unit type backed by a pool of identical units (e.g. a room type).
-  UNIT_TYPE_LODGING = 4;
-
-  // A generic space or venue.
-  UNIT_TYPE_SPACE = 5;
-}
-
-// What a unit's price is charged per.
-enum PricingUnit {
-  // Unset; treated as per-booking.
-  PRICING_UNIT_UNSPECIFIED = 0;
-
-  // A flat price for the whole booking.
-  PRICING_UNIT_PER_BOOKING = 1;
-
-  // Price multiplied by the number of nights (NIGHTLY units).
-  PRICING_UNIT_PER_NIGHT = 2;
-
-  // Price multiplied by party size / units booked.
-  PRICING_UNIT_PER_PERSON = 3;
-}
-
 // Kind of regulatory licence or certificate held by a property or unit.
 enum LicenceType {
   // Unset.

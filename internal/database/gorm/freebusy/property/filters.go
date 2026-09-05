@@ -19,75 +19,6 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/filterx"
 )
 
-// PropertyFilterSpec is Property's AIP-160 filter / AIP-132 order_by surface,
-// consumed by the filterx.Gorm and filterx.Hasura engines.
-var PropertyFilterSpec = filterx.Spec{
-	Table: `"property"."properties"`,
-	Fields: map[string]filterx.FieldSpec{
-		"create_time":  {Column: "create_time", Kind: filterx.KindTimestamp},
-		"description":  {Column: "description", Kind: filterx.KindText},
-		"display_name": {Column: "display_name", Kind: filterx.KindText},
-		"etag":         {Column: "etag", Kind: filterx.KindText},
-		"name":         {Column: "name", Kind: filterx.KindText},
-		"organisation": {Column: "organisation", Kind: filterx.KindRef},
-		"state":        {Column: "state", Kind: filterx.KindEnum, EnumPrefix: "PROPERTY_STATE_"},
-		"tags":         {Column: "tags", Kind: filterx.KindTags},
-		"time_zone":    {Column: "time_zone", Kind: filterx.KindText},
-		"update_time":  {Column: "update_time", Kind: filterx.KindTimestamp},
-	},
-	Search: []string{"display_name"},
-	Sort: map[string]filterx.SortSpec{
-		"create_time":  {Column: "create_time", Kind: filterx.KindTimestamp, NotNull: true},
-		"description":  {Column: "description", Kind: filterx.KindText},
-		"display_name": {Column: "display_name", Kind: filterx.KindText, NotNull: true},
-		"etag":         {Column: "etag", Kind: filterx.KindText},
-		"name":         {Column: "name", Kind: filterx.KindText, NotNull: true},
-		"state":        {Column: "state", Kind: filterx.KindEnum},
-		"time_zone":    {Column: "time_zone", Kind: filterx.KindText, NotNull: true},
-		"update_time":  {Column: "update_time", Kind: filterx.KindTimestamp, NotNull: true},
-	},
-	PK: []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
-}
-
-// UnitFilterSpec is Unit's AIP-160 filter / AIP-132 order_by surface,
-// consumed by the filterx.Gorm and filterx.Hasura engines.
-var UnitFilterSpec = filterx.Spec{
-	Table: `"property"."units"`,
-	Fields: map[string]filterx.FieldSpec{
-		"booking_mode":  {Column: "booking_mode", Kind: filterx.KindEnum, EnumPrefix: "BOOKING_MODE_"},
-		"capacity":      {Column: "capacity", Kind: filterx.KindInt},
-		"create_time":   {Column: "create_time", Kind: filterx.KindTimestamp},
-		"description":   {Column: "description", Kind: filterx.KindText},
-		"display_name":  {Column: "display_name", Kind: filterx.KindText},
-		"etag":          {Column: "etag", Kind: filterx.KindText},
-		"max_occupancy": {Column: "max_occupancy", Kind: filterx.KindInt},
-		"name":          {Column: "name", Kind: filterx.KindText},
-		"pricing_unit":  {Column: "pricing_unit", Kind: filterx.KindEnum, EnumPrefix: "PRICING_UNIT_"},
-		"state":         {Column: "state", Kind: filterx.KindEnum, EnumPrefix: "UNIT_STATE_"},
-		"tags":          {Column: "tags", Kind: filterx.KindTags},
-		"time_zone":     {Column: "time_zone", Kind: filterx.KindText},
-		"type":          {Column: "type", Kind: filterx.KindEnum, EnumPrefix: "UNIT_TYPE_"},
-		"update_time":   {Column: "update_time", Kind: filterx.KindTimestamp},
-	},
-	Search: []string{"display_name"},
-	Sort: map[string]filterx.SortSpec{
-		"booking_mode":  {Column: "booking_mode", Kind: filterx.KindEnum, NotNull: true},
-		"capacity":      {Column: "capacity", Kind: filterx.KindInt},
-		"create_time":   {Column: "create_time", Kind: filterx.KindTimestamp, NotNull: true},
-		"description":   {Column: "description", Kind: filterx.KindText},
-		"display_name":  {Column: "display_name", Kind: filterx.KindText, NotNull: true},
-		"etag":          {Column: "etag", Kind: filterx.KindText},
-		"max_occupancy": {Column: "max_occupancy", Kind: filterx.KindInt},
-		"name":          {Column: "name", Kind: filterx.KindText, NotNull: true},
-		"pricing_unit":  {Column: "pricing_unit", Kind: filterx.KindEnum},
-		"state":         {Column: "state", Kind: filterx.KindEnum},
-		"time_zone":     {Column: "time_zone", Kind: filterx.KindText, NotNull: true},
-		"type":          {Column: "type", Kind: filterx.KindEnum, NotNull: true},
-		"update_time":   {Column: "update_time", Kind: filterx.KindTimestamp, NotNull: true},
-	},
-	PK: []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
-}
-
 // LicenceFilterSpec is Licence's AIP-160 filter / AIP-132 order_by surface,
 // consumed by the filterx.Gorm and filterx.Hasura engines.
 var LicenceFilterSpec = filterx.Spec{
@@ -104,7 +35,7 @@ var LicenceFilterSpec = filterx.Spec{
 		"state":             {Column: "state", Kind: filterx.KindEnum, EnumPrefix: "LICENCE_STATE_"},
 		"target":            {Column: "target", Kind: filterx.KindEnum, EnumPrefix: "LICENCE_TARGET_"},
 		"type":              {Column: "type", Kind: filterx.KindEnum, EnumPrefix: "LICENCE_TYPE_"},
-		"unit":              {Column: "unit", Kind: filterx.KindRef},
+		"unit":              {Column: "unit", Kind: filterx.KindText},
 		"update_time":       {Column: "update_time", Kind: filterx.KindTimestamp},
 	},
 	Search: []string{"issuing_authority", "licence_number"},
@@ -120,124 +51,8 @@ var LicenceFilterSpec = filterx.Spec{
 		"state":             {Column: "state", Kind: filterx.KindEnum},
 		"target":            {Column: "target", Kind: filterx.KindEnum},
 		"type":              {Column: "type", Kind: filterx.KindEnum, NotNull: true},
+		"unit":              {Column: "unit", Kind: filterx.KindText},
 		"update_time":       {Column: "update_time", Kind: filterx.KindTimestamp, NotNull: true},
-	},
-	PK: []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
-}
-
-// MediaFilterSpec is Media's AIP-160 filter / AIP-132 order_by surface,
-// consumed by the filterx.Gorm and filterx.Hasura engines.
-var MediaFilterSpec = filterx.Spec{
-	Table: `"property"."medias"`,
-	Fields: map[string]filterx.FieldSpec{
-		"description": {Column: "description", Kind: filterx.KindText},
-		"mime_type":   {Column: "mime_type", Kind: filterx.KindText},
-		"primary":     {Column: "primary", Kind: filterx.KindBool},
-		"sort_order":  {Column: "sort_order", Kind: filterx.KindInt},
-		"title":       {Column: "title", Kind: filterx.KindText},
-		"type":        {Column: "type", Kind: filterx.KindEnum, EnumPrefix: "MEDIA_TYPE_"},
-		"uri":         {Column: "uri", Kind: filterx.KindText},
-	},
-	Sort: map[string]filterx.SortSpec{
-		"description": {Column: "description", Kind: filterx.KindText},
-		"mime_type":   {Column: "mime_type", Kind: filterx.KindText},
-		"primary":     {Column: "primary", Kind: filterx.KindBool},
-		"sort_order":  {Column: "sort_order", Kind: filterx.KindInt},
-		"title":       {Column: "title", Kind: filterx.KindText},
-		"type":        {Column: "type", Kind: filterx.KindEnum, NotNull: true},
-		"uri":         {Column: "uri", Kind: filterx.KindText, NotNull: true},
-	},
-	PK: []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
-}
-
-// PolicyFilterSpec is Policy's AIP-160 filter / AIP-132 order_by surface,
-// consumed by the filterx.Gorm and filterx.Hasura engines.
-var PolicyFilterSpec = filterx.Spec{
-	Table: `"property"."policies"`,
-	Fields: map[string]filterx.FieldSpec{
-		"house_rules": {Column: "house_rules", Kind: filterx.KindTags},
-		"notes":       {Column: "notes", Kind: filterx.KindText},
-	},
-	Sort: map[string]filterx.SortSpec{
-		"notes": {Column: "notes", Kind: filterx.KindText},
-	},
-	PK: []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
-}
-
-// LosDiscountFilterSpec is LosDiscount's AIP-160 filter / AIP-132 order_by surface,
-// consumed by the filterx.Gorm and filterx.Hasura engines.
-var LosDiscountFilterSpec = filterx.Spec{
-	Table: `"property"."los_discounts"`,
-	Fields: map[string]filterx.FieldSpec{
-		"min_nights":  {Column: "min_nights", Kind: filterx.KindInt},
-		"percent_off": {Column: "percent_off", Kind: filterx.KindInt},
-	},
-	Sort: map[string]filterx.SortSpec{
-		"min_nights":  {Column: "min_nights", Kind: filterx.KindInt, NotNull: true},
-		"percent_off": {Column: "percent_off", Kind: filterx.KindInt},
-	},
-	PK: []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
-}
-
-// FeeFilterSpec is Fee's AIP-160 filter / AIP-132 order_by surface,
-// consumed by the filterx.Gorm and filterx.Hasura engines.
-var FeeFilterSpec = filterx.Spec{
-	Table: `"property"."fees"`,
-	Fields: map[string]filterx.FieldSpec{
-		"code":         {Column: "code", Kind: filterx.KindText},
-		"display_name": {Column: "display_name", Kind: filterx.KindText},
-		"percent":      {Column: "percent", Kind: filterx.KindInt},
-		"pricing_unit": {Column: "pricing_unit", Kind: filterx.KindEnum, EnumPrefix: "PRICING_UNIT_"},
-		"taxable":      {Column: "taxable", Kind: filterx.KindBool},
-	},
-	Sort: map[string]filterx.SortSpec{
-		"code":         {Column: "code", Kind: filterx.KindText, NotNull: true},
-		"display_name": {Column: "display_name", Kind: filterx.KindText},
-		"percent":      {Column: "percent", Kind: filterx.KindInt},
-		"pricing_unit": {Column: "pricing_unit", Kind: filterx.KindEnum},
-		"taxable":      {Column: "taxable", Kind: filterx.KindBool},
-	},
-	PK: []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
-}
-
-// TaxFilterSpec is Tax's AIP-160 filter / AIP-132 order_by surface,
-// consumed by the filterx.Gorm and filterx.Hasura engines.
-var TaxFilterSpec = filterx.Spec{
-	Table: `"property"."taxes"`,
-	Fields: map[string]filterx.FieldSpec{
-		"code":         {Column: "code", Kind: filterx.KindText},
-		"display_name": {Column: "display_name", Kind: filterx.KindText},
-		"percent":      {Column: "percent", Kind: filterx.KindFloat},
-	},
-	Sort: map[string]filterx.SortSpec{
-		"code":         {Column: "code", Kind: filterx.KindText, NotNull: true},
-		"display_name": {Column: "display_name", Kind: filterx.KindText},
-		"percent":      {Column: "percent", Kind: filterx.KindFloat, NotNull: true},
-	},
-	PK: []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
-}
-
-// UnitMediaFilterSpec is UnitMedia's AIP-160 filter / AIP-132 order_by surface,
-// consumed by the filterx.Gorm and filterx.Hasura engines.
-var UnitMediaFilterSpec = filterx.Spec{
-	Table: `"property"."unit_medias"`,
-	Fields: map[string]filterx.FieldSpec{
-		"description": {Column: "description", Kind: filterx.KindText},
-		"mime_type":   {Column: "mime_type", Kind: filterx.KindText},
-		"primary":     {Column: "primary", Kind: filterx.KindBool},
-		"sort_order":  {Column: "sort_order", Kind: filterx.KindInt},
-		"title":       {Column: "title", Kind: filterx.KindText},
-		"type":        {Column: "type", Kind: filterx.KindEnum, EnumPrefix: "MEDIA_TYPE_"},
-		"uri":         {Column: "uri", Kind: filterx.KindText},
-	},
-	Sort: map[string]filterx.SortSpec{
-		"description": {Column: "description", Kind: filterx.KindText},
-		"mime_type":   {Column: "mime_type", Kind: filterx.KindText},
-		"primary":     {Column: "primary", Kind: filterx.KindBool},
-		"sort_order":  {Column: "sort_order", Kind: filterx.KindInt},
-		"title":       {Column: "title", Kind: filterx.KindText},
-		"type":        {Column: "type", Kind: filterx.KindEnum, NotNull: true},
-		"uri":         {Column: "uri", Kind: filterx.KindText, NotNull: true},
 	},
 	PK: []filterx.SortSpec{{Column: "id", Kind: filterx.KindText, NotNull: true}},
 }

@@ -20,11 +20,8 @@ model Booking {
   /// The booking name. Format: bookings/{booking}
   name String @unique @map("name")
 
-  /// The unit being booked. Format: properties/{property}/units/{unit}
-  unitID String @map("unit")
-
-  /// Relation to Unit via unit.
-  unit Unit @relation(fields: [unitID], references: [id])
+  /// The unit being booked. Format: resources/{resource} TODO: unresolved reference to Resource (not in this generation set); kept as a plain indexed column.
+  unit String @map("unit")
 
   /// The user the booking is for. Format: users/{user}
   customerID String? @map("customer")
@@ -132,7 +129,7 @@ model Booking {
   priceComponents PriceComponent[]
 
   /// Index on [unit].
-  @@index([unitID])
+  @@index([unit])
   /// Index on [customer].
   @@index([customerID])
   /// Index on [promo_code].
