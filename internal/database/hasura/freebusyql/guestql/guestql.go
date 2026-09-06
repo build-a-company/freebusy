@@ -37,6 +37,7 @@ type GuestPreferences = preferencesql.GuestPreferences
 type GuestPreferencesAggExp = preferencesql.GuestPreferencesAggExp
 type InsertGuestPreferencesResponse = preferencesql.InsertGuestPreferencesResponse
 type UpdateGuestPreferencesByIdResponse = preferencesql.UpdateGuestPreferencesByIdResponse
+type DeleteGuestResourceByBookingIdResponse = resourceql.DeleteGuestResourceByBookingIdResponse
 type DeleteGuestResourceByIdResponse = resourceql.DeleteGuestResourceByIdResponse
 type GuestResource = resourceql.GuestResource
 type GuestResourceAggExp = resourceql.GuestResourceAggExp

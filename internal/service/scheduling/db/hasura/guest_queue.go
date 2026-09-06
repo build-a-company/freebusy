@@ -17,16 +17,16 @@ func queueGuestInserts(tx *runtime.Tx, r *BookingRepository, graphs []guestGraph
 	for i := range graphs {
 		g := &graphs[i]
 		if g.idDoc != nil {
-			var res iddocumentsql.InsertIdentityIdDocumentsResponse
-			tx.Add(r.svc.Mutation.Identity.IdDocuments.CreateOp(*g.idDoc, &res))
+			var res iddocumentsql.InsertGuestIdDocumentsResponse
+			tx.Add(r.svc.Mutation.Guest.IdDocuments.CreateOp(*g.idDoc, &res))
 		}
 		if g.foreigner != nil {
-			var res foreignerdetailsql.InsertIdentityForeignerDetailsResponse
-			tx.Add(r.svc.Mutation.Identity.ForeignerDetails.CreateOp(*g.foreigner, &res))
+			var res foreignerdetailsql.InsertGuestForeignerDetailsResponse
+			tx.Add(r.svc.Mutation.Guest.ForeignerDetails.CreateOp(*g.foreigner, &res))
 		}
 		if g.prefs != nil {
-			var res preferencesql.InsertIdentityGuestPreferencesResponse
-			tx.Add(r.svc.Mutation.Identity.GuestPreferences.CreateOp(*g.prefs, &res))
+			var res preferencesql.InsertGuestPreferencesResponse
+			tx.Add(r.svc.Mutation.Guest.Preferences.CreateOp(*g.prefs, &res))
 		}
 		if g.permanent != nil {
 			var res postaladdressql.InsertCommonPostalAddressResponse
@@ -36,8 +36,8 @@ func queueGuestInserts(tx *runtime.Tx, r *BookingRepository, graphs []guestGraph
 			var res postaladdressql.InsertCommonPostalAddressResponse
 			tx.Add(r.svc.Mutation.Common.PostalAddress.CreateOp(*g.local, &res))
 		}
-		var gRes guestsql.InsertIdentityGuestsResponse
-		tx.Add(r.svc.Mutation.Identity.Guests.CreateOp(g.guest, &gRes))
+		var gRes guestresourceql.InsertGuestResourceResponse
+		tx.Add(r.svc.Mutation.Guest.Resource.CreateOp(g.guest, &gRes))
 	}
 }
 
@@ -46,22 +46,22 @@ func queueGuestInserts(tx *runtime.Tx, r *BookingRepository, graphs []guestGraph
 // removes every guest row on the booking — including rows a stale snapshot
 // missed — then the snapshot's belongs-to sub-rows (ID documents, foreigner
 // details, preferences, addresses) are deleted by id.
-func queueGuestDeletes(tx *runtime.Tx, r *BookingRepository, bookingID string, guests []guestsql.IdentityGuests) {
-	var delAll guestsql.DeleteIdentityGuestsByBookingIdResponse
-	tx.Add(r.svc.Mutation.Identity.Guests.DeleteByBookingIdOp(bookingID, &delAll))
+func queueGuestDeletes(tx *runtime.Tx, r *BookingRepository, bookingID string, guests []guestresourceql.GuestResource) {
+	var delAll guestresourceql.DeleteGuestResourceByBookingIdResponse
+	tx.Add(r.svc.Mutation.Guest.Resource.DeleteByBookingIdOp(bookingID, &delAll))
 	for i := range guests {
 		g := &guests[i]
 		if g.IdDocumentId != nil {
-			var res iddocumentsql.DeleteIdentityIdDocumentsByIdResponse
-			tx.Add(r.svc.Mutation.Identity.IdDocuments.DeleteOp(*g.IdDocumentId, &res))
+			var res iddocumentsql.DeleteGuestIdDocumentsByIdResponse
+			tx.Add(r.svc.Mutation.Guest.IdDocuments.DeleteOp(*g.IdDocumentId, &res))
 		}
 		if g.ForeignerId != nil {
-			var res foreignerdetailsql.DeleteIdentityForeignerDetailsByIdResponse
-			tx.Add(r.svc.Mutation.Identity.ForeignerDetails.DeleteOp(*g.ForeignerId, &res))
+			var res foreignerdetailsql.DeleteGuestForeignerDetailsByIdResponse
+			tx.Add(r.svc.Mutation.Guest.ForeignerDetails.DeleteOp(*g.ForeignerId, &res))
 		}
 		if g.PreferencesId != nil {
-			var res preferencesql.DeleteIdentityGuestPreferencesByIdResponse
-			tx.Add(r.svc.Mutation.Identity.GuestPreferences.DeleteOp(*g.PreferencesId, &res))
+			var res preferencesql.DeleteGuestPreferencesByIdResponse
+			tx.Add(r.svc.Mutation.Guest.Preferences.DeleteOp(*g.PreferencesId, &res))
 		}
 		if g.PermanentAddressId != nil {
 			var res postaladdressql.DeleteCommonPostalAddressByIdResponse

@@ -17,16 +17,12 @@ package hasura
 import (
 	"context"
 	"errors"
-	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 	"net/url"
 	"os"
 	"testing"
 	"time"
 
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/organisationql/resourceql"
-	propertiesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/propertiesql"
-	unitsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/unitsql"
 	"github.com/oh-tarnished/freebusy/internal/types"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
@@ -54,53 +50,13 @@ func liveService(t *testing.T) *freebusyql.Service {
 	return svc
 }
 
-// seedUnit inserts a fresh organisation → property → unit chain and returns the
-// unit's resource name. The unit takes 1 bookable unit of capacity with a max
-// occupancy of 2 guests, in UTC, with no price (pricing is exercised by the
-// gorm unit tests; here the lifecycle is the subject).
-func seedUnit(t *testing.T, svc *freebusyql.Service) string {
-	t.Helper()
-	ctx := context.Background()
-	now := dbutil.TsToStr(timestamppb.New(time.Now().UTC()))
-	orgID, propID, unitID := ulid.GenerateString(), ulid.GenerateString(), ulid.GenerateString()
-
-	if _, err := svc.Mutation.Organisation.Resource.Create(ctx, resourceql.CreateInput{
-		Id:          orgID,
-		Name:        "organisations/" + orgID,
-		DisplayName: "it-org",
-		CreateTime:  now,
-		UpdateTime:  now,
-	}); err != nil {
-		t.Fatalf("seed organisation: %v", err)
-	}
-	if _, err := svc.Mutation.Property.Properties.Create(ctx, propertiesql.CreateInput{
-		Id:           propID,
-		Name:         "properties/" + propID,
-		DisplayName:  "it-property",
-		Organisation: orgID,
-		TimeZone:     "UTC",
-		CreateTime:   now,
-		UpdateTime:   now,
-	}); err != nil {
-		t.Fatalf("seed property: %v", err)
-	}
-	unitName := "properties/" + propID + "/units/" + unitID
-	if _, err := svc.Mutation.Property.Units.Create(ctx, unitsql.CreateInput{
-		Id:           unitID,
-		Name:         unitName,
-		DisplayName:  "it-room",
-		PropertyId:   propID,
-		TimeZone:     "UTC",
-		Capacity:     1,
-		MaxOccupancy: 2,
-		BookingMode:  "NIGHTLY",
-		CreateTime:   now,
-		UpdateTime:   now,
-	}); err != nil {
-		t.Fatalf("seed unit: %v", err)
-	}
-	return unitName
-}
+// resourceName returns the RFC 9073 resource a booking names.
+//
+// Nothing is seeded: the catalogue moved to the RFC services, so freebusy holds
+// no row for a resource and the booking path treats an unknown one as having no
+// profile. The organisation -> property -> unit chain this replaced existed only
+// to satisfy a foreign key that no longer exists.
+func resourceName() string { return "resources/it-" + ulid.GenerateString() }
 
 func guest(name string, age guestpbv1.AgeGroup) *guestpbv1.Guest {
 	return &guestpbv1.Guest{DisplayName: name, AgeGroup: age}
@@ -112,7 +68,7 @@ func TestBookingLifecycleLive(t *testing.T) {
 	svc := liveService(t)
 	repo := NewBookingRepository(svc)
 	ctx := context.Background()
-	unitName := seedUnit(t, svc)
+	unitName := resourceName()
 
 	start := time.Now().UTC().Add(24 * time.Hour).Truncate(time.Hour)
 	window := &sharedpbv1.TimeWindow{

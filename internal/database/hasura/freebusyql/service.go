@@ -21,7 +21,6 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/calendarql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/cardql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/deleteql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/eventql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/groupql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql"
@@ -104,7 +103,6 @@ type MutationHandler struct {
 	Calendar     calendarql.MutationHandler
 	Card         cardql.MutationHandler
 	Common       commonql.MutationHandler
-	Delete       deleteql.MutationHandler
 	Event        eventql.MutationHandler
 	Group        groupql.MutationHandler
 	Guest        guestql.MutationHandler
@@ -221,7 +219,6 @@ func New(opts runtime.ConnectionOptions) (*Service, error) {
 			Calendar:     calendarql.NewMutation(gql),
 			Card:         cardql.NewMutation(gql),
 			Common:       commonql.NewMutation(gql),
-			Delete:       deleteql.NewMutation(gql),
 			Event:        eventql.NewMutation(gql),
 			Group:        groupql.NewMutation(gql),
 			Guest:        guestql.NewMutation(gql),

@@ -10801,6 +10801,76 @@
     },
     {
       "kind": "OBJECT",
+      "name": "DeleteGuestResourceByBookingId",
+      "description": "",
+      "fields": [
+        {
+          "name": "id",
+          "description": "",
+          "args": [],
+          "type": {
+            "kind": "NON_NULL",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String1",
+              "ofType": null
+            }
+          }
+        }
+      ],
+      "inputFields": null,
+      "enumValues": null,
+      "interfaces": []
+    },
+    {
+      "kind": "OBJECT",
+      "name": "DeleteGuestResourceByBookingIdResponse",
+      "description": "Responses from the 'delete_guest_resource_by_booking_id' procedure",
+      "fields": [
+        {
+          "name": "affectedRows",
+          "description": "The number of rows affected by the mutation",
+          "args": [],
+          "type": {
+            "kind": "NON_NULL",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "Int32",
+              "ofType": null
+            }
+          }
+        },
+        {
+          "name": "returning",
+          "description": "Data from rows affected by the mutation",
+          "args": [],
+          "type": {
+            "kind": "NON_NULL",
+            "name": "",
+            "ofType": {
+              "kind": "LIST",
+              "name": "",
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": "",
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "DeleteGuestResourceByBookingId",
+                  "ofType": null
+                }
+              }
+            }
+          }
+        }
+      ],
+      "inputFields": null,
+      "enumValues": null,
+      "interfaces": []
+    },
+    {
+      "kind": "OBJECT",
       "name": "DeleteGuestResourceByIdResponse",
       "description": "Responses from the 'delete_guest_resource_by_id' procedure",
       "fields": [
@@ -10834,76 +10904,6 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "GuestResource",
-                  "ofType": null
-                }
-              }
-            }
-          }
-        }
-      ],
-      "inputFields": null,
-      "enumValues": null,
-      "interfaces": []
-    },
-    {
-      "kind": "OBJECT",
-      "name": "DeleteIdentityGuestsByBookingId",
-      "description": "",
-      "fields": [
-        {
-          "name": "id",
-          "description": "",
-          "args": [],
-          "type": {
-            "kind": "NON_NULL",
-            "name": "",
-            "ofType": {
-              "kind": "SCALAR",
-              "name": "String1",
-              "ofType": null
-            }
-          }
-        }
-      ],
-      "inputFields": null,
-      "enumValues": null,
-      "interfaces": []
-    },
-    {
-      "kind": "OBJECT",
-      "name": "DeleteIdentityGuestsByBookingIdResponse",
-      "description": "Responses from the 'delete_identity_guests_by_booking_id' procedure",
-      "fields": [
-        {
-          "name": "affectedRows",
-          "description": "The number of rows affected by the mutation",
-          "args": [],
-          "type": {
-            "kind": "NON_NULL",
-            "name": "",
-            "ofType": {
-              "kind": "SCALAR",
-              "name": "Int32",
-              "ofType": null
-            }
-          }
-        },
-        {
-          "name": "returning",
-          "description": "Data from rows affected by the mutation",
-          "args": [],
-          "type": {
-            "kind": "NON_NULL",
-            "name": "",
-            "ofType": {
-              "kind": "LIST",
-              "name": "",
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": "",
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "DeleteIdentityGuestsByBookingId",
                   "ofType": null
                 }
               }
@@ -50039,6 +50039,35 @@
           }
         },
         {
+          "name": "deleteGuestResourceByBookingId",
+          "description": "",
+          "args": [
+            {
+              "name": "bookingId",
+              "description": "",
+              "type": {
+                "kind": "NON_NULL",
+                "name": "",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String1",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "type": {
+            "kind": "NON_NULL",
+            "name": "",
+            "ofType": {
+              "kind": "OBJECT",
+              "name": "DeleteGuestResourceByBookingIdResponse",
+              "ofType": null
+            }
+          }
+        },
+        {
           "name": "deleteGuestResourceById",
           "description": "Delete any row on the 'guest_resource' collection using the 'id' key",
           "args": [
@@ -50073,35 +50102,6 @@
             "ofType": {
               "kind": "OBJECT",
               "name": "DeleteGuestResourceByIdResponse",
-              "ofType": null
-            }
-          }
-        },
-        {
-          "name": "deleteIdentityGuestsByBookingId",
-          "description": "",
-          "args": [
-            {
-              "name": "bookingId",
-              "description": "",
-              "type": {
-                "kind": "NON_NULL",
-                "name": "",
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String1",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "type": {
-            "kind": "NON_NULL",
-            "name": "",
-            "ofType": {
-              "kind": "OBJECT",
-              "name": "DeleteIdentityGuestsByBookingIdResponse",
               "ofType": null
             }
           }

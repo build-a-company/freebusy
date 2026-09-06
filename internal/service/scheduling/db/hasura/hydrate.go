@@ -79,29 +79,29 @@ func (r *BookingRepository) hydrateBooking(ctx context.Context, res *bookingsql.
 // loadGuests returns a booking's guest party, each with its sub-rows hydrated,
 // ordered by id (ULIDs preserve insertion order).
 func (r *BookingRepository) loadGuests(ctx context.Context, bookingID string) ([]*guestpbv1.Guest, error) {
-	rows, err := r.svc.Query.Identity.Guests.List(ctx, guestsql.List().Where(guestsql.BookingId.Eq(bookingID)).OrderBy(guestsql.Id.Asc()))
+	rows, err := r.svc.Query.Guest.Resource.List(ctx, guestresourceql.List().Where(guestresourceql.BookingId.Eq(bookingID)).OrderBy(guestresourceql.Id.Asc()))
 	if err != nil {
 		return nil, dbutil.MapHasuraErr(err)
 	}
 	out := make([]*guestpbv1.Guest, 0, len(rows))
 	for i := range rows {
 		g := &rows[i]
-		var doc *iddocumentsql.IdentityIdDocuments
-		var foreigner *foreignerdetailsql.IdentityForeignerDetails
-		var prefs *preferencesql.IdentityGuestPreferences
+		var doc *iddocumentsql.GuestIdDocuments
+		var foreigner *foreignerdetailsql.GuestForeignerDetails
+		var prefs *preferencesql.GuestPreferences
 		var perm, loc *postaladdressql.CommonPostalAddress
 		if g.IdDocumentId != nil {
-			if doc, err = r.svc.Query.Identity.IdDocuments.Get(ctx, *g.IdDocumentId); err != nil {
+			if doc, err = r.svc.Query.Guest.IdDocuments.Get(ctx, *g.IdDocumentId); err != nil {
 				return nil, dbutil.MapHasuraErr(err)
 			}
 		}
 		if g.ForeignerId != nil {
-			if foreigner, err = r.svc.Query.Identity.ForeignerDetails.Get(ctx, *g.ForeignerId); err != nil {
+			if foreigner, err = r.svc.Query.Guest.ForeignerDetails.Get(ctx, *g.ForeignerId); err != nil {
 				return nil, dbutil.MapHasuraErr(err)
 			}
 		}
 		if g.PreferencesId != nil {
-			if prefs, err = r.svc.Query.Identity.GuestPreferences.Get(ctx, *g.PreferencesId); err != nil {
+			if prefs, err = r.svc.Query.Guest.Preferences.Get(ctx, *g.PreferencesId); err != nil {
 				return nil, dbutil.MapHasuraErr(err)
 			}
 		}

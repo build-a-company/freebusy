@@ -130,7 +130,7 @@ func buildGuestGraphs(guests []*guestpbv1.Guest, bookingID string) []guestGraph 
 }
 
 // guestFromSchema hydrates a protobuf Guest from its stored rows.
-func guestFromSchema(g *guestsql.IdentityGuests, doc *iddocumentsql.IdentityIdDocuments, f *foreignerdetailsql.IdentityForeignerDetails, p *guestpreferencesql.IdentityGuestPreferences, perm, loc *postaladdressql.CommonPostalAddress) *guestpbv1.Guest {
+func guestFromSchema(g *guestsql.GuestResource, doc *iddocumentsql.GuestIdDocuments, f *foreignerdetailsql.GuestForeignerDetails, p *guestpreferencesql.GuestPreferences, perm, loc *postaladdressql.CommonPostalAddress) *guestpbv1.Guest {
 	out := &guestpbv1.Guest{
 		DisplayName:      g.DisplayName,
 		Primary:          repox.Deref(g.Primary),

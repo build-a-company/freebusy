@@ -133,3 +133,19 @@ func (h *mutationHandler) UpdateOp(keyId string, patch UpdateInput, result *Upda
 	args["updateColumns"] = graphql.Var(graphql.SetColumns(patch), "UpdateGuestResourceByIdUpdateColumnsInput")
 	return runtime.BatchOp{Field: "updateGuestResourceById", Args: args, Result: result}
 }
+
+func (h *mutationHandler) DeleteByBookingId(ctx context.Context, bookingId string) (DeleteGuestResourceByBookingIdResponse, error) {
+	var out DeleteGuestResourceByBookingIdResponse
+	args := map[string]any{}
+	args["bookingId"] = graphql.Var(bookingId, "String1")
+	res := <-h.gql.MutateFields(ctx, "deleteGuestResourceByBookingId", &out, args)
+	return out, res.Error
+}
+
+// DeleteByBookingIdOp returns DeleteByBookingId as a deferred mutation for a Tx batch; result is filled when the
+// batch commits. Queue it with svc.Mutation.Tx().Add(...) to commit several mutations atomically.
+func (h *mutationHandler) DeleteByBookingIdOp(bookingId string, result *DeleteGuestResourceByBookingIdResponse) runtime.BatchOp {
+	args := map[string]any{}
+	args["bookingId"] = graphql.Var(bookingId, "String1")
+	return runtime.BatchOp{Field: "deleteGuestResourceByBookingId", Args: args, Result: result}
+}

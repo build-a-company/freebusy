@@ -91,7 +91,7 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 
 	// The etag is bumped — this writer owns the replace section. Swap the party
 	// and drop the superseded occupancy in one atomic batch.
-	oldGuests, err := r.svc.Query.Identity.Guests.List(ctx, guestsql.List().Where(guestsql.BookingId.Eq(id)))
+	oldGuests, err := r.svc.Query.Guest.Resource.List(ctx, guestsql.List().Where(guestsql.BookingId.Eq(id)))
 	if err != nil {
 		return nil, dbutil.MapHasuraErr(err)
 	}

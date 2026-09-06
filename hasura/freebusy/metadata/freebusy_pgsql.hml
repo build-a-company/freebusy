@@ -2356,6 +2356,29 @@ definition:
                   type: named
                 type: array
           foreign_keys: {}
+        delete_guest_resource_by_booking_id:
+          fields:
+            id:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        delete_guest_resource_by_booking_id_response:
+          description: Responses from the 'delete_guest_resource_by_booking_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: delete_guest_resource_by_booking_id
+                  type: named
+                type: array
+          foreign_keys: {}
         delete_guest_resource_by_id_response:
           description: Responses from the 'delete_guest_resource_by_id' procedure
           fields:
@@ -2369,29 +2392,6 @@ definition:
               type:
                 element_type:
                   name: guest_resource
-                  type: named
-                type: array
-          foreign_keys: {}
-        delete_identity_guests_by_booking_id:
-          fields:
-            id:
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        delete_identity_guests_by_booking_id_response:
-          description: Responses from the 'delete_identity_guests_by_booking_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: delete_identity_guests_by_booking_id
                   type: named
                 type: array
           foreign_keys: {}
@@ -37015,9 +37015,9 @@ definition:
               type:
                 name: text
                 type: named
-          name: delete_identity_guests_by_booking_id
+          name: delete_guest_resource_by_booking_id
           result_type:
-            name: delete_identity_guests_by_booking_id_response
+            name: delete_guest_resource_by_booking_id_response
             type: named
         - arguments:
             key_id:

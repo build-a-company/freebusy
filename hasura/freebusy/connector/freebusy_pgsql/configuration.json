@@ -11099,9 +11099,9 @@
     "nativeOperations": {
       "queries": {},
       "mutations": {
-        "delete_identity_guests_by_booking_id": {
+        "delete_guest_resource_by_booking_id": {
           "sql": {
-            "file": "native_operations/mutations/delete_identity_guests_by_booking_id.sql"
+            "file": "native_operations/mutations/delete_guest_resource_by_booking_id.sql"
           },
           "columns": {
             "id": {

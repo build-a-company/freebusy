@@ -17,6 +17,17 @@ import (
 	"github.com/the-protobuf-project/runtime-go/network/graphql"
 )
 
+// DeleteGuestResourceByBookingIdResponse — Responses from the 'delete_guest_resource_by_booking_id' procedure
+type DeleteGuestResourceByBookingIdResponse struct {
+	// The number of rows affected by the mutation
+	AffectedRows int32 `graphql:"affectedRows"`
+	// Data from rows affected by the mutation
+	Returning []struct {
+		// Id selects the "id" field.
+		Id string `graphql:"id"`
+	} `graphql:"returning"`
+}
+
 // DeleteGuestResourceByIdResponse — Responses from the 'delete_guest_resource_by_id' procedure
 type DeleteGuestResourceByIdResponse struct {
 	// The number of rows affected by the mutation

@@ -51,6 +51,10 @@ type MutationHandler interface {
 	UpdateIfMatch(ctx context.Context, keyId string, patch UpdateInput, match graphql.Predicate) (UpdateGuestResourceByIdResponse, error)
 	// UpdateOp returns Update as a deferred mutation for atomic batching via a Tx.
 	UpdateOp(keyId string, patch UpdateInput, result *UpdateGuestResourceByIdResponse, req ...*UpdateRequest) runtime.BatchOp
+	// DeleteByBookingId runs the "deleteGuestResourceByBookingId" mutation.
+	DeleteByBookingId(ctx context.Context, bookingId string) (DeleteGuestResourceByBookingIdResponse, error)
+	// DeleteByBookingIdOp returns DeleteByBookingId as a deferred mutation for atomic batching via a Tx.
+	DeleteByBookingIdOp(bookingId string, result *DeleteGuestResourceByBookingIdResponse) runtime.BatchOp
 }
 
 // NewMutation returns a MutationHandler bound to gql.
