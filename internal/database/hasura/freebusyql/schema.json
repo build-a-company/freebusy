@@ -43766,20 +43766,6 @@
           "defaultValue": null
         },
         {
-          "name": "propertyId",
-          "description": "",
-          "type": {
-            "kind": "NON_NULL",
-            "name": "",
-            "ofType": {
-              "kind": "SCALAR",
-              "name": "String1",
-              "ofType": null
-            }
-          },
-          "defaultValue": null
-        },
-        {
           "name": "stayConstraintsId",
           "description": "",
           "type": {
@@ -107318,20 +107304,6 @@
           }
         },
         {
-          "name": "propertyId",
-          "description": "",
-          "args": [],
-          "type": {
-            "kind": "NON_NULL",
-            "name": "",
-            "ofType": {
-              "kind": "SCALAR",
-              "name": "String1",
-              "ofType": null
-            }
-          }
-        },
-        {
           "name": "stayConstraintsId",
           "description": "",
           "args": [],
@@ -107423,20 +107395,6 @@
         },
         {
           "name": "name",
-          "description": "",
-          "args": [],
-          "type": {
-            "kind": "NON_NULL",
-            "name": "",
-            "ofType": {
-              "kind": "OBJECT",
-              "name": "TextAggExp",
-              "ofType": null
-            }
-          }
-        },
-        {
-          "name": "propertyId",
           "description": "",
           "args": [],
           "type": {
@@ -107571,16 +107529,6 @@
           "defaultValue": null
         },
         {
-          "name": "propertyId",
-          "description": "",
-          "type": {
-            "kind": "INPUT_OBJECT",
-            "name": "TextBoolExp",
-            "ofType": null
-          },
-          "defaultValue": null
-        },
-        {
           "name": "stayConstraintsId",
           "description": "",
           "type": {
@@ -107700,16 +107648,6 @@
         },
         {
           "name": "name",
-          "description": "",
-          "type": {
-            "kind": "ENUM",
-            "name": "OrderBy",
-            "ofType": null
-          },
-          "defaultValue": null
-        },
-        {
-          "name": "propertyId",
           "description": "",
           "type": {
             "kind": "ENUM",
@@ -148127,30 +148065,6 @@
     },
     {
       "kind": "INPUT_OBJECT",
-      "name": "UpdateColumnScheduleResourcePropertyIdInput",
-      "description": "Update the 'property_id' column in the 'schedule_resource' collection",
-      "fields": null,
-      "inputFields": [
-        {
-          "name": "set",
-          "description": "Set the column to this value",
-          "type": {
-            "kind": "NON_NULL",
-            "name": "",
-            "ofType": {
-              "kind": "SCALAR",
-              "name": "String1",
-              "ofType": null
-            }
-          },
-          "defaultValue": null
-        }
-      ],
-      "enumValues": null,
-      "interfaces": null
-    },
-    {
-      "kind": "INPUT_OBJECT",
       "name": "UpdateColumnScheduleResourceStayConstraintsIdInput",
       "description": "Update the 'stay_constraints_id' column in the 'schedule_resource' collection",
       "fields": null,
@@ -164959,16 +164873,6 @@
           "type": {
             "kind": "INPUT_OBJECT",
             "name": "UpdateColumnScheduleResourceNameInput",
-            "ofType": null
-          },
-          "defaultValue": null
-        },
-        {
-          "name": "propertyId",
-          "description": "Update the 'property_id' column in the 'schedule_resource' collection.",
-          "type": {
-            "kind": "INPUT_OBJECT",
-            "name": "UpdateColumnScheduleResourcePropertyIdInput",
             "ofType": null
           },
           "defaultValue": null

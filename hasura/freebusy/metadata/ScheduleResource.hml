@@ -14,8 +14,6 @@ definition:
       type: String_1!
     - name: name
       type: String_1!
-    - name: propertyId
-      type: String_1!
     - name: stayConstraintsId
       type: String_1
   graphql:
@@ -40,9 +38,6 @@ definition:
         name:
           column:
             name: name
-        propertyId:
-          column:
-            name: property_id
         stayConstraintsId:
           column:
             name: stay_constraints_id
@@ -61,7 +56,6 @@ definition:
           - etag
           - id
           - name
-          - propertyId
           - stayConstraintsId
 
 ---
@@ -82,8 +76,6 @@ definition:
         - fieldName: id
           booleanExpressionType: TextBoolExp
         - fieldName: name
-          booleanExpressionType: TextBoolExp
-        - fieldName: propertyId
           booleanExpressionType: TextBoolExp
         - fieldName: stayConstraintsId
           booleanExpressionType: TextBoolExp
@@ -114,8 +106,6 @@ definition:
           aggregateExpression: TextAggExp
         - fieldName: name
           aggregateExpression: TextAggExp
-        - fieldName: propertyId
-          aggregateExpression: TextAggExp
         - fieldName: stayConstraintsId
           aggregateExpression: TextAggExp
   count:
@@ -142,8 +132,6 @@ definition:
         - fieldName: id
           orderByExpression: String1OrderByExp
         - fieldName: name
-          orderByExpression: String1OrderByExp
-        - fieldName: propertyId
           orderByExpression: String1OrderByExp
         - fieldName: stayConstraintsId
           orderByExpression: String1OrderByExp

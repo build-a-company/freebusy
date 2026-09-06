@@ -20,13 +20,17 @@ type scheduleGraph struct {
 	recurringRules     []*schedule.RecurringRule
 }
 
-// buildScheduleGraph turns a proto Schedule into its row graph under propertyID.
-// The schedule row's identity (ID/Name/Etag) and the child FKs (schedule_id on
-// recurring rules, cancellation_policy_id on refund tiers) are stamped by the
-// repository.
-func buildScheduleGraph(s *schedulepbv1.Schedule, propertyID string) *scheduleGraph {
+// buildScheduleGraph turns a proto Schedule into its row graph. The schedule
+// row's identity (ID/Name/Etag) and the child FKs (schedule_id on recurring
+// rules, cancellation_policy_id on refund tiers) are stamped by the repository.
+//
+// It takes no parent id: a schedule is named "resources/{resource}/schedule",
+// so the resource it belongs to is carried by the name the repository stamps.
+// The row had a property_id column when schedules hung off a Property; that
+// parent no longer exists.
+func buildScheduleGraph(s *schedulepbv1.Schedule) *scheduleGraph {
 	g := &scheduleGraph{}
-	g.schedule = &schedule.Schedule{PropertyID: propertyID}
+	g.schedule = &schedule.Schedule{}
 
 	if b := s.GetBuffers(); b != nil {
 		g.buffers = &schedule.BufferSettings{

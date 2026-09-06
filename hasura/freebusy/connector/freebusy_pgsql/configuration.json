@@ -7777,14 +7777,6 @@
             "nullable": "nonNullable",
             "description": null
           },
-          "property_id": {
-            "name": "property_id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
           "stay_constraints_id": {
             "name": "stay_constraints_id",
             "type": {
@@ -7812,13 +7804,6 @@
             "foreignTable": "cancellation_policies",
             "columnMapping": {
               "cancellation_policy_id": "id"
-            }
-          },
-          "resource_property_id_fkey": {
-            "foreignSchema": "property",
-            "foreignTable": "properties",
-            "columnMapping": {
-              "property_id": "id"
             }
           },
           "resource_stay_constraints_id_fkey": {

@@ -38,11 +38,11 @@ type scheduleGraph struct {
 }
 
 // buildScheduleGraph turns a proto Schedule into its insert graph under
-// propertyID. The schedule row's identity (Id/Name/Etag) is stamped by the
+// The schedule row's identity (Id/Name/Etag) is stamped by the
 // repository; child FKs are wired here.
-func buildScheduleGraph(s *schedulepbv1.Schedule, propertyID string) *scheduleGraph {
+func buildScheduleGraph(s *schedulepbv1.Schedule) *scheduleGraph {
 	g := &scheduleGraph{}
-	g.schedule = resourceql.CreateInput{PropertyId: propertyID}
+	g.schedule = resourceql.CreateInput{}
 
 	if b := s.GetBuffers(); b != nil {
 		id := ulid.GenerateString()

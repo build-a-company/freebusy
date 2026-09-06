@@ -11266,10 +11266,6 @@ definition:
               type:
                 name: text
                 type: named
-            property_id:
-              type:
-                name: text
-                type: named
             stay_constraints_id:
               type:
                 type: nullable
@@ -15986,10 +15982,6 @@ definition:
               type:
                 name: text
                 type: named
-            property_id:
-              type:
-                name: text
-                type: named
             stay_constraints_id:
               type:
                 type: nullable
@@ -16007,11 +15999,6 @@ definition:
                 cancellation_policy_id:
                   - id
               foreign_collection: schedule_cancellation_policies
-            resource_property_id_fkey:
-              column_mapping:
-                property_id:
-                  - id
-              foreign_collection: property_properties
             resource_stay_constraints_id_fkey:
               column_mapping:
                 stay_constraints_id:
@@ -26017,15 +26004,6 @@ definition:
                 name: text
                 type: named
           foreign_keys: {}
-        update_column_schedule_resource_property_id:
-          description: Update the 'property_id' column in the 'schedule_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
         update_column_schedule_resource_stay_constraints_id:
           description: Update the 'stay_constraints_id' column in the 'schedule_resource' collection
           fields:
@@ -34951,13 +34929,6 @@ definition:
                 type: nullable
                 underlying_type:
                   name: update_column_schedule_resource_name
-                  type: named
-            property_id:
-              description: Update the 'property_id' column in the 'schedule_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_schedule_resource_property_id
                   type: named
             stay_constraints_id:
               description: Update the 'stay_constraints_id' column in the 'schedule_resource' collection.

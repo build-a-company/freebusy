@@ -12,7 +12,7 @@ import (
 // roundTripSchedule materializes a proto Schedule into its row graph, wires the
 // preloaded associations back onto the schedule model, and re-hydrates the proto.
 func roundTripSchedule(in *schedulepbv1.Schedule) *schedulepbv1.Schedule {
-	g := buildScheduleGraph(in, "p1")
+	g := buildScheduleGraph(in)
 	g.schedule.ID = "s1"
 	g.schedule.Name = in.GetName()
 	g.schedule.Buffers = g.buffers

@@ -23,9 +23,10 @@ import (
 // writes on an existing schedule. The merged proto is re-materialized into a fresh
 // child graph and the superseded rows are deleted in the same batch.
 func (r *ScheduleRepository) UpdateSchedule(ctx context.Context, s *schedulepbv1.Schedule, paths []string) (*schedulepbv1.Schedule, error) {
-	resourceID, err := types.ParseScheduleName(s.GetName())
-	if err != nil {
-		return nil, err
+	// Validated, not retained: a schedule's parent resource is carried by its
+	// name, which the repository stamps.
+	if _, perr := types.ParseScheduleName(s.GetName()); perr != nil {
+		return nil, perr
 	}
 	existing, err := r.svc.Query.Schedule.Resource.Find(ctx, resourceql.List().Where(resourceql.Name.Eq(s.GetName())))
 	if err != nil {
@@ -47,7 +48,7 @@ func (r *ScheduleRepository) UpdateSchedule(ctx context.Context, s *schedulepbv1
 		oldRefs = refs
 	}
 	applyScheduleMask(merged, s, paths)
-	g := buildScheduleGraph(merged, resourceID)
+	g := buildScheduleGraph(merged)
 
 	tx := r.svc.Mutation.Tx()
 	if g.buffers != nil {

@@ -18,11 +18,12 @@ import (
 // existing schedule. The merged proto is re-materialized into a fresh child graph
 // and the superseded rows are deleted in the same transaction.
 func (r *ScheduleRepository) UpdateSchedule(ctx context.Context, s *schedulepbv1.Schedule, paths []string) (*schedulepbv1.Schedule, error) {
-	resourceID, err := types.ParseScheduleName(s.GetName())
-	if err != nil {
-		return nil, err
+	// Validated, not retained: a schedule's parent resource is carried by its
+	// name, which the repository stamps.
+	if _, perr := types.ParseScheduleName(s.GetName()); perr != nil {
+		return nil, perr
 	}
-	err = r.db.Transaction(func(tx *gorm.DB) error {
+	err := r.db.Transaction(func(tx *gorm.DB) error {
 		var existing schedule.Schedule
 		loadErr := preloadSchedule(tx.WithContext(ctx)).First(&existing, "name = ?", s.GetName()).Error
 		exists := loadErr == nil
@@ -38,7 +39,7 @@ func (r *ScheduleRepository) UpdateSchedule(ctx context.Context, s *schedulepbv1
 			merged = scheduleFromModel(&existing)
 		}
 		applyScheduleMask(merged, s, paths)
-		g := buildScheduleGraph(merged, resourceID)
+		g := buildScheduleGraph(merged)
 
 		// New belongs-to children.
 		if g.buffers != nil {
