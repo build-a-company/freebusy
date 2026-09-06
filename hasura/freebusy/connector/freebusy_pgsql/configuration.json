@@ -1298,301 +1298,6 @@
         "foreignRelations": {},
         "description": null
       },
-      "channel_resource": {
-        "schemaName": "channel",
-        "tableName": "resource",
-        "columns": {
-          "create_time": {
-            "name": "create_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "credential_ref": {
-            "name": "credential_ref",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "display_name": {
-            "name": "display_name",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "etag": {
-            "name": "etag",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "external_property_id": {
-            "name": "external_property_id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "id": {
-            "name": "id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "last_sync_time": {
-            "name": "last_sync_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "name": {
-            "name": "name",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "property": {
-            "name": "property",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "state": {
-            "name": "state",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "type": {
-            "name": "type",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
-            "description": null
-          },
-          "update_time": {
-            "name": "update_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          }
-        },
-        "uniquenessConstraints": {
-          "resource_pkey": [
-            "id"
-          ]
-        },
-        "foreignRelations": {
-          "resource_property_fkey": {
-            "foreignSchema": "property",
-            "foreignTable": "properties",
-            "columnMapping": {
-              "property": "id"
-            }
-          }
-        },
-        "description": null
-      },
-      "channel_sync_statuses": {
-        "schemaName": "channel",
-        "tableName": "sync_statuses",
-        "columns": {
-          "failed_count": {
-            "name": "failed_count",
-            "type": {
-              "scalarType": "int4"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "id": {
-            "name": "id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "last_error": {
-            "name": "last_error",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "last_sync_time": {
-            "name": "last_sync_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "name": {
-            "name": "name",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "pending_count": {
-            "name": "pending_count",
-            "type": {
-              "scalarType": "int4"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "state": {
-            "name": "state",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          }
-        },
-        "uniquenessConstraints": {
-          "sync_statuses_pkey": [
-            "id"
-          ]
-        },
-        "foreignRelations": {},
-        "description": null
-      },
-      "channel_unit_mappings": {
-        "schemaName": "channel",
-        "tableName": "unit_mappings",
-        "columns": {
-          "channel_id": {
-            "name": "channel_id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "create_time": {
-            "name": "create_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "etag": {
-            "name": "etag",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "external_rate_plan_id": {
-            "name": "external_rate_plan_id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "external_room_type_id": {
-            "name": "external_room_type_id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "id": {
-            "name": "id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "name": {
-            "name": "name",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "state": {
-            "name": "state",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "unit": {
-            "name": "unit",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "update_time": {
-            "name": "update_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          }
-        },
-        "uniquenessConstraints": {
-          "unit_mappings_pkey": [
-            "id"
-          ]
-        },
-        "foreignRelations": {
-          "unit_mappings_channel_id_fkey": {
-            "foreignSchema": "channel",
-            "foreignTable": "resource",
-            "columnMapping": {
-              "channel_id": "id"
-            }
-          },
-          "unit_mappings_unit_fkey": {
-            "foreignSchema": "property",
-            "foreignTable": "units",
-            "columnMapping": {
-              "unit": "id"
-            }
-          }
-        },
-        "description": null
-      },
       "common_moneys": {
         "schemaName": "common",
         "tableName": "moneys",
@@ -3408,8 +3113,8 @@
         "foreignRelations": {},
         "description": null
       },
-      "identity_foreigner_details": {
-        "schemaName": "identity",
+      "guest_foreigner_details": {
+        "schemaName": "guest",
         "tableName": "foreigner_details",
         "columns": {
           "arrival_date": {
@@ -3509,9 +3214,87 @@
         "foreignRelations": {},
         "description": null
       },
-      "identity_guest_preferences": {
-        "schemaName": "identity",
-        "tableName": "guest_preferences",
+      "guest_id_documents": {
+        "schemaName": "guest",
+        "tableName": "id_documents",
+        "columns": {
+          "attachment_id": {
+            "name": "attachment_id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "expiry_date": {
+            "name": "expiry_date",
+            "type": {
+              "scalarType": "date"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "id": {
+            "name": "id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "issue_date": {
+            "name": "issue_date",
+            "type": {
+              "scalarType": "date"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "issue_place": {
+            "name": "issue_place",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "issuing_country": {
+            "name": "issuing_country",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "number": {
+            "name": "number",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "description": null
+          },
+          "type": {
+            "name": "type",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
+            "hasDefault": "hasDefault",
+            "description": null
+          }
+        },
+        "uniquenessConstraints": {
+          "id_documents_pkey": [
+            "id"
+          ]
+        },
+        "foreignRelations": {},
+        "description": null
+      },
+      "guest_preferences": {
+        "schemaName": "guest",
+        "tableName": "preferences",
         "columns": {
           "accessibility": {
             "name": "accessibility",
@@ -3593,16 +3376,16 @@
           }
         },
         "uniquenessConstraints": {
-          "guest_preferences_pkey": [
+          "preferences_pkey": [
             "id"
           ]
         },
         "foreignRelations": {},
         "description": null
       },
-      "identity_guests": {
-        "schemaName": "identity",
-        "tableName": "guests",
+      "guest_resource": {
+        "schemaName": "guest",
+        "tableName": "resource",
         "columns": {
           "age_group": {
             "name": "age_group",
@@ -3726,222 +3509,7 @@
           }
         },
         "uniquenessConstraints": {
-          "guests_pkey": [
-            "id"
-          ]
-        },
-        "foreignRelations": {
-          "guests_foreigner_id_fkey": {
-            "foreignSchema": "identity",
-            "foreignTable": "foreigner_details",
-            "columnMapping": {
-              "foreigner_id": "id"
-            }
-          },
-          "guests_id_document_id_fkey": {
-            "foreignSchema": "identity",
-            "foreignTable": "id_documents",
-            "columnMapping": {
-              "id_document_id": "id"
-            }
-          },
-          "guests_local_address_id_fkey": {
-            "foreignSchema": "common",
-            "foreignTable": "postal_address",
-            "columnMapping": {
-              "local_address_id": "id"
-            }
-          },
-          "guests_permanent_address_id_fkey": {
-            "foreignSchema": "common",
-            "foreignTable": "postal_address",
-            "columnMapping": {
-              "permanent_address_id": "id"
-            }
-          },
-          "guests_preferences_id_fkey": {
-            "foreignSchema": "identity",
-            "foreignTable": "guest_preferences",
-            "columnMapping": {
-              "preferences_id": "id"
-            }
-          }
-        },
-        "description": null
-      },
-      "identity_id_documents": {
-        "schemaName": "identity",
-        "tableName": "id_documents",
-        "columns": {
-          "attachment_id": {
-            "name": "attachment_id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "expiry_date": {
-            "name": "expiry_date",
-            "type": {
-              "scalarType": "date"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "id": {
-            "name": "id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "issue_date": {
-            "name": "issue_date",
-            "type": {
-              "scalarType": "date"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "issue_place": {
-            "name": "issue_place",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "issuing_country": {
-            "name": "issuing_country",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "number": {
-            "name": "number",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "type": {
-            "name": "type",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
-            "description": null
-          }
-        },
-        "uniquenessConstraints": {
-          "id_documents_pkey": [
-            "id"
-          ]
-        },
-        "foreignRelations": {
-          "id_documents_attachment_id_fkey": {
-            "foreignSchema": "shared",
-            "foreignTable": "attachments",
-            "columnMapping": {
-              "attachment_id": "id"
-            }
-          }
-        },
-        "description": null
-      },
-      "identity_users": {
-        "schemaName": "identity",
-        "tableName": "users",
-        "columns": {
-          "avatar_url": {
-            "name": "avatar_url",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "create_time": {
-            "name": "create_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "display_name": {
-            "name": "display_name",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "email": {
-            "name": "email",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "etag": {
-            "name": "etag",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "id": {
-            "name": "id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "locale": {
-            "name": "locale",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "name": {
-            "name": "name",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "time_zone": {
-            "name": "time_zone",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "update_time": {
-            "name": "update_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          }
-        },
-        "uniquenessConstraints": {
-          "users_pkey": [
+          "resource_pkey": [
             "id"
           ]
         },
@@ -4249,241 +3817,6 @@
               "scalarType": "text"
             },
             "nullable": "nullable",
-            "description": null
-          },
-          "update_time": {
-            "name": "update_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          }
-        },
-        "uniquenessConstraints": {
-          "resource_pkey": [
-            "id"
-          ]
-        },
-        "foreignRelations": {},
-        "description": null
-      },
-      "organisation_members": {
-        "schemaName": "organisation",
-        "tableName": "members",
-        "columns": {
-          "create_time": {
-            "name": "create_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "display_name": {
-            "name": "display_name",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "email": {
-            "name": "email",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "etag": {
-            "name": "etag",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "id": {
-            "name": "id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "inviter": {
-            "name": "inviter",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "name": {
-            "name": "name",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "organisation_id": {
-            "name": "organisation_id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "role": {
-            "name": "role",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "hasDefault": "hasDefault",
-            "description": null
-          },
-          "state": {
-            "name": "state",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "hasDefault": "hasDefault",
-            "description": null
-          },
-          "update_time": {
-            "name": "update_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "user": {
-            "name": "user",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          }
-        },
-        "uniquenessConstraints": {
-          "members_pkey": [
-            "id"
-          ]
-        },
-        "foreignRelations": {
-          "members_inviter_fkey": {
-            "foreignSchema": "identity",
-            "foreignTable": "users",
-            "columnMapping": {
-              "inviter": "id"
-            }
-          },
-          "members_organisation_id_fkey": {
-            "foreignSchema": "organisation",
-            "foreignTable": "resource",
-            "columnMapping": {
-              "organisation_id": "id"
-            }
-          },
-          "members_user_fkey": {
-            "foreignSchema": "identity",
-            "foreignTable": "users",
-            "columnMapping": {
-              "user": "id"
-            }
-          }
-        },
-        "description": null
-      },
-      "organisation_resource": {
-        "schemaName": "organisation",
-        "tableName": "resource",
-        "columns": {
-          "billing_email": {
-            "name": "billing_email",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "create_time": {
-            "name": "create_time",
-            "type": {
-              "scalarType": "timestamptz"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "display_name": {
-            "name": "display_name",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "etag": {
-            "name": "etag",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "id": {
-            "name": "id",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "member_count": {
-            "name": "member_count",
-            "type": {
-              "scalarType": "int8"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "name": {
-            "name": "name",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nonNullable",
-            "description": null
-          },
-          "settings": {
-            "name": "settings",
-            "type": {
-              "scalarType": "jsonb"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "slug": {
-            "name": "slug",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "description": null
-          },
-          "state": {
-            "name": "state",
-            "type": {
-              "scalarType": "text"
-            },
-            "nullable": "nullable",
-            "hasDefault": "hasDefault",
             "description": null
           },
           "update_time": {
@@ -5590,13 +4923,6 @@
               "amount_applied_id": "id"
             }
           },
-          "redemptions_customer_fkey": {
-            "foreignSchema": "identity",
-            "foreignTable": "users",
-            "columnMapping": {
-              "customer": "id"
-            }
-          },
           "redemptions_promo_code_id_fkey": {
             "foreignSchema": "promocode",
             "foreignTable": "resource",
@@ -6588,13 +5914,6 @@
             "foreignTable": "postal_address",
             "columnMapping": {
               "address_id": "id"
-            }
-          },
-          "properties_organisation_fkey": {
-            "foreignSchema": "organisation",
-            "foreignTable": "resource",
-            "columnMapping": {
-              "organisation": "id"
             }
           },
           "properties_policy_id_fkey": {

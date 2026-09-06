@@ -29,7 +29,6 @@ import (
 	"github.com/oh-tarnished/freebusy/internal"
 	"github.com/oh-tarnished/freebusy/internal/database"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/freebusy/scheduling"
-	orgpbv1 "github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/pricing/v1/pricingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
@@ -61,7 +60,6 @@ func TestE2E_Hasura(t *testing.T) {
 // only cancel).
 type e2eClients struct {
 	suffix    string
-	orgs      orgpbv1.OrganisationServiceClient
 	bookings  schedulingpbv1.SchedulingServiceClient
 	promos    promocodepbv1.PromoCodeServiceClient
 	ratePlans pricingpbv1.RatePlanServiceClient
@@ -84,7 +82,6 @@ func serverLifecycle(t *testing.T, cc *grpc.ClientConn, conn *database.Connectio
 	t.Helper()
 	c := &e2eClients{
 		suffix:    fmt.Sprintf("%d", time.Now().UnixNano()%1_000_000_000),
-		orgs:      orgpbv1.NewOrganisationServiceClient(cc),
 		bookings:  schedulingpbv1.NewSchedulingServiceClient(cc),
 		promos:    promocodepbv1.NewPromoCodeServiceClient(cc),
 		ratePlans: pricingpbv1.NewRatePlanServiceClient(cc),

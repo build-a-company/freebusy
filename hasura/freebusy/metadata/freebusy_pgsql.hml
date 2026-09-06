@@ -104,27 +104,6 @@ definition:
               unique_columns:
                 - id
         - arguments: {}
-          name: channel_resource
-          type: channel_resource
-          uniqueness_constraints:
-            resource_pkey:
-              unique_columns:
-                - id
-        - arguments: {}
-          name: channel_sync_statuses
-          type: channel_sync_statuses
-          uniqueness_constraints:
-            sync_statuses_pkey:
-              unique_columns:
-                - id
-        - arguments: {}
-          name: channel_unit_mappings
-          type: channel_unit_mappings
-          uniqueness_constraints:
-            unit_mappings_pkey:
-              unique_columns:
-                - id
-        - arguments: {}
           name: common_moneys
           type: common_moneys
           uniqueness_constraints:
@@ -265,38 +244,31 @@ definition:
               unique_columns:
                 - id
         - arguments: {}
-          name: identity_foreigner_details
-          type: identity_foreigner_details
+          name: guest_foreigner_details
+          type: guest_foreigner_details
           uniqueness_constraints:
             foreigner_details_pkey:
               unique_columns:
                 - id
         - arguments: {}
-          name: identity_guest_preferences
-          type: identity_guest_preferences
-          uniqueness_constraints:
-            guest_preferences_pkey:
-              unique_columns:
-                - id
-        - arguments: {}
-          name: identity_guests
-          type: identity_guests
-          uniqueness_constraints:
-            guests_pkey:
-              unique_columns:
-                - id
-        - arguments: {}
-          name: identity_id_documents
-          type: identity_id_documents
+          name: guest_id_documents
+          type: guest_id_documents
           uniqueness_constraints:
             id_documents_pkey:
               unique_columns:
                 - id
         - arguments: {}
-          name: identity_users
-          type: identity_users
+          name: guest_preferences
+          type: guest_preferences
           uniqueness_constraints:
-            users_pkey:
+            preferences_pkey:
+              unique_columns:
+                - id
+        - arguments: {}
+          name: guest_resource
+          type: guest_resource
+          uniqueness_constraints:
+            resource_pkey:
               unique_columns:
                 - id
         - arguments: {}
@@ -323,20 +295,6 @@ definition:
         - arguments: {}
           name: membership_resource
           type: membership_resource
-          uniqueness_constraints:
-            resource_pkey:
-              unique_columns:
-                - id
-        - arguments: {}
-          name: organisation_members
-          type: organisation_members
-          uniqueness_constraints:
-            members_pkey:
-              unique_columns:
-                - id
-        - arguments: {}
-          name: organisation_resource
-          type: organisation_resource
           uniqueness_constraints:
             resource_pkey:
               unique_columns:
@@ -1719,174 +1677,6 @@ definition:
                   name: jsonb
                   type: named
           foreign_keys: {}
-        channel_resource:
-          fields:
-            create_time:
-              type:
-                name: timestamptz
-                type: named
-            credential_ref:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            display_name:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            etag:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            external_property_id:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            last_sync_time:
-              type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
-            name:
-              type:
-                name: text
-                type: named
-            property:
-              type:
-                name: text
-                type: named
-            state:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            type:
-              type:
-                name: text
-                type: named
-            update_time:
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys:
-            resource_property_fkey:
-              column_mapping:
-                property:
-                  - id
-              foreign_collection: property_properties
-        channel_sync_statuses:
-          fields:
-            failed_count:
-              type:
-                type: nullable
-                underlying_type:
-                  name: int4
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            last_error:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            last_sync_time:
-              type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
-            name:
-              type:
-                name: text
-                type: named
-            pending_count:
-              type:
-                type: nullable
-                underlying_type:
-                  name: int4
-                  type: named
-            state:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        channel_unit_mappings:
-          fields:
-            channel_id:
-              type:
-                name: text
-                type: named
-            create_time:
-              type:
-                name: timestamptz
-                type: named
-            etag:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            external_rate_plan_id:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            external_room_type_id:
-              type:
-                name: text
-                type: named
-            id:
-              type:
-                name: text
-                type: named
-            name:
-              type:
-                name: text
-                type: named
-            state:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            unit:
-              type:
-                name: text
-                type: named
-            update_time:
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys:
-            unit_mappings_channel_id_fkey:
-              column_mapping:
-                channel_id:
-                  - id
-              foreign_collection: channel_resource
-            unit_mappings_unit_fkey:
-              column_mapping:
-                unit:
-                  - id
-              foreign_collection: property_units
         common_moneys:
           fields:
             currency_code:
@@ -2195,54 +1985,6 @@ definition:
               type:
                 element_type:
                   name: card_speeches
-                  type: named
-                type: array
-          foreign_keys: {}
-        delete_channel_resource_by_id_response:
-          description: Responses from the 'delete_channel_resource_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: channel_resource
-                  type: named
-                type: array
-          foreign_keys: {}
-        delete_channel_sync_statuses_by_id_response:
-          description: Responses from the 'delete_channel_sync_statuses_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: channel_sync_statuses
-                  type: named
-                type: array
-          foreign_keys: {}
-        delete_channel_unit_mappings_by_id_response:
-          description: Responses from the 'delete_channel_unit_mappings_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: channel_unit_mappings
                   type: named
                 type: array
           foreign_keys: {}
@@ -2566,8 +2308,8 @@ definition:
                   type: named
                 type: array
           foreign_keys: {}
-        delete_identity_foreigner_details_by_id_response:
-          description: Responses from the 'delete_identity_foreigner_details_by_id' procedure
+        delete_guest_foreigner_details_by_id_response:
+          description: Responses from the 'delete_guest_foreigner_details_by_id' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -2578,12 +2320,12 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: identity_foreigner_details
+                  name: guest_foreigner_details
                   type: named
                 type: array
           foreign_keys: {}
-        delete_identity_guest_preferences_by_id_response:
-          description: Responses from the 'delete_identity_guest_preferences_by_id' procedure
+        delete_guest_id_documents_by_id_response:
+          description: Responses from the 'delete_guest_id_documents_by_id' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -2594,7 +2336,39 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: identity_guest_preferences
+                  name: guest_id_documents
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_guest_preferences_by_id_response:
+          description: Responses from the 'delete_guest_preferences_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: guest_preferences
+                  type: named
+                type: array
+          foreign_keys: {}
+        delete_guest_resource_by_id_response:
+          description: Responses from the 'delete_guest_resource_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: guest_resource
                   type: named
                 type: array
           foreign_keys: {}
@@ -2618,54 +2392,6 @@ definition:
               type:
                 element_type:
                   name: delete_identity_guests_by_booking_id
-                  type: named
-                type: array
-          foreign_keys: {}
-        delete_identity_guests_by_id_response:
-          description: Responses from the 'delete_identity_guests_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: identity_guests
-                  type: named
-                type: array
-          foreign_keys: {}
-        delete_identity_id_documents_by_id_response:
-          description: Responses from the 'delete_identity_id_documents_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: identity_id_documents
-                  type: named
-                type: array
-          foreign_keys: {}
-        delete_identity_users_by_id_response:
-          description: Responses from the 'delete_identity_users_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: identity_users
                   type: named
                 type: array
           foreign_keys: {}
@@ -2730,38 +2456,6 @@ definition:
               type:
                 element_type:
                   name: membership_resource
-                  type: named
-                type: array
-          foreign_keys: {}
-        delete_organisation_members_by_id_response:
-          description: Responses from the 'delete_organisation_members_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: organisation_members
-                  type: named
-                type: array
-          foreign_keys: {}
-        delete_organisation_resource_by_id_response:
-          description: Responses from the 'delete_organisation_resource_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: organisation_resource
                   type: named
                 type: array
           foreign_keys: {}
@@ -5078,7 +4772,7 @@ definition:
                 name: timestamptz
                 type: named
           foreign_keys: {}
-        identity_foreigner_details:
+        guest_foreigner_details:
           fields:
             arrival_date:
               type:
@@ -5145,7 +4839,52 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        identity_guest_preferences:
+        guest_id_documents:
+          fields:
+            attachment_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            expiry_date:
+              type:
+                type: nullable
+                underlying_type:
+                  name: date
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            issue_date:
+              type:
+                type: nullable
+                underlying_type:
+                  name: date
+                  type: named
+            issue_place:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            issuing_country:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            number:
+              type:
+                name: text
+                type: named
+            type:
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        guest_preferences:
           fields:
             accessibility:
               type:
@@ -5212,7 +4951,7 @@ definition:
                       type: named
                   type: array
           foreign_keys: {}
-        identity_guests:
+        guest_resource:
           fields:
             age_group:
               type:
@@ -5298,136 +5037,6 @@ definition:
                 underlying_type:
                   name: bool
                   type: named
-          foreign_keys:
-            guests_foreigner_id_fkey:
-              column_mapping:
-                foreigner_id:
-                  - id
-              foreign_collection: identity_foreigner_details
-            guests_id_document_id_fkey:
-              column_mapping:
-                id_document_id:
-                  - id
-              foreign_collection: identity_id_documents
-            guests_local_address_id_fkey:
-              column_mapping:
-                local_address_id:
-                  - id
-              foreign_collection: common_postal_address
-            guests_permanent_address_id_fkey:
-              column_mapping:
-                permanent_address_id:
-                  - id
-              foreign_collection: common_postal_address
-            guests_preferences_id_fkey:
-              column_mapping:
-                preferences_id:
-                  - id
-              foreign_collection: identity_guest_preferences
-        identity_id_documents:
-          fields:
-            attachment_id:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            expiry_date:
-              type:
-                type: nullable
-                underlying_type:
-                  name: date
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            issue_date:
-              type:
-                type: nullable
-                underlying_type:
-                  name: date
-                  type: named
-            issue_place:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            issuing_country:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            number:
-              type:
-                name: text
-                type: named
-            type:
-              type:
-                name: text
-                type: named
-          foreign_keys:
-            id_documents_attachment_id_fkey:
-              column_mapping:
-                attachment_id:
-                  - id
-              foreign_collection: shared_attachments
-        identity_users:
-          fields:
-            avatar_url:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            create_time:
-              type:
-                name: timestamptz
-                type: named
-            display_name:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            email:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            etag:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            locale:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            name:
-              type:
-                name: text
-                type: named
-            time_zone:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            update_time:
-              type:
-                name: timestamptz
-                type: named
           foreign_keys: {}
         insert__prisma_migrations_object:
           fields:
@@ -6440,209 +6049,6 @@ definition:
               type:
                 element_type:
                   name: card_speeches
-                  type: named
-                type: array
-          foreign_keys: {}
-        insert_channel_resource_object:
-          fields:
-            create_time:
-              type:
-                name: timestamptz
-                type: named
-            credential_ref:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            display_name:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            etag:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            external_property_id:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            last_sync_time:
-              type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
-            name:
-              type:
-                name: text
-                type: named
-            property:
-              type:
-                name: text
-                type: named
-            state:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            type:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            update_time:
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        insert_channel_resource_response:
-          description: Responses from the 'insert_channel_resource' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: channel_resource
-                  type: named
-                type: array
-          foreign_keys: {}
-        insert_channel_sync_statuses_object:
-          fields:
-            failed_count:
-              type:
-                type: nullable
-                underlying_type:
-                  name: int4
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            last_error:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            last_sync_time:
-              type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
-            name:
-              type:
-                name: text
-                type: named
-            pending_count:
-              type:
-                type: nullable
-                underlying_type:
-                  name: int4
-                  type: named
-            state:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        insert_channel_sync_statuses_response:
-          description: Responses from the 'insert_channel_sync_statuses' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: channel_sync_statuses
-                  type: named
-                type: array
-          foreign_keys: {}
-        insert_channel_unit_mappings_object:
-          fields:
-            channel_id:
-              type:
-                name: text
-                type: named
-            create_time:
-              type:
-                name: timestamptz
-                type: named
-            etag:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            external_rate_plan_id:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            external_room_type_id:
-              type:
-                name: text
-                type: named
-            id:
-              type:
-                name: text
-                type: named
-            name:
-              type:
-                name: text
-                type: named
-            state:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            unit:
-              type:
-                name: text
-                type: named
-            update_time:
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        insert_channel_unit_mappings_response:
-          description: Responses from the 'insert_channel_unit_mappings' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: channel_unit_mappings
                   type: named
                 type: array
           foreign_keys: {}
@@ -8124,7 +7530,7 @@ definition:
                   type: named
                 type: array
           foreign_keys: {}
-        insert_identity_foreigner_details_object:
+        insert_guest_foreigner_details_object:
           fields:
             arrival_date:
               type:
@@ -8191,8 +7597,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        insert_identity_foreigner_details_response:
-          description: Responses from the 'insert_identity_foreigner_details' procedure
+        insert_guest_foreigner_details_response:
+          description: Responses from the 'insert_guest_foreigner_details' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -8203,11 +7609,74 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: identity_foreigner_details
+                  name: guest_foreigner_details
                   type: named
                 type: array
           foreign_keys: {}
-        insert_identity_guest_preferences_object:
+        insert_guest_id_documents_object:
+          fields:
+            attachment_id:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            expiry_date:
+              type:
+                type: nullable
+                underlying_type:
+                  name: date
+                  type: named
+            id:
+              type:
+                name: text
+                type: named
+            issue_date:
+              type:
+                type: nullable
+                underlying_type:
+                  name: date
+                  type: named
+            issue_place:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            issuing_country:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+            number:
+              type:
+                name: text
+                type: named
+            type:
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        insert_guest_id_documents_response:
+          description: Responses from the 'insert_guest_id_documents' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: guest_id_documents
+                  type: named
+                type: array
+          foreign_keys: {}
+        insert_guest_preferences_object:
           fields:
             accessibility:
               type:
@@ -8274,8 +7743,8 @@ definition:
                       type: named
                   type: array
           foreign_keys: {}
-        insert_identity_guest_preferences_response:
-          description: Responses from the 'insert_identity_guest_preferences' procedure
+        insert_guest_preferences_response:
+          description: Responses from the 'insert_guest_preferences' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -8286,11 +7755,11 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: identity_guest_preferences
+                  name: guest_preferences
                   type: named
                 type: array
           foreign_keys: {}
-        insert_identity_guests_object:
+        insert_guest_resource_object:
           fields:
             age_group:
               type:
@@ -8377,8 +7846,8 @@ definition:
                   name: bool
                   type: named
           foreign_keys: {}
-        insert_identity_guests_response:
-          description: Responses from the 'insert_identity_guests' procedure
+        insert_guest_resource_response:
+          description: Responses from the 'insert_guest_resource' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -8389,141 +7858,7 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: identity_guests
-                  type: named
-                type: array
-          foreign_keys: {}
-        insert_identity_id_documents_object:
-          fields:
-            attachment_id:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            expiry_date:
-              type:
-                type: nullable
-                underlying_type:
-                  name: date
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            issue_date:
-              type:
-                type: nullable
-                underlying_type:
-                  name: date
-                  type: named
-            issue_place:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            issuing_country:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            number:
-              type:
-                name: text
-                type: named
-            type:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        insert_identity_id_documents_response:
-          description: Responses from the 'insert_identity_id_documents' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: identity_id_documents
-                  type: named
-                type: array
-          foreign_keys: {}
-        insert_identity_users_object:
-          fields:
-            avatar_url:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            create_time:
-              type:
-                name: timestamptz
-                type: named
-            display_name:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            email:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            etag:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            locale:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            name:
-              type:
-                name: text
-                type: named
-            time_zone:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            update_time:
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        insert_identity_users_response:
-          description: Responses from the 'insert_identity_users' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: identity_users
+                  name: guest_resource
                   type: named
                 type: array
           foreign_keys: {}
@@ -8774,160 +8109,6 @@ definition:
               type:
                 element_type:
                   name: membership_resource
-                  type: named
-                type: array
-          foreign_keys: {}
-        insert_organisation_members_object:
-          fields:
-            create_time:
-              type:
-                name: timestamptz
-                type: named
-            display_name:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            email:
-              type:
-                name: text
-                type: named
-            etag:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            inviter:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            name:
-              type:
-                name: text
-                type: named
-            organisation_id:
-              type:
-                name: text
-                type: named
-            role:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            state:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            update_time:
-              type:
-                name: timestamptz
-                type: named
-            user:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        insert_organisation_members_response:
-          description: Responses from the 'insert_organisation_members' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: organisation_members
-                  type: named
-                type: array
-          foreign_keys: {}
-        insert_organisation_resource_object:
-          fields:
-            billing_email:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            create_time:
-              type:
-                name: timestamptz
-                type: named
-            display_name:
-              type:
-                name: text
-                type: named
-            etag:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            member_count:
-              type:
-                type: nullable
-                underlying_type:
-                  name: int8
-                  type: named
-            name:
-              type:
-                name: text
-                type: named
-            settings:
-              type:
-                type: nullable
-                underlying_type:
-                  name: jsonb
-                  type: named
-            slug:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            state:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            update_time:
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        insert_organisation_resource_response:
-          description: Responses from the 'insert_organisation_resource' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: organisation_resource
                   type: named
                 type: array
           foreign_keys: {}
@@ -13967,141 +13148,6 @@ definition:
                 name: timestamptz
                 type: named
           foreign_keys: {}
-        organisation_members:
-          fields:
-            create_time:
-              type:
-                name: timestamptz
-                type: named
-            display_name:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            email:
-              type:
-                name: text
-                type: named
-            etag:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            inviter:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            name:
-              type:
-                name: text
-                type: named
-            organisation_id:
-              type:
-                name: text
-                type: named
-            role:
-              type:
-                name: text
-                type: named
-            state:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            update_time:
-              type:
-                name: timestamptz
-                type: named
-            user:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys:
-            members_inviter_fkey:
-              column_mapping:
-                inviter:
-                  - id
-              foreign_collection: identity_users
-            members_organisation_id_fkey:
-              column_mapping:
-                organisation_id:
-                  - id
-              foreign_collection: organisation_resource
-            members_user_fkey:
-              column_mapping:
-                user:
-                  - id
-              foreign_collection: identity_users
-        organisation_resource:
-          fields:
-            billing_email:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            create_time:
-              type:
-                name: timestamptz
-                type: named
-            display_name:
-              type:
-                name: text
-                type: named
-            etag:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            id:
-              type:
-                name: text
-                type: named
-            member_count:
-              type:
-                type: nullable
-                underlying_type:
-                  name: int8
-                  type: named
-            name:
-              type:
-                name: text
-                type: named
-            settings:
-              type:
-                type: nullable
-                underlying_type:
-                  name: jsonb
-                  type: named
-            slug:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            state:
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-            update_time:
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
         organization_resource:
           fields:
             business_categories:
@@ -14720,11 +13766,6 @@ definition:
                 amount_applied_id:
                   - id
               foreign_collection: common_moneys
-            redemptions_customer_fkey:
-              column_mapping:
-                customer:
-                  - id
-              foreign_collection: identity_users
             redemptions_promo_code_id_fkey:
               column_mapping:
                 promo_code_id:
@@ -15311,11 +14352,6 @@ definition:
                 address_id:
                   - id
               foreign_collection: common_postal_address
-            properties_organisation_fkey:
-              column_mapping:
-                organisation:
-                  - id
-              foreign_collection: organisation_resource
             properties_policy_id_fkey:
               column_mapping:
                 policy_id:
@@ -17781,269 +16817,6 @@ definition:
                   name: update_column_card_speeches_pronouns
                   type: named
           foreign_keys: {}
-        update_channel_resource_by_id_response:
-          description: Responses from the 'update_channel_resource_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: channel_resource
-                  type: named
-                type: array
-          foreign_keys: {}
-        update_channel_resource_by_id_update_columns:
-          description: Update the columns of the 'channel_resource' collection
-          fields:
-            create_time:
-              description: Update the 'create_time' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_create_time
-                  type: named
-            credential_ref:
-              description: Update the 'credential_ref' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_credential_ref
-                  type: named
-            display_name:
-              description: Update the 'display_name' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_display_name
-                  type: named
-            etag:
-              description: Update the 'etag' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_etag
-                  type: named
-            external_property_id:
-              description: Update the 'external_property_id' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_external_property_id
-                  type: named
-            id:
-              description: Update the 'id' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_id
-                  type: named
-            last_sync_time:
-              description: Update the 'last_sync_time' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_last_sync_time
-                  type: named
-            name:
-              description: Update the 'name' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_name
-                  type: named
-            property:
-              description: Update the 'property' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_property
-                  type: named
-            state:
-              description: Update the 'state' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_state
-                  type: named
-            type:
-              description: Update the 'type' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_type
-                  type: named
-            update_time:
-              description: Update the 'update_time' column in the 'channel_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_resource_update_time
-                  type: named
-          foreign_keys: {}
-        update_channel_sync_statuses_by_id_response:
-          description: Responses from the 'update_channel_sync_statuses_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: channel_sync_statuses
-                  type: named
-                type: array
-          foreign_keys: {}
-        update_channel_sync_statuses_by_id_update_columns:
-          description: Update the columns of the 'channel_sync_statuses' collection
-          fields:
-            failed_count:
-              description: Update the 'failed_count' column in the 'channel_sync_statuses' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_sync_statuses_failed_count
-                  type: named
-            id:
-              description: Update the 'id' column in the 'channel_sync_statuses' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_sync_statuses_id
-                  type: named
-            last_error:
-              description: Update the 'last_error' column in the 'channel_sync_statuses' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_sync_statuses_last_error
-                  type: named
-            last_sync_time:
-              description: Update the 'last_sync_time' column in the 'channel_sync_statuses' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_sync_statuses_last_sync_time
-                  type: named
-            name:
-              description: Update the 'name' column in the 'channel_sync_statuses' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_sync_statuses_name
-                  type: named
-            pending_count:
-              description: Update the 'pending_count' column in the 'channel_sync_statuses' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_sync_statuses_pending_count
-                  type: named
-            state:
-              description: Update the 'state' column in the 'channel_sync_statuses' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_sync_statuses_state
-                  type: named
-          foreign_keys: {}
-        update_channel_unit_mappings_by_id_response:
-          description: Responses from the 'update_channel_unit_mappings_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: channel_unit_mappings
-                  type: named
-                type: array
-          foreign_keys: {}
-        update_channel_unit_mappings_by_id_update_columns:
-          description: Update the columns of the 'channel_unit_mappings' collection
-          fields:
-            channel_id:
-              description: Update the 'channel_id' column in the 'channel_unit_mappings' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_unit_mappings_channel_id
-                  type: named
-            create_time:
-              description: Update the 'create_time' column in the 'channel_unit_mappings' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_unit_mappings_create_time
-                  type: named
-            etag:
-              description: Update the 'etag' column in the 'channel_unit_mappings' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_unit_mappings_etag
-                  type: named
-            external_rate_plan_id:
-              description: Update the 'external_rate_plan_id' column in the 'channel_unit_mappings' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_unit_mappings_external_rate_plan_id
-                  type: named
-            external_room_type_id:
-              description: Update the 'external_room_type_id' column in the 'channel_unit_mappings' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_unit_mappings_external_room_type_id
-                  type: named
-            id:
-              description: Update the 'id' column in the 'channel_unit_mappings' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_unit_mappings_id
-                  type: named
-            name:
-              description: Update the 'name' column in the 'channel_unit_mappings' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_unit_mappings_name
-                  type: named
-            state:
-              description: Update the 'state' column in the 'channel_unit_mappings' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_unit_mappings_state
-                  type: named
-            unit:
-              description: Update the 'unit' column in the 'channel_unit_mappings' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_unit_mappings_unit
-                  type: named
-            update_time:
-              description: Update the 'update_time' column in the 'channel_unit_mappings' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_channel_unit_mappings_update_time
-                  type: named
-          foreign_keys: {}
         update_column__prisma_migrations_applied_steps_count:
           description: Update the 'applied_steps_count' column in the '_prisma_migrations' collection
           fields:
@@ -19513,295 +18286,6 @@ definition:
                 underlying_type:
                   name: jsonb
                   type: named
-          foreign_keys: {}
-        update_column_channel_resource_create_time:
-          description: Update the 'create_time' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        update_column_channel_resource_credential_ref:
-          description: Update the 'credential_ref' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_channel_resource_display_name:
-          description: Update the 'display_name' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_channel_resource_etag:
-          description: Update the 'etag' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_channel_resource_external_property_id:
-          description: Update the 'external_property_id' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_channel_resource_id:
-          description: Update the 'id' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_resource_last_sync_time:
-          description: Update the 'last_sync_time' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
-          foreign_keys: {}
-        update_column_channel_resource_name:
-          description: Update the 'name' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_resource_property:
-          description: Update the 'property' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_resource_state:
-          description: Update the 'state' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_channel_resource_type:
-          description: Update the 'type' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_resource_update_time:
-          description: Update the 'update_time' column in the 'channel_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        update_column_channel_sync_statuses_failed_count:
-          description: Update the 'failed_count' column in the 'channel_sync_statuses' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: int4
-                  type: named
-          foreign_keys: {}
-        update_column_channel_sync_statuses_id:
-          description: Update the 'id' column in the 'channel_sync_statuses' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_sync_statuses_last_error:
-          description: Update the 'last_error' column in the 'channel_sync_statuses' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_channel_sync_statuses_last_sync_time:
-          description: Update the 'last_sync_time' column in the 'channel_sync_statuses' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: timestamptz
-                  type: named
-          foreign_keys: {}
-        update_column_channel_sync_statuses_name:
-          description: Update the 'name' column in the 'channel_sync_statuses' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_sync_statuses_pending_count:
-          description: Update the 'pending_count' column in the 'channel_sync_statuses' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: int4
-                  type: named
-          foreign_keys: {}
-        update_column_channel_sync_statuses_state:
-          description: Update the 'state' column in the 'channel_sync_statuses' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_channel_unit_mappings_channel_id:
-          description: Update the 'channel_id' column in the 'channel_unit_mappings' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_unit_mappings_create_time:
-          description: Update the 'create_time' column in the 'channel_unit_mappings' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        update_column_channel_unit_mappings_etag:
-          description: Update the 'etag' column in the 'channel_unit_mappings' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_channel_unit_mappings_external_rate_plan_id:
-          description: Update the 'external_rate_plan_id' column in the 'channel_unit_mappings' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_channel_unit_mappings_external_room_type_id:
-          description: Update the 'external_room_type_id' column in the 'channel_unit_mappings' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_unit_mappings_id:
-          description: Update the 'id' column in the 'channel_unit_mappings' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_unit_mappings_name:
-          description: Update the 'name' column in the 'channel_unit_mappings' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_unit_mappings_state:
-          description: Update the 'state' column in the 'channel_unit_mappings' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_channel_unit_mappings_unit:
-          description: Update the 'unit' column in the 'channel_unit_mappings' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_channel_unit_mappings_update_time:
-          description: Update the 'update_time' column in the 'channel_unit_mappings' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: timestamptz
-                type: named
           foreign_keys: {}
         update_column_common_moneys_currency_code:
           description: Update the 'currency_code' column in the 'common_moneys' collection
@@ -21840,8 +20324,8 @@ definition:
                 name: timestamptz
                 type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_arrival_date:
-          description: Update the 'arrival_date' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_arrival_date:
+          description: Update the 'arrival_date' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21851,8 +20335,8 @@ definition:
                   name: date
                   type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_entry_port:
-          description: Update the 'entry_port' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_entry_port:
+          description: Update the 'entry_port' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21862,8 +20346,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_id:
-          description: Update the 'id' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_id:
+          description: Update the 'id' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21871,8 +20355,8 @@ definition:
                 name: text
                 type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_next_destination:
-          description: Update the 'next_destination' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_next_destination:
+          description: Update the 'next_destination' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21882,8 +20366,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_origin:
-          description: Update the 'origin' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_origin:
+          description: Update the 'origin' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21893,8 +20377,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_visa_expiry_date:
-          description: Update the 'visa_expiry_date' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_visa_expiry_date:
+          description: Update the 'visa_expiry_date' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21904,8 +20388,8 @@ definition:
                   name: date
                   type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_visa_issue_date:
-          description: Update the 'visa_issue_date' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_visa_issue_date:
+          description: Update the 'visa_issue_date' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21915,8 +20399,8 @@ definition:
                   name: date
                   type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_visa_issue_place:
-          description: Update the 'visa_issue_place' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_visa_issue_place:
+          description: Update the 'visa_issue_place' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21926,8 +20410,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_visa_number:
-          description: Update the 'visa_number' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_visa_number:
+          description: Update the 'visa_number' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21937,8 +20421,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_visa_type:
-          description: Update the 'visa_type' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_visa_type:
+          description: Update the 'visa_type' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21948,8 +20432,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_foreigner_details_visit_purpose:
-          description: Update the 'visit_purpose' column in the 'identity_foreigner_details' collection
+        update_column_guest_foreigner_details_visit_purpose:
+          description: Update the 'visit_purpose' column in the 'guest_foreigner_details' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21959,8 +20443,90 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guest_preferences_accessibility:
-          description: Update the 'accessibility' column in the 'identity_guest_preferences' collection
+        update_column_guest_id_documents_attachment_id:
+          description: Update the 'attachment_id' column in the 'guest_id_documents' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_guest_id_documents_expiry_date:
+          description: Update the 'expiry_date' column in the 'guest_id_documents' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: date
+                  type: named
+          foreign_keys: {}
+        update_column_guest_id_documents_id:
+          description: Update the 'id' column in the 'guest_id_documents' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_guest_id_documents_issue_date:
+          description: Update the 'issue_date' column in the 'guest_id_documents' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: date
+                  type: named
+          foreign_keys: {}
+        update_column_guest_id_documents_issue_place:
+          description: Update the 'issue_place' column in the 'guest_id_documents' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_guest_id_documents_issuing_country:
+          description: Update the 'issuing_country' column in the 'guest_id_documents' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  name: text
+                  type: named
+          foreign_keys: {}
+        update_column_guest_id_documents_number:
+          description: Update the 'number' column in the 'guest_id_documents' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_guest_id_documents_type:
+          description: Update the 'type' column in the 'guest_id_documents' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
+          foreign_keys: {}
+        update_column_guest_preferences_accessibility:
+          description: Update the 'accessibility' column in the 'guest_preferences' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21974,8 +20540,8 @@ definition:
                       type: named
                   type: array
           foreign_keys: {}
-        update_column_identity_guest_preferences_bed:
-          description: Update the 'bed' column in the 'identity_guest_preferences' collection
+        update_column_guest_preferences_bed:
+          description: Update the 'bed' column in the 'guest_preferences' collection
           fields:
             _set:
               description: Set the column to this value
@@ -21985,8 +20551,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guest_preferences_dietary:
-          description: Update the 'dietary' column in the 'identity_guest_preferences' collection
+        update_column_guest_preferences_dietary:
+          description: Update the 'dietary' column in the 'guest_preferences' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22000,8 +20566,8 @@ definition:
                       type: named
                   type: array
           foreign_keys: {}
-        update_column_identity_guest_preferences_floor_preference:
-          description: Update the 'floor_preference' column in the 'identity_guest_preferences' collection
+        update_column_guest_preferences_floor_preference:
+          description: Update the 'floor_preference' column in the 'guest_preferences' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22011,8 +20577,8 @@ definition:
                   name: int4
                   type: named
           foreign_keys: {}
-        update_column_identity_guest_preferences_id:
-          description: Update the 'id' column in the 'identity_guest_preferences' collection
+        update_column_guest_preferences_id:
+          description: Update the 'id' column in the 'guest_preferences' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22020,8 +20586,8 @@ definition:
                 name: text
                 type: named
           foreign_keys: {}
-        update_column_identity_guest_preferences_loyalty_number:
-          description: Update the 'loyalty_number' column in the 'identity_guest_preferences' collection
+        update_column_guest_preferences_loyalty_number:
+          description: Update the 'loyalty_number' column in the 'guest_preferences' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22031,8 +20597,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guest_preferences_notes:
-          description: Update the 'notes' column in the 'identity_guest_preferences' collection
+        update_column_guest_preferences_notes:
+          description: Update the 'notes' column in the 'guest_preferences' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22042,8 +20608,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guest_preferences_smoking:
-          description: Update the 'smoking' column in the 'identity_guest_preferences' collection
+        update_column_guest_preferences_smoking:
+          description: Update the 'smoking' column in the 'guest_preferences' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22053,8 +20619,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guest_preferences_special_requests:
-          description: Update the 'special_requests' column in the 'identity_guest_preferences' collection
+        update_column_guest_preferences_special_requests:
+          description: Update the 'special_requests' column in the 'guest_preferences' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22068,8 +20634,8 @@ definition:
                       type: named
                   type: array
           foreign_keys: {}
-        update_column_identity_guests_age_group:
-          description: Update the 'age_group' column in the 'identity_guests' collection
+        update_column_guest_resource_age_group:
+          description: Update the 'age_group' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22079,8 +20645,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_birth_date:
-          description: Update the 'birth_date' column in the 'identity_guests' collection
+        update_column_guest_resource_birth_date:
+          description: Update the 'birth_date' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22090,8 +20656,8 @@ definition:
                   name: date
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_booking_id:
-          description: Update the 'booking_id' column in the 'identity_guests' collection
+        update_column_guest_resource_booking_id:
+          description: Update the 'booking_id' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22099,8 +20665,8 @@ definition:
                 name: text
                 type: named
           foreign_keys: {}
-        update_column_identity_guests_display_name:
-          description: Update the 'display_name' column in the 'identity_guests' collection
+        update_column_guest_resource_display_name:
+          description: Update the 'display_name' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22108,8 +20674,8 @@ definition:
                 name: text
                 type: named
           foreign_keys: {}
-        update_column_identity_guests_email:
-          description: Update the 'email' column in the 'identity_guests' collection
+        update_column_guest_resource_email:
+          description: Update the 'email' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22119,8 +20685,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_foreigner_id:
-          description: Update the 'foreigner_id' column in the 'identity_guests' collection
+        update_column_guest_resource_foreigner_id:
+          description: Update the 'foreigner_id' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22130,8 +20696,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_gender:
-          description: Update the 'gender' column in the 'identity_guests' collection
+        update_column_guest_resource_gender:
+          description: Update the 'gender' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22141,8 +20707,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_id:
-          description: Update the 'id' column in the 'identity_guests' collection
+        update_column_guest_resource_id:
+          description: Update the 'id' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22150,8 +20716,8 @@ definition:
                 name: text
                 type: named
           foreign_keys: {}
-        update_column_identity_guests_id_document_id:
-          description: Update the 'id_document_id' column in the 'identity_guests' collection
+        update_column_guest_resource_id_document_id:
+          description: Update the 'id_document_id' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22161,8 +20727,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_local_address_id:
-          description: Update the 'local_address_id' column in the 'identity_guests' collection
+        update_column_guest_resource_local_address_id:
+          description: Update the 'local_address_id' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22172,8 +20738,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_nationality:
-          description: Update the 'nationality' column in the 'identity_guests' collection
+        update_column_guest_resource_nationality:
+          description: Update the 'nationality' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22183,8 +20749,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_permanent_address_id:
-          description: Update the 'permanent_address_id' column in the 'identity_guests' collection
+        update_column_guest_resource_permanent_address_id:
+          description: Update the 'permanent_address_id' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22194,8 +20760,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_phone_number:
-          description: Update the 'phone_number' column in the 'identity_guests' collection
+        update_column_guest_resource_phone_number:
+          description: Update the 'phone_number' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22205,8 +20771,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_preferences_id:
-          description: Update the 'preferences_id' column in the 'identity_guests' collection
+        update_column_guest_resource_preferences_id:
+          description: Update the 'preferences_id' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22216,8 +20782,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_identity_guests_primary:
-          description: Update the 'primary' column in the 'identity_guests' collection
+        update_column_guest_resource_primary:
+          description: Update the 'primary' column in the 'guest_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -22226,190 +20792,6 @@ definition:
                 underlying_type:
                   name: bool
                   type: named
-          foreign_keys: {}
-        update_column_identity_id_documents_attachment_id:
-          description: Update the 'attachment_id' column in the 'identity_id_documents' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_identity_id_documents_expiry_date:
-          description: Update the 'expiry_date' column in the 'identity_id_documents' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: date
-                  type: named
-          foreign_keys: {}
-        update_column_identity_id_documents_id:
-          description: Update the 'id' column in the 'identity_id_documents' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_identity_id_documents_issue_date:
-          description: Update the 'issue_date' column in the 'identity_id_documents' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: date
-                  type: named
-          foreign_keys: {}
-        update_column_identity_id_documents_issue_place:
-          description: Update the 'issue_place' column in the 'identity_id_documents' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_identity_id_documents_issuing_country:
-          description: Update the 'issuing_country' column in the 'identity_id_documents' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_identity_id_documents_number:
-          description: Update the 'number' column in the 'identity_id_documents' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_identity_id_documents_type:
-          description: Update the 'type' column in the 'identity_id_documents' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_identity_users_avatar_url:
-          description: Update the 'avatar_url' column in the 'identity_users' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_identity_users_create_time:
-          description: Update the 'create_time' column in the 'identity_users' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        update_column_identity_users_display_name:
-          description: Update the 'display_name' column in the 'identity_users' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_identity_users_email:
-          description: Update the 'email' column in the 'identity_users' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_identity_users_etag:
-          description: Update the 'etag' column in the 'identity_users' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_identity_users_id:
-          description: Update the 'id' column in the 'identity_users' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_identity_users_locale:
-          description: Update the 'locale' column in the 'identity_users' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_identity_users_name:
-          description: Update the 'name' column in the 'identity_users' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_identity_users_time_zone:
-          description: Update the 'time_zone' column in the 'identity_users' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_identity_users_update_time:
-          description: Update the 'update_time' column in the 'identity_users' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: timestamptz
-                type: named
           foreign_keys: {}
         update_column_journal_calendar_times_date:
           description: Update the 'date' column in the 'journal_calendar_times' collection
@@ -22743,235 +21125,6 @@ definition:
           foreign_keys: {}
         update_column_membership_resource_update_time:
           description: Update the 'update_time' column in the 'membership_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        update_column_organisation_members_create_time:
-          description: Update the 'create_time' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        update_column_organisation_members_display_name:
-          description: Update the 'display_name' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_members_email:
-          description: Update the 'email' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_organisation_members_etag:
-          description: Update the 'etag' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_members_id:
-          description: Update the 'id' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_organisation_members_inviter:
-          description: Update the 'inviter' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_members_name:
-          description: Update the 'name' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_organisation_members_organisation_id:
-          description: Update the 'organisation_id' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_organisation_members_role:
-          description: Update the 'role' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_organisation_members_state:
-          description: Update the 'state' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_members_update_time:
-          description: Update the 'update_time' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        update_column_organisation_members_user:
-          description: Update the 'user' column in the 'organisation_members' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_resource_billing_email:
-          description: Update the 'billing_email' column in the 'organisation_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_resource_create_time:
-          description: Update the 'create_time' column in the 'organisation_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: timestamptz
-                type: named
-          foreign_keys: {}
-        update_column_organisation_resource_display_name:
-          description: Update the 'display_name' column in the 'organisation_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_organisation_resource_etag:
-          description: Update the 'etag' column in the 'organisation_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_resource_id:
-          description: Update the 'id' column in the 'organisation_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_organisation_resource_member_count:
-          description: Update the 'member_count' column in the 'organisation_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: int8
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_resource_name:
-          description: Update the 'name' column in the 'organisation_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                name: text
-                type: named
-          foreign_keys: {}
-        update_column_organisation_resource_settings:
-          description: Update the 'settings' column in the 'organisation_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: jsonb
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_resource_slug:
-          description: Update the 'slug' column in the 'organisation_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_resource_state:
-          description: Update the 'state' column in the 'organisation_resource' collection
-          fields:
-            _set:
-              description: Set the column to this value
-              type:
-                type: nullable
-                underlying_type:
-                  name: text
-                  type: named
-          foreign_keys: {}
-        update_column_organisation_resource_update_time:
-          description: Update the 'update_time' column in the 'organisation_resource' collection
           fields:
             _set:
               description: Set the column to this value
@@ -31029,8 +29182,8 @@ definition:
                   name: update_column_group_resource_update_time
                   type: named
           foreign_keys: {}
-        update_identity_foreigner_details_by_id_response:
-          description: Responses from the 'update_identity_foreigner_details_by_id' procedure
+        update_guest_foreigner_details_by_id_response:
+          description: Responses from the 'update_guest_foreigner_details_by_id' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -31041,93 +29194,93 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: identity_foreigner_details
+                  name: guest_foreigner_details
                   type: named
                 type: array
           foreign_keys: {}
-        update_identity_foreigner_details_by_id_update_columns:
-          description: Update the columns of the 'identity_foreigner_details' collection
+        update_guest_foreigner_details_by_id_update_columns:
+          description: Update the columns of the 'guest_foreigner_details' collection
           fields:
             arrival_date:
-              description: Update the 'arrival_date' column in the 'identity_foreigner_details' collection.
+              description: Update the 'arrival_date' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_arrival_date
+                  name: update_column_guest_foreigner_details_arrival_date
                   type: named
             entry_port:
-              description: Update the 'entry_port' column in the 'identity_foreigner_details' collection.
+              description: Update the 'entry_port' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_entry_port
+                  name: update_column_guest_foreigner_details_entry_port
                   type: named
             id:
-              description: Update the 'id' column in the 'identity_foreigner_details' collection.
+              description: Update the 'id' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_id
+                  name: update_column_guest_foreigner_details_id
                   type: named
             next_destination:
-              description: Update the 'next_destination' column in the 'identity_foreigner_details' collection.
+              description: Update the 'next_destination' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_next_destination
+                  name: update_column_guest_foreigner_details_next_destination
                   type: named
             origin:
-              description: Update the 'origin' column in the 'identity_foreigner_details' collection.
+              description: Update the 'origin' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_origin
+                  name: update_column_guest_foreigner_details_origin
                   type: named
             visa_expiry_date:
-              description: Update the 'visa_expiry_date' column in the 'identity_foreigner_details' collection.
+              description: Update the 'visa_expiry_date' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_visa_expiry_date
+                  name: update_column_guest_foreigner_details_visa_expiry_date
                   type: named
             visa_issue_date:
-              description: Update the 'visa_issue_date' column in the 'identity_foreigner_details' collection.
+              description: Update the 'visa_issue_date' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_visa_issue_date
+                  name: update_column_guest_foreigner_details_visa_issue_date
                   type: named
             visa_issue_place:
-              description: Update the 'visa_issue_place' column in the 'identity_foreigner_details' collection.
+              description: Update the 'visa_issue_place' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_visa_issue_place
+                  name: update_column_guest_foreigner_details_visa_issue_place
                   type: named
             visa_number:
-              description: Update the 'visa_number' column in the 'identity_foreigner_details' collection.
+              description: Update the 'visa_number' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_visa_number
+                  name: update_column_guest_foreigner_details_visa_number
                   type: named
             visa_type:
-              description: Update the 'visa_type' column in the 'identity_foreigner_details' collection.
+              description: Update the 'visa_type' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_visa_type
+                  name: update_column_guest_foreigner_details_visa_type
                   type: named
             visit_purpose:
-              description: Update the 'visit_purpose' column in the 'identity_foreigner_details' collection.
+              description: Update the 'visit_purpose' column in the 'guest_foreigner_details' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_foreigner_details_visit_purpose
+                  name: update_column_guest_foreigner_details_visit_purpose
                   type: named
           foreign_keys: {}
-        update_identity_guest_preferences_by_id_response:
-          description: Responses from the 'update_identity_guest_preferences_by_id' procedure
+        update_guest_id_documents_by_id_response:
+          description: Responses from the 'update_guest_id_documents_by_id' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -31138,280 +29291,72 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: identity_guest_preferences
+                  name: guest_id_documents
                   type: named
                 type: array
           foreign_keys: {}
-        update_identity_guest_preferences_by_id_update_columns:
-          description: Update the columns of the 'identity_guest_preferences' collection
-          fields:
-            accessibility:
-              description: Update the 'accessibility' column in the 'identity_guest_preferences' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guest_preferences_accessibility
-                  type: named
-            bed:
-              description: Update the 'bed' column in the 'identity_guest_preferences' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guest_preferences_bed
-                  type: named
-            dietary:
-              description: Update the 'dietary' column in the 'identity_guest_preferences' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guest_preferences_dietary
-                  type: named
-            floor_preference:
-              description: Update the 'floor_preference' column in the 'identity_guest_preferences' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guest_preferences_floor_preference
-                  type: named
-            id:
-              description: Update the 'id' column in the 'identity_guest_preferences' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guest_preferences_id
-                  type: named
-            loyalty_number:
-              description: Update the 'loyalty_number' column in the 'identity_guest_preferences' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guest_preferences_loyalty_number
-                  type: named
-            notes:
-              description: Update the 'notes' column in the 'identity_guest_preferences' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guest_preferences_notes
-                  type: named
-            smoking:
-              description: Update the 'smoking' column in the 'identity_guest_preferences' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guest_preferences_smoking
-                  type: named
-            special_requests:
-              description: Update the 'special_requests' column in the 'identity_guest_preferences' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guest_preferences_special_requests
-                  type: named
-          foreign_keys: {}
-        update_identity_guests_by_id_response:
-          description: Responses from the 'update_identity_guests_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: identity_guests
-                  type: named
-                type: array
-          foreign_keys: {}
-        update_identity_guests_by_id_update_columns:
-          description: Update the columns of the 'identity_guests' collection
-          fields:
-            age_group:
-              description: Update the 'age_group' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_age_group
-                  type: named
-            birth_date:
-              description: Update the 'birth_date' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_birth_date
-                  type: named
-            booking_id:
-              description: Update the 'booking_id' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_booking_id
-                  type: named
-            display_name:
-              description: Update the 'display_name' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_display_name
-                  type: named
-            email:
-              description: Update the 'email' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_email
-                  type: named
-            foreigner_id:
-              description: Update the 'foreigner_id' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_foreigner_id
-                  type: named
-            gender:
-              description: Update the 'gender' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_gender
-                  type: named
-            id:
-              description: Update the 'id' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_id
-                  type: named
-            id_document_id:
-              description: Update the 'id_document_id' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_id_document_id
-                  type: named
-            local_address_id:
-              description: Update the 'local_address_id' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_local_address_id
-                  type: named
-            nationality:
-              description: Update the 'nationality' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_nationality
-                  type: named
-            permanent_address_id:
-              description: Update the 'permanent_address_id' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_permanent_address_id
-                  type: named
-            phone_number:
-              description: Update the 'phone_number' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_phone_number
-                  type: named
-            preferences_id:
-              description: Update the 'preferences_id' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_preferences_id
-                  type: named
-            primary:
-              description: Update the 'primary' column in the 'identity_guests' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_guests_primary
-                  type: named
-          foreign_keys: {}
-        update_identity_id_documents_by_id_response:
-          description: Responses from the 'update_identity_id_documents_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: identity_id_documents
-                  type: named
-                type: array
-          foreign_keys: {}
-        update_identity_id_documents_by_id_update_columns:
-          description: Update the columns of the 'identity_id_documents' collection
+        update_guest_id_documents_by_id_update_columns:
+          description: Update the columns of the 'guest_id_documents' collection
           fields:
             attachment_id:
-              description: Update the 'attachment_id' column in the 'identity_id_documents' collection.
+              description: Update the 'attachment_id' column in the 'guest_id_documents' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_id_documents_attachment_id
+                  name: update_column_guest_id_documents_attachment_id
                   type: named
             expiry_date:
-              description: Update the 'expiry_date' column in the 'identity_id_documents' collection.
+              description: Update the 'expiry_date' column in the 'guest_id_documents' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_id_documents_expiry_date
+                  name: update_column_guest_id_documents_expiry_date
                   type: named
             id:
-              description: Update the 'id' column in the 'identity_id_documents' collection.
+              description: Update the 'id' column in the 'guest_id_documents' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_id_documents_id
+                  name: update_column_guest_id_documents_id
                   type: named
             issue_date:
-              description: Update the 'issue_date' column in the 'identity_id_documents' collection.
+              description: Update the 'issue_date' column in the 'guest_id_documents' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_id_documents_issue_date
+                  name: update_column_guest_id_documents_issue_date
                   type: named
             issue_place:
-              description: Update the 'issue_place' column in the 'identity_id_documents' collection.
+              description: Update the 'issue_place' column in the 'guest_id_documents' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_id_documents_issue_place
+                  name: update_column_guest_id_documents_issue_place
                   type: named
             issuing_country:
-              description: Update the 'issuing_country' column in the 'identity_id_documents' collection.
+              description: Update the 'issuing_country' column in the 'guest_id_documents' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_id_documents_issuing_country
+                  name: update_column_guest_id_documents_issuing_country
                   type: named
             number:
-              description: Update the 'number' column in the 'identity_id_documents' collection.
+              description: Update the 'number' column in the 'guest_id_documents' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_id_documents_number
+                  name: update_column_guest_id_documents_number
                   type: named
             type:
-              description: Update the 'type' column in the 'identity_id_documents' collection.
+              description: Update the 'type' column in the 'guest_id_documents' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_id_documents_type
+                  name: update_column_guest_id_documents_type
                   type: named
           foreign_keys: {}
-        update_identity_users_by_id_response:
-          description: Responses from the 'update_identity_users_by_id' procedure
+        update_guest_preferences_by_id_response:
+          description: Responses from the 'update_guest_preferences_by_id' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -31422,82 +29367,200 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: identity_users
+                  name: guest_preferences
                   type: named
                 type: array
           foreign_keys: {}
-        update_identity_users_by_id_update_columns:
-          description: Update the columns of the 'identity_users' collection
+        update_guest_preferences_by_id_update_columns:
+          description: Update the columns of the 'guest_preferences' collection
           fields:
-            avatar_url:
-              description: Update the 'avatar_url' column in the 'identity_users' collection.
+            accessibility:
+              description: Update the 'accessibility' column in the 'guest_preferences' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_users_avatar_url
+                  name: update_column_guest_preferences_accessibility
                   type: named
-            create_time:
-              description: Update the 'create_time' column in the 'identity_users' collection.
+            bed:
+              description: Update the 'bed' column in the 'guest_preferences' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_users_create_time
+                  name: update_column_guest_preferences_bed
                   type: named
-            display_name:
-              description: Update the 'display_name' column in the 'identity_users' collection.
+            dietary:
+              description: Update the 'dietary' column in the 'guest_preferences' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_users_display_name
+                  name: update_column_guest_preferences_dietary
                   type: named
-            email:
-              description: Update the 'email' column in the 'identity_users' collection.
+            floor_preference:
+              description: Update the 'floor_preference' column in the 'guest_preferences' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_users_email
-                  type: named
-            etag:
-              description: Update the 'etag' column in the 'identity_users' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_identity_users_etag
+                  name: update_column_guest_preferences_floor_preference
                   type: named
             id:
-              description: Update the 'id' column in the 'identity_users' collection.
+              description: Update the 'id' column in the 'guest_preferences' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_users_id
+                  name: update_column_guest_preferences_id
                   type: named
-            locale:
-              description: Update the 'locale' column in the 'identity_users' collection.
+            loyalty_number:
+              description: Update the 'loyalty_number' column in the 'guest_preferences' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_users_locale
+                  name: update_column_guest_preferences_loyalty_number
                   type: named
-            name:
-              description: Update the 'name' column in the 'identity_users' collection.
+            notes:
+              description: Update the 'notes' column in the 'guest_preferences' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_users_name
+                  name: update_column_guest_preferences_notes
                   type: named
-            time_zone:
-              description: Update the 'time_zone' column in the 'identity_users' collection.
+            smoking:
+              description: Update the 'smoking' column in the 'guest_preferences' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_users_time_zone
+                  name: update_column_guest_preferences_smoking
                   type: named
-            update_time:
-              description: Update the 'update_time' column in the 'identity_users' collection.
+            special_requests:
+              description: Update the 'special_requests' column in the 'guest_preferences' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_identity_users_update_time
+                  name: update_column_guest_preferences_special_requests
+                  type: named
+          foreign_keys: {}
+        update_guest_resource_by_id_response:
+          description: Responses from the 'update_guest_resource_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                name: int4
+                type: named
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                element_type:
+                  name: guest_resource
+                  type: named
+                type: array
+          foreign_keys: {}
+        update_guest_resource_by_id_update_columns:
+          description: Update the columns of the 'guest_resource' collection
+          fields:
+            age_group:
+              description: Update the 'age_group' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_age_group
+                  type: named
+            birth_date:
+              description: Update the 'birth_date' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_birth_date
+                  type: named
+            booking_id:
+              description: Update the 'booking_id' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_booking_id
+                  type: named
+            display_name:
+              description: Update the 'display_name' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_display_name
+                  type: named
+            email:
+              description: Update the 'email' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_email
+                  type: named
+            foreigner_id:
+              description: Update the 'foreigner_id' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_foreigner_id
+                  type: named
+            gender:
+              description: Update the 'gender' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_gender
+                  type: named
+            id:
+              description: Update the 'id' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_id
+                  type: named
+            id_document_id:
+              description: Update the 'id_document_id' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_id_document_id
+                  type: named
+            local_address_id:
+              description: Update the 'local_address_id' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_local_address_id
+                  type: named
+            nationality:
+              description: Update the 'nationality' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_nationality
+                  type: named
+            permanent_address_id:
+              description: Update the 'permanent_address_id' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_permanent_address_id
+                  type: named
+            phone_number:
+              description: Update the 'phone_number' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_phone_number
+                  type: named
+            preferences_id:
+              description: Update the 'preferences_id' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_preferences_id
+                  type: named
+            primary:
+              description: Update the 'primary' column in the 'guest_resource' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_guest_resource_primary
                   type: named
           foreign_keys: {}
         update_journal_calendar_times_by_id_response:
@@ -31809,207 +29872,6 @@ definition:
                 type: nullable
                 underlying_type:
                   name: update_column_membership_resource_update_time
-                  type: named
-          foreign_keys: {}
-        update_organisation_members_by_id_response:
-          description: Responses from the 'update_organisation_members_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: organisation_members
-                  type: named
-                type: array
-          foreign_keys: {}
-        update_organisation_members_by_id_update_columns:
-          description: Update the columns of the 'organisation_members' collection
-          fields:
-            create_time:
-              description: Update the 'create_time' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_create_time
-                  type: named
-            display_name:
-              description: Update the 'display_name' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_display_name
-                  type: named
-            email:
-              description: Update the 'email' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_email
-                  type: named
-            etag:
-              description: Update the 'etag' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_etag
-                  type: named
-            id:
-              description: Update the 'id' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_id
-                  type: named
-            inviter:
-              description: Update the 'inviter' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_inviter
-                  type: named
-            name:
-              description: Update the 'name' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_name
-                  type: named
-            organisation_id:
-              description: Update the 'organisation_id' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_organisation_id
-                  type: named
-            role:
-              description: Update the 'role' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_role
-                  type: named
-            state:
-              description: Update the 'state' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_state
-                  type: named
-            update_time:
-              description: Update the 'update_time' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_update_time
-                  type: named
-            user:
-              description: Update the 'user' column in the 'organisation_members' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_members_user
-                  type: named
-          foreign_keys: {}
-        update_organisation_resource_by_id_response:
-          description: Responses from the 'update_organisation_resource_by_id' procedure
-          fields:
-            affected_rows:
-              description: The number of rows affected by the mutation
-              type:
-                name: int4
-                type: named
-            returning:
-              description: Data from rows affected by the mutation
-              type:
-                element_type:
-                  name: organisation_resource
-                  type: named
-                type: array
-          foreign_keys: {}
-        update_organisation_resource_by_id_update_columns:
-          description: Update the columns of the 'organisation_resource' collection
-          fields:
-            billing_email:
-              description: Update the 'billing_email' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_billing_email
-                  type: named
-            create_time:
-              description: Update the 'create_time' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_create_time
-                  type: named
-            display_name:
-              description: Update the 'display_name' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_display_name
-                  type: named
-            etag:
-              description: Update the 'etag' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_etag
-                  type: named
-            id:
-              description: Update the 'id' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_id
-                  type: named
-            member_count:
-              description: Update the 'member_count' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_member_count
-                  type: named
-            name:
-              description: Update the 'name' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_name
-                  type: named
-            settings:
-              description: Update the 'settings' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_settings
-                  type: named
-            slug:
-              description: Update the 'slug' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_slug
-                  type: named
-            state:
-              description: Update the 'state' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_state
-                  type: named
-            update_time:
-              description: Update the 'update_time' column in the 'organisation_resource' collection.
-              type:
-                type: nullable
-                underlying_type:
-                  name: update_column_organisation_resource_update_time
                   type: named
           foreign_keys: {}
         update_organization_resource_by_id_response:
@@ -39367,57 +37229,6 @@ definition:
                 name: text
                 type: named
             pre_check:
-              description: Delete permission predicate over the 'channel_resource' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_resource
-                  type: predicate
-          description: Delete any row on the 'channel_resource' collection using the 'id' key
-          name: delete_channel_resource_by_id
-          result_type:
-            name: delete_channel_resource_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            pre_check:
-              description: Delete permission predicate over the 'channel_sync_statuses' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_sync_statuses
-                  type: predicate
-          description: Delete any row on the 'channel_sync_statuses' collection using the 'id' key
-          name: delete_channel_sync_statuses_by_id
-          result_type:
-            name: delete_channel_sync_statuses_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            pre_check:
-              description: Delete permission predicate over the 'channel_unit_mappings' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_unit_mappings
-                  type: predicate
-          description: Delete any row on the 'channel_unit_mappings' collection using the 'id' key
-          name: delete_channel_unit_mappings_by_id
-          result_type:
-            name: delete_channel_unit_mappings_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            pre_check:
               description: Delete permission predicate over the 'common_moneys' collection
               type:
                 type: nullable
@@ -39758,16 +37569,16 @@ definition:
                 name: text
                 type: named
             pre_check:
-              description: Delete permission predicate over the 'identity_foreigner_details' collection
+              description: Delete permission predicate over the 'guest_foreigner_details' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_foreigner_details
+                  object_type_name: guest_foreigner_details
                   type: predicate
-          description: Delete any row on the 'identity_foreigner_details' collection using the 'id' key
-          name: delete_identity_foreigner_details_by_id
+          description: Delete any row on the 'guest_foreigner_details' collection using the 'id' key
+          name: delete_guest_foreigner_details_by_id
           result_type:
-            name: delete_identity_foreigner_details_by_id_response
+            name: delete_guest_foreigner_details_by_id_response
             type: named
         - arguments:
             key_id:
@@ -39775,16 +37586,16 @@ definition:
                 name: text
                 type: named
             pre_check:
-              description: Delete permission predicate over the 'identity_guest_preferences' collection
+              description: Delete permission predicate over the 'guest_id_documents' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_guest_preferences
+                  object_type_name: guest_id_documents
                   type: predicate
-          description: Delete any row on the 'identity_guest_preferences' collection using the 'id' key
-          name: delete_identity_guest_preferences_by_id
+          description: Delete any row on the 'guest_id_documents' collection using the 'id' key
+          name: delete_guest_id_documents_by_id
           result_type:
-            name: delete_identity_guest_preferences_by_id_response
+            name: delete_guest_id_documents_by_id_response
             type: named
         - arguments:
             key_id:
@@ -39792,16 +37603,16 @@ definition:
                 name: text
                 type: named
             pre_check:
-              description: Delete permission predicate over the 'identity_guests' collection
+              description: Delete permission predicate over the 'guest_preferences' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_guests
+                  object_type_name: guest_preferences
                   type: predicate
-          description: Delete any row on the 'identity_guests' collection using the 'id' key
-          name: delete_identity_guests_by_id
+          description: Delete any row on the 'guest_preferences' collection using the 'id' key
+          name: delete_guest_preferences_by_id
           result_type:
-            name: delete_identity_guests_by_id_response
+            name: delete_guest_preferences_by_id_response
             type: named
         - arguments:
             key_id:
@@ -39809,33 +37620,16 @@ definition:
                 name: text
                 type: named
             pre_check:
-              description: Delete permission predicate over the 'identity_id_documents' collection
+              description: Delete permission predicate over the 'guest_resource' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_id_documents
+                  object_type_name: guest_resource
                   type: predicate
-          description: Delete any row on the 'identity_id_documents' collection using the 'id' key
-          name: delete_identity_id_documents_by_id
+          description: Delete any row on the 'guest_resource' collection using the 'id' key
+          name: delete_guest_resource_by_id
           result_type:
-            name: delete_identity_id_documents_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            pre_check:
-              description: Delete permission predicate over the 'identity_users' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: identity_users
-                  type: predicate
-          description: Delete any row on the 'identity_users' collection using the 'id' key
-          name: delete_identity_users_by_id
-          result_type:
-            name: delete_identity_users_by_id_response
+            name: delete_guest_resource_by_id_response
             type: named
         - arguments:
             key_id:
@@ -39904,40 +37698,6 @@ definition:
           name: delete_membership_resource_by_id
           result_type:
             name: delete_membership_resource_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            pre_check:
-              description: Delete permission predicate over the 'organisation_members' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: organisation_members
-                  type: predicate
-          description: Delete any row on the 'organisation_members' collection using the 'id' key
-          name: delete_organisation_members_by_id
-          result_type:
-            name: delete_organisation_members_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            pre_check:
-              description: Delete permission predicate over the 'organisation_resource' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: organisation_resource
-                  type: predicate
-          description: Delete any row on the 'organisation_resource' collection using the 'id' key
-          name: delete_organisation_resource_by_id
-          result_type:
-            name: delete_organisation_resource_by_id_response
             type: named
         - arguments:
             key_id:
@@ -41531,63 +39291,6 @@ definition:
             objects:
               type:
                 element_type:
-                  name: insert_channel_resource_object
-                  type: named
-                type: array
-            post_check:
-              description: Insert permission predicate over the 'channel_resource' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_resource
-                  type: predicate
-          description: Insert into the channel_resource table
-          name: insert_channel_resource
-          result_type:
-            name: insert_channel_resource_response
-            type: named
-        - arguments:
-            objects:
-              type:
-                element_type:
-                  name: insert_channel_sync_statuses_object
-                  type: named
-                type: array
-            post_check:
-              description: Insert permission predicate over the 'channel_sync_statuses' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_sync_statuses
-                  type: predicate
-          description: Insert into the channel_sync_statuses table
-          name: insert_channel_sync_statuses
-          result_type:
-            name: insert_channel_sync_statuses_response
-            type: named
-        - arguments:
-            objects:
-              type:
-                element_type:
-                  name: insert_channel_unit_mappings_object
-                  type: named
-                type: array
-            post_check:
-              description: Insert permission predicate over the 'channel_unit_mappings' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_unit_mappings
-                  type: predicate
-          description: Insert into the channel_unit_mappings table
-          name: insert_channel_unit_mappings
-          result_type:
-            name: insert_channel_unit_mappings_response
-            type: named
-        - arguments:
-            objects:
-              type:
-                element_type:
                   name: insert_common_moneys_object
                   type: named
                 type: array
@@ -41968,96 +39671,77 @@ definition:
             objects:
               type:
                 element_type:
-                  name: insert_identity_foreigner_details_object
+                  name: insert_guest_foreigner_details_object
                   type: named
                 type: array
             post_check:
-              description: Insert permission predicate over the 'identity_foreigner_details' collection
+              description: Insert permission predicate over the 'guest_foreigner_details' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_foreigner_details
+                  object_type_name: guest_foreigner_details
                   type: predicate
-          description: Insert into the identity_foreigner_details table
-          name: insert_identity_foreigner_details
+          description: Insert into the guest_foreigner_details table
+          name: insert_guest_foreigner_details
           result_type:
-            name: insert_identity_foreigner_details_response
+            name: insert_guest_foreigner_details_response
             type: named
         - arguments:
             objects:
               type:
                 element_type:
-                  name: insert_identity_guest_preferences_object
+                  name: insert_guest_id_documents_object
                   type: named
                 type: array
             post_check:
-              description: Insert permission predicate over the 'identity_guest_preferences' collection
+              description: Insert permission predicate over the 'guest_id_documents' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_guest_preferences
+                  object_type_name: guest_id_documents
                   type: predicate
-          description: Insert into the identity_guest_preferences table
-          name: insert_identity_guest_preferences
+          description: Insert into the guest_id_documents table
+          name: insert_guest_id_documents
           result_type:
-            name: insert_identity_guest_preferences_response
+            name: insert_guest_id_documents_response
             type: named
         - arguments:
             objects:
               type:
                 element_type:
-                  name: insert_identity_guests_object
+                  name: insert_guest_preferences_object
                   type: named
                 type: array
             post_check:
-              description: Insert permission predicate over the 'identity_guests' collection
+              description: Insert permission predicate over the 'guest_preferences' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_guests
+                  object_type_name: guest_preferences
                   type: predicate
-          description: Insert into the identity_guests table
-          name: insert_identity_guests
+          description: Insert into the guest_preferences table
+          name: insert_guest_preferences
           result_type:
-            name: insert_identity_guests_response
+            name: insert_guest_preferences_response
             type: named
         - arguments:
             objects:
               type:
                 element_type:
-                  name: insert_identity_id_documents_object
+                  name: insert_guest_resource_object
                   type: named
                 type: array
             post_check:
-              description: Insert permission predicate over the 'identity_id_documents' collection
+              description: Insert permission predicate over the 'guest_resource' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_id_documents
+                  object_type_name: guest_resource
                   type: predicate
-          description: Insert into the identity_id_documents table
-          name: insert_identity_id_documents
+          description: Insert into the guest_resource table
+          name: insert_guest_resource
           result_type:
-            name: insert_identity_id_documents_response
-            type: named
-        - arguments:
-            objects:
-              type:
-                element_type:
-                  name: insert_identity_users_object
-                  type: named
-                type: array
-            post_check:
-              description: Insert permission predicate over the 'identity_users' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: identity_users
-                  type: predicate
-          description: Insert into the identity_users table
-          name: insert_identity_users
-          result_type:
-            name: insert_identity_users_response
+            name: insert_guest_resource_response
             type: named
         - arguments:
             objects:
@@ -42134,44 +39818,6 @@ definition:
           name: insert_membership_resource
           result_type:
             name: insert_membership_resource_response
-            type: named
-        - arguments:
-            objects:
-              type:
-                element_type:
-                  name: insert_organisation_members_object
-                  type: named
-                type: array
-            post_check:
-              description: Insert permission predicate over the 'organisation_members' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: organisation_members
-                  type: predicate
-          description: Insert into the organisation_members table
-          name: insert_organisation_members
-          result_type:
-            name: insert_organisation_members_response
-            type: named
-        - arguments:
-            objects:
-              type:
-                element_type:
-                  name: insert_organisation_resource_object
-                  type: named
-                type: array
-            post_check:
-              description: Insert permission predicate over the 'organisation_resource' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: organisation_resource
-                  type: predicate
-          description: Insert into the organisation_resource table
-          name: insert_organisation_resource
-          result_type:
-            name: insert_organisation_resource_response
             type: named
         - arguments:
             objects:
@@ -44035,90 +41681,6 @@ definition:
                 name: text
                 type: named
             post_check:
-              description: Update permission post-condition predicate over the 'channel_resource' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_resource
-                  type: predicate
-            pre_check:
-              description: Update permission pre-condition predicate over the 'channel_resource' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_resource
-                  type: predicate
-            update_columns:
-              type:
-                name: update_channel_resource_by_id_update_columns
-                type: named
-          description: Update any row on the 'channel_resource' collection using the 'id' key
-          name: update_channel_resource_by_id
-          result_type:
-            name: update_channel_resource_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            post_check:
-              description: Update permission post-condition predicate over the 'channel_sync_statuses' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_sync_statuses
-                  type: predicate
-            pre_check:
-              description: Update permission pre-condition predicate over the 'channel_sync_statuses' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_sync_statuses
-                  type: predicate
-            update_columns:
-              type:
-                name: update_channel_sync_statuses_by_id_update_columns
-                type: named
-          description: Update any row on the 'channel_sync_statuses' collection using the 'id' key
-          name: update_channel_sync_statuses_by_id
-          result_type:
-            name: update_channel_sync_statuses_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            post_check:
-              description: Update permission post-condition predicate over the 'channel_unit_mappings' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_unit_mappings
-                  type: predicate
-            pre_check:
-              description: Update permission pre-condition predicate over the 'channel_unit_mappings' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: channel_unit_mappings
-                  type: predicate
-            update_columns:
-              type:
-                name: update_channel_unit_mappings_by_id_update_columns
-                type: named
-          description: Update any row on the 'channel_unit_mappings' collection using the 'id' key
-          name: update_channel_unit_mappings_by_id
-          result_type:
-            name: update_channel_unit_mappings_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            post_check:
               description: Update permission post-condition predicate over the 'common_moneys' collection
               type:
                 type: nullable
@@ -44679,27 +42241,27 @@ definition:
                 name: text
                 type: named
             post_check:
-              description: Update permission post-condition predicate over the 'identity_foreigner_details' collection
+              description: Update permission post-condition predicate over the 'guest_foreigner_details' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_foreigner_details
+                  object_type_name: guest_foreigner_details
                   type: predicate
             pre_check:
-              description: Update permission pre-condition predicate over the 'identity_foreigner_details' collection
+              description: Update permission pre-condition predicate over the 'guest_foreigner_details' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_foreigner_details
+                  object_type_name: guest_foreigner_details
                   type: predicate
             update_columns:
               type:
-                name: update_identity_foreigner_details_by_id_update_columns
+                name: update_guest_foreigner_details_by_id_update_columns
                 type: named
-          description: Update any row on the 'identity_foreigner_details' collection using the 'id' key
-          name: update_identity_foreigner_details_by_id
+          description: Update any row on the 'guest_foreigner_details' collection using the 'id' key
+          name: update_guest_foreigner_details_by_id
           result_type:
-            name: update_identity_foreigner_details_by_id_response
+            name: update_guest_foreigner_details_by_id_response
             type: named
         - arguments:
             key_id:
@@ -44707,27 +42269,27 @@ definition:
                 name: text
                 type: named
             post_check:
-              description: Update permission post-condition predicate over the 'identity_guest_preferences' collection
+              description: Update permission post-condition predicate over the 'guest_id_documents' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_guest_preferences
+                  object_type_name: guest_id_documents
                   type: predicate
             pre_check:
-              description: Update permission pre-condition predicate over the 'identity_guest_preferences' collection
+              description: Update permission pre-condition predicate over the 'guest_id_documents' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_guest_preferences
+                  object_type_name: guest_id_documents
                   type: predicate
             update_columns:
               type:
-                name: update_identity_guest_preferences_by_id_update_columns
+                name: update_guest_id_documents_by_id_update_columns
                 type: named
-          description: Update any row on the 'identity_guest_preferences' collection using the 'id' key
-          name: update_identity_guest_preferences_by_id
+          description: Update any row on the 'guest_id_documents' collection using the 'id' key
+          name: update_guest_id_documents_by_id
           result_type:
-            name: update_identity_guest_preferences_by_id_response
+            name: update_guest_id_documents_by_id_response
             type: named
         - arguments:
             key_id:
@@ -44735,27 +42297,27 @@ definition:
                 name: text
                 type: named
             post_check:
-              description: Update permission post-condition predicate over the 'identity_guests' collection
+              description: Update permission post-condition predicate over the 'guest_preferences' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_guests
+                  object_type_name: guest_preferences
                   type: predicate
             pre_check:
-              description: Update permission pre-condition predicate over the 'identity_guests' collection
+              description: Update permission pre-condition predicate over the 'guest_preferences' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_guests
+                  object_type_name: guest_preferences
                   type: predicate
             update_columns:
               type:
-                name: update_identity_guests_by_id_update_columns
+                name: update_guest_preferences_by_id_update_columns
                 type: named
-          description: Update any row on the 'identity_guests' collection using the 'id' key
-          name: update_identity_guests_by_id
+          description: Update any row on the 'guest_preferences' collection using the 'id' key
+          name: update_guest_preferences_by_id
           result_type:
-            name: update_identity_guests_by_id_response
+            name: update_guest_preferences_by_id_response
             type: named
         - arguments:
             key_id:
@@ -44763,55 +42325,27 @@ definition:
                 name: text
                 type: named
             post_check:
-              description: Update permission post-condition predicate over the 'identity_id_documents' collection
+              description: Update permission post-condition predicate over the 'guest_resource' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_id_documents
+                  object_type_name: guest_resource
                   type: predicate
             pre_check:
-              description: Update permission pre-condition predicate over the 'identity_id_documents' collection
+              description: Update permission pre-condition predicate over the 'guest_resource' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: identity_id_documents
+                  object_type_name: guest_resource
                   type: predicate
             update_columns:
               type:
-                name: update_identity_id_documents_by_id_update_columns
+                name: update_guest_resource_by_id_update_columns
                 type: named
-          description: Update any row on the 'identity_id_documents' collection using the 'id' key
-          name: update_identity_id_documents_by_id
+          description: Update any row on the 'guest_resource' collection using the 'id' key
+          name: update_guest_resource_by_id
           result_type:
-            name: update_identity_id_documents_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            post_check:
-              description: Update permission post-condition predicate over the 'identity_users' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: identity_users
-                  type: predicate
-            pre_check:
-              description: Update permission pre-condition predicate over the 'identity_users' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: identity_users
-                  type: predicate
-            update_columns:
-              type:
-                name: update_identity_users_by_id_update_columns
-                type: named
-          description: Update any row on the 'identity_users' collection using the 'id' key
-          name: update_identity_users_by_id
-          result_type:
-            name: update_identity_users_by_id_response
+            name: update_guest_resource_by_id_response
             type: named
         - arguments:
             key_id:
@@ -44924,62 +42458,6 @@ definition:
           name: update_membership_resource_by_id
           result_type:
             name: update_membership_resource_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            post_check:
-              description: Update permission post-condition predicate over the 'organisation_members' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: organisation_members
-                  type: predicate
-            pre_check:
-              description: Update permission pre-condition predicate over the 'organisation_members' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: organisation_members
-                  type: predicate
-            update_columns:
-              type:
-                name: update_organisation_members_by_id_update_columns
-                type: named
-          description: Update any row on the 'organisation_members' collection using the 'id' key
-          name: update_organisation_members_by_id
-          result_type:
-            name: update_organisation_members_by_id_response
-            type: named
-        - arguments:
-            key_id:
-              type:
-                name: text
-                type: named
-            post_check:
-              description: Update permission post-condition predicate over the 'organisation_resource' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: organisation_resource
-                  type: predicate
-            pre_check:
-              description: Update permission pre-condition predicate over the 'organisation_resource' collection
-              type:
-                type: nullable
-                underlying_type:
-                  object_type_name: organisation_resource
-                  type: predicate
-            update_columns:
-              type:
-                name: update_organisation_resource_by_id_update_columns
-                type: named
-          description: Update any row on the 'organisation_resource' collection using the 'id' key
-          name: update_organisation_resource_by_id
-          result_type:
-            name: update_organisation_resource_by_id_response
             type: named
         - arguments:
             key_id:

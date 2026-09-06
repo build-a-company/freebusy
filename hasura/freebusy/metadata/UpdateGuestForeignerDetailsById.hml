@@ -2,19 +2,18 @@
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsArrivalDate
-  description: Update the 'arrival_date' column in the
-    'identity_foreigner_details' collection
+  name: UpdateColumnGuestForeignerDetailsArrivalDate
+  description: Update the 'arrival_date' column in the 'guest_foreigner_details' collection
   fields:
     - name: set
       type: Date
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsArrivalDate
-    inputTypeName: UpdateColumnIdentityForeignerDetailsArrivalDateInput
+    typeName: UpdateColumnGuestForeignerDetailsArrivalDate
+    inputTypeName: UpdateColumnGuestForeignerDetailsArrivalDateInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_arrival_date
+      dataConnectorObjectType: update_column_guest_foreigner_details_arrival_date
       fieldMapping:
         set:
           column:
@@ -24,7 +23,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsArrivalDate
+  typeName: UpdateColumnGuestForeignerDetailsArrivalDate
   permissions:
     - role: admin
       output:
@@ -35,18 +34,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsEntryPort
-  description: Update the 'entry_port' column in the 'identity_foreigner_details' collection
+  name: UpdateColumnGuestForeignerDetailsEntryPort
+  description: Update the 'entry_port' column in the 'guest_foreigner_details' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsEntryPort
-    inputTypeName: UpdateColumnIdentityForeignerDetailsEntryPortInput
+    typeName: UpdateColumnGuestForeignerDetailsEntryPort
+    inputTypeName: UpdateColumnGuestForeignerDetailsEntryPortInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_entry_port
+      dataConnectorObjectType: update_column_guest_foreigner_details_entry_port
       fieldMapping:
         set:
           column:
@@ -56,7 +55,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsEntryPort
+  typeName: UpdateColumnGuestForeignerDetailsEntryPort
   permissions:
     - role: admin
       output:
@@ -67,18 +66,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsId
-  description: Update the 'id' column in the 'identity_foreigner_details' collection
+  name: UpdateColumnGuestForeignerDetailsId
+  description: Update the 'id' column in the 'guest_foreigner_details' collection
   fields:
     - name: set
       type: String_1!
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsId
-    inputTypeName: UpdateColumnIdentityForeignerDetailsIdInput
+    typeName: UpdateColumnGuestForeignerDetailsId
+    inputTypeName: UpdateColumnGuestForeignerDetailsIdInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_id
+      dataConnectorObjectType: update_column_guest_foreigner_details_id
       fieldMapping:
         set:
           column:
@@ -88,7 +87,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsId
+  typeName: UpdateColumnGuestForeignerDetailsId
   permissions:
     - role: admin
       output:
@@ -99,19 +98,19 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsNextDestination
+  name: UpdateColumnGuestForeignerDetailsNextDestination
   description: Update the 'next_destination' column in the
-    'identity_foreigner_details' collection
+    'guest_foreigner_details' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsNextDestination
-    inputTypeName: UpdateColumnIdentityForeignerDetailsNextDestinationInput
+    typeName: UpdateColumnGuestForeignerDetailsNextDestination
+    inputTypeName: UpdateColumnGuestForeignerDetailsNextDestinationInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_next_destination
+      dataConnectorObjectType: update_column_guest_foreigner_details_next_destination
       fieldMapping:
         set:
           column:
@@ -121,7 +120,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsNextDestination
+  typeName: UpdateColumnGuestForeignerDetailsNextDestination
   permissions:
     - role: admin
       output:
@@ -132,18 +131,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsOrigin
-  description: Update the 'origin' column in the 'identity_foreigner_details' collection
+  name: UpdateColumnGuestForeignerDetailsOrigin
+  description: Update the 'origin' column in the 'guest_foreigner_details' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsOrigin
-    inputTypeName: UpdateColumnIdentityForeignerDetailsOriginInput
+    typeName: UpdateColumnGuestForeignerDetailsOrigin
+    inputTypeName: UpdateColumnGuestForeignerDetailsOriginInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_origin
+      dataConnectorObjectType: update_column_guest_foreigner_details_origin
       fieldMapping:
         set:
           column:
@@ -153,7 +152,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsOrigin
+  typeName: UpdateColumnGuestForeignerDetailsOrigin
   permissions:
     - role: admin
       output:
@@ -164,19 +163,19 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsVisaExpiryDate
+  name: UpdateColumnGuestForeignerDetailsVisaExpiryDate
   description: Update the 'visa_expiry_date' column in the
-    'identity_foreigner_details' collection
+    'guest_foreigner_details' collection
   fields:
     - name: set
       type: Date
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsVisaExpiryDate
-    inputTypeName: UpdateColumnIdentityForeignerDetailsVisaExpiryDateInput
+    typeName: UpdateColumnGuestForeignerDetailsVisaExpiryDate
+    inputTypeName: UpdateColumnGuestForeignerDetailsVisaExpiryDateInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_visa_expiry_date
+      dataConnectorObjectType: update_column_guest_foreigner_details_visa_expiry_date
       fieldMapping:
         set:
           column:
@@ -186,7 +185,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsVisaExpiryDate
+  typeName: UpdateColumnGuestForeignerDetailsVisaExpiryDate
   permissions:
     - role: admin
       output:
@@ -197,19 +196,19 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsVisaIssueDate
+  name: UpdateColumnGuestForeignerDetailsVisaIssueDate
   description: Update the 'visa_issue_date' column in the
-    'identity_foreigner_details' collection
+    'guest_foreigner_details' collection
   fields:
     - name: set
       type: Date
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsVisaIssueDate
-    inputTypeName: UpdateColumnIdentityForeignerDetailsVisaIssueDateInput
+    typeName: UpdateColumnGuestForeignerDetailsVisaIssueDate
+    inputTypeName: UpdateColumnGuestForeignerDetailsVisaIssueDateInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_visa_issue_date
+      dataConnectorObjectType: update_column_guest_foreigner_details_visa_issue_date
       fieldMapping:
         set:
           column:
@@ -219,7 +218,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsVisaIssueDate
+  typeName: UpdateColumnGuestForeignerDetailsVisaIssueDate
   permissions:
     - role: admin
       output:
@@ -230,19 +229,19 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsVisaIssuePlace
+  name: UpdateColumnGuestForeignerDetailsVisaIssuePlace
   description: Update the 'visa_issue_place' column in the
-    'identity_foreigner_details' collection
+    'guest_foreigner_details' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsVisaIssuePlace
-    inputTypeName: UpdateColumnIdentityForeignerDetailsVisaIssuePlaceInput
+    typeName: UpdateColumnGuestForeignerDetailsVisaIssuePlace
+    inputTypeName: UpdateColumnGuestForeignerDetailsVisaIssuePlaceInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_visa_issue_place
+      dataConnectorObjectType: update_column_guest_foreigner_details_visa_issue_place
       fieldMapping:
         set:
           column:
@@ -252,7 +251,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsVisaIssuePlace
+  typeName: UpdateColumnGuestForeignerDetailsVisaIssuePlace
   permissions:
     - role: admin
       output:
@@ -263,19 +262,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsVisaNumber
-  description: Update the 'visa_number' column in the 'identity_foreigner_details'
-    collection
+  name: UpdateColumnGuestForeignerDetailsVisaNumber
+  description: Update the 'visa_number' column in the 'guest_foreigner_details' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsVisaNumber
-    inputTypeName: UpdateColumnIdentityForeignerDetailsVisaNumberInput
+    typeName: UpdateColumnGuestForeignerDetailsVisaNumber
+    inputTypeName: UpdateColumnGuestForeignerDetailsVisaNumberInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_visa_number
+      dataConnectorObjectType: update_column_guest_foreigner_details_visa_number
       fieldMapping:
         set:
           column:
@@ -285,7 +283,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsVisaNumber
+  typeName: UpdateColumnGuestForeignerDetailsVisaNumber
   permissions:
     - role: admin
       output:
@@ -296,18 +294,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsVisaType
-  description: Update the 'visa_type' column in the 'identity_foreigner_details' collection
+  name: UpdateColumnGuestForeignerDetailsVisaType
+  description: Update the 'visa_type' column in the 'guest_foreigner_details' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsVisaType
-    inputTypeName: UpdateColumnIdentityForeignerDetailsVisaTypeInput
+    typeName: UpdateColumnGuestForeignerDetailsVisaType
+    inputTypeName: UpdateColumnGuestForeignerDetailsVisaTypeInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_visa_type
+      dataConnectorObjectType: update_column_guest_foreigner_details_visa_type
       fieldMapping:
         set:
           column:
@@ -317,7 +315,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsVisaType
+  typeName: UpdateColumnGuestForeignerDetailsVisaType
   permissions:
     - role: admin
       output:
@@ -328,19 +326,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityForeignerDetailsVisitPurpose
-  description: Update the 'visit_purpose' column in the
-    'identity_foreigner_details' collection
+  name: UpdateColumnGuestForeignerDetailsVisitPurpose
+  description: Update the 'visit_purpose' column in the 'guest_foreigner_details' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityForeignerDetailsVisitPurpose
-    inputTypeName: UpdateColumnIdentityForeignerDetailsVisitPurposeInput
+    typeName: UpdateColumnGuestForeignerDetailsVisitPurpose
+    inputTypeName: UpdateColumnGuestForeignerDetailsVisitPurposeInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_foreigner_details_visit_purpose
+      dataConnectorObjectType: update_column_guest_foreigner_details_visit_purpose
       fieldMapping:
         set:
           column:
@@ -350,7 +347,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityForeignerDetailsVisitPurpose
+  typeName: UpdateColumnGuestForeignerDetailsVisitPurpose
   permissions:
     - role: admin
       output:
@@ -361,58 +358,57 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateIdentityForeignerDetailsByIdUpdateColumns
-  description: Update the columns of the 'identity_foreigner_details' collection
+  name: UpdateGuestForeignerDetailsByIdUpdateColumns
+  description: Update the columns of the 'guest_foreigner_details' collection
   fields:
     - name: arrivalDate
-      type: UpdateColumnIdentityForeignerDetailsArrivalDate
-      description: Update the 'arrival_date' column in the
-        'identity_foreigner_details' collection.
+      type: UpdateColumnGuestForeignerDetailsArrivalDate
+      description: Update the 'arrival_date' column in the 'guest_foreigner_details'
+        collection.
     - name: entryPort
-      type: UpdateColumnIdentityForeignerDetailsEntryPort
-      description: Update the 'entry_port' column in the 'identity_foreigner_details'
+      type: UpdateColumnGuestForeignerDetailsEntryPort
+      description: Update the 'entry_port' column in the 'guest_foreigner_details'
         collection.
     - name: id
-      type: UpdateColumnIdentityForeignerDetailsId
-      description: Update the 'id' column in the 'identity_foreigner_details' collection.
+      type: UpdateColumnGuestForeignerDetailsId
+      description: Update the 'id' column in the 'guest_foreigner_details' collection.
     - name: nextDestination
-      type: UpdateColumnIdentityForeignerDetailsNextDestination
+      type: UpdateColumnGuestForeignerDetailsNextDestination
       description: Update the 'next_destination' column in the
-        'identity_foreigner_details' collection.
+        'guest_foreigner_details' collection.
     - name: origin
-      type: UpdateColumnIdentityForeignerDetailsOrigin
-      description: Update the 'origin' column in the 'identity_foreigner_details'
-        collection.
+      type: UpdateColumnGuestForeignerDetailsOrigin
+      description: Update the 'origin' column in the 'guest_foreigner_details' collection.
     - name: visaExpiryDate
-      type: UpdateColumnIdentityForeignerDetailsVisaExpiryDate
+      type: UpdateColumnGuestForeignerDetailsVisaExpiryDate
       description: Update the 'visa_expiry_date' column in the
-        'identity_foreigner_details' collection.
+        'guest_foreigner_details' collection.
     - name: visaIssueDate
-      type: UpdateColumnIdentityForeignerDetailsVisaIssueDate
+      type: UpdateColumnGuestForeignerDetailsVisaIssueDate
       description: Update the 'visa_issue_date' column in the
-        'identity_foreigner_details' collection.
+        'guest_foreigner_details' collection.
     - name: visaIssuePlace
-      type: UpdateColumnIdentityForeignerDetailsVisaIssuePlace
+      type: UpdateColumnGuestForeignerDetailsVisaIssuePlace
       description: Update the 'visa_issue_place' column in the
-        'identity_foreigner_details' collection.
+        'guest_foreigner_details' collection.
     - name: visaNumber
-      type: UpdateColumnIdentityForeignerDetailsVisaNumber
-      description: Update the 'visa_number' column in the 'identity_foreigner_details'
+      type: UpdateColumnGuestForeignerDetailsVisaNumber
+      description: Update the 'visa_number' column in the 'guest_foreigner_details'
         collection.
     - name: visaType
-      type: UpdateColumnIdentityForeignerDetailsVisaType
-      description: Update the 'visa_type' column in the 'identity_foreigner_details'
+      type: UpdateColumnGuestForeignerDetailsVisaType
+      description: Update the 'visa_type' column in the 'guest_foreigner_details'
         collection.
     - name: visitPurpose
-      type: UpdateColumnIdentityForeignerDetailsVisitPurpose
-      description: Update the 'visit_purpose' column in the
-        'identity_foreigner_details' collection.
+      type: UpdateColumnGuestForeignerDetailsVisitPurpose
+      description: Update the 'visit_purpose' column in the 'guest_foreigner_details'
+        collection.
   graphql:
-    typeName: UpdateIdentityForeignerDetailsByIdUpdateColumns
-    inputTypeName: UpdateIdentityForeignerDetailsByIdUpdateColumnsInput
+    typeName: UpdateGuestForeignerDetailsByIdUpdateColumns
+    inputTypeName: UpdateGuestForeignerDetailsByIdUpdateColumnsInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_identity_foreigner_details_by_id_update_columns
+      dataConnectorObjectType: update_guest_foreigner_details_by_id_update_columns
       fieldMapping:
         arrivalDate:
           column:
@@ -452,7 +448,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateIdentityForeignerDetailsByIdUpdateColumns
+  typeName: UpdateGuestForeignerDetailsByIdUpdateColumns
   permissions:
     - role: admin
       output:
@@ -473,21 +469,21 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateIdentityForeignerDetailsByIdResponse
-  description: Responses from the 'update_identity_foreigner_details_by_id' procedure
+  name: UpdateGuestForeignerDetailsByIdResponse
+  description: Responses from the 'update_guest_foreigner_details_by_id' procedure
   fields:
     - name: affectedRows
       type: Int32!
       description: The number of rows affected by the mutation
     - name: returning
-      type: "[IdentityForeignerDetails!]!"
+      type: "[GuestForeignerDetails!]!"
       description: Data from rows affected by the mutation
   graphql:
-    typeName: UpdateIdentityForeignerDetailsByIdResponse
-    inputTypeName: UpdateIdentityForeignerDetailsByIdResponseInput
+    typeName: UpdateGuestForeignerDetailsByIdResponse
+    inputTypeName: UpdateGuestForeignerDetailsByIdResponseInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_identity_foreigner_details_by_id_response
+      dataConnectorObjectType: update_guest_foreigner_details_by_id_response
       fieldMapping:
         affectedRows:
           column:
@@ -500,7 +496,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateIdentityForeignerDetailsByIdResponse
+  typeName: UpdateGuestForeignerDetailsByIdResponse
   permissions:
     - role: admin
       output:
@@ -512,41 +508,40 @@ definition:
 kind: Command
 version: v1
 definition:
-  name: UpdateIdentityForeignerDetailsById
-  outputType: UpdateIdentityForeignerDetailsByIdResponse!
+  name: UpdateGuestForeignerDetailsById
+  outputType: UpdateGuestForeignerDetailsByIdResponse!
   arguments:
     - name: keyId
       type: String_1!
     - name: postCheck
-      type: IdentityForeignerDetailsBoolExp
+      type: GuestForeignerDetailsBoolExp
       description: Update permission post-condition predicate over the
-        'identity_foreigner_details' collection
+        'guest_foreigner_details' collection
     - name: preCheck
-      type: IdentityForeignerDetailsBoolExp
+      type: GuestForeignerDetailsBoolExp
       description: Update permission pre-condition predicate over the
-        'identity_foreigner_details' collection
+        'guest_foreigner_details' collection
     - name: updateColumns
-      type: UpdateIdentityForeignerDetailsByIdUpdateColumns!
+      type: UpdateGuestForeignerDetailsByIdUpdateColumns!
   source:
     dataConnectorName: freebusy_pgsql
     dataConnectorCommand:
-      procedure: update_identity_foreigner_details_by_id
+      procedure: update_guest_foreigner_details_by_id
     argumentMapping:
       keyId: key_id
       postCheck: post_check
       preCheck: pre_check
       updateColumns: update_columns
   graphql:
-    rootFieldName: updateIdentityForeignerDetailsById
+    rootFieldName: updateGuestForeignerDetailsById
     rootFieldKind: Mutation
-  description: Update any row on the 'identity_foreigner_details' collection using
-    the 'id' key
+  description: Update any row on the 'guest_foreigner_details' collection using the 'id' key
 
 ---
 kind: CommandPermissions
 version: v1
 definition:
-  commandName: UpdateIdentityForeignerDetailsById
+  commandName: UpdateGuestForeignerDetailsById
   permissions:
     - role: admin
       allowExecution: true

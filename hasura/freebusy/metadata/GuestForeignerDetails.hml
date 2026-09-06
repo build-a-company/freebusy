@@ -2,7 +2,7 @@
 kind: ObjectType
 version: v1
 definition:
-  name: IdentityForeignerDetails
+  name: GuestForeignerDetails
   fields:
     - name: arrivalDate
       type: Date
@@ -27,11 +27,11 @@ definition:
     - name: visitPurpose
       type: String_1
   graphql:
-    typeName: IdentityForeignerDetails
-    inputTypeName: IdentityForeignerDetailsInput
+    typeName: GuestForeignerDetails
+    inputTypeName: GuestForeignerDetailsInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: identity_foreigner_details
+      dataConnectorObjectType: guest_foreigner_details
       fieldMapping:
         arrivalDate:
           column:
@@ -71,7 +71,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: IdentityForeignerDetails
+  typeName: GuestForeignerDetails
   permissions:
     - role: admin
       output:
@@ -92,10 +92,10 @@ definition:
 kind: BooleanExpressionType
 version: v1
 definition:
-  name: IdentityForeignerDetailsBoolExp
+  name: GuestForeignerDetailsBoolExp
   operand:
     object:
-      type: IdentityForeignerDetails
+      type: GuestForeignerDetails
       comparableFields:
         - fieldName: arrivalDate
           booleanExpressionType: DateBoolExp
@@ -125,16 +125,16 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: IdentityForeignerDetailsBoolExp
+    typeName: GuestForeignerDetailsBoolExp
 
 ---
 kind: AggregateExpression
 version: v1
 definition:
-  name: IdentityForeignerDetailsAggExp
+  name: GuestForeignerDetailsAggExp
   operand:
     object:
-      aggregatedType: IdentityForeignerDetails
+      aggregatedType: GuestForeignerDetails
       aggregatableFields:
         - fieldName: arrivalDate
           aggregateExpression: DateAggExp
@@ -162,16 +162,16 @@ definition:
     enable: true
     returnType: Int64
   graphql:
-    selectTypeName: IdentityForeignerDetailsAggExp
+    selectTypeName: GuestForeignerDetailsAggExp
 
 ---
 kind: OrderByExpression
 version: v1
 definition:
-  name: IdentityForeignerDetailsOrderByExp
+  name: GuestForeignerDetailsOrderByExp
   operand:
     object:
-      orderedType: IdentityForeignerDetails
+      orderedType: GuestForeignerDetails
       orderableFields:
         - fieldName: arrivalDate
           orderByExpression: DateOrderByExp
@@ -197,42 +197,42 @@ definition:
           orderByExpression: String1OrderByExp
       orderableRelationships: []
   graphql:
-    expressionTypeName: IdentityForeignerDetailsOrderByExp
+    expressionTypeName: GuestForeignerDetailsOrderByExp
 
 ---
 kind: Model
 version: v2
 definition:
-  name: IdentityForeignerDetails
-  objectType: IdentityForeignerDetails
+  name: GuestForeignerDetails
+  objectType: GuestForeignerDetails
   source:
     dataConnectorName: freebusy_pgsql
-    collection: identity_foreigner_details
-  filterExpressionType: IdentityForeignerDetailsBoolExp
-  aggregateExpression: IdentityForeignerDetailsAggExp
-  orderByExpression: IdentityForeignerDetailsOrderByExp
+    collection: guest_foreigner_details
+  filterExpressionType: GuestForeignerDetailsBoolExp
+  aggregateExpression: GuestForeignerDetailsAggExp
+  orderByExpression: GuestForeignerDetailsOrderByExp
   graphql:
     selectMany:
-      queryRootField: identityForeignerDetails
+      queryRootField: guestForeignerDetails
       subscription:
-        rootField: identityForeignerDetails
+        rootField: guestForeignerDetails
     selectUniques:
-      - queryRootField: identityForeignerDetailsById
+      - queryRootField: guestForeignerDetailsById
         uniqueIdentifier:
           - id
         subscription:
-          rootField: identityForeignerDetailsById
-    filterInputTypeName: IdentityForeignerDetailsFilterInput
+          rootField: guestForeignerDetailsById
+    filterInputTypeName: GuestForeignerDetailsFilterInput
     aggregate:
-      queryRootField: identityForeignerDetailsAggregate
+      queryRootField: guestForeignerDetailsAggregate
       subscription:
-        rootField: identityForeignerDetailsAggregate
+        rootField: guestForeignerDetailsAggregate
 
 ---
 kind: ModelPermissions
 version: v1
 definition:
-  modelName: IdentityForeignerDetails
+  modelName: GuestForeignerDetails
   permissions:
     - role: admin
       select:

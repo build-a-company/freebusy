@@ -2,18 +2,18 @@
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityIdDocumentsAttachmentId
-  description: Update the 'attachment_id' column in the 'identity_id_documents' collection
+  name: UpdateColumnGuestIdDocumentsAttachmentId
+  description: Update the 'attachment_id' column in the 'guest_id_documents' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityIdDocumentsAttachmentId
-    inputTypeName: UpdateColumnIdentityIdDocumentsAttachmentIdInput
+    typeName: UpdateColumnGuestIdDocumentsAttachmentId
+    inputTypeName: UpdateColumnGuestIdDocumentsAttachmentIdInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_id_documents_attachment_id
+      dataConnectorObjectType: update_column_guest_id_documents_attachment_id
       fieldMapping:
         set:
           column:
@@ -23,7 +23,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityIdDocumentsAttachmentId
+  typeName: UpdateColumnGuestIdDocumentsAttachmentId
   permissions:
     - role: admin
       output:
@@ -34,18 +34,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityIdDocumentsExpiryDate
-  description: Update the 'expiry_date' column in the 'identity_id_documents' collection
+  name: UpdateColumnGuestIdDocumentsExpiryDate
+  description: Update the 'expiry_date' column in the 'guest_id_documents' collection
   fields:
     - name: set
       type: Date
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityIdDocumentsExpiryDate
-    inputTypeName: UpdateColumnIdentityIdDocumentsExpiryDateInput
+    typeName: UpdateColumnGuestIdDocumentsExpiryDate
+    inputTypeName: UpdateColumnGuestIdDocumentsExpiryDateInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_id_documents_expiry_date
+      dataConnectorObjectType: update_column_guest_id_documents_expiry_date
       fieldMapping:
         set:
           column:
@@ -55,7 +55,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityIdDocumentsExpiryDate
+  typeName: UpdateColumnGuestIdDocumentsExpiryDate
   permissions:
     - role: admin
       output:
@@ -66,18 +66,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityIdDocumentsId
-  description: Update the 'id' column in the 'identity_id_documents' collection
+  name: UpdateColumnGuestIdDocumentsId
+  description: Update the 'id' column in the 'guest_id_documents' collection
   fields:
     - name: set
       type: String_1!
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityIdDocumentsId
-    inputTypeName: UpdateColumnIdentityIdDocumentsIdInput
+    typeName: UpdateColumnGuestIdDocumentsId
+    inputTypeName: UpdateColumnGuestIdDocumentsIdInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_id_documents_id
+      dataConnectorObjectType: update_column_guest_id_documents_id
       fieldMapping:
         set:
           column:
@@ -87,7 +87,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityIdDocumentsId
+  typeName: UpdateColumnGuestIdDocumentsId
   permissions:
     - role: admin
       output:
@@ -98,18 +98,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityIdDocumentsIssueDate
-  description: Update the 'issue_date' column in the 'identity_id_documents' collection
+  name: UpdateColumnGuestIdDocumentsIssueDate
+  description: Update the 'issue_date' column in the 'guest_id_documents' collection
   fields:
     - name: set
       type: Date
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityIdDocumentsIssueDate
-    inputTypeName: UpdateColumnIdentityIdDocumentsIssueDateInput
+    typeName: UpdateColumnGuestIdDocumentsIssueDate
+    inputTypeName: UpdateColumnGuestIdDocumentsIssueDateInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_id_documents_issue_date
+      dataConnectorObjectType: update_column_guest_id_documents_issue_date
       fieldMapping:
         set:
           column:
@@ -119,7 +119,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityIdDocumentsIssueDate
+  typeName: UpdateColumnGuestIdDocumentsIssueDate
   permissions:
     - role: admin
       output:
@@ -130,18 +130,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityIdDocumentsIssuePlace
-  description: Update the 'issue_place' column in the 'identity_id_documents' collection
+  name: UpdateColumnGuestIdDocumentsIssuePlace
+  description: Update the 'issue_place' column in the 'guest_id_documents' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityIdDocumentsIssuePlace
-    inputTypeName: UpdateColumnIdentityIdDocumentsIssuePlaceInput
+    typeName: UpdateColumnGuestIdDocumentsIssuePlace
+    inputTypeName: UpdateColumnGuestIdDocumentsIssuePlaceInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_id_documents_issue_place
+      dataConnectorObjectType: update_column_guest_id_documents_issue_place
       fieldMapping:
         set:
           column:
@@ -151,7 +151,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityIdDocumentsIssuePlace
+  typeName: UpdateColumnGuestIdDocumentsIssuePlace
   permissions:
     - role: admin
       output:
@@ -162,18 +162,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityIdDocumentsIssuingCountry
-  description: Update the 'issuing_country' column in the 'identity_id_documents' collection
+  name: UpdateColumnGuestIdDocumentsIssuingCountry
+  description: Update the 'issuing_country' column in the 'guest_id_documents' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityIdDocumentsIssuingCountry
-    inputTypeName: UpdateColumnIdentityIdDocumentsIssuingCountryInput
+    typeName: UpdateColumnGuestIdDocumentsIssuingCountry
+    inputTypeName: UpdateColumnGuestIdDocumentsIssuingCountryInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_id_documents_issuing_country
+      dataConnectorObjectType: update_column_guest_id_documents_issuing_country
       fieldMapping:
         set:
           column:
@@ -183,7 +183,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityIdDocumentsIssuingCountry
+  typeName: UpdateColumnGuestIdDocumentsIssuingCountry
   permissions:
     - role: admin
       output:
@@ -194,18 +194,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityIdDocumentsNumber
-  description: Update the 'number' column in the 'identity_id_documents' collection
+  name: UpdateColumnGuestIdDocumentsNumber
+  description: Update the 'number' column in the 'guest_id_documents' collection
   fields:
     - name: set
       type: String_1!
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityIdDocumentsNumber
-    inputTypeName: UpdateColumnIdentityIdDocumentsNumberInput
+    typeName: UpdateColumnGuestIdDocumentsNumber
+    inputTypeName: UpdateColumnGuestIdDocumentsNumberInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_id_documents_number
+      dataConnectorObjectType: update_column_guest_id_documents_number
       fieldMapping:
         set:
           column:
@@ -215,7 +215,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityIdDocumentsNumber
+  typeName: UpdateColumnGuestIdDocumentsNumber
   permissions:
     - role: admin
       output:
@@ -226,18 +226,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityIdDocumentsType
-  description: Update the 'type' column in the 'identity_id_documents' collection
+  name: UpdateColumnGuestIdDocumentsType
+  description: Update the 'type' column in the 'guest_id_documents' collection
   fields:
     - name: set
       type: String_1!
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityIdDocumentsType
-    inputTypeName: UpdateColumnIdentityIdDocumentsTypeInput
+    typeName: UpdateColumnGuestIdDocumentsType
+    inputTypeName: UpdateColumnGuestIdDocumentsTypeInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_id_documents_type
+      dataConnectorObjectType: update_column_guest_id_documents_type
       fieldMapping:
         set:
           column:
@@ -247,7 +247,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityIdDocumentsType
+  typeName: UpdateColumnGuestIdDocumentsType
   permissions:
     - role: admin
       output:
@@ -258,43 +258,40 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateIdentityIdDocumentsByIdUpdateColumns
-  description: Update the columns of the 'identity_id_documents' collection
+  name: UpdateGuestIdDocumentsByIdUpdateColumns
+  description: Update the columns of the 'guest_id_documents' collection
   fields:
     - name: attachmentId
-      type: UpdateColumnIdentityIdDocumentsAttachmentId
-      description: Update the 'attachment_id' column in the 'identity_id_documents'
-        collection.
+      type: UpdateColumnGuestIdDocumentsAttachmentId
+      description: Update the 'attachment_id' column in the 'guest_id_documents' collection.
     - name: expiryDate
-      type: UpdateColumnIdentityIdDocumentsExpiryDate
-      description: Update the 'expiry_date' column in the 'identity_id_documents'
-        collection.
+      type: UpdateColumnGuestIdDocumentsExpiryDate
+      description: Update the 'expiry_date' column in the 'guest_id_documents' collection.
     - name: id
-      type: UpdateColumnIdentityIdDocumentsId
-      description: Update the 'id' column in the 'identity_id_documents' collection.
+      type: UpdateColumnGuestIdDocumentsId
+      description: Update the 'id' column in the 'guest_id_documents' collection.
     - name: issueDate
-      type: UpdateColumnIdentityIdDocumentsIssueDate
-      description: Update the 'issue_date' column in the 'identity_id_documents' collection.
+      type: UpdateColumnGuestIdDocumentsIssueDate
+      description: Update the 'issue_date' column in the 'guest_id_documents' collection.
     - name: issuePlace
-      type: UpdateColumnIdentityIdDocumentsIssuePlace
-      description: Update the 'issue_place' column in the 'identity_id_documents'
-        collection.
+      type: UpdateColumnGuestIdDocumentsIssuePlace
+      description: Update the 'issue_place' column in the 'guest_id_documents' collection.
     - name: issuingCountry
-      type: UpdateColumnIdentityIdDocumentsIssuingCountry
-      description: Update the 'issuing_country' column in the 'identity_id_documents'
+      type: UpdateColumnGuestIdDocumentsIssuingCountry
+      description: Update the 'issuing_country' column in the 'guest_id_documents'
         collection.
     - name: number
-      type: UpdateColumnIdentityIdDocumentsNumber
-      description: Update the 'number' column in the 'identity_id_documents' collection.
+      type: UpdateColumnGuestIdDocumentsNumber
+      description: Update the 'number' column in the 'guest_id_documents' collection.
     - name: type
-      type: UpdateColumnIdentityIdDocumentsType
-      description: Update the 'type' column in the 'identity_id_documents' collection.
+      type: UpdateColumnGuestIdDocumentsType
+      description: Update the 'type' column in the 'guest_id_documents' collection.
   graphql:
-    typeName: UpdateIdentityIdDocumentsByIdUpdateColumns
-    inputTypeName: UpdateIdentityIdDocumentsByIdUpdateColumnsInput
+    typeName: UpdateGuestIdDocumentsByIdUpdateColumns
+    inputTypeName: UpdateGuestIdDocumentsByIdUpdateColumnsInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_identity_id_documents_by_id_update_columns
+      dataConnectorObjectType: update_guest_id_documents_by_id_update_columns
       fieldMapping:
         attachmentId:
           column:
@@ -325,7 +322,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateIdentityIdDocumentsByIdUpdateColumns
+  typeName: UpdateGuestIdDocumentsByIdUpdateColumns
   permissions:
     - role: admin
       output:
@@ -343,21 +340,21 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateIdentityIdDocumentsByIdResponse
-  description: Responses from the 'update_identity_id_documents_by_id' procedure
+  name: UpdateGuestIdDocumentsByIdResponse
+  description: Responses from the 'update_guest_id_documents_by_id' procedure
   fields:
     - name: affectedRows
       type: Int32!
       description: The number of rows affected by the mutation
     - name: returning
-      type: "[IdentityIdDocuments!]!"
+      type: "[GuestIdDocuments!]!"
       description: Data from rows affected by the mutation
   graphql:
-    typeName: UpdateIdentityIdDocumentsByIdResponse
-    inputTypeName: UpdateIdentityIdDocumentsByIdResponseInput
+    typeName: UpdateGuestIdDocumentsByIdResponse
+    inputTypeName: UpdateGuestIdDocumentsByIdResponseInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_identity_id_documents_by_id_response
+      dataConnectorObjectType: update_guest_id_documents_by_id_response
       fieldMapping:
         affectedRows:
           column:
@@ -370,7 +367,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateIdentityIdDocumentsByIdResponse
+  typeName: UpdateGuestIdDocumentsByIdResponse
   permissions:
     - role: admin
       output:
@@ -382,40 +379,40 @@ definition:
 kind: Command
 version: v1
 definition:
-  name: UpdateIdentityIdDocumentsById
-  outputType: UpdateIdentityIdDocumentsByIdResponse!
+  name: UpdateGuestIdDocumentsById
+  outputType: UpdateGuestIdDocumentsByIdResponse!
   arguments:
     - name: keyId
       type: String_1!
     - name: postCheck
-      type: IdentityIdDocumentsBoolExp
+      type: GuestIdDocumentsBoolExp
       description: Update permission post-condition predicate over the
-        'identity_id_documents' collection
+        'guest_id_documents' collection
     - name: preCheck
-      type: IdentityIdDocumentsBoolExp
+      type: GuestIdDocumentsBoolExp
       description: Update permission pre-condition predicate over the
-        'identity_id_documents' collection
+        'guest_id_documents' collection
     - name: updateColumns
-      type: UpdateIdentityIdDocumentsByIdUpdateColumns!
+      type: UpdateGuestIdDocumentsByIdUpdateColumns!
   source:
     dataConnectorName: freebusy_pgsql
     dataConnectorCommand:
-      procedure: update_identity_id_documents_by_id
+      procedure: update_guest_id_documents_by_id
     argumentMapping:
       keyId: key_id
       postCheck: post_check
       preCheck: pre_check
       updateColumns: update_columns
   graphql:
-    rootFieldName: updateIdentityIdDocumentsById
+    rootFieldName: updateGuestIdDocumentsById
     rootFieldKind: Mutation
-  description: Update any row on the 'identity_id_documents' collection using the 'id' key
+  description: Update any row on the 'guest_id_documents' collection using the 'id' key
 
 ---
 kind: CommandPermissions
 version: v1
 definition:
-  commandName: UpdateIdentityIdDocumentsById
+  commandName: UpdateGuestIdDocumentsById
   permissions:
     - role: admin
       allowExecution: true

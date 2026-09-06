@@ -2,7 +2,7 @@
 kind: ObjectType
 version: v1
 definition:
-  name: InsertIdentityForeignerDetailsObject
+  name: InsertGuestForeignerDetailsObject
   fields:
     - name: arrivalDate
       type: Date
@@ -27,11 +27,11 @@ definition:
     - name: visitPurpose
       type: String_1
   graphql:
-    typeName: InsertIdentityForeignerDetailsObject
-    inputTypeName: InsertIdentityForeignerDetailsObjectInput
+    typeName: InsertGuestForeignerDetailsObject
+    inputTypeName: InsertGuestForeignerDetailsObjectInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: insert_identity_foreigner_details_object
+      dataConnectorObjectType: insert_guest_foreigner_details_object
       fieldMapping:
         arrivalDate:
           column:
@@ -71,7 +71,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: InsertIdentityForeignerDetailsObject
+  typeName: InsertGuestForeignerDetailsObject
   permissions:
     - role: admin
       output:
@@ -92,21 +92,21 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: InsertIdentityForeignerDetailsResponse
-  description: Responses from the 'insert_identity_foreigner_details' procedure
+  name: InsertGuestForeignerDetailsResponse
+  description: Responses from the 'insert_guest_foreigner_details' procedure
   fields:
     - name: affectedRows
       type: Int32!
       description: The number of rows affected by the mutation
     - name: returning
-      type: "[IdentityForeignerDetails!]!"
+      type: "[GuestForeignerDetails!]!"
       description: Data from rows affected by the mutation
   graphql:
-    typeName: InsertIdentityForeignerDetailsResponse
-    inputTypeName: InsertIdentityForeignerDetailsResponseInput
+    typeName: InsertGuestForeignerDetailsResponse
+    inputTypeName: InsertGuestForeignerDetailsResponseInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: insert_identity_foreigner_details_response
+      dataConnectorObjectType: insert_guest_foreigner_details_response
       fieldMapping:
         affectedRows:
           column:
@@ -119,7 +119,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: InsertIdentityForeignerDetailsResponse
+  typeName: InsertGuestForeignerDetailsResponse
   permissions:
     - role: admin
       output:
@@ -131,32 +131,31 @@ definition:
 kind: Command
 version: v1
 definition:
-  name: InsertIdentityForeignerDetails
-  outputType: InsertIdentityForeignerDetailsResponse!
+  name: InsertGuestForeignerDetails
+  outputType: InsertGuestForeignerDetailsResponse!
   arguments:
     - name: objects
-      type: "[InsertIdentityForeignerDetailsObject!]!"
+      type: "[InsertGuestForeignerDetailsObject!]!"
     - name: postCheck
-      type: IdentityForeignerDetailsBoolExp
-      description: Insert permission predicate over the 'identity_foreigner_details'
-        collection
+      type: GuestForeignerDetailsBoolExp
+      description: Insert permission predicate over the 'guest_foreigner_details' collection
   source:
     dataConnectorName: freebusy_pgsql
     dataConnectorCommand:
-      procedure: insert_identity_foreigner_details
+      procedure: insert_guest_foreigner_details
     argumentMapping:
       objects: objects
       postCheck: post_check
   graphql:
-    rootFieldName: insertIdentityForeignerDetails
+    rootFieldName: insertGuestForeignerDetails
     rootFieldKind: Mutation
-  description: Insert into the identity_foreigner_details table
+  description: Insert into the guest_foreigner_details table
 
 ---
 kind: CommandPermissions
 version: v1
 definition:
-  commandName: InsertIdentityForeignerDetails
+  commandName: InsertGuestForeignerDetails
   permissions:
     - role: admin
       allowExecution: true

@@ -2,18 +2,18 @@
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsAgeGroup
-  description: Update the 'age_group' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceAgeGroup
+  description: Update the 'age_group' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsAgeGroup
-    inputTypeName: UpdateColumnIdentityGuestsAgeGroupInput
+    typeName: UpdateColumnGuestResourceAgeGroup
+    inputTypeName: UpdateColumnGuestResourceAgeGroupInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_age_group
+      dataConnectorObjectType: update_column_guest_resource_age_group
       fieldMapping:
         set:
           column:
@@ -23,7 +23,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsAgeGroup
+  typeName: UpdateColumnGuestResourceAgeGroup
   permissions:
     - role: admin
       output:
@@ -34,18 +34,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsBirthDate
-  description: Update the 'birth_date' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceBirthDate
+  description: Update the 'birth_date' column in the 'guest_resource' collection
   fields:
     - name: set
       type: Date
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsBirthDate
-    inputTypeName: UpdateColumnIdentityGuestsBirthDateInput
+    typeName: UpdateColumnGuestResourceBirthDate
+    inputTypeName: UpdateColumnGuestResourceBirthDateInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_birth_date
+      dataConnectorObjectType: update_column_guest_resource_birth_date
       fieldMapping:
         set:
           column:
@@ -55,7 +55,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsBirthDate
+  typeName: UpdateColumnGuestResourceBirthDate
   permissions:
     - role: admin
       output:
@@ -66,18 +66,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsBookingId
-  description: Update the 'booking_id' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceBookingId
+  description: Update the 'booking_id' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1!
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsBookingId
-    inputTypeName: UpdateColumnIdentityGuestsBookingIdInput
+    typeName: UpdateColumnGuestResourceBookingId
+    inputTypeName: UpdateColumnGuestResourceBookingIdInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_booking_id
+      dataConnectorObjectType: update_column_guest_resource_booking_id
       fieldMapping:
         set:
           column:
@@ -87,7 +87,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsBookingId
+  typeName: UpdateColumnGuestResourceBookingId
   permissions:
     - role: admin
       output:
@@ -98,18 +98,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsDisplayName
-  description: Update the 'display_name' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceDisplayName
+  description: Update the 'display_name' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1!
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsDisplayName
-    inputTypeName: UpdateColumnIdentityGuestsDisplayNameInput
+    typeName: UpdateColumnGuestResourceDisplayName
+    inputTypeName: UpdateColumnGuestResourceDisplayNameInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_display_name
+      dataConnectorObjectType: update_column_guest_resource_display_name
       fieldMapping:
         set:
           column:
@@ -119,7 +119,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsDisplayName
+  typeName: UpdateColumnGuestResourceDisplayName
   permissions:
     - role: admin
       output:
@@ -130,18 +130,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsEmail
-  description: Update the 'email' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceEmail
+  description: Update the 'email' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsEmail
-    inputTypeName: UpdateColumnIdentityGuestsEmailInput
+    typeName: UpdateColumnGuestResourceEmail
+    inputTypeName: UpdateColumnGuestResourceEmailInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_email
+      dataConnectorObjectType: update_column_guest_resource_email
       fieldMapping:
         set:
           column:
@@ -151,7 +151,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsEmail
+  typeName: UpdateColumnGuestResourceEmail
   permissions:
     - role: admin
       output:
@@ -162,18 +162,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsForeignerId
-  description: Update the 'foreigner_id' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceForeignerId
+  description: Update the 'foreigner_id' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsForeignerId
-    inputTypeName: UpdateColumnIdentityGuestsForeignerIdInput
+    typeName: UpdateColumnGuestResourceForeignerId
+    inputTypeName: UpdateColumnGuestResourceForeignerIdInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_foreigner_id
+      dataConnectorObjectType: update_column_guest_resource_foreigner_id
       fieldMapping:
         set:
           column:
@@ -183,7 +183,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsForeignerId
+  typeName: UpdateColumnGuestResourceForeignerId
   permissions:
     - role: admin
       output:
@@ -194,18 +194,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsGender
-  description: Update the 'gender' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceGender
+  description: Update the 'gender' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsGender
-    inputTypeName: UpdateColumnIdentityGuestsGenderInput
+    typeName: UpdateColumnGuestResourceGender
+    inputTypeName: UpdateColumnGuestResourceGenderInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_gender
+      dataConnectorObjectType: update_column_guest_resource_gender
       fieldMapping:
         set:
           column:
@@ -215,7 +215,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsGender
+  typeName: UpdateColumnGuestResourceGender
   permissions:
     - role: admin
       output:
@@ -226,18 +226,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsId
-  description: Update the 'id' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceId
+  description: Update the 'id' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1!
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsId
-    inputTypeName: UpdateColumnIdentityGuestsIdInput
+    typeName: UpdateColumnGuestResourceId
+    inputTypeName: UpdateColumnGuestResourceIdInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_id
+      dataConnectorObjectType: update_column_guest_resource_id
       fieldMapping:
         set:
           column:
@@ -247,7 +247,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsId
+  typeName: UpdateColumnGuestResourceId
   permissions:
     - role: admin
       output:
@@ -258,18 +258,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsIdDocumentId
-  description: Update the 'id_document_id' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceIdDocumentId
+  description: Update the 'id_document_id' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsIdDocumentId
-    inputTypeName: UpdateColumnIdentityGuestsIdDocumentIdInput
+    typeName: UpdateColumnGuestResourceIdDocumentId
+    inputTypeName: UpdateColumnGuestResourceIdDocumentIdInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_id_document_id
+      dataConnectorObjectType: update_column_guest_resource_id_document_id
       fieldMapping:
         set:
           column:
@@ -279,7 +279,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsIdDocumentId
+  typeName: UpdateColumnGuestResourceIdDocumentId
   permissions:
     - role: admin
       output:
@@ -290,18 +290,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsLocalAddressId
-  description: Update the 'local_address_id' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceLocalAddressId
+  description: Update the 'local_address_id' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsLocalAddressId
-    inputTypeName: UpdateColumnIdentityGuestsLocalAddressIdInput
+    typeName: UpdateColumnGuestResourceLocalAddressId
+    inputTypeName: UpdateColumnGuestResourceLocalAddressIdInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_local_address_id
+      dataConnectorObjectType: update_column_guest_resource_local_address_id
       fieldMapping:
         set:
           column:
@@ -311,7 +311,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsLocalAddressId
+  typeName: UpdateColumnGuestResourceLocalAddressId
   permissions:
     - role: admin
       output:
@@ -322,18 +322,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsNationality
-  description: Update the 'nationality' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourceNationality
+  description: Update the 'nationality' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsNationality
-    inputTypeName: UpdateColumnIdentityGuestsNationalityInput
+    typeName: UpdateColumnGuestResourceNationality
+    inputTypeName: UpdateColumnGuestResourceNationalityInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_nationality
+      dataConnectorObjectType: update_column_guest_resource_nationality
       fieldMapping:
         set:
           column:
@@ -343,7 +343,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsNationality
+  typeName: UpdateColumnGuestResourceNationality
   permissions:
     - role: admin
       output:
@@ -354,18 +354,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsPermanentAddressId
-  description: Update the 'permanent_address_id' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourcePermanentAddressId
+  description: Update the 'permanent_address_id' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsPermanentAddressId
-    inputTypeName: UpdateColumnIdentityGuestsPermanentAddressIdInput
+    typeName: UpdateColumnGuestResourcePermanentAddressId
+    inputTypeName: UpdateColumnGuestResourcePermanentAddressIdInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_permanent_address_id
+      dataConnectorObjectType: update_column_guest_resource_permanent_address_id
       fieldMapping:
         set:
           column:
@@ -375,7 +375,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsPermanentAddressId
+  typeName: UpdateColumnGuestResourcePermanentAddressId
   permissions:
     - role: admin
       output:
@@ -386,18 +386,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsPhoneNumber
-  description: Update the 'phone_number' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourcePhoneNumber
+  description: Update the 'phone_number' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsPhoneNumber
-    inputTypeName: UpdateColumnIdentityGuestsPhoneNumberInput
+    typeName: UpdateColumnGuestResourcePhoneNumber
+    inputTypeName: UpdateColumnGuestResourcePhoneNumberInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_phone_number
+      dataConnectorObjectType: update_column_guest_resource_phone_number
       fieldMapping:
         set:
           column:
@@ -407,7 +407,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsPhoneNumber
+  typeName: UpdateColumnGuestResourcePhoneNumber
   permissions:
     - role: admin
       output:
@@ -418,18 +418,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsPreferencesId
-  description: Update the 'preferences_id' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourcePreferencesId
+  description: Update the 'preferences_id' column in the 'guest_resource' collection
   fields:
     - name: set
       type: String_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsPreferencesId
-    inputTypeName: UpdateColumnIdentityGuestsPreferencesIdInput
+    typeName: UpdateColumnGuestResourcePreferencesId
+    inputTypeName: UpdateColumnGuestResourcePreferencesIdInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_preferences_id
+      dataConnectorObjectType: update_column_guest_resource_preferences_id
       fieldMapping:
         set:
           column:
@@ -439,7 +439,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsPreferencesId
+  typeName: UpdateColumnGuestResourcePreferencesId
   permissions:
     - role: admin
       output:
@@ -450,18 +450,18 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateColumnIdentityGuestsPrimary
-  description: Update the 'primary' column in the 'identity_guests' collection
+  name: UpdateColumnGuestResourcePrimary
+  description: Update the 'primary' column in the 'guest_resource' collection
   fields:
     - name: set
       type: Boolean_1
       description: Set the column to this value
   graphql:
-    typeName: UpdateColumnIdentityGuestsPrimary
-    inputTypeName: UpdateColumnIdentityGuestsPrimaryInput
+    typeName: UpdateColumnGuestResourcePrimary
+    inputTypeName: UpdateColumnGuestResourcePrimaryInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_column_identity_guests_primary
+      dataConnectorObjectType: update_column_guest_resource_primary
       fieldMapping:
         set:
           column:
@@ -471,7 +471,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateColumnIdentityGuestsPrimary
+  typeName: UpdateColumnGuestResourcePrimary
   permissions:
     - role: admin
       output:
@@ -482,61 +482,61 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateIdentityGuestsByIdUpdateColumns
-  description: Update the columns of the 'identity_guests' collection
+  name: UpdateGuestResourceByIdUpdateColumns
+  description: Update the columns of the 'guest_resource' collection
   fields:
     - name: ageGroup
-      type: UpdateColumnIdentityGuestsAgeGroup
-      description: Update the 'age_group' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceAgeGroup
+      description: Update the 'age_group' column in the 'guest_resource' collection.
     - name: birthDate
-      type: UpdateColumnIdentityGuestsBirthDate
-      description: Update the 'birth_date' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceBirthDate
+      description: Update the 'birth_date' column in the 'guest_resource' collection.
     - name: bookingId
-      type: UpdateColumnIdentityGuestsBookingId
-      description: Update the 'booking_id' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceBookingId
+      description: Update the 'booking_id' column in the 'guest_resource' collection.
     - name: displayName
-      type: UpdateColumnIdentityGuestsDisplayName
-      description: Update the 'display_name' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceDisplayName
+      description: Update the 'display_name' column in the 'guest_resource' collection.
     - name: email
-      type: UpdateColumnIdentityGuestsEmail
-      description: Update the 'email' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceEmail
+      description: Update the 'email' column in the 'guest_resource' collection.
     - name: foreignerId
-      type: UpdateColumnIdentityGuestsForeignerId
-      description: Update the 'foreigner_id' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceForeignerId
+      description: Update the 'foreigner_id' column in the 'guest_resource' collection.
     - name: gender
-      type: UpdateColumnIdentityGuestsGender
-      description: Update the 'gender' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceGender
+      description: Update the 'gender' column in the 'guest_resource' collection.
     - name: id
-      type: UpdateColumnIdentityGuestsId
-      description: Update the 'id' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceId
+      description: Update the 'id' column in the 'guest_resource' collection.
     - name: idDocumentId
-      type: UpdateColumnIdentityGuestsIdDocumentId
-      description: Update the 'id_document_id' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceIdDocumentId
+      description: Update the 'id_document_id' column in the 'guest_resource' collection.
     - name: localAddressId
-      type: UpdateColumnIdentityGuestsLocalAddressId
-      description: Update the 'local_address_id' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceLocalAddressId
+      description: Update the 'local_address_id' column in the 'guest_resource' collection.
     - name: nationality
-      type: UpdateColumnIdentityGuestsNationality
-      description: Update the 'nationality' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourceNationality
+      description: Update the 'nationality' column in the 'guest_resource' collection.
     - name: permanentAddressId
-      type: UpdateColumnIdentityGuestsPermanentAddressId
-      description: Update the 'permanent_address_id' column in the 'identity_guests'
+      type: UpdateColumnGuestResourcePermanentAddressId
+      description: Update the 'permanent_address_id' column in the 'guest_resource'
         collection.
     - name: phoneNumber
-      type: UpdateColumnIdentityGuestsPhoneNumber
-      description: Update the 'phone_number' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourcePhoneNumber
+      description: Update the 'phone_number' column in the 'guest_resource' collection.
     - name: preferencesId
-      type: UpdateColumnIdentityGuestsPreferencesId
-      description: Update the 'preferences_id' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourcePreferencesId
+      description: Update the 'preferences_id' column in the 'guest_resource' collection.
     - name: primary
-      type: UpdateColumnIdentityGuestsPrimary
-      description: Update the 'primary' column in the 'identity_guests' collection.
+      type: UpdateColumnGuestResourcePrimary
+      description: Update the 'primary' column in the 'guest_resource' collection.
   graphql:
-    typeName: UpdateIdentityGuestsByIdUpdateColumns
-    inputTypeName: UpdateIdentityGuestsByIdUpdateColumnsInput
+    typeName: UpdateGuestResourceByIdUpdateColumns
+    inputTypeName: UpdateGuestResourceByIdUpdateColumnsInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_identity_guests_by_id_update_columns
+      dataConnectorObjectType: update_guest_resource_by_id_update_columns
       fieldMapping:
         ageGroup:
           column:
@@ -588,7 +588,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateIdentityGuestsByIdUpdateColumns
+  typeName: UpdateGuestResourceByIdUpdateColumns
   permissions:
     - role: admin
       output:
@@ -613,21 +613,21 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: UpdateIdentityGuestsByIdResponse
-  description: Responses from the 'update_identity_guests_by_id' procedure
+  name: UpdateGuestResourceByIdResponse
+  description: Responses from the 'update_guest_resource_by_id' procedure
   fields:
     - name: affectedRows
       type: Int32!
       description: The number of rows affected by the mutation
     - name: returning
-      type: "[IdentityGuests!]!"
+      type: "[GuestResource!]!"
       description: Data from rows affected by the mutation
   graphql:
-    typeName: UpdateIdentityGuestsByIdResponse
-    inputTypeName: UpdateIdentityGuestsByIdResponseInput
+    typeName: UpdateGuestResourceByIdResponse
+    inputTypeName: UpdateGuestResourceByIdResponseInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: update_identity_guests_by_id_response
+      dataConnectorObjectType: update_guest_resource_by_id_response
       fieldMapping:
         affectedRows:
           column:
@@ -640,7 +640,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: UpdateIdentityGuestsByIdResponse
+  typeName: UpdateGuestResourceByIdResponse
   permissions:
     - role: admin
       output:
@@ -652,40 +652,40 @@ definition:
 kind: Command
 version: v1
 definition:
-  name: UpdateIdentityGuestsById
-  outputType: UpdateIdentityGuestsByIdResponse!
+  name: UpdateGuestResourceById
+  outputType: UpdateGuestResourceByIdResponse!
   arguments:
     - name: keyId
       type: String_1!
     - name: postCheck
-      type: IdentityGuestsBoolExp
+      type: GuestResourceBoolExp
       description: Update permission post-condition predicate over the
-        'identity_guests' collection
+        'guest_resource' collection
     - name: preCheck
-      type: IdentityGuestsBoolExp
-      description: Update permission pre-condition predicate over the
-        'identity_guests' collection
+      type: GuestResourceBoolExp
+      description: Update permission pre-condition predicate over the 'guest_resource'
+        collection
     - name: updateColumns
-      type: UpdateIdentityGuestsByIdUpdateColumns!
+      type: UpdateGuestResourceByIdUpdateColumns!
   source:
     dataConnectorName: freebusy_pgsql
     dataConnectorCommand:
-      procedure: update_identity_guests_by_id
+      procedure: update_guest_resource_by_id
     argumentMapping:
       keyId: key_id
       postCheck: post_check
       preCheck: pre_check
       updateColumns: update_columns
   graphql:
-    rootFieldName: updateIdentityGuestsById
+    rootFieldName: updateGuestResourceById
     rootFieldKind: Mutation
-  description: Update any row on the 'identity_guests' collection using the 'id' key
+  description: Update any row on the 'guest_resource' collection using the 'id' key
 
 ---
 kind: CommandPermissions
 version: v1
 definition:
-  commandName: UpdateIdentityGuestsById
+  commandName: UpdateGuestResourceById
   permissions:
     - role: admin
       allowExecution: true

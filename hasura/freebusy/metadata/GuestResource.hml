@@ -2,7 +2,7 @@
 kind: ObjectType
 version: v1
 definition:
-  name: IdentityGuests
+  name: GuestResource
   fields:
     - name: ageGroup
       type: String_1
@@ -35,11 +35,11 @@ definition:
     - name: primary
       type: Boolean_1
   graphql:
-    typeName: IdentityGuests
-    inputTypeName: IdentityGuestsInput
+    typeName: GuestResource
+    inputTypeName: GuestResourceInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: identity_guests
+      dataConnectorObjectType: guest_resource
       fieldMapping:
         ageGroup:
           column:
@@ -91,7 +91,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: IdentityGuests
+  typeName: GuestResource
   permissions:
     - role: admin
       output:
@@ -116,10 +116,10 @@ definition:
 kind: BooleanExpressionType
 version: v1
 definition:
-  name: IdentityGuestsBoolExp
+  name: GuestResourceBoolExp
   operand:
     object:
-      type: IdentityGuests
+      type: GuestResource
       comparableFields:
         - fieldName: ageGroup
           booleanExpressionType: TextBoolExp
@@ -157,16 +157,16 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: IdentityGuestsBoolExp
+    typeName: GuestResourceBoolExp
 
 ---
 kind: AggregateExpression
 version: v1
 definition:
-  name: IdentityGuestsAggExp
+  name: GuestResourceAggExp
   operand:
     object:
-      aggregatedType: IdentityGuests
+      aggregatedType: GuestResource
       aggregatableFields:
         - fieldName: ageGroup
           aggregateExpression: TextAggExp
@@ -202,16 +202,16 @@ definition:
     enable: true
     returnType: Int64
   graphql:
-    selectTypeName: IdentityGuestsAggExp
+    selectTypeName: GuestResourceAggExp
 
 ---
 kind: OrderByExpression
 version: v1
 definition:
-  name: IdentityGuestsOrderByExp
+  name: GuestResourceOrderByExp
   operand:
     object:
-      orderedType: IdentityGuests
+      orderedType: GuestResource
       orderableFields:
         - fieldName: ageGroup
           orderByExpression: String1OrderByExp
@@ -245,42 +245,42 @@ definition:
           orderByExpression: Boolean1OrderByExp
       orderableRelationships: []
   graphql:
-    expressionTypeName: IdentityGuestsOrderByExp
+    expressionTypeName: GuestResourceOrderByExp
 
 ---
 kind: Model
 version: v2
 definition:
-  name: IdentityGuests
-  objectType: IdentityGuests
+  name: GuestResource
+  objectType: GuestResource
   source:
     dataConnectorName: freebusy_pgsql
-    collection: identity_guests
-  filterExpressionType: IdentityGuestsBoolExp
-  aggregateExpression: IdentityGuestsAggExp
-  orderByExpression: IdentityGuestsOrderByExp
+    collection: guest_resource
+  filterExpressionType: GuestResourceBoolExp
+  aggregateExpression: GuestResourceAggExp
+  orderByExpression: GuestResourceOrderByExp
   graphql:
     selectMany:
-      queryRootField: identityGuests
+      queryRootField: guestResource
       subscription:
-        rootField: identityGuests
+        rootField: guestResource
     selectUniques:
-      - queryRootField: identityGuestsById
+      - queryRootField: guestResourceById
         uniqueIdentifier:
           - id
         subscription:
-          rootField: identityGuestsById
-    filterInputTypeName: IdentityGuestsFilterInput
+          rootField: guestResourceById
+    filterInputTypeName: GuestResourceFilterInput
     aggregate:
-      queryRootField: identityGuestsAggregate
+      queryRootField: guestResourceAggregate
       subscription:
-        rootField: identityGuestsAggregate
+        rootField: guestResourceAggregate
 
 ---
 kind: ModelPermissions
 version: v1
 definition:
-  modelName: IdentityGuests
+  modelName: GuestResource
   permissions:
     - role: admin
       select:

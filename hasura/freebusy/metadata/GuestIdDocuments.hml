@@ -2,7 +2,7 @@
 kind: ObjectType
 version: v1
 definition:
-  name: IdentityIdDocuments
+  name: GuestIdDocuments
   fields:
     - name: attachmentId
       type: String_1
@@ -21,11 +21,11 @@ definition:
     - name: type
       type: String_1!
   graphql:
-    typeName: IdentityIdDocuments
-    inputTypeName: IdentityIdDocumentsInput
+    typeName: GuestIdDocuments
+    inputTypeName: GuestIdDocumentsInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: identity_id_documents
+      dataConnectorObjectType: guest_id_documents
       fieldMapping:
         attachmentId:
           column:
@@ -56,7 +56,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: IdentityIdDocuments
+  typeName: GuestIdDocuments
   permissions:
     - role: admin
       output:
@@ -74,10 +74,10 @@ definition:
 kind: BooleanExpressionType
 version: v1
 definition:
-  name: IdentityIdDocumentsBoolExp
+  name: GuestIdDocumentsBoolExp
   operand:
     object:
-      type: IdentityIdDocuments
+      type: GuestIdDocuments
       comparableFields:
         - fieldName: attachmentId
           booleanExpressionType: TextBoolExp
@@ -101,16 +101,16 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: IdentityIdDocumentsBoolExp
+    typeName: GuestIdDocumentsBoolExp
 
 ---
 kind: AggregateExpression
 version: v1
 definition:
-  name: IdentityIdDocumentsAggExp
+  name: GuestIdDocumentsAggExp
   operand:
     object:
-      aggregatedType: IdentityIdDocuments
+      aggregatedType: GuestIdDocuments
       aggregatableFields:
         - fieldName: attachmentId
           aggregateExpression: TextAggExp
@@ -132,16 +132,16 @@ definition:
     enable: true
     returnType: Int64
   graphql:
-    selectTypeName: IdentityIdDocumentsAggExp
+    selectTypeName: GuestIdDocumentsAggExp
 
 ---
 kind: OrderByExpression
 version: v1
 definition:
-  name: IdentityIdDocumentsOrderByExp
+  name: GuestIdDocumentsOrderByExp
   operand:
     object:
-      orderedType: IdentityIdDocuments
+      orderedType: GuestIdDocuments
       orderableFields:
         - fieldName: attachmentId
           orderByExpression: String1OrderByExp
@@ -161,42 +161,42 @@ definition:
           orderByExpression: String1OrderByExp
       orderableRelationships: []
   graphql:
-    expressionTypeName: IdentityIdDocumentsOrderByExp
+    expressionTypeName: GuestIdDocumentsOrderByExp
 
 ---
 kind: Model
 version: v2
 definition:
-  name: IdentityIdDocuments
-  objectType: IdentityIdDocuments
+  name: GuestIdDocuments
+  objectType: GuestIdDocuments
   source:
     dataConnectorName: freebusy_pgsql
-    collection: identity_id_documents
-  filterExpressionType: IdentityIdDocumentsBoolExp
-  aggregateExpression: IdentityIdDocumentsAggExp
-  orderByExpression: IdentityIdDocumentsOrderByExp
+    collection: guest_id_documents
+  filterExpressionType: GuestIdDocumentsBoolExp
+  aggregateExpression: GuestIdDocumentsAggExp
+  orderByExpression: GuestIdDocumentsOrderByExp
   graphql:
     selectMany:
-      queryRootField: identityIdDocuments
+      queryRootField: guestIdDocuments
       subscription:
-        rootField: identityIdDocuments
+        rootField: guestIdDocuments
     selectUniques:
-      - queryRootField: identityIdDocumentsById
+      - queryRootField: guestIdDocumentsById
         uniqueIdentifier:
           - id
         subscription:
-          rootField: identityIdDocumentsById
-    filterInputTypeName: IdentityIdDocumentsFilterInput
+          rootField: guestIdDocumentsById
+    filterInputTypeName: GuestIdDocumentsFilterInput
     aggregate:
-      queryRootField: identityIdDocumentsAggregate
+      queryRootField: guestIdDocumentsAggregate
       subscription:
-        rootField: identityIdDocumentsAggregate
+        rootField: guestIdDocumentsAggregate
 
 ---
 kind: ModelPermissions
 version: v1
 definition:
-  modelName: IdentityIdDocuments
+  modelName: GuestIdDocuments
   permissions:
     - role: admin
       select:

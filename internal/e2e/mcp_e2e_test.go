@@ -23,7 +23,7 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/oh-tarnished/freebusy/internal"
 	"github.com/oh-tarnished/freebusy/internal/database"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
 	"github.com/the-protobuf-project/runtime-go/grpc"
 )
 
@@ -55,15 +55,19 @@ func TestMCP_ValidationAndLifecycle_Gorm(t *testing.T) {
 		Addr:             addr,
 		UnaryInterceptor: validate, // what buildMCPConfigForPort threads through
 	}
-	go func() { served <- orgpbv1.ServeOrganisationServiceMCP(ctx, svc, cfg) }()
+	go func() { served <- promocodepbv1.ServePromoCodeServiceMCP(ctx, svc, cfg) }()
 
-	endpoint := fmt.Sprintf("http://%s%s", addr, orgpbv1.OrganisationServiceMCPDefaultBasePath)
+	endpoint := fmt.Sprintf("http://%s%s", addr, promocodepbv1.PromoCodeServiceMCPDefaultBasePath)
 	session := dialMCP(t, endpoint)
 
 	// Invalid create — the interceptor must reject it before the handler runs
 	// (this used to panic or write an unvalidated row).
+	//
+	// Driven through PromoCodeService since OrganisationService was retired to
+	// RFC 4519; the subject is the MCP surface and the interceptor, not the
+	// particular service.
 	res, err := session.CallTool(context.Background(), &mcp.CallToolParams{
-		Name:      "organisation_service-create_organisation_v1",
+		Name:      "promo_code_service-create_promo_code_v1",
 		Arguments: map[string]any{},
 	})
 	if err != nil {
@@ -72,26 +76,29 @@ func TestMCP_ValidationAndLifecycle_Gorm(t *testing.T) {
 	if !res.IsError {
 		t.Fatalf("invalid create was accepted: %v", res.Content)
 	}
-	if text := toolText(res); !strings.Contains(text, "organisation") {
+	if text := toolText(res); !strings.Contains(text, "promo_code") {
 		t.Fatalf("rejection does not read as a validation error: %q", text)
 	}
 
 	// Valid create round-trips, and the row is cleaned up over the same surface.
 	res, err = session.CallTool(context.Background(), &mcp.CallToolParams{
-		Name: "organisation_service-create_organisation_v1",
+		Name: "promo_code_service-create_promo_code_v1",
 		Arguments: map[string]any{
-			"organisation": map[string]any{"display_name": fmt.Sprintf("mcp-e2e-%d", time.Now().UnixNano()%1_000_000_000)},
+			"promo_code": map[string]any{
+				"code":     fmt.Sprintf("MCPE2E%d", time.Now().UnixNano()%1_000_000_000),
+				"discount": map[string]any{"percent_off": 10},
+			},
 		},
 	})
 	if err != nil || res.IsError {
 		t.Fatalf("valid create failed: err=%v content=%v", err, res.Content)
 	}
 	name := extractJSONField(toolText(res), "name")
-	if !strings.HasPrefix(name, "organisations/") {
+	if !strings.HasPrefix(name, "promoCodes/") {
 		t.Fatalf("created name = %q", name)
 	}
 	res, err = session.CallTool(context.Background(), &mcp.CallToolParams{
-		Name:      "organisation_service-delete_organisation_v1",
+		Name:      "promo_code_service-delete_promo_code_v1",
 		Arguments: map[string]any{"name": name, "force": true},
 	})
 	if err != nil || res.IsError {
@@ -105,7 +112,7 @@ func TestMCP_ValidationAndLifecycle_Gorm(t *testing.T) {
 	select {
 	case <-served:
 	case <-time.After(5 * time.Second):
-		t.Fatal("ServeOrganisationServiceMCP did not return after context cancellation")
+		t.Fatal("ServePromoCodeServiceMCP did not return after context cancellation")
 	}
 }
 

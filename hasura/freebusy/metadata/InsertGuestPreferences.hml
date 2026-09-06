@@ -2,7 +2,7 @@
 kind: ObjectType
 version: v1
 definition:
-  name: InsertIdentityGuestPreferencesObject
+  name: InsertGuestPreferencesObject
   fields:
     - name: accessibility
       type: "[String_1]"
@@ -23,11 +23,11 @@ definition:
     - name: specialRequests
       type: "[String_1]"
   graphql:
-    typeName: InsertIdentityGuestPreferencesObject
-    inputTypeName: InsertIdentityGuestPreferencesObjectInput
+    typeName: InsertGuestPreferencesObject
+    inputTypeName: InsertGuestPreferencesObjectInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: insert_identity_guest_preferences_object
+      dataConnectorObjectType: insert_guest_preferences_object
       fieldMapping:
         accessibility:
           column:
@@ -61,7 +61,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: InsertIdentityGuestPreferencesObject
+  typeName: InsertGuestPreferencesObject
   permissions:
     - role: admin
       output:
@@ -80,21 +80,21 @@ definition:
 kind: ObjectType
 version: v1
 definition:
-  name: InsertIdentityGuestPreferencesResponse
-  description: Responses from the 'insert_identity_guest_preferences' procedure
+  name: InsertGuestPreferencesResponse
+  description: Responses from the 'insert_guest_preferences' procedure
   fields:
     - name: affectedRows
       type: Int32!
       description: The number of rows affected by the mutation
     - name: returning
-      type: "[IdentityGuestPreferences!]!"
+      type: "[GuestPreferences!]!"
       description: Data from rows affected by the mutation
   graphql:
-    typeName: InsertIdentityGuestPreferencesResponse
-    inputTypeName: InsertIdentityGuestPreferencesResponseInput
+    typeName: InsertGuestPreferencesResponse
+    inputTypeName: InsertGuestPreferencesResponseInput
   dataConnectorTypeMapping:
     - dataConnectorName: freebusy_pgsql
-      dataConnectorObjectType: insert_identity_guest_preferences_response
+      dataConnectorObjectType: insert_guest_preferences_response
       fieldMapping:
         affectedRows:
           column:
@@ -107,7 +107,7 @@ definition:
 kind: TypePermissions
 version: v1
 definition:
-  typeName: InsertIdentityGuestPreferencesResponse
+  typeName: InsertGuestPreferencesResponse
   permissions:
     - role: admin
       output:
@@ -119,32 +119,31 @@ definition:
 kind: Command
 version: v1
 definition:
-  name: InsertIdentityGuestPreferences
-  outputType: InsertIdentityGuestPreferencesResponse!
+  name: InsertGuestPreferences
+  outputType: InsertGuestPreferencesResponse!
   arguments:
     - name: objects
-      type: "[InsertIdentityGuestPreferencesObject!]!"
+      type: "[InsertGuestPreferencesObject!]!"
     - name: postCheck
-      type: IdentityGuestPreferencesBoolExp
-      description: Insert permission predicate over the 'identity_guest_preferences'
-        collection
+      type: GuestPreferencesBoolExp
+      description: Insert permission predicate over the 'guest_preferences' collection
   source:
     dataConnectorName: freebusy_pgsql
     dataConnectorCommand:
-      procedure: insert_identity_guest_preferences
+      procedure: insert_guest_preferences
     argumentMapping:
       objects: objects
       postCheck: post_check
   graphql:
-    rootFieldName: insertIdentityGuestPreferences
+    rootFieldName: insertGuestPreferences
     rootFieldKind: Mutation
-  description: Insert into the identity_guest_preferences table
+  description: Insert into the guest_preferences table
 
 ---
 kind: CommandPermissions
 version: v1
 definition:
-  commandName: InsertIdentityGuestPreferences
+  commandName: InsertGuestPreferences
   permissions:
     - role: admin
       allowExecution: true
