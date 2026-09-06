@@ -10,7 +10,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
-	guestsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestsql"
+	guestsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql/resourceql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
 	"github.com/oh-tarnished/freebusy/internal/types"

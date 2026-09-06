@@ -3,10 +3,10 @@ package hasura
 
 import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/postaladdressql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/foreignerdetailsql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestpreferencesql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestsql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/iddocumentsql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql/foreignerdetailsql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql/iddocumentsql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql/preferencesql"
+	guestresourceql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql/resourceql"
 	"github.com/the-protobuf-project/runtime-go/network/runtime"
 )
 
@@ -25,7 +25,7 @@ func queueGuestInserts(tx *runtime.Tx, r *BookingRepository, graphs []guestGraph
 			tx.Add(r.svc.Mutation.Identity.ForeignerDetails.CreateOp(*g.foreigner, &res))
 		}
 		if g.prefs != nil {
-			var res guestpreferencesql.InsertIdentityGuestPreferencesResponse
+			var res preferencesql.InsertIdentityGuestPreferencesResponse
 			tx.Add(r.svc.Mutation.Identity.GuestPreferences.CreateOp(*g.prefs, &res))
 		}
 		if g.permanent != nil {
@@ -60,7 +60,7 @@ func queueGuestDeletes(tx *runtime.Tx, r *BookingRepository, bookingID string, g
 			tx.Add(r.svc.Mutation.Identity.ForeignerDetails.DeleteOp(*g.ForeignerId, &res))
 		}
 		if g.PreferencesId != nil {
-			var res guestpreferencesql.DeleteIdentityGuestPreferencesByIdResponse
+			var res preferencesql.DeleteIdentityGuestPreferencesByIdResponse
 			tx.Add(r.svc.Mutation.Identity.GuestPreferences.DeleteOp(*g.PreferencesId, &res))
 		}
 		if g.PermanentAddressId != nil {

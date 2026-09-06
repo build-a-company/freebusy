@@ -20,14 +20,13 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/availabilityql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/calendarql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/cardql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/channelql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/deleteql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/eventql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/groupql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/journalql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/membershipql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/organisationql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/organizationql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/orgunitql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/pricingql"
@@ -61,14 +60,12 @@ type QueryHandler struct {
 	Availability availabilityql.QueryHandler
 	Calendar     calendarql.QueryHandler
 	Card         cardql.QueryHandler
-	Channel      channelql.QueryHandler
 	Common       commonql.QueryHandler
 	Event        eventql.QueryHandler
 	Group        groupql.QueryHandler
-	Identity     identityql.QueryHandler
+	Guest        guestql.QueryHandler
 	Journal      journalql.QueryHandler
 	Membership   membershipql.QueryHandler
-	Organisation organisationql.QueryHandler
 	Organization organizationql.QueryHandler
 	Orgunit      orgunitql.QueryHandler
 	Pricing      pricingql.QueryHandler
@@ -106,14 +103,13 @@ type MutationHandler struct {
 	Availability availabilityql.MutationHandler
 	Calendar     calendarql.MutationHandler
 	Card         cardql.MutationHandler
-	Channel      channelql.MutationHandler
 	Common       commonql.MutationHandler
+	Delete       deleteql.MutationHandler
 	Event        eventql.MutationHandler
 	Group        groupql.MutationHandler
-	Identity     identityql.MutationHandler
+	Guest        guestql.MutationHandler
 	Journal      journalql.MutationHandler
 	Membership   membershipql.MutationHandler
-	Organisation organisationql.MutationHandler
 	Organization organizationql.MutationHandler
 	Orgunit      orgunitql.MutationHandler
 	Pricing      pricingql.MutationHandler
@@ -155,14 +151,12 @@ type SubscriptionHandler struct {
 	Availability availabilityql.SubscriptionHandler
 	Calendar     calendarql.SubscriptionHandler
 	Card         cardql.SubscriptionHandler
-	Channel      channelql.SubscriptionHandler
 	Common       commonql.SubscriptionHandler
 	Event        eventql.SubscriptionHandler
 	Group        groupql.SubscriptionHandler
-	Identity     identityql.SubscriptionHandler
+	Guest        guestql.SubscriptionHandler
 	Journal      journalql.SubscriptionHandler
 	Membership   membershipql.SubscriptionHandler
-	Organisation organisationql.SubscriptionHandler
 	Organization organizationql.SubscriptionHandler
 	Orgunit      orgunitql.SubscriptionHandler
 	Pricing      pricingql.SubscriptionHandler
@@ -199,14 +193,12 @@ func New(opts runtime.ConnectionOptions) (*Service, error) {
 			Availability: availabilityql.NewQuery(gql),
 			Calendar:     calendarql.NewQuery(gql),
 			Card:         cardql.NewQuery(gql),
-			Channel:      channelql.NewQuery(gql),
 			Common:       commonql.NewQuery(gql),
 			Event:        eventql.NewQuery(gql),
 			Group:        groupql.NewQuery(gql),
-			Identity:     identityql.NewQuery(gql),
+			Guest:        guestql.NewQuery(gql),
 			Journal:      journalql.NewQuery(gql),
 			Membership:   membershipql.NewQuery(gql),
-			Organisation: organisationql.NewQuery(gql),
 			Organization: organizationql.NewQuery(gql),
 			Orgunit:      orgunitql.NewQuery(gql),
 			Pricing:      pricingql.NewQuery(gql),
@@ -228,14 +220,13 @@ func New(opts runtime.ConnectionOptions) (*Service, error) {
 			Availability: availabilityql.NewMutation(gql),
 			Calendar:     calendarql.NewMutation(gql),
 			Card:         cardql.NewMutation(gql),
-			Channel:      channelql.NewMutation(gql),
 			Common:       commonql.NewMutation(gql),
+			Delete:       deleteql.NewMutation(gql),
 			Event:        eventql.NewMutation(gql),
 			Group:        groupql.NewMutation(gql),
-			Identity:     identityql.NewMutation(gql),
+			Guest:        guestql.NewMutation(gql),
 			Journal:      journalql.NewMutation(gql),
 			Membership:   membershipql.NewMutation(gql),
-			Organisation: organisationql.NewMutation(gql),
 			Organization: organizationql.NewMutation(gql),
 			Orgunit:      orgunitql.NewMutation(gql),
 			Pricing:      pricingql.NewMutation(gql),
@@ -256,14 +247,12 @@ func New(opts runtime.ConnectionOptions) (*Service, error) {
 			Availability: availabilityql.NewSubscription(gql),
 			Calendar:     calendarql.NewSubscription(gql),
 			Card:         cardql.NewSubscription(gql),
-			Channel:      channelql.NewSubscription(gql),
 			Common:       commonql.NewSubscription(gql),
 			Event:        eventql.NewSubscription(gql),
 			Group:        groupql.NewSubscription(gql),
-			Identity:     identityql.NewSubscription(gql),
+			Guest:        guestql.NewSubscription(gql),
 			Journal:      journalql.NewSubscription(gql),
 			Membership:   membershipql.NewSubscription(gql),
-			Organisation: organisationql.NewSubscription(gql),
 			Organization: organizationql.NewSubscription(gql),
 			Orgunit:      orgunitql.NewSubscription(gql),
 			Pricing:      pricingql.NewSubscription(gql),

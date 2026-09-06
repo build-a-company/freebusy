@@ -4,12 +4,12 @@ package hasura
 import (
 	"context"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/postaladdressql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/foreignerdetailsql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestpreferencesql"
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/iddocumentsql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql/foreignerdetailsql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql/iddocumentsql"
+	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql/preferencesql"
 	"github.com/oh-tarnished/freebusy/internal/service/dbutil"
 
-	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestsql"
+	guestresourceql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/guestql/resourceql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
@@ -88,7 +88,7 @@ func (r *BookingRepository) loadGuests(ctx context.Context, bookingID string) ([
 		g := &rows[i]
 		var doc *iddocumentsql.IdentityIdDocuments
 		var foreigner *foreignerdetailsql.IdentityForeignerDetails
-		var prefs *guestpreferencesql.IdentityGuestPreferences
+		var prefs *preferencesql.IdentityGuestPreferences
 		var perm, loc *postaladdressql.CommonPostalAddress
 		if g.IdDocumentId != nil {
 			if doc, err = r.svc.Query.Identity.IdDocuments.Get(ctx, *g.IdDocumentId); err != nil {
