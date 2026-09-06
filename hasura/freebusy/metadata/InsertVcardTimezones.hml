@@ -1,0 +1,144 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardTimezonesObject
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: pref
+      type: Int32
+    - name: text
+      type: String_1
+    - name: types
+      type: String_1
+    - name: uri
+      type: String_1
+    - name: utcOffset
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: InsertVcardTimezonesObject
+    inputTypeName: InsertVcardTimezonesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_timezones_object
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        text:
+          column:
+            name: text
+        types:
+          column:
+            name: types
+        uri:
+          column:
+            name: uri
+        utcOffset:
+          column:
+            name: utc_offset
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardTimezonesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - text
+          - types
+          - uri
+          - utcOffset
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardTimezonesResponse
+  description: Responses from the 'insert_vcard_timezones' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardTimezones!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertVcardTimezonesResponse
+    inputTypeName: InsertVcardTimezonesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_timezones_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardTimezonesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertVcardTimezones
+  outputType: InsertVcardTimezonesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertVcardTimezonesObject!]!"
+    - name: postCheck
+      type: VcardTimezonesBoolExp
+      description: Insert permission predicate over the 'vcard_timezones' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_vcard_timezones
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertVcardTimezones
+    rootFieldKind: Mutation
+  description: Insert into the vcard_timezones table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertVcardTimezones
+  permissions:
+    - role: admin
+      allowExecution: true
+

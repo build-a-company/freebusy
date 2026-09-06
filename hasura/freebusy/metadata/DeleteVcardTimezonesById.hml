@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteVcardTimezonesByIdResponse
+  description: Responses from the 'delete_vcard_timezones_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardTimezones!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteVcardTimezonesByIdResponse
+    inputTypeName: DeleteVcardTimezonesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_vcard_timezones_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteVcardTimezonesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteVcardTimezonesById
+  outputType: DeleteVcardTimezonesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: VcardTimezonesBoolExp
+      description: Delete permission predicate over the 'vcard_timezones' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_vcard_timezones_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteVcardTimezonesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'vcard_timezones' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteVcardTimezonesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

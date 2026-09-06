@@ -1,0 +1,351 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAvailabilityExtensionPropertiesAvailabilityId
+  description: Update the 'availability_id' column in the
+    'availability_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAvailabilityExtensionPropertiesAvailabilityId
+    inputTypeName: UpdateColumnAvailabilityExtensionPropertiesAvailabilityIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_availability_extension_properties_availability_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAvailabilityExtensionPropertiesAvailabilityId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAvailabilityExtensionPropertiesAvailablePeriodId
+  description: Update the 'available_period_id' column in the
+    'availability_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAvailabilityExtensionPropertiesAvailablePeriodId
+    inputTypeName: UpdateColumnAvailabilityExtensionPropertiesAvailablePeriodIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_availability_extension_properties_available_period_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAvailabilityExtensionPropertiesAvailablePeriodId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAvailabilityExtensionPropertiesId
+  description: Update the 'id' column in the 'availability_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAvailabilityExtensionPropertiesId
+    inputTypeName: UpdateColumnAvailabilityExtensionPropertiesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_availability_extension_properties_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAvailabilityExtensionPropertiesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAvailabilityExtensionPropertiesKey
+  description: Update the 'key' column in the 'availability_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAvailabilityExtensionPropertiesKey
+    inputTypeName: UpdateColumnAvailabilityExtensionPropertiesKeyInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_availability_extension_properties_key
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAvailabilityExtensionPropertiesKey
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAvailabilityExtensionPropertiesParameters
+  description: Update the 'parameters' column in the
+    'availability_extension_properties' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAvailabilityExtensionPropertiesParameters
+    inputTypeName: UpdateColumnAvailabilityExtensionPropertiesParametersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_availability_extension_properties_parameters
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAvailabilityExtensionPropertiesParameters
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAvailabilityExtensionPropertiesValues
+  description: Update the 'values' column in the
+    'availability_extension_properties' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAvailabilityExtensionPropertiesValues
+    inputTypeName: UpdateColumnAvailabilityExtensionPropertiesValuesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_availability_extension_properties_values
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAvailabilityExtensionPropertiesValues
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateAvailabilityExtensionPropertiesByIdUpdateColumns
+  description: Update the columns of the 'availability_extension_properties' collection
+  fields:
+    - name: availabilityId
+      type: UpdateColumnAvailabilityExtensionPropertiesAvailabilityId
+      description: Update the 'availability_id' column in the
+        'availability_extension_properties' collection.
+    - name: availablePeriodId
+      type: UpdateColumnAvailabilityExtensionPropertiesAvailablePeriodId
+      description: Update the 'available_period_id' column in the
+        'availability_extension_properties' collection.
+    - name: id
+      type: UpdateColumnAvailabilityExtensionPropertiesId
+      description: Update the 'id' column in the 'availability_extension_properties'
+        collection.
+    - name: key
+      type: UpdateColumnAvailabilityExtensionPropertiesKey
+      description: Update the 'key' column in the 'availability_extension_properties'
+        collection.
+    - name: parameters
+      type: UpdateColumnAvailabilityExtensionPropertiesParameters
+      description: Update the 'parameters' column in the
+        'availability_extension_properties' collection.
+    - name: values
+      type: UpdateColumnAvailabilityExtensionPropertiesValues
+      description: Update the 'values' column in the
+        'availability_extension_properties' collection.
+  graphql:
+    typeName: UpdateAvailabilityExtensionPropertiesByIdUpdateColumns
+    inputTypeName: UpdateAvailabilityExtensionPropertiesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_availability_extension_properties_by_id_update_columns
+      fieldMapping:
+        availabilityId:
+          column:
+            name: availability_id
+        availablePeriodId:
+          column:
+            name: available_period_id
+        id:
+          column:
+            name: id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateAvailabilityExtensionPropertiesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - availabilityId
+          - availablePeriodId
+          - id
+          - key
+          - parameters
+          - values
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateAvailabilityExtensionPropertiesByIdResponse
+  description: Responses from the 'update_availability_extension_properties_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[AvailabilityExtensionProperties!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateAvailabilityExtensionPropertiesByIdResponse
+    inputTypeName: UpdateAvailabilityExtensionPropertiesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_availability_extension_properties_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateAvailabilityExtensionPropertiesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateAvailabilityExtensionPropertiesById
+  outputType: UpdateAvailabilityExtensionPropertiesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: AvailabilityExtensionPropertiesBoolExp
+      description: Update permission post-condition predicate over the
+        'availability_extension_properties' collection
+    - name: preCheck
+      type: AvailabilityExtensionPropertiesBoolExp
+      description: Update permission pre-condition predicate over the
+        'availability_extension_properties' collection
+    - name: updateColumns
+      type: UpdateAvailabilityExtensionPropertiesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_availability_extension_properties_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateAvailabilityExtensionPropertiesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'availability_extension_properties'
+    collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateAvailabilityExtensionPropertiesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

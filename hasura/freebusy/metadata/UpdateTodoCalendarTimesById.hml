@@ -1,0 +1,262 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoCalendarTimesDate
+  description: Update the 'date' column in the 'todo_calendar_times' collection
+  fields:
+    - name: set
+      type: Date
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoCalendarTimesDate
+    inputTypeName: UpdateColumnTodoCalendarTimesDateInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_calendar_times_date
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoCalendarTimesDate
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoCalendarTimesDateTime
+  description: Update the 'date_time' column in the 'todo_calendar_times' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoCalendarTimesDateTime
+    inputTypeName: UpdateColumnTodoCalendarTimesDateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_calendar_times_date_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoCalendarTimesDateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoCalendarTimesId
+  description: Update the 'id' column in the 'todo_calendar_times' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoCalendarTimesId
+    inputTypeName: UpdateColumnTodoCalendarTimesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_calendar_times_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoCalendarTimesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoCalendarTimesValueCase
+  description: Update the 'value_case' column in the 'todo_calendar_times' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoCalendarTimesValueCase
+    inputTypeName: UpdateColumnTodoCalendarTimesValueCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_calendar_times_value_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoCalendarTimesValueCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateTodoCalendarTimesByIdUpdateColumns
+  description: Update the columns of the 'todo_calendar_times' collection
+  fields:
+    - name: date
+      type: UpdateColumnTodoCalendarTimesDate
+      description: Update the 'date' column in the 'todo_calendar_times' collection.
+    - name: dateTime
+      type: UpdateColumnTodoCalendarTimesDateTime
+      description: Update the 'date_time' column in the 'todo_calendar_times' collection.
+    - name: id
+      type: UpdateColumnTodoCalendarTimesId
+      description: Update the 'id' column in the 'todo_calendar_times' collection.
+    - name: valueCase
+      type: UpdateColumnTodoCalendarTimesValueCase
+      description: Update the 'value_case' column in the 'todo_calendar_times' collection.
+  graphql:
+    typeName: UpdateTodoCalendarTimesByIdUpdateColumns
+    inputTypeName: UpdateTodoCalendarTimesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_todo_calendar_times_by_id_update_columns
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        id:
+          column:
+            name: id
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateTodoCalendarTimesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - id
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateTodoCalendarTimesByIdResponse
+  description: Responses from the 'update_todo_calendar_times_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[TodoCalendarTimes!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateTodoCalendarTimesByIdResponse
+    inputTypeName: UpdateTodoCalendarTimesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_todo_calendar_times_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateTodoCalendarTimesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateTodoCalendarTimesById
+  outputType: UpdateTodoCalendarTimesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: TodoCalendarTimesBoolExp
+      description: Update permission post-condition predicate over the
+        'todo_calendar_times' collection
+    - name: preCheck
+      type: TodoCalendarTimesBoolExp
+      description: Update permission pre-condition predicate over the
+        'todo_calendar_times' collection
+    - name: updateColumns
+      type: UpdateTodoCalendarTimesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_todo_calendar_times_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateTodoCalendarTimesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'todo_calendar_times' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateTodoCalendarTimesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

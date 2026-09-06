@@ -1,0 +1,205 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardTelephones
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: features
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: pref
+      type: Int32
+    - name: text
+      type: String_1
+    - name: types
+      type: String_1
+    - name: uri
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: VcardTelephones
+    inputTypeName: VcardTelephonesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_telephones
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        features:
+          column:
+            name: features
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        text:
+          column:
+            name: text
+        types:
+          column:
+            name: types
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardTelephones
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - features
+          - id
+          - pref
+          - text
+          - types
+          - uri
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardTelephonesBoolExp
+  operand:
+    object:
+      type: VcardTelephones
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: features
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: pref
+          booleanExpressionType: Int4BoolExp
+        - fieldName: text
+          booleanExpressionType: TextBoolExp
+        - fieldName: types
+          booleanExpressionType: TextBoolExp
+        - fieldName: uri
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardTelephonesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardTelephonesAggExp
+  operand:
+    object:
+      aggregatedType: VcardTelephones
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: features
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: pref
+          aggregateExpression: Int4AggExp
+        - fieldName: text
+          aggregateExpression: TextAggExp
+        - fieldName: types
+          aggregateExpression: TextAggExp
+        - fieldName: uri
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardTelephonesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardTelephonesOrderByExp
+  operand:
+    object:
+      orderedType: VcardTelephones
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: features
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: pref
+          orderByExpression: Int32OrderByExp
+        - fieldName: text
+          orderByExpression: String1OrderByExp
+        - fieldName: types
+          orderByExpression: String1OrderByExp
+        - fieldName: uri
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardTelephonesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardTelephones
+  objectType: VcardTelephones
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_telephones
+  filterExpressionType: VcardTelephonesBoolExp
+  aggregateExpression: VcardTelephonesAggExp
+  orderByExpression: VcardTelephonesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardTelephones
+      subscription:
+        rootField: vcardTelephones
+    selectUniques:
+      - queryRootField: vcardTelephonesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardTelephonesById
+    filterInputTypeName: VcardTelephonesFilterInput
+    aggregate:
+      queryRootField: vcardTelephonesAggregate
+      subscription:
+        rootField: vcardTelephonesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardTelephones
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

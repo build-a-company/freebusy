@@ -1,0 +1,181 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardPronouns
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: languageCode
+      type: String_1
+    - name: pref
+      type: Int32
+    - name: types
+      type: String_1
+    - name: value
+      type: String_1!
+  graphql:
+    typeName: VcardPronouns
+    inputTypeName: VcardPronounsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_pronouns
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        languageCode:
+          column:
+            name: language_code
+        pref:
+          column:
+            name: pref
+        types:
+          column:
+            name: types
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardPronouns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - languageCode
+          - pref
+          - types
+          - value
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardPronounsBoolExp
+  operand:
+    object:
+      type: VcardPronouns
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: languageCode
+          booleanExpressionType: TextBoolExp
+        - fieldName: pref
+          booleanExpressionType: Int4BoolExp
+        - fieldName: types
+          booleanExpressionType: TextBoolExp
+        - fieldName: value
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardPronounsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardPronounsAggExp
+  operand:
+    object:
+      aggregatedType: VcardPronouns
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: languageCode
+          aggregateExpression: TextAggExp
+        - fieldName: pref
+          aggregateExpression: Int4AggExp
+        - fieldName: types
+          aggregateExpression: TextAggExp
+        - fieldName: value
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardPronounsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardPronounsOrderByExp
+  operand:
+    object:
+      orderedType: VcardPronouns
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: languageCode
+          orderByExpression: String1OrderByExp
+        - fieldName: pref
+          orderByExpression: Int32OrderByExp
+        - fieldName: types
+          orderByExpression: String1OrderByExp
+        - fieldName: value
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardPronounsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardPronouns
+  objectType: VcardPronouns
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_pronouns
+  filterExpressionType: VcardPronounsBoolExp
+  aggregateExpression: VcardPronounsAggExp
+  orderByExpression: VcardPronounsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardPronouns
+      subscription:
+        rootField: vcardPronouns
+    selectUniques:
+      - queryRootField: vcardPronounsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardPronounsById
+    filterInputTypeName: VcardPronounsFilterInput
+    aggregate:
+      queryRootField: vcardPronounsAggregate
+      subscription:
+        rootField: vcardPronounsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardPronouns
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

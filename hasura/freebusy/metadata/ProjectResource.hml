@@ -1,0 +1,277 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: ProjectResource
+  fields:
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: description
+      type: String_1
+    - name: displayName
+      type: String_1!
+    - name: endTime
+      type: Timestamptz
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: name
+      type: String_1!
+    - name: owner
+      type: String_1
+    - name: startTime
+      type: Timestamptz
+    - name: state
+      type: String_1
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: ProjectResource
+    inputTypeName: ProjectResourceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: project_resource
+      fieldMapping:
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        description:
+          column:
+            name: description
+        displayName:
+          column:
+            name: display_name
+        endTime:
+          column:
+            name: end_time
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        owner:
+          column:
+            name: owner
+        startTime:
+          column:
+            name: start_time
+        state:
+          column:
+            name: state
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: ProjectResource
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - createTime
+          - deleteTime
+          - description
+          - displayName
+          - endTime
+          - etag
+          - expireTime
+          - id
+          - name
+          - owner
+          - startTime
+          - state
+          - uid
+          - updateTime
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: ProjectResourceBoolExp
+  operand:
+    object:
+      type: ProjectResource
+      comparableFields:
+        - fieldName: createTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: deleteTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: description
+          booleanExpressionType: TextBoolExp
+        - fieldName: displayName
+          booleanExpressionType: TextBoolExp
+        - fieldName: endTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: etag
+          booleanExpressionType: TextBoolExp
+        - fieldName: expireTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: name
+          booleanExpressionType: TextBoolExp
+        - fieldName: owner
+          booleanExpressionType: TextBoolExp
+        - fieldName: startTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: state
+          booleanExpressionType: TextBoolExp
+        - fieldName: uid
+          booleanExpressionType: TextBoolExp
+        - fieldName: updateTime
+          booleanExpressionType: TimestamptzBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: ProjectResourceBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: ProjectResourceAggExp
+  operand:
+    object:
+      aggregatedType: ProjectResource
+      aggregatableFields:
+        - fieldName: createTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: deleteTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: description
+          aggregateExpression: TextAggExp
+        - fieldName: displayName
+          aggregateExpression: TextAggExp
+        - fieldName: endTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: etag
+          aggregateExpression: TextAggExp
+        - fieldName: expireTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: name
+          aggregateExpression: TextAggExp
+        - fieldName: owner
+          aggregateExpression: TextAggExp
+        - fieldName: startTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: state
+          aggregateExpression: TextAggExp
+        - fieldName: uid
+          aggregateExpression: TextAggExp
+        - fieldName: updateTime
+          aggregateExpression: TimestamptzAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: ProjectResourceAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: ProjectResourceOrderByExp
+  operand:
+    object:
+      orderedType: ProjectResource
+      orderableFields:
+        - fieldName: createTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: deleteTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: description
+          orderByExpression: String1OrderByExp
+        - fieldName: displayName
+          orderByExpression: String1OrderByExp
+        - fieldName: endTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: etag
+          orderByExpression: String1OrderByExp
+        - fieldName: expireTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: name
+          orderByExpression: String1OrderByExp
+        - fieldName: owner
+          orderByExpression: String1OrderByExp
+        - fieldName: startTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: state
+          orderByExpression: String1OrderByExp
+        - fieldName: uid
+          orderByExpression: String1OrderByExp
+        - fieldName: updateTime
+          orderByExpression: TimestamptzOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: ProjectResourceOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: ProjectResource
+  objectType: ProjectResource
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: project_resource
+  filterExpressionType: ProjectResourceBoolExp
+  aggregateExpression: ProjectResourceAggExp
+  orderByExpression: ProjectResourceOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: projectResource
+      subscription:
+        rootField: projectResource
+    selectUniques:
+      - queryRootField: projectResourceById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: projectResourceById
+    filterInputTypeName: ProjectResourceFilterInput
+    aggregate:
+      queryRootField: projectResourceAggregate
+      subscription:
+        rootField: projectResourceAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: ProjectResource
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

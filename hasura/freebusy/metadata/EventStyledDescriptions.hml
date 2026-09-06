@@ -1,0 +1,205 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventStyledDescriptions
+  fields:
+    - name: derived
+      type: Boolean_1
+    - name: eventId
+      type: String_1!
+    - name: formatType
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: participantId
+      type: String_1!
+    - name: text
+      type: String_1
+    - name: uri
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: EventStyledDescriptions
+    inputTypeName: EventStyledDescriptionsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_styled_descriptions
+      fieldMapping:
+        derived:
+          column:
+            name: derived
+        eventId:
+          column:
+            name: event_id
+        formatType:
+          column:
+            name: format_type
+        id:
+          column:
+            name: id
+        participantId:
+          column:
+            name: participant_id
+        text:
+          column:
+            name: text
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventStyledDescriptions
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - derived
+          - eventId
+          - formatType
+          - id
+          - participantId
+          - text
+          - uri
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventStyledDescriptionsBoolExp
+  operand:
+    object:
+      type: EventStyledDescriptions
+      comparableFields:
+        - fieldName: derived
+          booleanExpressionType: BoolBoolExp
+        - fieldName: eventId
+          booleanExpressionType: TextBoolExp
+        - fieldName: formatType
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: participantId
+          booleanExpressionType: TextBoolExp
+        - fieldName: text
+          booleanExpressionType: TextBoolExp
+        - fieldName: uri
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventStyledDescriptionsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventStyledDescriptionsAggExp
+  operand:
+    object:
+      aggregatedType: EventStyledDescriptions
+      aggregatableFields:
+        - fieldName: derived
+          aggregateExpression: BoolAggExp
+        - fieldName: eventId
+          aggregateExpression: TextAggExp
+        - fieldName: formatType
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: participantId
+          aggregateExpression: TextAggExp
+        - fieldName: text
+          aggregateExpression: TextAggExp
+        - fieldName: uri
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventStyledDescriptionsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventStyledDescriptionsOrderByExp
+  operand:
+    object:
+      orderedType: EventStyledDescriptions
+      orderableFields:
+        - fieldName: derived
+          orderByExpression: Boolean1OrderByExp
+        - fieldName: eventId
+          orderByExpression: String1OrderByExp
+        - fieldName: formatType
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: participantId
+          orderByExpression: String1OrderByExp
+        - fieldName: text
+          orderByExpression: String1OrderByExp
+        - fieldName: uri
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventStyledDescriptionsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventStyledDescriptions
+  objectType: EventStyledDescriptions
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_styled_descriptions
+  filterExpressionType: EventStyledDescriptionsBoolExp
+  aggregateExpression: EventStyledDescriptionsAggExp
+  orderByExpression: EventStyledDescriptionsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventStyledDescriptions
+      subscription:
+        rootField: eventStyledDescriptions
+    selectUniques:
+      - queryRootField: eventStyledDescriptionsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventStyledDescriptionsById
+    filterInputTypeName: EventStyledDescriptionsFilterInput
+    aggregate:
+      queryRootField: eventStyledDescriptionsAggregate
+      subscription:
+        rootField: eventStyledDescriptionsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventStyledDescriptions
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

@@ -1,0 +1,540 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasBinary
+  description: Update the 'binary' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasBinary
+    inputTypeName: UpdateColumnEventStructuredDatasBinaryInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_binary
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasBinary
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasEventId
+  description: Update the 'event_id' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasEventId
+    inputTypeName: UpdateColumnEventStructuredDatasEventIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_event_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasEventId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasFormatType
+  description: Update the 'format_type' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasFormatType
+    inputTypeName: UpdateColumnEventStructuredDatasFormatTypeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_format_type
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasFormatType
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasId
+  description: Update the 'id' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasId
+    inputTypeName: UpdateColumnEventStructuredDatasIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasLocationId
+  description: Update the 'location_id' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasLocationId
+    inputTypeName: UpdateColumnEventStructuredDatasLocationIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_location_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasLocationId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasParticipantId
+  description: Update the 'participant_id' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasParticipantId
+    inputTypeName: UpdateColumnEventStructuredDatasParticipantIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_participant_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasParticipantId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasResourceId
+  description: Update the 'resource_id' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasResourceId
+    inputTypeName: UpdateColumnEventStructuredDatasResourceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_resource_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasResourceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasSchema
+  description: Update the 'schema' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasSchema
+    inputTypeName: UpdateColumnEventStructuredDatasSchemaInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_schema
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasSchema
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasText
+  description: Update the 'text' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasText
+    inputTypeName: UpdateColumnEventStructuredDatasTextInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_text
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasText
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasUri
+  description: Update the 'uri' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasUri
+    inputTypeName: UpdateColumnEventStructuredDatasUriInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_uri
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasUri
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventStructuredDatasValueCase
+  description: Update the 'value_case' column in the 'event_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventStructuredDatasValueCase
+    inputTypeName: UpdateColumnEventStructuredDatasValueCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_structured_datas_value_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventStructuredDatasValueCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventStructuredDatasByIdUpdateColumns
+  description: Update the columns of the 'event_structured_datas' collection
+  fields:
+    - name: binary
+      type: UpdateColumnEventStructuredDatasBinary
+      description: Update the 'binary' column in the 'event_structured_datas' collection.
+    - name: eventId
+      type: UpdateColumnEventStructuredDatasEventId
+      description: Update the 'event_id' column in the 'event_structured_datas' collection.
+    - name: formatType
+      type: UpdateColumnEventStructuredDatasFormatType
+      description: Update the 'format_type' column in the 'event_structured_datas'
+        collection.
+    - name: id
+      type: UpdateColumnEventStructuredDatasId
+      description: Update the 'id' column in the 'event_structured_datas' collection.
+    - name: locationId
+      type: UpdateColumnEventStructuredDatasLocationId
+      description: Update the 'location_id' column in the 'event_structured_datas'
+        collection.
+    - name: participantId
+      type: UpdateColumnEventStructuredDatasParticipantId
+      description: Update the 'participant_id' column in the 'event_structured_datas'
+        collection.
+    - name: resourceId
+      type: UpdateColumnEventStructuredDatasResourceId
+      description: Update the 'resource_id' column in the 'event_structured_datas'
+        collection.
+    - name: schema
+      type: UpdateColumnEventStructuredDatasSchema
+      description: Update the 'schema' column in the 'event_structured_datas' collection.
+    - name: text
+      type: UpdateColumnEventStructuredDatasText
+      description: Update the 'text' column in the 'event_structured_datas' collection.
+    - name: uri
+      type: UpdateColumnEventStructuredDatasUri
+      description: Update the 'uri' column in the 'event_structured_datas' collection.
+    - name: valueCase
+      type: UpdateColumnEventStructuredDatasValueCase
+      description: Update the 'value_case' column in the 'event_structured_datas'
+        collection.
+  graphql:
+    typeName: UpdateEventStructuredDatasByIdUpdateColumns
+    inputTypeName: UpdateEventStructuredDatasByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_structured_datas_by_id_update_columns
+      fieldMapping:
+        binary:
+          column:
+            name: binary
+        eventId:
+          column:
+            name: event_id
+        formatType:
+          column:
+            name: format_type
+        id:
+          column:
+            name: id
+        locationId:
+          column:
+            name: location_id
+        participantId:
+          column:
+            name: participant_id
+        resourceId:
+          column:
+            name: resource_id
+        schema:
+          column:
+            name: schema
+        text:
+          column:
+            name: text
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventStructuredDatasByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - binary
+          - eventId
+          - formatType
+          - id
+          - locationId
+          - participantId
+          - resourceId
+          - schema
+          - text
+          - uri
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventStructuredDatasByIdResponse
+  description: Responses from the 'update_event_structured_datas_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventStructuredDatas!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateEventStructuredDatasByIdResponse
+    inputTypeName: UpdateEventStructuredDatasByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_structured_datas_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventStructuredDatasByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateEventStructuredDatasById
+  outputType: UpdateEventStructuredDatasByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: EventStructuredDatasBoolExp
+      description: Update permission post-condition predicate over the
+        'event_structured_datas' collection
+    - name: preCheck
+      type: EventStructuredDatasBoolExp
+      description: Update permission pre-condition predicate over the
+        'event_structured_datas' collection
+    - name: updateColumns
+      type: UpdateEventStructuredDatasByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_event_structured_datas_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateEventStructuredDatasById
+    rootFieldKind: Mutation
+  description: Update any row on the 'event_structured_datas' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateEventStructuredDatasById
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -4,14 +4,14 @@ version: v1
 definition:
   name: InsertPromocodeScopesObject
   fields:
-    - name: id
-      type: String_1!
-    - name: minSubtotalId
-      type: String_1
     - name: applicableProperties
       type: "[String_1]"
     - name: applicableUnits
       type: "[String_1]"
+    - name: id
+      type: String_1!
+    - name: minSubtotalId
+      type: String_1
   graphql:
     typeName: InsertPromocodeScopesObject
     inputTypeName: InsertPromocodeScopesObjectInput
@@ -19,18 +19,18 @@ definition:
     - dataConnectorName: freebusy_pgsql
       dataConnectorObjectType: insert_promocode_scopes_object
       fieldMapping:
-        id:
-          column:
-            name: id
-        minSubtotalId:
-          column:
-            name: min_subtotal_id
         applicableProperties:
           column:
             name: applicable_properties
         applicableUnits:
           column:
             name: applicable_units
+        id:
+          column:
+            name: id
+        minSubtotalId:
+          column:
+            name: min_subtotal_id
 
 ---
 kind: TypePermissions
@@ -41,10 +41,10 @@ definition:
     - role: admin
       output:
         allowedFields:
-          - id
-          - minSubtotalId
           - applicableProperties
           - applicableUnits
+          - id
+          - minSubtotalId
 
 ---
 kind: ObjectType

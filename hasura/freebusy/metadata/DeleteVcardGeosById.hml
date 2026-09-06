@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteVcardGeosByIdResponse
+  description: Responses from the 'delete_vcard_geos_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardGeos!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteVcardGeosByIdResponse
+    inputTypeName: DeleteVcardGeosByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_vcard_geos_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteVcardGeosByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteVcardGeosById
+  outputType: DeleteVcardGeosByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: VcardGeosBoolExp
+      description: Delete permission predicate over the 'vcard_geos' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_vcard_geos_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteVcardGeosById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'vcard_geos' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteVcardGeosById
+  permissions:
+    - role: admin
+      allowExecution: true
+

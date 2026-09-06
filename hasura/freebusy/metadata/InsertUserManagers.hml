@@ -1,0 +1,120 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertUserManagersObject
+  fields:
+    - name: displayName
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: referenceUri
+      type: String_1
+    - name: value
+      type: String_1
+  graphql:
+    typeName: InsertUserManagersObject
+    inputTypeName: InsertUserManagersObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_user_managers_object
+      fieldMapping:
+        displayName:
+          column:
+            name: display_name
+        id:
+          column:
+            name: id
+        referenceUri:
+          column:
+            name: reference_uri
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertUserManagersObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - displayName
+          - id
+          - referenceUri
+          - value
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertUserManagersResponse
+  description: Responses from the 'insert_user_managers' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserManagers!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertUserManagersResponse
+    inputTypeName: InsertUserManagersResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_user_managers_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertUserManagersResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertUserManagers
+  outputType: InsertUserManagersResponse!
+  arguments:
+    - name: objects
+      type: "[InsertUserManagersObject!]!"
+    - name: postCheck
+      type: UserManagersBoolExp
+      description: Insert permission predicate over the 'user_managers' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_user_managers
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertUserManagers
+    rootFieldKind: Mutation
+  description: Insert into the user_managers table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertUserManagers
+  permissions:
+    - role: admin
+      allowExecution: true
+

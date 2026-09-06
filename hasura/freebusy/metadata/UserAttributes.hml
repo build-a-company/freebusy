@@ -1,0 +1,193 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UserAttributes
+  fields:
+    - name: attributeType
+      type: String_1
+    - name: display
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: primary
+      type: Boolean_1
+    - name: referenceUri
+      type: String_1
+    - name: userId
+      type: String_1!
+    - name: value
+      type: String_1
+  graphql:
+    typeName: UserAttributes
+    inputTypeName: UserAttributesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: user_attributes
+      fieldMapping:
+        attributeType:
+          column:
+            name: attribute_type
+        display:
+          column:
+            name: display
+        id:
+          column:
+            name: id
+        primary:
+          column:
+            name: primary
+        referenceUri:
+          column:
+            name: reference_uri
+        userId:
+          column:
+            name: user_id
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UserAttributes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - attributeType
+          - display
+          - id
+          - primary
+          - referenceUri
+          - userId
+          - value
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: UserAttributesBoolExp
+  operand:
+    object:
+      type: UserAttributes
+      comparableFields:
+        - fieldName: attributeType
+          booleanExpressionType: TextBoolExp
+        - fieldName: display
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: primary
+          booleanExpressionType: BoolBoolExp
+        - fieldName: referenceUri
+          booleanExpressionType: TextBoolExp
+        - fieldName: userId
+          booleanExpressionType: TextBoolExp
+        - fieldName: value
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: UserAttributesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: UserAttributesAggExp
+  operand:
+    object:
+      aggregatedType: UserAttributes
+      aggregatableFields:
+        - fieldName: attributeType
+          aggregateExpression: TextAggExp
+        - fieldName: display
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: primary
+          aggregateExpression: BoolAggExp
+        - fieldName: referenceUri
+          aggregateExpression: TextAggExp
+        - fieldName: userId
+          aggregateExpression: TextAggExp
+        - fieldName: value
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: UserAttributesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: UserAttributesOrderByExp
+  operand:
+    object:
+      orderedType: UserAttributes
+      orderableFields:
+        - fieldName: attributeType
+          orderByExpression: String1OrderByExp
+        - fieldName: display
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: primary
+          orderByExpression: Boolean1OrderByExp
+        - fieldName: referenceUri
+          orderByExpression: String1OrderByExp
+        - fieldName: userId
+          orderByExpression: String1OrderByExp
+        - fieldName: value
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: UserAttributesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: UserAttributes
+  objectType: UserAttributes
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: user_attributes
+  filterExpressionType: UserAttributesBoolExp
+  aggregateExpression: UserAttributesAggExp
+  orderByExpression: UserAttributesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: userAttributes
+      subscription:
+        rootField: userAttributes
+    selectUniques:
+      - queryRootField: userAttributesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: userAttributesById
+    filterInputTypeName: UserAttributesFilterInput
+    aggregate:
+      queryRootField: userAttributesAggregate
+      subscription:
+        rootField: userAttributesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: UserAttributes
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

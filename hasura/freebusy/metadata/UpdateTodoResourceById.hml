@@ -1,0 +1,964 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceCalendarId
+  description: Update the 'calendar_id' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceCalendarId
+    inputTypeName: UpdateColumnTodoResourceCalendarIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_calendar_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceCalendarId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceClassification
+  description: Update the 'classification' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceClassification
+    inputTypeName: UpdateColumnTodoResourceClassificationInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_classification
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceClassification
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceCompletedId
+  description: Update the 'completed_id' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceCompletedId
+    inputTypeName: UpdateColumnTodoResourceCompletedIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_completed_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceCompletedId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceCompletion
+  description: Update the 'completion' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceCompletion
+    inputTypeName: UpdateColumnTodoResourceCompletionInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_completion
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceCompletion
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceCreateTime
+  description: Update the 'create_time' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceCreateTime
+    inputTypeName: UpdateColumnTodoResourceCreateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_create_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceCreateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceDeadlineCase
+  description: Update the 'deadline_case' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceDeadlineCase
+    inputTypeName: UpdateColumnTodoResourceDeadlineCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_deadline_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceDeadlineCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceDeleteTime
+  description: Update the 'delete_time' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceDeleteTime
+    inputTypeName: UpdateColumnTodoResourceDeleteTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_delete_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceDeleteTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceDescription
+  description: Update the 'description' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceDescription
+    inputTypeName: UpdateColumnTodoResourceDescriptionInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_description
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceDescription
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceDueId
+  description: Update the 'due_id' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceDueId
+    inputTypeName: UpdateColumnTodoResourceDueIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_due_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceDueId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceDuration
+  description: Update the 'duration' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceDuration
+    inputTypeName: UpdateColumnTodoResourceDurationInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_duration
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceDuration
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceEtag
+  description: Update the 'etag' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceEtag
+    inputTypeName: UpdateColumnTodoResourceEtagInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_etag
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceEtag
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceExpireTime
+  description: Update the 'expire_time' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceExpireTime
+    inputTypeName: UpdateColumnTodoResourceExpireTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_expire_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceExpireTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceIcalUid
+  description: Update the 'ical_uid' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceIcalUid
+    inputTypeName: UpdateColumnTodoResourceIcalUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_ical_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceIcalUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceId
+  description: Update the 'id' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceId
+    inputTypeName: UpdateColumnTodoResourceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceLocation
+  description: Update the 'location' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceLocation
+    inputTypeName: UpdateColumnTodoResourceLocationInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_location
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceLocation
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceName
+  description: Update the 'name' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceName
+    inputTypeName: UpdateColumnTodoResourceNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourcePercentComplete
+  description: Update the 'percent_complete' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourcePercentComplete
+    inputTypeName: UpdateColumnTodoResourcePercentCompleteInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_percent_complete
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourcePercentComplete
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourcePriority
+  description: Update the 'priority' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourcePriority
+    inputTypeName: UpdateColumnTodoResourcePriorityInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_priority
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourcePriority
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceStartId
+  description: Update the 'start_id' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceStartId
+    inputTypeName: UpdateColumnTodoResourceStartIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_start_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceStartId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceSummary
+  description: Update the 'summary' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceSummary
+    inputTypeName: UpdateColumnTodoResourceSummaryInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_summary
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceSummary
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceUid
+  description: Update the 'uid' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceUid
+    inputTypeName: UpdateColumnTodoResourceUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoResourceUpdateTime
+  description: Update the 'update_time' column in the 'todo_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoResourceUpdateTime
+    inputTypeName: UpdateColumnTodoResourceUpdateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_resource_update_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoResourceUpdateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateTodoResourceByIdUpdateColumns
+  description: Update the columns of the 'todo_resource' collection
+  fields:
+    - name: calendarId
+      type: UpdateColumnTodoResourceCalendarId
+      description: Update the 'calendar_id' column in the 'todo_resource' collection.
+    - name: classification
+      type: UpdateColumnTodoResourceClassification
+      description: Update the 'classification' column in the 'todo_resource' collection.
+    - name: completedId
+      type: UpdateColumnTodoResourceCompletedId
+      description: Update the 'completed_id' column in the 'todo_resource' collection.
+    - name: completion
+      type: UpdateColumnTodoResourceCompletion
+      description: Update the 'completion' column in the 'todo_resource' collection.
+    - name: createTime
+      type: UpdateColumnTodoResourceCreateTime
+      description: Update the 'create_time' column in the 'todo_resource' collection.
+    - name: deadlineCase
+      type: UpdateColumnTodoResourceDeadlineCase
+      description: Update the 'deadline_case' column in the 'todo_resource' collection.
+    - name: deleteTime
+      type: UpdateColumnTodoResourceDeleteTime
+      description: Update the 'delete_time' column in the 'todo_resource' collection.
+    - name: description
+      type: UpdateColumnTodoResourceDescription
+      description: Update the 'description' column in the 'todo_resource' collection.
+    - name: dueId
+      type: UpdateColumnTodoResourceDueId
+      description: Update the 'due_id' column in the 'todo_resource' collection.
+    - name: duration
+      type: UpdateColumnTodoResourceDuration
+      description: Update the 'duration' column in the 'todo_resource' collection.
+    - name: etag
+      type: UpdateColumnTodoResourceEtag
+      description: Update the 'etag' column in the 'todo_resource' collection.
+    - name: expireTime
+      type: UpdateColumnTodoResourceExpireTime
+      description: Update the 'expire_time' column in the 'todo_resource' collection.
+    - name: icalUid
+      type: UpdateColumnTodoResourceIcalUid
+      description: Update the 'ical_uid' column in the 'todo_resource' collection.
+    - name: id
+      type: UpdateColumnTodoResourceId
+      description: Update the 'id' column in the 'todo_resource' collection.
+    - name: location
+      type: UpdateColumnTodoResourceLocation
+      description: Update the 'location' column in the 'todo_resource' collection.
+    - name: name
+      type: UpdateColumnTodoResourceName
+      description: Update the 'name' column in the 'todo_resource' collection.
+    - name: percentComplete
+      type: UpdateColumnTodoResourcePercentComplete
+      description: Update the 'percent_complete' column in the 'todo_resource' collection.
+    - name: priority
+      type: UpdateColumnTodoResourcePriority
+      description: Update the 'priority' column in the 'todo_resource' collection.
+    - name: startId
+      type: UpdateColumnTodoResourceStartId
+      description: Update the 'start_id' column in the 'todo_resource' collection.
+    - name: summary
+      type: UpdateColumnTodoResourceSummary
+      description: Update the 'summary' column in the 'todo_resource' collection.
+    - name: uid
+      type: UpdateColumnTodoResourceUid
+      description: Update the 'uid' column in the 'todo_resource' collection.
+    - name: updateTime
+      type: UpdateColumnTodoResourceUpdateTime
+      description: Update the 'update_time' column in the 'todo_resource' collection.
+  graphql:
+    typeName: UpdateTodoResourceByIdUpdateColumns
+    inputTypeName: UpdateTodoResourceByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_todo_resource_by_id_update_columns
+      fieldMapping:
+        calendarId:
+          column:
+            name: calendar_id
+        classification:
+          column:
+            name: classification
+        completedId:
+          column:
+            name: completed_id
+        completion:
+          column:
+            name: completion
+        createTime:
+          column:
+            name: create_time
+        deadlineCase:
+          column:
+            name: deadline_case
+        deleteTime:
+          column:
+            name: delete_time
+        description:
+          column:
+            name: description
+        dueId:
+          column:
+            name: due_id
+        duration:
+          column:
+            name: duration
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        location:
+          column:
+            name: location
+        name:
+          column:
+            name: name
+        percentComplete:
+          column:
+            name: percent_complete
+        priority:
+          column:
+            name: priority
+        startId:
+          column:
+            name: start_id
+        summary:
+          column:
+            name: summary
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateTodoResourceByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendarId
+          - classification
+          - completedId
+          - completion
+          - createTime
+          - deadlineCase
+          - deleteTime
+          - description
+          - dueId
+          - duration
+          - etag
+          - expireTime
+          - icalUid
+          - id
+          - location
+          - name
+          - percentComplete
+          - priority
+          - startId
+          - summary
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateTodoResourceByIdResponse
+  description: Responses from the 'update_todo_resource_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[TodoResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateTodoResourceByIdResponse
+    inputTypeName: UpdateTodoResourceByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_todo_resource_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateTodoResourceByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateTodoResourceById
+  outputType: UpdateTodoResourceByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: TodoResourceBoolExp
+      description: Update permission post-condition predicate over the 'todo_resource'
+        collection
+    - name: preCheck
+      type: TodoResourceBoolExp
+      description: Update permission pre-condition predicate over the 'todo_resource'
+        collection
+    - name: updateColumns
+      type: UpdateTodoResourceByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_todo_resource_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateTodoResourceById
+    rootFieldKind: Mutation
+  description: Update any row on the 'todo_resource' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateTodoResourceById
+  permissions:
+    - role: admin
+      allowExecution: true
+

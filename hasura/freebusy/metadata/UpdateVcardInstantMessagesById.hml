@@ -1,0 +1,302 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardInstantMessagesContactId
+  description: Update the 'contact_id' column in the 'vcard_instant_messages' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardInstantMessagesContactId
+    inputTypeName: UpdateColumnVcardInstantMessagesContactIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_instant_messages_contact_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardInstantMessagesContactId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardInstantMessagesId
+  description: Update the 'id' column in the 'vcard_instant_messages' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardInstantMessagesId
+    inputTypeName: UpdateColumnVcardInstantMessagesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_instant_messages_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardInstantMessagesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardInstantMessagesPref
+  description: Update the 'pref' column in the 'vcard_instant_messages' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardInstantMessagesPref
+    inputTypeName: UpdateColumnVcardInstantMessagesPrefInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_instant_messages_pref
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardInstantMessagesPref
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardInstantMessagesTypes
+  description: Update the 'types' column in the 'vcard_instant_messages' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardInstantMessagesTypes
+    inputTypeName: UpdateColumnVcardInstantMessagesTypesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_instant_messages_types
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardInstantMessagesTypes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardInstantMessagesValue
+  description: Update the 'value' column in the 'vcard_instant_messages' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardInstantMessagesValue
+    inputTypeName: UpdateColumnVcardInstantMessagesValueInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_instant_messages_value
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardInstantMessagesValue
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardInstantMessagesByIdUpdateColumns
+  description: Update the columns of the 'vcard_instant_messages' collection
+  fields:
+    - name: contactId
+      type: UpdateColumnVcardInstantMessagesContactId
+      description: Update the 'contact_id' column in the 'vcard_instant_messages'
+        collection.
+    - name: id
+      type: UpdateColumnVcardInstantMessagesId
+      description: Update the 'id' column in the 'vcard_instant_messages' collection.
+    - name: pref
+      type: UpdateColumnVcardInstantMessagesPref
+      description: Update the 'pref' column in the 'vcard_instant_messages' collection.
+    - name: types
+      type: UpdateColumnVcardInstantMessagesTypes
+      description: Update the 'types' column in the 'vcard_instant_messages' collection.
+    - name: value
+      type: UpdateColumnVcardInstantMessagesValue
+      description: Update the 'value' column in the 'vcard_instant_messages' collection.
+  graphql:
+    typeName: UpdateVcardInstantMessagesByIdUpdateColumns
+    inputTypeName: UpdateVcardInstantMessagesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_instant_messages_by_id_update_columns
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        types:
+          column:
+            name: types
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardInstantMessagesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - types
+          - value
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardInstantMessagesByIdResponse
+  description: Responses from the 'update_vcard_instant_messages_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardInstantMessages!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardInstantMessagesByIdResponse
+    inputTypeName: UpdateVcardInstantMessagesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_instant_messages_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardInstantMessagesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardInstantMessagesById
+  outputType: UpdateVcardInstantMessagesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardInstantMessagesBoolExp
+      description: Update permission post-condition predicate over the
+        'vcard_instant_messages' collection
+    - name: preCheck
+      type: VcardInstantMessagesBoolExp
+      description: Update permission pre-condition predicate over the
+        'vcard_instant_messages' collection
+    - name: updateColumns
+      type: UpdateVcardInstantMessagesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_instant_messages_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardInstantMessagesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_instant_messages' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardInstantMessagesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

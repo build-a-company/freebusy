@@ -1,0 +1,266 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardGrammaticalGendersContactId
+  description: Update the 'contact_id' column in the 'vcard_grammatical_genders' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardGrammaticalGendersContactId
+    inputTypeName: UpdateColumnVcardGrammaticalGendersContactIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_grammatical_genders_contact_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardGrammaticalGendersContactId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardGrammaticalGendersId
+  description: Update the 'id' column in the 'vcard_grammatical_genders' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardGrammaticalGendersId
+    inputTypeName: UpdateColumnVcardGrammaticalGendersIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_grammatical_genders_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardGrammaticalGendersId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardGrammaticalGendersKind
+  description: Update the 'kind' column in the 'vcard_grammatical_genders' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardGrammaticalGendersKind
+    inputTypeName: UpdateColumnVcardGrammaticalGendersKindInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_grammatical_genders_kind
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardGrammaticalGendersKind
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardGrammaticalGendersLanguageCode
+  description: Update the 'language_code' column in the
+    'vcard_grammatical_genders' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardGrammaticalGendersLanguageCode
+    inputTypeName: UpdateColumnVcardGrammaticalGendersLanguageCodeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_grammatical_genders_language_code
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardGrammaticalGendersLanguageCode
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardGrammaticalGendersByIdUpdateColumns
+  description: Update the columns of the 'vcard_grammatical_genders' collection
+  fields:
+    - name: contactId
+      type: UpdateColumnVcardGrammaticalGendersContactId
+      description: Update the 'contact_id' column in the 'vcard_grammatical_genders'
+        collection.
+    - name: id
+      type: UpdateColumnVcardGrammaticalGendersId
+      description: Update the 'id' column in the 'vcard_grammatical_genders' collection.
+    - name: kind
+      type: UpdateColumnVcardGrammaticalGendersKind
+      description: Update the 'kind' column in the 'vcard_grammatical_genders' collection.
+    - name: languageCode
+      type: UpdateColumnVcardGrammaticalGendersLanguageCode
+      description: Update the 'language_code' column in the
+        'vcard_grammatical_genders' collection.
+  graphql:
+    typeName: UpdateVcardGrammaticalGendersByIdUpdateColumns
+    inputTypeName: UpdateVcardGrammaticalGendersByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_grammatical_genders_by_id_update_columns
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        kind:
+          column:
+            name: kind
+        languageCode:
+          column:
+            name: language_code
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardGrammaticalGendersByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - kind
+          - languageCode
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardGrammaticalGendersByIdResponse
+  description: Responses from the 'update_vcard_grammatical_genders_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardGrammaticalGenders!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardGrammaticalGendersByIdResponse
+    inputTypeName: UpdateVcardGrammaticalGendersByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_grammatical_genders_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardGrammaticalGendersByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardGrammaticalGendersById
+  outputType: UpdateVcardGrammaticalGendersByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardGrammaticalGendersBoolExp
+      description: Update permission post-condition predicate over the
+        'vcard_grammatical_genders' collection
+    - name: preCheck
+      type: VcardGrammaticalGendersBoolExp
+      description: Update permission pre-condition predicate over the
+        'vcard_grammatical_genders' collection
+    - name: updateColumns
+      type: UpdateVcardGrammaticalGendersByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_grammatical_genders_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardGrammaticalGendersById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_grammatical_genders' collection using
+    the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardGrammaticalGendersById
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,340 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardPronounsContactId
+  description: Update the 'contact_id' column in the 'vcard_pronouns' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardPronounsContactId
+    inputTypeName: UpdateColumnVcardPronounsContactIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_pronouns_contact_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardPronounsContactId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardPronounsId
+  description: Update the 'id' column in the 'vcard_pronouns' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardPronounsId
+    inputTypeName: UpdateColumnVcardPronounsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_pronouns_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardPronounsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardPronounsLanguageCode
+  description: Update the 'language_code' column in the 'vcard_pronouns' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardPronounsLanguageCode
+    inputTypeName: UpdateColumnVcardPronounsLanguageCodeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_pronouns_language_code
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardPronounsLanguageCode
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardPronounsPref
+  description: Update the 'pref' column in the 'vcard_pronouns' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardPronounsPref
+    inputTypeName: UpdateColumnVcardPronounsPrefInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_pronouns_pref
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardPronounsPref
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardPronounsTypes
+  description: Update the 'types' column in the 'vcard_pronouns' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardPronounsTypes
+    inputTypeName: UpdateColumnVcardPronounsTypesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_pronouns_types
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardPronounsTypes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardPronounsValue
+  description: Update the 'value' column in the 'vcard_pronouns' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardPronounsValue
+    inputTypeName: UpdateColumnVcardPronounsValueInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_pronouns_value
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardPronounsValue
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardPronounsByIdUpdateColumns
+  description: Update the columns of the 'vcard_pronouns' collection
+  fields:
+    - name: contactId
+      type: UpdateColumnVcardPronounsContactId
+      description: Update the 'contact_id' column in the 'vcard_pronouns' collection.
+    - name: id
+      type: UpdateColumnVcardPronounsId
+      description: Update the 'id' column in the 'vcard_pronouns' collection.
+    - name: languageCode
+      type: UpdateColumnVcardPronounsLanguageCode
+      description: Update the 'language_code' column in the 'vcard_pronouns' collection.
+    - name: pref
+      type: UpdateColumnVcardPronounsPref
+      description: Update the 'pref' column in the 'vcard_pronouns' collection.
+    - name: types
+      type: UpdateColumnVcardPronounsTypes
+      description: Update the 'types' column in the 'vcard_pronouns' collection.
+    - name: value
+      type: UpdateColumnVcardPronounsValue
+      description: Update the 'value' column in the 'vcard_pronouns' collection.
+  graphql:
+    typeName: UpdateVcardPronounsByIdUpdateColumns
+    inputTypeName: UpdateVcardPronounsByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_pronouns_by_id_update_columns
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        languageCode:
+          column:
+            name: language_code
+        pref:
+          column:
+            name: pref
+        types:
+          column:
+            name: types
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardPronounsByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - languageCode
+          - pref
+          - types
+          - value
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardPronounsByIdResponse
+  description: Responses from the 'update_vcard_pronouns_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardPronouns!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardPronounsByIdResponse
+    inputTypeName: UpdateVcardPronounsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_pronouns_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardPronounsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardPronounsById
+  outputType: UpdateVcardPronounsByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardPronounsBoolExp
+      description: Update permission post-condition predicate over the
+        'vcard_pronouns' collection
+    - name: preCheck
+      type: VcardPronounsBoolExp
+      description: Update permission pre-condition predicate over the 'vcard_pronouns'
+        collection
+    - name: updateColumns
+      type: UpdateVcardPronounsByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_pronouns_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardPronounsById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_pronouns' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardPronounsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

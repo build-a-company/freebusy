@@ -230,6 +230,39 @@ definition:
 kind: ObjectType
 version: v1
 definition:
+  name: UpdateColumnScheduleAvailabilityExceptionsResourceId
+  description: Update the 'resource_id' column in the
+    'schedule_availability_exceptions' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnScheduleAvailabilityExceptionsResourceId
+    inputTypeName: UpdateColumnScheduleAvailabilityExceptionsResourceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_schedule_availability_exceptions_resource_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnScheduleAvailabilityExceptionsResourceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
   name: UpdateColumnScheduleAvailabilityExceptionsSpanCase
   description: Update the 'span_case' column in the
     'schedule_availability_exceptions' collection
@@ -360,6 +393,10 @@ definition:
       type: UpdateColumnScheduleAvailabilityExceptionsReason
       description: Update the 'reason' column in the
         'schedule_availability_exceptions' collection.
+    - name: resourceId
+      type: UpdateColumnScheduleAvailabilityExceptionsResourceId
+      description: Update the 'resource_id' column in the
+        'schedule_availability_exceptions' collection.
     - name: spanCase
       type: UpdateColumnScheduleAvailabilityExceptionsSpanCase
       description: Update the 'span_case' column in the
@@ -400,6 +437,9 @@ definition:
         reason:
           column:
             name: reason
+        resourceId:
+          column:
+            name: resource_id
         spanCase:
           column:
             name: span_case
@@ -426,6 +466,7 @@ definition:
           - name
           - propertyId
           - reason
+          - resourceId
           - spanCase
           - unitId
           - windowId

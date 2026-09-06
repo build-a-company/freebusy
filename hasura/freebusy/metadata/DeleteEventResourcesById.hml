@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteEventResourcesByIdResponse
+  description: Responses from the 'delete_event_resources_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventResources!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteEventResourcesByIdResponse
+    inputTypeName: DeleteEventResourcesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_event_resources_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteEventResourcesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteEventResourcesById
+  outputType: DeleteEventResourcesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: EventResourcesBoolExp
+      description: Delete permission predicate over the 'event_resources' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_event_resources_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteEventResourcesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'event_resources' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteEventResourcesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

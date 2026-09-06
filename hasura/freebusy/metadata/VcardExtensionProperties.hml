@@ -1,0 +1,175 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardExtensionProperties
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: group
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: key
+      type: String_1!
+    - name: parameters
+      type: Json
+    - name: values
+      type: "[String_1]"
+  graphql:
+    typeName: VcardExtensionProperties
+    inputTypeName: VcardExtensionPropertiesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_extension_properties
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        group:
+          column:
+            name: group
+        id:
+          column:
+            name: id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardExtensionProperties
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - group
+          - id
+          - key
+          - parameters
+          - values
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardExtensionPropertiesBoolExp
+  operand:
+    object:
+      type: VcardExtensionProperties
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: group
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: key
+          booleanExpressionType: TextBoolExp
+        - fieldName: parameters
+          booleanExpressionType: JsonbBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardExtensionPropertiesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardExtensionPropertiesAggExp
+  operand:
+    object:
+      aggregatedType: VcardExtensionProperties
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: group
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: key
+          aggregateExpression: TextAggExp
+        - fieldName: parameters
+          aggregateExpression: JsonbAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardExtensionPropertiesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardExtensionPropertiesOrderByExp
+  operand:
+    object:
+      orderedType: VcardExtensionProperties
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: group
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: key
+          orderByExpression: String1OrderByExp
+        - fieldName: parameters
+          orderByExpression: JsonOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardExtensionPropertiesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardExtensionProperties
+  objectType: VcardExtensionProperties
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_extension_properties
+  filterExpressionType: VcardExtensionPropertiesBoolExp
+  aggregateExpression: VcardExtensionPropertiesAggExp
+  orderByExpression: VcardExtensionPropertiesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardExtensionProperties
+      subscription:
+        rootField: vcardExtensionProperties
+    selectUniques:
+      - queryRootField: vcardExtensionPropertiesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardExtensionPropertiesById
+    filterInputTypeName: VcardExtensionPropertiesFilterInput
+    aggregate:
+      queryRootField: vcardExtensionPropertiesAggregate
+      subscription:
+        rootField: vcardExtensionPropertiesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardExtensionProperties
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

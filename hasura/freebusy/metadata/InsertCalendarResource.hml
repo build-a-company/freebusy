@@ -1,0 +1,198 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCalendarResourceObject
+  fields:
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: description
+      type: String_1
+    - name: displayName
+      type: String_1!
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: maxAttendeesPerInstance
+      type: Int32
+    - name: maxDateTime
+      type: Timestamptz
+    - name: maxInstances
+      type: Int32
+    - name: maxResourceSize
+      type: Int64
+    - name: minDateTime
+      type: Timestamptz
+    - name: name
+      type: String_1!
+    - name: scale
+      type: String_1
+    - name: timeZoneId
+      type: String_1
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: InsertCalendarResourceObject
+    inputTypeName: InsertCalendarResourceObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_calendar_resource_object
+      fieldMapping:
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        description:
+          column:
+            name: description
+        displayName:
+          column:
+            name: display_name
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        maxAttendeesPerInstance:
+          column:
+            name: max_attendees_per_instance
+        maxDateTime:
+          column:
+            name: max_date_time
+        maxInstances:
+          column:
+            name: max_instances
+        maxResourceSize:
+          column:
+            name: max_resource_size
+        minDateTime:
+          column:
+            name: min_date_time
+        name:
+          column:
+            name: name
+        scale:
+          column:
+            name: scale
+        timeZoneId:
+          column:
+            name: time_zone_id
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCalendarResourceObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - createTime
+          - deleteTime
+          - description
+          - displayName
+          - etag
+          - expireTime
+          - id
+          - maxAttendeesPerInstance
+          - maxDateTime
+          - maxInstances
+          - maxResourceSize
+          - minDateTime
+          - name
+          - scale
+          - timeZoneId
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCalendarResourceResponse
+  description: Responses from the 'insert_calendar_resource' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CalendarResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertCalendarResourceResponse
+    inputTypeName: InsertCalendarResourceResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_calendar_resource_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCalendarResourceResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertCalendarResource
+  outputType: InsertCalendarResourceResponse!
+  arguments:
+    - name: objects
+      type: "[InsertCalendarResourceObject!]!"
+    - name: postCheck
+      type: CalendarResourceBoolExp
+      description: Insert permission predicate over the 'calendar_resource' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_calendar_resource
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertCalendarResource
+    rootFieldKind: Mutation
+  description: Insert into the calendar_resource table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertCalendarResource
+  permissions:
+    - role: admin
+      allowExecution: true
+

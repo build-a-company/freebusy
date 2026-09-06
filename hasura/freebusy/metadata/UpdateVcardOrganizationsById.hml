@@ -1,0 +1,301 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardOrganizationsContactId
+  description: Update the 'contact_id' column in the 'vcard_organizations' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardOrganizationsContactId
+    inputTypeName: UpdateColumnVcardOrganizationsContactIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_organizations_contact_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardOrganizationsContactId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardOrganizationsId
+  description: Update the 'id' column in the 'vcard_organizations' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardOrganizationsId
+    inputTypeName: UpdateColumnVcardOrganizationsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_organizations_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardOrganizationsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardOrganizationsTypes
+  description: Update the 'types' column in the 'vcard_organizations' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardOrganizationsTypes
+    inputTypeName: UpdateColumnVcardOrganizationsTypesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_organizations_types
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardOrganizationsTypes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardOrganizationsUnits
+  description: Update the 'units' column in the 'vcard_organizations' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardOrganizationsUnits
+    inputTypeName: UpdateColumnVcardOrganizationsUnitsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_organizations_units
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardOrganizationsUnits
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardOrganizationsValue
+  description: Update the 'value' column in the 'vcard_organizations' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardOrganizationsValue
+    inputTypeName: UpdateColumnVcardOrganizationsValueInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_organizations_value
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardOrganizationsValue
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardOrganizationsByIdUpdateColumns
+  description: Update the columns of the 'vcard_organizations' collection
+  fields:
+    - name: contactId
+      type: UpdateColumnVcardOrganizationsContactId
+      description: Update the 'contact_id' column in the 'vcard_organizations' collection.
+    - name: id
+      type: UpdateColumnVcardOrganizationsId
+      description: Update the 'id' column in the 'vcard_organizations' collection.
+    - name: types
+      type: UpdateColumnVcardOrganizationsTypes
+      description: Update the 'types' column in the 'vcard_organizations' collection.
+    - name: units
+      type: UpdateColumnVcardOrganizationsUnits
+      description: Update the 'units' column in the 'vcard_organizations' collection.
+    - name: value
+      type: UpdateColumnVcardOrganizationsValue
+      description: Update the 'value' column in the 'vcard_organizations' collection.
+  graphql:
+    typeName: UpdateVcardOrganizationsByIdUpdateColumns
+    inputTypeName: UpdateVcardOrganizationsByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_organizations_by_id_update_columns
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        types:
+          column:
+            name: types
+        units:
+          column:
+            name: units
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardOrganizationsByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - types
+          - units
+          - value
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardOrganizationsByIdResponse
+  description: Responses from the 'update_vcard_organizations_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardOrganizations!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardOrganizationsByIdResponse
+    inputTypeName: UpdateVcardOrganizationsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_organizations_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardOrganizationsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardOrganizationsById
+  outputType: UpdateVcardOrganizationsByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardOrganizationsBoolExp
+      description: Update permission post-condition predicate over the
+        'vcard_organizations' collection
+    - name: preCheck
+      type: VcardOrganizationsBoolExp
+      description: Update permission pre-condition predicate over the
+        'vcard_organizations' collection
+    - name: updateColumns
+      type: UpdateVcardOrganizationsByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_organizations_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardOrganizationsById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_organizations' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardOrganizationsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

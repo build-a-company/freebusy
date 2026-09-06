@@ -1,0 +1,193 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UserNames
+  fields:
+    - name: displayName
+      type: String_1
+    - name: familyName
+      type: String_1
+    - name: givenName
+      type: String_1
+    - name: honorificPrefix
+      type: String_1
+    - name: honorificSuffix
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: middleNames
+      type: String_1
+  graphql:
+    typeName: UserNames
+    inputTypeName: UserNamesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: user_names
+      fieldMapping:
+        displayName:
+          column:
+            name: display_name
+        familyName:
+          column:
+            name: family_name
+        givenName:
+          column:
+            name: given_name
+        honorificPrefix:
+          column:
+            name: honorific_prefix
+        honorificSuffix:
+          column:
+            name: honorific_suffix
+        id:
+          column:
+            name: id
+        middleNames:
+          column:
+            name: middle_names
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UserNames
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - displayName
+          - familyName
+          - givenName
+          - honorificPrefix
+          - honorificSuffix
+          - id
+          - middleNames
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: UserNamesBoolExp
+  operand:
+    object:
+      type: UserNames
+      comparableFields:
+        - fieldName: displayName
+          booleanExpressionType: TextBoolExp
+        - fieldName: familyName
+          booleanExpressionType: TextBoolExp
+        - fieldName: givenName
+          booleanExpressionType: TextBoolExp
+        - fieldName: honorificPrefix
+          booleanExpressionType: TextBoolExp
+        - fieldName: honorificSuffix
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: middleNames
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: UserNamesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: UserNamesAggExp
+  operand:
+    object:
+      aggregatedType: UserNames
+      aggregatableFields:
+        - fieldName: displayName
+          aggregateExpression: TextAggExp
+        - fieldName: familyName
+          aggregateExpression: TextAggExp
+        - fieldName: givenName
+          aggregateExpression: TextAggExp
+        - fieldName: honorificPrefix
+          aggregateExpression: TextAggExp
+        - fieldName: honorificSuffix
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: middleNames
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: UserNamesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: UserNamesOrderByExp
+  operand:
+    object:
+      orderedType: UserNames
+      orderableFields:
+        - fieldName: displayName
+          orderByExpression: String1OrderByExp
+        - fieldName: familyName
+          orderByExpression: String1OrderByExp
+        - fieldName: givenName
+          orderByExpression: String1OrderByExp
+        - fieldName: honorificPrefix
+          orderByExpression: String1OrderByExp
+        - fieldName: honorificSuffix
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: middleNames
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: UserNamesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: UserNames
+  objectType: UserNames
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: user_names
+  filterExpressionType: UserNamesBoolExp
+  aggregateExpression: UserNamesAggExp
+  orderByExpression: UserNamesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: userNames
+      subscription:
+        rootField: userNames
+    selectUniques:
+      - queryRootField: userNamesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: userNamesById
+    filterInputTypeName: UserNamesFilterInput
+    aggregate:
+      queryRootField: userNamesAggregate
+      subscription:
+        rootField: userNamesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: UserNames
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

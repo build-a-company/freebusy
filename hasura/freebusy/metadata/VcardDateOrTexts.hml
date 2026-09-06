@@ -1,0 +1,169 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardDateOrTexts
+  fields:
+    - name: date
+      type: Date
+    - name: dateTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: text
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: VcardDateOrTexts
+    inputTypeName: VcardDateOrTextsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_date_or_texts
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        id:
+          column:
+            name: id
+        text:
+          column:
+            name: text
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardDateOrTexts
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - id
+          - text
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardDateOrTextsBoolExp
+  operand:
+    object:
+      type: VcardDateOrTexts
+      comparableFields:
+        - fieldName: date
+          booleanExpressionType: DateBoolExp
+        - fieldName: dateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: text
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardDateOrTextsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardDateOrTextsAggExp
+  operand:
+    object:
+      aggregatedType: VcardDateOrTexts
+      aggregatableFields:
+        - fieldName: date
+          aggregateExpression: DateAggExp
+        - fieldName: dateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: text
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardDateOrTextsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardDateOrTextsOrderByExp
+  operand:
+    object:
+      orderedType: VcardDateOrTexts
+      orderableFields:
+        - fieldName: date
+          orderByExpression: DateOrderByExp
+        - fieldName: dateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: text
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardDateOrTextsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardDateOrTexts
+  objectType: VcardDateOrTexts
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_date_or_texts
+  filterExpressionType: VcardDateOrTextsBoolExp
+  aggregateExpression: VcardDateOrTextsAggExp
+  orderByExpression: VcardDateOrTextsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardDateOrTexts
+      subscription:
+        rootField: vcardDateOrTexts
+    selectUniques:
+      - queryRootField: vcardDateOrTextsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardDateOrTextsById
+    filterInputTypeName: VcardDateOrTextsFilterInput
+    aggregate:
+      queryRootField: vcardDateOrTextsAggregate
+      subscription:
+        rootField: vcardDateOrTextsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardDateOrTexts
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

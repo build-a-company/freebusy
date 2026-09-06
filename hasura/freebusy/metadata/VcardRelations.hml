@@ -1,0 +1,193 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardRelations
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: pref
+      type: Int32
+    - name: relationTypes
+      type: String_1
+    - name: text
+      type: String_1
+    - name: uri
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: VcardRelations
+    inputTypeName: VcardRelationsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_relations
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        relationTypes:
+          column:
+            name: relation_types
+        text:
+          column:
+            name: text
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardRelations
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - relationTypes
+          - text
+          - uri
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardRelationsBoolExp
+  operand:
+    object:
+      type: VcardRelations
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: pref
+          booleanExpressionType: Int4BoolExp
+        - fieldName: relationTypes
+          booleanExpressionType: TextBoolExp
+        - fieldName: text
+          booleanExpressionType: TextBoolExp
+        - fieldName: uri
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardRelationsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardRelationsAggExp
+  operand:
+    object:
+      aggregatedType: VcardRelations
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: pref
+          aggregateExpression: Int4AggExp
+        - fieldName: relationTypes
+          aggregateExpression: TextAggExp
+        - fieldName: text
+          aggregateExpression: TextAggExp
+        - fieldName: uri
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardRelationsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardRelationsOrderByExp
+  operand:
+    object:
+      orderedType: VcardRelations
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: pref
+          orderByExpression: Int32OrderByExp
+        - fieldName: relationTypes
+          orderByExpression: String1OrderByExp
+        - fieldName: text
+          orderByExpression: String1OrderByExp
+        - fieldName: uri
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardRelationsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardRelations
+  objectType: VcardRelations
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_relations
+  filterExpressionType: VcardRelationsBoolExp
+  aggregateExpression: VcardRelationsAggExp
+  orderByExpression: VcardRelationsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardRelations
+      subscription:
+        rootField: vcardRelations
+    selectUniques:
+      - queryRootField: vcardRelationsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardRelationsById
+    filterInputTypeName: VcardRelationsFilterInput
+    aggregate:
+      queryRootField: vcardRelationsAggregate
+      subscription:
+        rootField: vcardRelationsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardRelations
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

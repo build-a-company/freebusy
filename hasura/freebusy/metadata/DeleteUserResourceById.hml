@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteUserResourceByIdResponse
+  description: Responses from the 'delete_user_resource_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteUserResourceByIdResponse
+    inputTypeName: DeleteUserResourceByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_user_resource_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteUserResourceByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteUserResourceById
+  outputType: DeleteUserResourceByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: UserResourceBoolExp
+      description: Delete permission predicate over the 'user_resource' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_user_resource_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteUserResourceById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'user_resource' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteUserResourceById
+  permissions:
+    - role: admin
+      allowExecution: true
+

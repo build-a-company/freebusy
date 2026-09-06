@@ -1,0 +1,193 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: CardNames
+  fields:
+    - name: defaultSeparator
+      type: String_1
+    - name: displayName
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: isOrdered
+      type: Boolean_1
+    - name: phoneticScript
+      type: String_1
+    - name: phoneticSystem
+      type: String_1
+    - name: sortAs
+      type: Json
+  graphql:
+    typeName: CardNames
+    inputTypeName: CardNamesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: card_names
+      fieldMapping:
+        defaultSeparator:
+          column:
+            name: default_separator
+        displayName:
+          column:
+            name: display_name
+        id:
+          column:
+            name: id
+        isOrdered:
+          column:
+            name: is_ordered
+        phoneticScript:
+          column:
+            name: phonetic_script
+        phoneticSystem:
+          column:
+            name: phonetic_system
+        sortAs:
+          column:
+            name: sort_as
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: CardNames
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - defaultSeparator
+          - displayName
+          - id
+          - isOrdered
+          - phoneticScript
+          - phoneticSystem
+          - sortAs
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: CardNamesBoolExp
+  operand:
+    object:
+      type: CardNames
+      comparableFields:
+        - fieldName: defaultSeparator
+          booleanExpressionType: TextBoolExp
+        - fieldName: displayName
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: isOrdered
+          booleanExpressionType: BoolBoolExp
+        - fieldName: phoneticScript
+          booleanExpressionType: TextBoolExp
+        - fieldName: phoneticSystem
+          booleanExpressionType: TextBoolExp
+        - fieldName: sortAs
+          booleanExpressionType: JsonbBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: CardNamesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: CardNamesAggExp
+  operand:
+    object:
+      aggregatedType: CardNames
+      aggregatableFields:
+        - fieldName: defaultSeparator
+          aggregateExpression: TextAggExp
+        - fieldName: displayName
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: isOrdered
+          aggregateExpression: BoolAggExp
+        - fieldName: phoneticScript
+          aggregateExpression: TextAggExp
+        - fieldName: phoneticSystem
+          aggregateExpression: TextAggExp
+        - fieldName: sortAs
+          aggregateExpression: JsonbAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: CardNamesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: CardNamesOrderByExp
+  operand:
+    object:
+      orderedType: CardNames
+      orderableFields:
+        - fieldName: defaultSeparator
+          orderByExpression: String1OrderByExp
+        - fieldName: displayName
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: isOrdered
+          orderByExpression: Boolean1OrderByExp
+        - fieldName: phoneticScript
+          orderByExpression: String1OrderByExp
+        - fieldName: phoneticSystem
+          orderByExpression: String1OrderByExp
+        - fieldName: sortAs
+          orderByExpression: JsonOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: CardNamesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: CardNames
+  objectType: CardNames
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: card_names
+  filterExpressionType: CardNamesBoolExp
+  aggregateExpression: CardNamesAggExp
+  orderByExpression: CardNamesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: cardNames
+      subscription:
+        rootField: cardNames
+    selectUniques:
+      - queryRootField: cardNamesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: cardNamesById
+    filterInputTypeName: CardNamesFilterInput
+    aggregate:
+      queryRootField: cardNamesAggregate
+      subscription:
+        rootField: cardNamesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: CardNames
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

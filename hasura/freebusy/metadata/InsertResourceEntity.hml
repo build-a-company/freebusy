@@ -1,0 +1,186 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertResourceEntityObject
+  fields:
+    - name: calendar
+      type: String_1
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: description
+      type: String_1
+    - name: displayName
+      type: String_1
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: name
+      type: String_1!
+    - name: organizationalUnit
+      type: String_1
+    - name: position
+      type: String_1
+    - name: resourceTypes
+      type: "[String_1]"
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: InsertResourceEntityObject
+    inputTypeName: InsertResourceEntityObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_resource_entity_object
+      fieldMapping:
+        calendar:
+          column:
+            name: calendar
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        description:
+          column:
+            name: description
+        displayName:
+          column:
+            name: display_name
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        organizationalUnit:
+          column:
+            name: organizational_unit
+        position:
+          column:
+            name: position
+        resourceTypes:
+          column:
+            name: resource_types
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertResourceEntityObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendar
+          - createTime
+          - deleteTime
+          - description
+          - displayName
+          - etag
+          - expireTime
+          - icalUid
+          - id
+          - name
+          - organizationalUnit
+          - position
+          - resourceTypes
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertResourceEntityResponse
+  description: Responses from the 'insert_resource_entity' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[ResourceEntity!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertResourceEntityResponse
+    inputTypeName: InsertResourceEntityResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_resource_entity_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertResourceEntityResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertResourceEntity
+  outputType: InsertResourceEntityResponse!
+  arguments:
+    - name: objects
+      type: "[InsertResourceEntityObject!]!"
+    - name: postCheck
+      type: ResourceEntityBoolExp
+      description: Insert permission predicate over the 'resource_entity' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_resource_entity
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertResourceEntity
+    rootFieldKind: Mutation
+  description: Insert into the resource_entity table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertResourceEntity
+  permissions:
+    - role: admin
+      allowExecution: true
+

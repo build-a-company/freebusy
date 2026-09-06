@@ -1,0 +1,205 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: ResourceStructuredDatas
+  fields:
+    - name: binary
+      type: Json
+    - name: formatType
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: resourceId
+      type: String_1!
+    - name: schema
+      type: String_1
+    - name: text
+      type: String_1
+    - name: uri
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: ResourceStructuredDatas
+    inputTypeName: ResourceStructuredDatasInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: resource_structured_datas
+      fieldMapping:
+        binary:
+          column:
+            name: binary
+        formatType:
+          column:
+            name: format_type
+        id:
+          column:
+            name: id
+        resourceId:
+          column:
+            name: resource_id
+        schema:
+          column:
+            name: schema
+        text:
+          column:
+            name: text
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: ResourceStructuredDatas
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - binary
+          - formatType
+          - id
+          - resourceId
+          - schema
+          - text
+          - uri
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: ResourceStructuredDatasBoolExp
+  operand:
+    object:
+      type: ResourceStructuredDatas
+      comparableFields:
+        - fieldName: binary
+          booleanExpressionType: ByteaBoolExp
+        - fieldName: formatType
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: resourceId
+          booleanExpressionType: TextBoolExp
+        - fieldName: schema
+          booleanExpressionType: TextBoolExp
+        - fieldName: text
+          booleanExpressionType: TextBoolExp
+        - fieldName: uri
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: ResourceStructuredDatasBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: ResourceStructuredDatasAggExp
+  operand:
+    object:
+      aggregatedType: ResourceStructuredDatas
+      aggregatableFields:
+        - fieldName: binary
+          aggregateExpression: ByteaAggExp
+        - fieldName: formatType
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: resourceId
+          aggregateExpression: TextAggExp
+        - fieldName: schema
+          aggregateExpression: TextAggExp
+        - fieldName: text
+          aggregateExpression: TextAggExp
+        - fieldName: uri
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: ResourceStructuredDatasAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: ResourceStructuredDatasOrderByExp
+  operand:
+    object:
+      orderedType: ResourceStructuredDatas
+      orderableFields:
+        - fieldName: binary
+          orderByExpression: JsonOrderByExp
+        - fieldName: formatType
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: resourceId
+          orderByExpression: String1OrderByExp
+        - fieldName: schema
+          orderByExpression: String1OrderByExp
+        - fieldName: text
+          orderByExpression: String1OrderByExp
+        - fieldName: uri
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: ResourceStructuredDatasOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: ResourceStructuredDatas
+  objectType: ResourceStructuredDatas
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: resource_structured_datas
+  filterExpressionType: ResourceStructuredDatasBoolExp
+  aggregateExpression: ResourceStructuredDatasAggExp
+  orderByExpression: ResourceStructuredDatasOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: resourceStructuredDatas
+      subscription:
+        rootField: resourceStructuredDatas
+    selectUniques:
+      - queryRootField: resourceStructuredDatasById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: resourceStructuredDatasById
+    filterInputTypeName: ResourceStructuredDatasFilterInput
+    aggregate:
+      queryRootField: resourceStructuredDatasAggregate
+      subscription:
+        rootField: resourceStructuredDatasAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: ResourceStructuredDatas
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

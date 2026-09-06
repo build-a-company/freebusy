@@ -1,0 +1,253 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: AvailabilityAvailablePeriods
+  fields:
+    - name: availabilityId
+      type: String_1!
+    - name: categories
+      type: "[String_1]"
+    - name: comments
+      type: "[String_1]"
+    - name: description
+      type: String_1
+    - name: duration
+      type: String_1
+    - name: endFormCase
+      type: String_1
+    - name: endId
+      type: String_1
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: location
+      type: String_1
+    - name: recurrenceRule
+      type: String_1
+    - name: startId
+      type: String_1!
+    - name: summary
+      type: String_1
+  graphql:
+    typeName: AvailabilityAvailablePeriods
+    inputTypeName: AvailabilityAvailablePeriodsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: availability_available_periods
+      fieldMapping:
+        availabilityId:
+          column:
+            name: availability_id
+        categories:
+          column:
+            name: categories
+        comments:
+          column:
+            name: comments
+        description:
+          column:
+            name: description
+        duration:
+          column:
+            name: duration
+        endFormCase:
+          column:
+            name: end_form_case
+        endId:
+          column:
+            name: end_id
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        location:
+          column:
+            name: location
+        recurrenceRule:
+          column:
+            name: recurrence_rule
+        startId:
+          column:
+            name: start_id
+        summary:
+          column:
+            name: summary
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: AvailabilityAvailablePeriods
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - availabilityId
+          - categories
+          - comments
+          - description
+          - duration
+          - endFormCase
+          - endId
+          - icalUid
+          - id
+          - location
+          - recurrenceRule
+          - startId
+          - summary
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: AvailabilityAvailablePeriodsBoolExp
+  operand:
+    object:
+      type: AvailabilityAvailablePeriods
+      comparableFields:
+        - fieldName: availabilityId
+          booleanExpressionType: TextBoolExp
+        - fieldName: description
+          booleanExpressionType: TextBoolExp
+        - fieldName: duration
+          booleanExpressionType: TextBoolExp
+        - fieldName: endFormCase
+          booleanExpressionType: TextBoolExp
+        - fieldName: endId
+          booleanExpressionType: TextBoolExp
+        - fieldName: icalUid
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: location
+          booleanExpressionType: TextBoolExp
+        - fieldName: recurrenceRule
+          booleanExpressionType: TextBoolExp
+        - fieldName: startId
+          booleanExpressionType: TextBoolExp
+        - fieldName: summary
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: AvailabilityAvailablePeriodsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: AvailabilityAvailablePeriodsAggExp
+  operand:
+    object:
+      aggregatedType: AvailabilityAvailablePeriods
+      aggregatableFields:
+        - fieldName: availabilityId
+          aggregateExpression: TextAggExp
+        - fieldName: description
+          aggregateExpression: TextAggExp
+        - fieldName: duration
+          aggregateExpression: TextAggExp
+        - fieldName: endFormCase
+          aggregateExpression: TextAggExp
+        - fieldName: endId
+          aggregateExpression: TextAggExp
+        - fieldName: icalUid
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: location
+          aggregateExpression: TextAggExp
+        - fieldName: recurrenceRule
+          aggregateExpression: TextAggExp
+        - fieldName: startId
+          aggregateExpression: TextAggExp
+        - fieldName: summary
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: AvailabilityAvailablePeriodsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: AvailabilityAvailablePeriodsOrderByExp
+  operand:
+    object:
+      orderedType: AvailabilityAvailablePeriods
+      orderableFields:
+        - fieldName: availabilityId
+          orderByExpression: String1OrderByExp
+        - fieldName: description
+          orderByExpression: String1OrderByExp
+        - fieldName: duration
+          orderByExpression: String1OrderByExp
+        - fieldName: endFormCase
+          orderByExpression: String1OrderByExp
+        - fieldName: endId
+          orderByExpression: String1OrderByExp
+        - fieldName: icalUid
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: location
+          orderByExpression: String1OrderByExp
+        - fieldName: recurrenceRule
+          orderByExpression: String1OrderByExp
+        - fieldName: startId
+          orderByExpression: String1OrderByExp
+        - fieldName: summary
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: AvailabilityAvailablePeriodsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: AvailabilityAvailablePeriods
+  objectType: AvailabilityAvailablePeriods
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: availability_available_periods
+  filterExpressionType: AvailabilityAvailablePeriodsBoolExp
+  aggregateExpression: AvailabilityAvailablePeriodsAggExp
+  orderByExpression: AvailabilityAvailablePeriodsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: availabilityAvailablePeriods
+      subscription:
+        rootField: availabilityAvailablePeriods
+    selectUniques:
+      - queryRootField: availabilityAvailablePeriodsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: availabilityAvailablePeriodsById
+    filterInputTypeName: AvailabilityAvailablePeriodsFilterInput
+    aggregate:
+      queryRootField: availabilityAvailablePeriodsAggregate
+      subscription:
+        rootField: availabilityAvailablePeriodsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: AvailabilityAvailablePeriods
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

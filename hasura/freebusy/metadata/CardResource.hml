@@ -1,0 +1,541 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: CardResource
+  fields:
+    - name: addresses
+      type: Json
+    - name: anniversaries
+      type: Json
+    - name: calendars
+      type: Json
+    - name: createTime
+      type: Timestamptz!
+    - name: cryptoKeys
+      type: Json
+    - name: deleteTime
+      type: Timestamptz
+    - name: directories
+      type: Json
+    - name: emails
+      type: Json
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: jscontactCreateTime
+      type: Timestamptz
+    - name: jscontactProps
+      type: Json
+    - name: jscontactUid
+      type: String_1
+    - name: jscontactUpdateTime
+      type: Timestamptz
+    - name: keywords
+      type: "[String_1]"
+    - name: kind
+      type: String_1
+    - name: languageCode
+      type: String_1
+    - name: links
+      type: Json
+    - name: media
+      type: Json
+    - name: members
+      type: "[String_1]"
+    - name: name
+      type: String_1!
+    - name: nameComponentsId
+      type: String_1
+    - name: nicknames
+      type: Json
+    - name: notes
+      type: Json
+    - name: onlineServices
+      type: Json
+    - name: organizations
+      type: Json
+    - name: personalInfo
+      type: Json
+    - name: phones
+      type: Json
+    - name: preferredLanguages
+      type: Json
+    - name: productId
+      type: String_1
+    - name: relations
+      type: Json
+    - name: schedulingAddresses
+      type: Json
+    - name: speechId
+      type: String_1
+    - name: titles
+      type: Json
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: CardResource
+    inputTypeName: CardResourceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: card_resource
+      fieldMapping:
+        addresses:
+          column:
+            name: addresses
+        anniversaries:
+          column:
+            name: anniversaries
+        calendars:
+          column:
+            name: calendars
+        createTime:
+          column:
+            name: create_time
+        cryptoKeys:
+          column:
+            name: crypto_keys
+        deleteTime:
+          column:
+            name: delete_time
+        directories:
+          column:
+            name: directories
+        emails:
+          column:
+            name: emails
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        jscontactCreateTime:
+          column:
+            name: jscontact_create_time
+        jscontactProps:
+          column:
+            name: jscontact_props
+        jscontactUid:
+          column:
+            name: jscontact_uid
+        jscontactUpdateTime:
+          column:
+            name: jscontact_update_time
+        keywords:
+          column:
+            name: keywords
+        kind:
+          column:
+            name: kind
+        languageCode:
+          column:
+            name: language_code
+        links:
+          column:
+            name: links
+        media:
+          column:
+            name: media
+        members:
+          column:
+            name: members
+        name:
+          column:
+            name: name
+        nameComponentsId:
+          column:
+            name: name_components_id
+        nicknames:
+          column:
+            name: nicknames
+        notes:
+          column:
+            name: notes
+        onlineServices:
+          column:
+            name: online_services
+        organizations:
+          column:
+            name: organizations
+        personalInfo:
+          column:
+            name: personal_info
+        phones:
+          column:
+            name: phones
+        preferredLanguages:
+          column:
+            name: preferred_languages
+        productId:
+          column:
+            name: product_id
+        relations:
+          column:
+            name: relations
+        schedulingAddresses:
+          column:
+            name: scheduling_addresses
+        speechId:
+          column:
+            name: speech_id
+        titles:
+          column:
+            name: titles
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: CardResource
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - addresses
+          - anniversaries
+          - calendars
+          - createTime
+          - cryptoKeys
+          - deleteTime
+          - directories
+          - emails
+          - etag
+          - expireTime
+          - id
+          - jscontactCreateTime
+          - jscontactProps
+          - jscontactUid
+          - jscontactUpdateTime
+          - keywords
+          - kind
+          - languageCode
+          - links
+          - media
+          - members
+          - name
+          - nameComponentsId
+          - nicknames
+          - notes
+          - onlineServices
+          - organizations
+          - personalInfo
+          - phones
+          - preferredLanguages
+          - productId
+          - relations
+          - schedulingAddresses
+          - speechId
+          - titles
+          - uid
+          - updateTime
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: CardResourceBoolExp
+  operand:
+    object:
+      type: CardResource
+      comparableFields:
+        - fieldName: addresses
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: anniversaries
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: calendars
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: createTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: cryptoKeys
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: deleteTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: directories
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: emails
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: etag
+          booleanExpressionType: TextBoolExp
+        - fieldName: expireTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: jscontactCreateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: jscontactProps
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: jscontactUid
+          booleanExpressionType: TextBoolExp
+        - fieldName: jscontactUpdateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: kind
+          booleanExpressionType: TextBoolExp
+        - fieldName: languageCode
+          booleanExpressionType: TextBoolExp
+        - fieldName: links
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: media
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: name
+          booleanExpressionType: TextBoolExp
+        - fieldName: nameComponentsId
+          booleanExpressionType: TextBoolExp
+        - fieldName: nicknames
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: notes
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: onlineServices
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: organizations
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: personalInfo
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: phones
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: preferredLanguages
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: productId
+          booleanExpressionType: TextBoolExp
+        - fieldName: relations
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: schedulingAddresses
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: speechId
+          booleanExpressionType: TextBoolExp
+        - fieldName: titles
+          booleanExpressionType: JsonbBoolExp
+        - fieldName: uid
+          booleanExpressionType: TextBoolExp
+        - fieldName: updateTime
+          booleanExpressionType: TimestamptzBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: CardResourceBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: CardResourceAggExp
+  operand:
+    object:
+      aggregatedType: CardResource
+      aggregatableFields:
+        - fieldName: addresses
+          aggregateExpression: JsonbAggExp
+        - fieldName: anniversaries
+          aggregateExpression: JsonbAggExp
+        - fieldName: calendars
+          aggregateExpression: JsonbAggExp
+        - fieldName: createTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: cryptoKeys
+          aggregateExpression: JsonbAggExp
+        - fieldName: deleteTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: directories
+          aggregateExpression: JsonbAggExp
+        - fieldName: emails
+          aggregateExpression: JsonbAggExp
+        - fieldName: etag
+          aggregateExpression: TextAggExp
+        - fieldName: expireTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: jscontactCreateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: jscontactProps
+          aggregateExpression: JsonbAggExp
+        - fieldName: jscontactUid
+          aggregateExpression: TextAggExp
+        - fieldName: jscontactUpdateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: kind
+          aggregateExpression: TextAggExp
+        - fieldName: languageCode
+          aggregateExpression: TextAggExp
+        - fieldName: links
+          aggregateExpression: JsonbAggExp
+        - fieldName: media
+          aggregateExpression: JsonbAggExp
+        - fieldName: name
+          aggregateExpression: TextAggExp
+        - fieldName: nameComponentsId
+          aggregateExpression: TextAggExp
+        - fieldName: nicknames
+          aggregateExpression: JsonbAggExp
+        - fieldName: notes
+          aggregateExpression: JsonbAggExp
+        - fieldName: onlineServices
+          aggregateExpression: JsonbAggExp
+        - fieldName: organizations
+          aggregateExpression: JsonbAggExp
+        - fieldName: personalInfo
+          aggregateExpression: JsonbAggExp
+        - fieldName: phones
+          aggregateExpression: JsonbAggExp
+        - fieldName: preferredLanguages
+          aggregateExpression: JsonbAggExp
+        - fieldName: productId
+          aggregateExpression: TextAggExp
+        - fieldName: relations
+          aggregateExpression: JsonbAggExp
+        - fieldName: schedulingAddresses
+          aggregateExpression: JsonbAggExp
+        - fieldName: speechId
+          aggregateExpression: TextAggExp
+        - fieldName: titles
+          aggregateExpression: JsonbAggExp
+        - fieldName: uid
+          aggregateExpression: TextAggExp
+        - fieldName: updateTime
+          aggregateExpression: TimestamptzAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: CardResourceAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: CardResourceOrderByExp
+  operand:
+    object:
+      orderedType: CardResource
+      orderableFields:
+        - fieldName: addresses
+          orderByExpression: JsonOrderByExp
+        - fieldName: anniversaries
+          orderByExpression: JsonOrderByExp
+        - fieldName: calendars
+          orderByExpression: JsonOrderByExp
+        - fieldName: createTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: cryptoKeys
+          orderByExpression: JsonOrderByExp
+        - fieldName: deleteTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: directories
+          orderByExpression: JsonOrderByExp
+        - fieldName: emails
+          orderByExpression: JsonOrderByExp
+        - fieldName: etag
+          orderByExpression: String1OrderByExp
+        - fieldName: expireTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: jscontactCreateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: jscontactProps
+          orderByExpression: JsonOrderByExp
+        - fieldName: jscontactUid
+          orderByExpression: String1OrderByExp
+        - fieldName: jscontactUpdateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: kind
+          orderByExpression: String1OrderByExp
+        - fieldName: languageCode
+          orderByExpression: String1OrderByExp
+        - fieldName: links
+          orderByExpression: JsonOrderByExp
+        - fieldName: media
+          orderByExpression: JsonOrderByExp
+        - fieldName: name
+          orderByExpression: String1OrderByExp
+        - fieldName: nameComponentsId
+          orderByExpression: String1OrderByExp
+        - fieldName: nicknames
+          orderByExpression: JsonOrderByExp
+        - fieldName: notes
+          orderByExpression: JsonOrderByExp
+        - fieldName: onlineServices
+          orderByExpression: JsonOrderByExp
+        - fieldName: organizations
+          orderByExpression: JsonOrderByExp
+        - fieldName: personalInfo
+          orderByExpression: JsonOrderByExp
+        - fieldName: phones
+          orderByExpression: JsonOrderByExp
+        - fieldName: preferredLanguages
+          orderByExpression: JsonOrderByExp
+        - fieldName: productId
+          orderByExpression: String1OrderByExp
+        - fieldName: relations
+          orderByExpression: JsonOrderByExp
+        - fieldName: schedulingAddresses
+          orderByExpression: JsonOrderByExp
+        - fieldName: speechId
+          orderByExpression: String1OrderByExp
+        - fieldName: titles
+          orderByExpression: JsonOrderByExp
+        - fieldName: uid
+          orderByExpression: String1OrderByExp
+        - fieldName: updateTime
+          orderByExpression: TimestamptzOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: CardResourceOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: CardResource
+  objectType: CardResource
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: card_resource
+  filterExpressionType: CardResourceBoolExp
+  aggregateExpression: CardResourceAggExp
+  orderByExpression: CardResourceOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: cardResource
+      subscription:
+        rootField: cardResource
+    selectUniques:
+      - queryRootField: cardResourceById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: cardResourceById
+    filterInputTypeName: CardResourceFilterInput
+    aggregate:
+      queryRootField: cardResourceAggregate
+      subscription:
+        rootField: cardResourceAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: CardResource
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

@@ -1,0 +1,301 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardAddress
+  fields:
+    - name: apartments
+      type: "[String_1]"
+    - name: blocks
+      type: "[String_1]"
+    - name: buildings
+      type: "[String_1]"
+    - name: contactId
+      type: String_1!
+    - name: countries
+      type: "[String_1]"
+    - name: directions
+      type: "[String_1]"
+    - name: districts
+      type: "[String_1]"
+    - name: extendedAddresses
+      type: "[String_1]"
+    - name: floors
+      type: "[String_1]"
+    - name: id
+      type: String_1!
+    - name: label
+      type: String_1
+    - name: landmarks
+      type: "[String_1]"
+    - name: localities
+      type: "[String_1]"
+    - name: phonetic
+      type: String_1
+    - name: postOfficeBox
+      type: "[String_1]"
+    - name: postalCodes
+      type: "[String_1]"
+    - name: pref
+      type: Int32
+    - name: regions
+      type: "[String_1]"
+    - name: rooms
+      type: "[String_1]"
+    - name: script
+      type: String_1
+    - name: streetAddresses
+      type: "[String_1]"
+    - name: streetNumbers
+      type: "[String_1]"
+    - name: streets
+      type: "[String_1]"
+    - name: subdistricts
+      type: "[String_1]"
+    - name: types
+      type: String_1
+  graphql:
+    typeName: VcardAddress
+    inputTypeName: VcardAddressInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_address
+      fieldMapping:
+        apartments:
+          column:
+            name: apartments
+        blocks:
+          column:
+            name: blocks
+        buildings:
+          column:
+            name: buildings
+        contactId:
+          column:
+            name: contact_id
+        countries:
+          column:
+            name: countries
+        directions:
+          column:
+            name: directions
+        districts:
+          column:
+            name: districts
+        extendedAddresses:
+          column:
+            name: extended_addresses
+        floors:
+          column:
+            name: floors
+        id:
+          column:
+            name: id
+        label:
+          column:
+            name: label
+        landmarks:
+          column:
+            name: landmarks
+        localities:
+          column:
+            name: localities
+        phonetic:
+          column:
+            name: phonetic
+        postOfficeBox:
+          column:
+            name: post_office_box
+        postalCodes:
+          column:
+            name: postal_codes
+        pref:
+          column:
+            name: pref
+        regions:
+          column:
+            name: regions
+        rooms:
+          column:
+            name: rooms
+        script:
+          column:
+            name: script
+        streetAddresses:
+          column:
+            name: street_addresses
+        streetNumbers:
+          column:
+            name: street_numbers
+        streets:
+          column:
+            name: streets
+        subdistricts:
+          column:
+            name: subdistricts
+        types:
+          column:
+            name: types
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardAddress
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - apartments
+          - blocks
+          - buildings
+          - contactId
+          - countries
+          - directions
+          - districts
+          - extendedAddresses
+          - floors
+          - id
+          - label
+          - landmarks
+          - localities
+          - phonetic
+          - postOfficeBox
+          - postalCodes
+          - pref
+          - regions
+          - rooms
+          - script
+          - streetAddresses
+          - streetNumbers
+          - streets
+          - subdistricts
+          - types
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardAddressBoolExp
+  operand:
+    object:
+      type: VcardAddress
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: label
+          booleanExpressionType: TextBoolExp
+        - fieldName: phonetic
+          booleanExpressionType: TextBoolExp
+        - fieldName: pref
+          booleanExpressionType: Int4BoolExp
+        - fieldName: script
+          booleanExpressionType: TextBoolExp
+        - fieldName: types
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardAddressBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardAddressAggExp
+  operand:
+    object:
+      aggregatedType: VcardAddress
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: label
+          aggregateExpression: TextAggExp
+        - fieldName: phonetic
+          aggregateExpression: TextAggExp
+        - fieldName: pref
+          aggregateExpression: Int4AggExp
+        - fieldName: script
+          aggregateExpression: TextAggExp
+        - fieldName: types
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardAddressAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardAddressOrderByExp
+  operand:
+    object:
+      orderedType: VcardAddress
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: label
+          orderByExpression: String1OrderByExp
+        - fieldName: phonetic
+          orderByExpression: String1OrderByExp
+        - fieldName: pref
+          orderByExpression: Int32OrderByExp
+        - fieldName: script
+          orderByExpression: String1OrderByExp
+        - fieldName: types
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardAddressOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardAddress
+  objectType: VcardAddress
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_address
+  filterExpressionType: VcardAddressBoolExp
+  aggregateExpression: VcardAddressAggExp
+  orderByExpression: VcardAddressOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardAddress
+      subscription:
+        rootField: vcardAddress
+    selectUniques:
+      - queryRootField: vcardAddressById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardAddressById
+    filterInputTypeName: VcardAddressFilterInput
+    aggregate:
+      queryRootField: vcardAddressAggregate
+      subscription:
+        rootField: vcardAddressAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardAddress
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

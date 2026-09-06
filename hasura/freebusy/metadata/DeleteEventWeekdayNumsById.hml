@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteEventWeekdayNumsByIdResponse
+  description: Responses from the 'delete_event_weekday_nums_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventWeekdayNums!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteEventWeekdayNumsByIdResponse
+    inputTypeName: DeleteEventWeekdayNumsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_event_weekday_nums_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteEventWeekdayNumsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteEventWeekdayNumsById
+  outputType: DeleteEventWeekdayNumsByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: EventWeekdayNumsBoolExp
+      description: Delete permission predicate over the 'event_weekday_nums' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_event_weekday_nums_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteEventWeekdayNumsById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'event_weekday_nums' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteEventWeekdayNumsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteResourceEntityByIdResponse
+  description: Responses from the 'delete_resource_entity_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[ResourceEntity!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteResourceEntityByIdResponse
+    inputTypeName: DeleteResourceEntityByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_resource_entity_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteResourceEntityByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteResourceEntityById
+  outputType: DeleteResourceEntityByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: ResourceEntityBoolExp
+      description: Delete permission predicate over the 'resource_entity' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_resource_entity_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteResourceEntityById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'resource_entity' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteResourceEntityById
+  permissions:
+    - role: admin
+      allowExecution: true
+

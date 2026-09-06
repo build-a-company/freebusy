@@ -1,0 +1,169 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardInstantMessages
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: pref
+      type: Int32
+    - name: types
+      type: String_1
+    - name: value
+      type: String_1!
+  graphql:
+    typeName: VcardInstantMessages
+    inputTypeName: VcardInstantMessagesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_instant_messages
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        types:
+          column:
+            name: types
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardInstantMessages
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - types
+          - value
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardInstantMessagesBoolExp
+  operand:
+    object:
+      type: VcardInstantMessages
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: pref
+          booleanExpressionType: Int4BoolExp
+        - fieldName: types
+          booleanExpressionType: TextBoolExp
+        - fieldName: value
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardInstantMessagesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardInstantMessagesAggExp
+  operand:
+    object:
+      aggregatedType: VcardInstantMessages
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: pref
+          aggregateExpression: Int4AggExp
+        - fieldName: types
+          aggregateExpression: TextAggExp
+        - fieldName: value
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardInstantMessagesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardInstantMessagesOrderByExp
+  operand:
+    object:
+      orderedType: VcardInstantMessages
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: pref
+          orderByExpression: Int32OrderByExp
+        - fieldName: types
+          orderByExpression: String1OrderByExp
+        - fieldName: value
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardInstantMessagesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardInstantMessages
+  objectType: VcardInstantMessages
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_instant_messages
+  filterExpressionType: VcardInstantMessagesBoolExp
+  aggregateExpression: VcardInstantMessagesAggExp
+  orderByExpression: VcardInstantMessagesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardInstantMessages
+      subscription:
+        rootField: vcardInstantMessages
+    selectUniques:
+      - queryRootField: vcardInstantMessagesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardInstantMessagesById
+    filterInputTypeName: VcardInstantMessagesFilterInput
+    aggregate:
+      queryRootField: vcardInstantMessagesAggregate
+      subscription:
+        rootField: vcardInstantMessagesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardInstantMessages
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

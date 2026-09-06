@@ -1,0 +1,373 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UserResource
+  fields:
+    - name: active
+      type: Boolean_1
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: displayName
+      type: String_1
+    - name: enterpriseId
+      type: String_1
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: externalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: locale
+      type: String_1
+    - name: name
+      type: String_1!
+    - name: nameComponentsId
+      type: String_1
+    - name: nickname
+      type: String_1
+    - name: password
+      type: String_1
+    - name: preferredLanguageCode
+      type: String_1
+    - name: profileUri
+      type: String_1
+    - name: timeZone
+      type: String_1
+    - name: title
+      type: String_1
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+    - name: userType
+      type: String_1
+    - name: username
+      type: String_1!
+  graphql:
+    typeName: UserResource
+    inputTypeName: UserResourceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: user_resource
+      fieldMapping:
+        active:
+          column:
+            name: active
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        displayName:
+          column:
+            name: display_name
+        enterpriseId:
+          column:
+            name: enterprise_id
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        externalUid:
+          column:
+            name: external_uid
+        id:
+          column:
+            name: id
+        locale:
+          column:
+            name: locale
+        name:
+          column:
+            name: name
+        nameComponentsId:
+          column:
+            name: name_components_id
+        nickname:
+          column:
+            name: nickname
+        password:
+          column:
+            name: password
+        preferredLanguageCode:
+          column:
+            name: preferred_language_code
+        profileUri:
+          column:
+            name: profile_uri
+        timeZone:
+          column:
+            name: time_zone
+        title:
+          column:
+            name: title
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+        userType:
+          column:
+            name: user_type
+        username:
+          column:
+            name: username
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UserResource
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - active
+          - createTime
+          - deleteTime
+          - displayName
+          - enterpriseId
+          - etag
+          - expireTime
+          - externalUid
+          - id
+          - locale
+          - name
+          - nameComponentsId
+          - nickname
+          - password
+          - preferredLanguageCode
+          - profileUri
+          - timeZone
+          - title
+          - uid
+          - updateTime
+          - userType
+          - username
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: UserResourceBoolExp
+  operand:
+    object:
+      type: UserResource
+      comparableFields:
+        - fieldName: active
+          booleanExpressionType: BoolBoolExp
+        - fieldName: createTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: deleteTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: displayName
+          booleanExpressionType: TextBoolExp
+        - fieldName: enterpriseId
+          booleanExpressionType: TextBoolExp
+        - fieldName: etag
+          booleanExpressionType: TextBoolExp
+        - fieldName: expireTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: externalUid
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: locale
+          booleanExpressionType: TextBoolExp
+        - fieldName: name
+          booleanExpressionType: TextBoolExp
+        - fieldName: nameComponentsId
+          booleanExpressionType: TextBoolExp
+        - fieldName: nickname
+          booleanExpressionType: TextBoolExp
+        - fieldName: password
+          booleanExpressionType: TextBoolExp
+        - fieldName: preferredLanguageCode
+          booleanExpressionType: TextBoolExp
+        - fieldName: profileUri
+          booleanExpressionType: TextBoolExp
+        - fieldName: timeZone
+          booleanExpressionType: TextBoolExp
+        - fieldName: title
+          booleanExpressionType: TextBoolExp
+        - fieldName: uid
+          booleanExpressionType: TextBoolExp
+        - fieldName: updateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: userType
+          booleanExpressionType: TextBoolExp
+        - fieldName: username
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: UserResourceBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: UserResourceAggExp
+  operand:
+    object:
+      aggregatedType: UserResource
+      aggregatableFields:
+        - fieldName: active
+          aggregateExpression: BoolAggExp
+        - fieldName: createTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: deleteTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: displayName
+          aggregateExpression: TextAggExp
+        - fieldName: enterpriseId
+          aggregateExpression: TextAggExp
+        - fieldName: etag
+          aggregateExpression: TextAggExp
+        - fieldName: expireTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: externalUid
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: locale
+          aggregateExpression: TextAggExp
+        - fieldName: name
+          aggregateExpression: TextAggExp
+        - fieldName: nameComponentsId
+          aggregateExpression: TextAggExp
+        - fieldName: nickname
+          aggregateExpression: TextAggExp
+        - fieldName: password
+          aggregateExpression: TextAggExp
+        - fieldName: preferredLanguageCode
+          aggregateExpression: TextAggExp
+        - fieldName: profileUri
+          aggregateExpression: TextAggExp
+        - fieldName: timeZone
+          aggregateExpression: TextAggExp
+        - fieldName: title
+          aggregateExpression: TextAggExp
+        - fieldName: uid
+          aggregateExpression: TextAggExp
+        - fieldName: updateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: userType
+          aggregateExpression: TextAggExp
+        - fieldName: username
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: UserResourceAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: UserResourceOrderByExp
+  operand:
+    object:
+      orderedType: UserResource
+      orderableFields:
+        - fieldName: active
+          orderByExpression: Boolean1OrderByExp
+        - fieldName: createTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: deleteTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: displayName
+          orderByExpression: String1OrderByExp
+        - fieldName: enterpriseId
+          orderByExpression: String1OrderByExp
+        - fieldName: etag
+          orderByExpression: String1OrderByExp
+        - fieldName: expireTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: externalUid
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: locale
+          orderByExpression: String1OrderByExp
+        - fieldName: name
+          orderByExpression: String1OrderByExp
+        - fieldName: nameComponentsId
+          orderByExpression: String1OrderByExp
+        - fieldName: nickname
+          orderByExpression: String1OrderByExp
+        - fieldName: password
+          orderByExpression: String1OrderByExp
+        - fieldName: preferredLanguageCode
+          orderByExpression: String1OrderByExp
+        - fieldName: profileUri
+          orderByExpression: String1OrderByExp
+        - fieldName: timeZone
+          orderByExpression: String1OrderByExp
+        - fieldName: title
+          orderByExpression: String1OrderByExp
+        - fieldName: uid
+          orderByExpression: String1OrderByExp
+        - fieldName: updateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: userType
+          orderByExpression: String1OrderByExp
+        - fieldName: username
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: UserResourceOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: UserResource
+  objectType: UserResource
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: user_resource
+  filterExpressionType: UserResourceBoolExp
+  aggregateExpression: UserResourceAggExp
+  orderByExpression: UserResourceOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: userResource
+      subscription:
+        rootField: userResource
+    selectUniques:
+      - queryRootField: userResourceById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: userResourceById
+    filterInputTypeName: UserResourceFilterInput
+    aggregate:
+      queryRootField: userResourceAggregate
+      subscription:
+        rootField: userResourceAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: UserResource
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

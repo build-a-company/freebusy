@@ -1,0 +1,772 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceCreateTime
+  description: Update the 'create_time' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceCreateTime
+    inputTypeName: UpdateColumnCalendarResourceCreateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_create_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceCreateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceDeleteTime
+  description: Update the 'delete_time' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceDeleteTime
+    inputTypeName: UpdateColumnCalendarResourceDeleteTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_delete_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceDeleteTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceDescription
+  description: Update the 'description' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceDescription
+    inputTypeName: UpdateColumnCalendarResourceDescriptionInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_description
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceDescription
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceDisplayName
+  description: Update the 'display_name' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceDisplayName
+    inputTypeName: UpdateColumnCalendarResourceDisplayNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_display_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceDisplayName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceEtag
+  description: Update the 'etag' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceEtag
+    inputTypeName: UpdateColumnCalendarResourceEtagInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_etag
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceEtag
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceExpireTime
+  description: Update the 'expire_time' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceExpireTime
+    inputTypeName: UpdateColumnCalendarResourceExpireTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_expire_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceExpireTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceId
+  description: Update the 'id' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceId
+    inputTypeName: UpdateColumnCalendarResourceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceMaxAttendeesPerInstance
+  description: Update the 'max_attendees_per_instance' column in the
+    'calendar_resource' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceMaxAttendeesPerInstance
+    inputTypeName: UpdateColumnCalendarResourceMaxAttendeesPerInstanceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_max_attendees_per_instance
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceMaxAttendeesPerInstance
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceMaxDateTime
+  description: Update the 'max_date_time' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceMaxDateTime
+    inputTypeName: UpdateColumnCalendarResourceMaxDateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_max_date_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceMaxDateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceMaxInstances
+  description: Update the 'max_instances' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceMaxInstances
+    inputTypeName: UpdateColumnCalendarResourceMaxInstancesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_max_instances
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceMaxInstances
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceMaxResourceSize
+  description: Update the 'max_resource_size' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: Int64
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceMaxResourceSize
+    inputTypeName: UpdateColumnCalendarResourceMaxResourceSizeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_max_resource_size
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceMaxResourceSize
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceMinDateTime
+  description: Update the 'min_date_time' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceMinDateTime
+    inputTypeName: UpdateColumnCalendarResourceMinDateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_min_date_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceMinDateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceName
+  description: Update the 'name' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceName
+    inputTypeName: UpdateColumnCalendarResourceNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceScale
+  description: Update the 'scale' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceScale
+    inputTypeName: UpdateColumnCalendarResourceScaleInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_scale
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceScale
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceTimeZoneId
+  description: Update the 'time_zone_id' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceTimeZoneId
+    inputTypeName: UpdateColumnCalendarResourceTimeZoneIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_time_zone_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceTimeZoneId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceUid
+  description: Update the 'uid' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceUid
+    inputTypeName: UpdateColumnCalendarResourceUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarResourceUpdateTime
+  description: Update the 'update_time' column in the 'calendar_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarResourceUpdateTime
+    inputTypeName: UpdateColumnCalendarResourceUpdateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_resource_update_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarResourceUpdateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateCalendarResourceByIdUpdateColumns
+  description: Update the columns of the 'calendar_resource' collection
+  fields:
+    - name: createTime
+      type: UpdateColumnCalendarResourceCreateTime
+      description: Update the 'create_time' column in the 'calendar_resource' collection.
+    - name: deleteTime
+      type: UpdateColumnCalendarResourceDeleteTime
+      description: Update the 'delete_time' column in the 'calendar_resource' collection.
+    - name: description
+      type: UpdateColumnCalendarResourceDescription
+      description: Update the 'description' column in the 'calendar_resource' collection.
+    - name: displayName
+      type: UpdateColumnCalendarResourceDisplayName
+      description: Update the 'display_name' column in the 'calendar_resource' collection.
+    - name: etag
+      type: UpdateColumnCalendarResourceEtag
+      description: Update the 'etag' column in the 'calendar_resource' collection.
+    - name: expireTime
+      type: UpdateColumnCalendarResourceExpireTime
+      description: Update the 'expire_time' column in the 'calendar_resource' collection.
+    - name: id
+      type: UpdateColumnCalendarResourceId
+      description: Update the 'id' column in the 'calendar_resource' collection.
+    - name: maxAttendeesPerInstance
+      type: UpdateColumnCalendarResourceMaxAttendeesPerInstance
+      description: Update the 'max_attendees_per_instance' column in the
+        'calendar_resource' collection.
+    - name: maxDateTime
+      type: UpdateColumnCalendarResourceMaxDateTime
+      description: Update the 'max_date_time' column in the 'calendar_resource' collection.
+    - name: maxInstances
+      type: UpdateColumnCalendarResourceMaxInstances
+      description: Update the 'max_instances' column in the 'calendar_resource' collection.
+    - name: maxResourceSize
+      type: UpdateColumnCalendarResourceMaxResourceSize
+      description: Update the 'max_resource_size' column in the 'calendar_resource'
+        collection.
+    - name: minDateTime
+      type: UpdateColumnCalendarResourceMinDateTime
+      description: Update the 'min_date_time' column in the 'calendar_resource' collection.
+    - name: name
+      type: UpdateColumnCalendarResourceName
+      description: Update the 'name' column in the 'calendar_resource' collection.
+    - name: scale
+      type: UpdateColumnCalendarResourceScale
+      description: Update the 'scale' column in the 'calendar_resource' collection.
+    - name: timeZoneId
+      type: UpdateColumnCalendarResourceTimeZoneId
+      description: Update the 'time_zone_id' column in the 'calendar_resource' collection.
+    - name: uid
+      type: UpdateColumnCalendarResourceUid
+      description: Update the 'uid' column in the 'calendar_resource' collection.
+    - name: updateTime
+      type: UpdateColumnCalendarResourceUpdateTime
+      description: Update the 'update_time' column in the 'calendar_resource' collection.
+  graphql:
+    typeName: UpdateCalendarResourceByIdUpdateColumns
+    inputTypeName: UpdateCalendarResourceByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_calendar_resource_by_id_update_columns
+      fieldMapping:
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        description:
+          column:
+            name: description
+        displayName:
+          column:
+            name: display_name
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        maxAttendeesPerInstance:
+          column:
+            name: max_attendees_per_instance
+        maxDateTime:
+          column:
+            name: max_date_time
+        maxInstances:
+          column:
+            name: max_instances
+        maxResourceSize:
+          column:
+            name: max_resource_size
+        minDateTime:
+          column:
+            name: min_date_time
+        name:
+          column:
+            name: name
+        scale:
+          column:
+            name: scale
+        timeZoneId:
+          column:
+            name: time_zone_id
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateCalendarResourceByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - createTime
+          - deleteTime
+          - description
+          - displayName
+          - etag
+          - expireTime
+          - id
+          - maxAttendeesPerInstance
+          - maxDateTime
+          - maxInstances
+          - maxResourceSize
+          - minDateTime
+          - name
+          - scale
+          - timeZoneId
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateCalendarResourceByIdResponse
+  description: Responses from the 'update_calendar_resource_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CalendarResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateCalendarResourceByIdResponse
+    inputTypeName: UpdateCalendarResourceByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_calendar_resource_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateCalendarResourceByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateCalendarResourceById
+  outputType: UpdateCalendarResourceByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: CalendarResourceBoolExp
+      description: Update permission post-condition predicate over the
+        'calendar_resource' collection
+    - name: preCheck
+      type: CalendarResourceBoolExp
+      description: Update permission pre-condition predicate over the
+        'calendar_resource' collection
+    - name: updateColumns
+      type: UpdateCalendarResourceByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_calendar_resource_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateCalendarResourceById
+    rootFieldKind: Mutation
+  description: Update any row on the 'calendar_resource' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateCalendarResourceById
+  permissions:
+    - role: admin
+      allowExecution: true
+

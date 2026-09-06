@@ -1,0 +1,228 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertTodoResourceObject
+  fields:
+    - name: calendarId
+      type: String_1!
+    - name: classification
+      type: String_1
+    - name: completedId
+      type: String_1
+    - name: completion
+      type: String_1
+    - name: createTime
+      type: Timestamptz!
+    - name: deadlineCase
+      type: String_1
+    - name: deleteTime
+      type: Timestamptz
+    - name: description
+      type: String_1
+    - name: dueId
+      type: String_1
+    - name: duration
+      type: String_1
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: location
+      type: String_1
+    - name: name
+      type: String_1!
+    - name: percentComplete
+      type: Int32
+    - name: priority
+      type: Int32
+    - name: startId
+      type: String_1
+    - name: summary
+      type: String_1
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: InsertTodoResourceObject
+    inputTypeName: InsertTodoResourceObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_todo_resource_object
+      fieldMapping:
+        calendarId:
+          column:
+            name: calendar_id
+        classification:
+          column:
+            name: classification
+        completedId:
+          column:
+            name: completed_id
+        completion:
+          column:
+            name: completion
+        createTime:
+          column:
+            name: create_time
+        deadlineCase:
+          column:
+            name: deadline_case
+        deleteTime:
+          column:
+            name: delete_time
+        description:
+          column:
+            name: description
+        dueId:
+          column:
+            name: due_id
+        duration:
+          column:
+            name: duration
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        location:
+          column:
+            name: location
+        name:
+          column:
+            name: name
+        percentComplete:
+          column:
+            name: percent_complete
+        priority:
+          column:
+            name: priority
+        startId:
+          column:
+            name: start_id
+        summary:
+          column:
+            name: summary
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertTodoResourceObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendarId
+          - classification
+          - completedId
+          - completion
+          - createTime
+          - deadlineCase
+          - deleteTime
+          - description
+          - dueId
+          - duration
+          - etag
+          - expireTime
+          - icalUid
+          - id
+          - location
+          - name
+          - percentComplete
+          - priority
+          - startId
+          - summary
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertTodoResourceResponse
+  description: Responses from the 'insert_todo_resource' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[TodoResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertTodoResourceResponse
+    inputTypeName: InsertTodoResourceResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_todo_resource_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertTodoResourceResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertTodoResource
+  outputType: InsertTodoResourceResponse!
+  arguments:
+    - name: objects
+      type: "[InsertTodoResourceObject!]!"
+    - name: postCheck
+      type: TodoResourceBoolExp
+      description: Insert permission predicate over the 'todo_resource' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_todo_resource
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertTodoResource
+    rootFieldKind: Mutation
+  description: Insert into the todo_resource table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertTodoResource
+  permissions:
+    - role: admin
+      allowExecution: true
+

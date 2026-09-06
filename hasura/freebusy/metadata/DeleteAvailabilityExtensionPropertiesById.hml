@@ -1,0 +1,74 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteAvailabilityExtensionPropertiesByIdResponse
+  description: Responses from the 'delete_availability_extension_properties_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[AvailabilityExtensionProperties!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteAvailabilityExtensionPropertiesByIdResponse
+    inputTypeName: DeleteAvailabilityExtensionPropertiesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_availability_extension_properties_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteAvailabilityExtensionPropertiesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteAvailabilityExtensionPropertiesById
+  outputType: DeleteAvailabilityExtensionPropertiesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: AvailabilityExtensionPropertiesBoolExp
+      description: Delete permission predicate over the
+        'availability_extension_properties' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_availability_extension_properties_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteAvailabilityExtensionPropertiesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'availability_extension_properties'
+    collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteAvailabilityExtensionPropertiesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

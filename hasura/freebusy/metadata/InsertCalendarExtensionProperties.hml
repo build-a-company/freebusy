@@ -1,0 +1,127 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCalendarExtensionPropertiesObject
+  fields:
+    - name: calendarId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: key
+      type: String_1!
+    - name: parameters
+      type: Json
+    - name: values
+      type: "[String_1]"
+  graphql:
+    typeName: InsertCalendarExtensionPropertiesObject
+    inputTypeName: InsertCalendarExtensionPropertiesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_calendar_extension_properties_object
+      fieldMapping:
+        calendarId:
+          column:
+            name: calendar_id
+        id:
+          column:
+            name: id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCalendarExtensionPropertiesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendarId
+          - id
+          - key
+          - parameters
+          - values
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCalendarExtensionPropertiesResponse
+  description: Responses from the 'insert_calendar_extension_properties' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CalendarExtensionProperties!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertCalendarExtensionPropertiesResponse
+    inputTypeName: InsertCalendarExtensionPropertiesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_calendar_extension_properties_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCalendarExtensionPropertiesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertCalendarExtensionProperties
+  outputType: InsertCalendarExtensionPropertiesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertCalendarExtensionPropertiesObject!]!"
+    - name: postCheck
+      type: CalendarExtensionPropertiesBoolExp
+      description: Insert permission predicate over the
+        'calendar_extension_properties' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_calendar_extension_properties
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertCalendarExtensionProperties
+    rootFieldKind: Mutation
+  description: Insert into the calendar_extension_properties table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertCalendarExtensionProperties
+  permissions:
+    - role: admin
+      allowExecution: true
+

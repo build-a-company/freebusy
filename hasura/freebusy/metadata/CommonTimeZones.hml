@@ -1,0 +1,126 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: CommonTimeZones
+  fields:
+    - name: id
+      type: String_1!
+    - name: version
+      type: String_1
+  graphql:
+    typeName: CommonTimeZones
+    inputTypeName: CommonTimeZonesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: common_time_zones
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: CommonTimeZones
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - version
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: CommonTimeZonesBoolExp
+  operand:
+    object:
+      type: CommonTimeZones
+      comparableFields:
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: version
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: CommonTimeZonesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: CommonTimeZonesAggExp
+  operand:
+    object:
+      aggregatedType: CommonTimeZones
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: version
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: CommonTimeZonesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: CommonTimeZonesOrderByExp
+  operand:
+    object:
+      orderedType: CommonTimeZones
+      orderableFields:
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: version
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: CommonTimeZonesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: CommonTimeZones
+  objectType: CommonTimeZones
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: common_time_zones
+  filterExpressionType: CommonTimeZonesBoolExp
+  aggregateExpression: CommonTimeZonesAggExp
+  orderByExpression: CommonTimeZonesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: commonTimeZones
+      subscription:
+        rootField: commonTimeZones
+    selectUniques:
+      - queryRootField: commonTimeZonesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: commonTimeZonesById
+    filterInputTypeName: CommonTimeZonesFilterInput
+    aggregate:
+      queryRootField: commonTimeZonesAggregate
+      subscription:
+        rootField: commonTimeZonesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: CommonTimeZones
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

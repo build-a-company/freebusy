@@ -1,0 +1,157 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: JournalCalendarTimes
+  fields:
+    - name: date
+      type: Date
+    - name: dateTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: JournalCalendarTimes
+    inputTypeName: JournalCalendarTimesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: journal_calendar_times
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        id:
+          column:
+            name: id
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: JournalCalendarTimes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - id
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: JournalCalendarTimesBoolExp
+  operand:
+    object:
+      type: JournalCalendarTimes
+      comparableFields:
+        - fieldName: date
+          booleanExpressionType: DateBoolExp
+        - fieldName: dateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: JournalCalendarTimesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: JournalCalendarTimesAggExp
+  operand:
+    object:
+      aggregatedType: JournalCalendarTimes
+      aggregatableFields:
+        - fieldName: date
+          aggregateExpression: DateAggExp
+        - fieldName: dateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: JournalCalendarTimesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: JournalCalendarTimesOrderByExp
+  operand:
+    object:
+      orderedType: JournalCalendarTimes
+      orderableFields:
+        - fieldName: date
+          orderByExpression: DateOrderByExp
+        - fieldName: dateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: JournalCalendarTimesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: JournalCalendarTimes
+  objectType: JournalCalendarTimes
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: journal_calendar_times
+  filterExpressionType: JournalCalendarTimesBoolExp
+  aggregateExpression: JournalCalendarTimesAggExp
+  orderByExpression: JournalCalendarTimesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: journalCalendarTimes
+      subscription:
+        rootField: journalCalendarTimes
+    selectUniques:
+      - queryRootField: journalCalendarTimesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: journalCalendarTimesById
+    filterInputTypeName: JournalCalendarTimesFilterInput
+    aggregate:
+      queryRootField: journalCalendarTimesAggregate
+      subscription:
+        rootField: journalCalendarTimesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: JournalCalendarTimes
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteUserAttributesByIdResponse
+  description: Responses from the 'delete_user_attributes_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserAttributes!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteUserAttributesByIdResponse
+    inputTypeName: DeleteUserAttributesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_user_attributes_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteUserAttributesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteUserAttributesById
+  outputType: DeleteUserAttributesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: UserAttributesBoolExp
+      description: Delete permission predicate over the 'user_attributes' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_user_attributes_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteUserAttributesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'user_attributes' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteUserAttributesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

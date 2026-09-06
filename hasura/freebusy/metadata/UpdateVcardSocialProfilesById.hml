@@ -1,0 +1,458 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardSocialProfilesContactId
+  description: Update the 'contact_id' column in the 'vcard_social_profiles' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardSocialProfilesContactId
+    inputTypeName: UpdateColumnVcardSocialProfilesContactIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_social_profiles_contact_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardSocialProfilesContactId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardSocialProfilesId
+  description: Update the 'id' column in the 'vcard_social_profiles' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardSocialProfilesId
+    inputTypeName: UpdateColumnVcardSocialProfilesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_social_profiles_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardSocialProfilesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardSocialProfilesPref
+  description: Update the 'pref' column in the 'vcard_social_profiles' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardSocialProfilesPref
+    inputTypeName: UpdateColumnVcardSocialProfilesPrefInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_social_profiles_pref
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardSocialProfilesPref
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardSocialProfilesServiceType
+  description: Update the 'service_type' column in the 'vcard_social_profiles' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardSocialProfilesServiceType
+    inputTypeName: UpdateColumnVcardSocialProfilesServiceTypeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_social_profiles_service_type
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardSocialProfilesServiceType
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardSocialProfilesText
+  description: Update the 'text' column in the 'vcard_social_profiles' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardSocialProfilesText
+    inputTypeName: UpdateColumnVcardSocialProfilesTextInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_social_profiles_text
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardSocialProfilesText
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardSocialProfilesTypes
+  description: Update the 'types' column in the 'vcard_social_profiles' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardSocialProfilesTypes
+    inputTypeName: UpdateColumnVcardSocialProfilesTypesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_social_profiles_types
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardSocialProfilesTypes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardSocialProfilesUri
+  description: Update the 'uri' column in the 'vcard_social_profiles' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardSocialProfilesUri
+    inputTypeName: UpdateColumnVcardSocialProfilesUriInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_social_profiles_uri
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardSocialProfilesUri
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardSocialProfilesUsername
+  description: Update the 'username' column in the 'vcard_social_profiles' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardSocialProfilesUsername
+    inputTypeName: UpdateColumnVcardSocialProfilesUsernameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_social_profiles_username
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardSocialProfilesUsername
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardSocialProfilesValueCase
+  description: Update the 'value_case' column in the 'vcard_social_profiles' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardSocialProfilesValueCase
+    inputTypeName: UpdateColumnVcardSocialProfilesValueCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_social_profiles_value_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardSocialProfilesValueCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardSocialProfilesByIdUpdateColumns
+  description: Update the columns of the 'vcard_social_profiles' collection
+  fields:
+    - name: contactId
+      type: UpdateColumnVcardSocialProfilesContactId
+      description: Update the 'contact_id' column in the 'vcard_social_profiles' collection.
+    - name: id
+      type: UpdateColumnVcardSocialProfilesId
+      description: Update the 'id' column in the 'vcard_social_profiles' collection.
+    - name: pref
+      type: UpdateColumnVcardSocialProfilesPref
+      description: Update the 'pref' column in the 'vcard_social_profiles' collection.
+    - name: serviceType
+      type: UpdateColumnVcardSocialProfilesServiceType
+      description: Update the 'service_type' column in the 'vcard_social_profiles'
+        collection.
+    - name: text
+      type: UpdateColumnVcardSocialProfilesText
+      description: Update the 'text' column in the 'vcard_social_profiles' collection.
+    - name: types
+      type: UpdateColumnVcardSocialProfilesTypes
+      description: Update the 'types' column in the 'vcard_social_profiles' collection.
+    - name: uri
+      type: UpdateColumnVcardSocialProfilesUri
+      description: Update the 'uri' column in the 'vcard_social_profiles' collection.
+    - name: username
+      type: UpdateColumnVcardSocialProfilesUsername
+      description: Update the 'username' column in the 'vcard_social_profiles' collection.
+    - name: valueCase
+      type: UpdateColumnVcardSocialProfilesValueCase
+      description: Update the 'value_case' column in the 'vcard_social_profiles' collection.
+  graphql:
+    typeName: UpdateVcardSocialProfilesByIdUpdateColumns
+    inputTypeName: UpdateVcardSocialProfilesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_social_profiles_by_id_update_columns
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        serviceType:
+          column:
+            name: service_type
+        text:
+          column:
+            name: text
+        types:
+          column:
+            name: types
+        uri:
+          column:
+            name: uri
+        username:
+          column:
+            name: username
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardSocialProfilesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - serviceType
+          - text
+          - types
+          - uri
+          - username
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardSocialProfilesByIdResponse
+  description: Responses from the 'update_vcard_social_profiles_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardSocialProfiles!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardSocialProfilesByIdResponse
+    inputTypeName: UpdateVcardSocialProfilesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_social_profiles_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardSocialProfilesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardSocialProfilesById
+  outputType: UpdateVcardSocialProfilesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardSocialProfilesBoolExp
+      description: Update permission post-condition predicate over the
+        'vcard_social_profiles' collection
+    - name: preCheck
+      type: VcardSocialProfilesBoolExp
+      description: Update permission pre-condition predicate over the
+        'vcard_social_profiles' collection
+    - name: updateColumns
+      type: UpdateVcardSocialProfilesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_social_profiles_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardSocialProfilesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_social_profiles' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardSocialProfilesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

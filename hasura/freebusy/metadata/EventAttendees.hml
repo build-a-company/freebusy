@@ -1,0 +1,229 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventAttendees
+  fields:
+    - name: address
+      type: String_1!
+    - name: alarmId
+      type: String_1!
+    - name: delegatees
+      type: "[String_1]"
+    - name: delegators
+      type: "[String_1]"
+    - name: displayName
+      type: String_1
+    - name: eventId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: participation
+      type: String_1
+    - name: role
+      type: String_1
+    - name: rsvp
+      type: Boolean_1
+    - name: userType
+      type: String_1
+  graphql:
+    typeName: EventAttendees
+    inputTypeName: EventAttendeesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_attendees
+      fieldMapping:
+        address:
+          column:
+            name: address
+        alarmId:
+          column:
+            name: alarm_id
+        delegatees:
+          column:
+            name: delegatees
+        delegators:
+          column:
+            name: delegators
+        displayName:
+          column:
+            name: display_name
+        eventId:
+          column:
+            name: event_id
+        id:
+          column:
+            name: id
+        participation:
+          column:
+            name: participation
+        role:
+          column:
+            name: role
+        rsvp:
+          column:
+            name: rsvp
+        userType:
+          column:
+            name: user_type
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventAttendees
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - address
+          - alarmId
+          - delegatees
+          - delegators
+          - displayName
+          - eventId
+          - id
+          - participation
+          - role
+          - rsvp
+          - userType
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventAttendeesBoolExp
+  operand:
+    object:
+      type: EventAttendees
+      comparableFields:
+        - fieldName: address
+          booleanExpressionType: TextBoolExp
+        - fieldName: alarmId
+          booleanExpressionType: TextBoolExp
+        - fieldName: displayName
+          booleanExpressionType: TextBoolExp
+        - fieldName: eventId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: participation
+          booleanExpressionType: TextBoolExp
+        - fieldName: role
+          booleanExpressionType: TextBoolExp
+        - fieldName: rsvp
+          booleanExpressionType: BoolBoolExp
+        - fieldName: userType
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventAttendeesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventAttendeesAggExp
+  operand:
+    object:
+      aggregatedType: EventAttendees
+      aggregatableFields:
+        - fieldName: address
+          aggregateExpression: TextAggExp
+        - fieldName: alarmId
+          aggregateExpression: TextAggExp
+        - fieldName: displayName
+          aggregateExpression: TextAggExp
+        - fieldName: eventId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: participation
+          aggregateExpression: TextAggExp
+        - fieldName: role
+          aggregateExpression: TextAggExp
+        - fieldName: rsvp
+          aggregateExpression: BoolAggExp
+        - fieldName: userType
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventAttendeesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventAttendeesOrderByExp
+  operand:
+    object:
+      orderedType: EventAttendees
+      orderableFields:
+        - fieldName: address
+          orderByExpression: String1OrderByExp
+        - fieldName: alarmId
+          orderByExpression: String1OrderByExp
+        - fieldName: displayName
+          orderByExpression: String1OrderByExp
+        - fieldName: eventId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: participation
+          orderByExpression: String1OrderByExp
+        - fieldName: role
+          orderByExpression: String1OrderByExp
+        - fieldName: rsvp
+          orderByExpression: Boolean1OrderByExp
+        - fieldName: userType
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventAttendeesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventAttendees
+  objectType: EventAttendees
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_attendees
+  filterExpressionType: EventAttendeesBoolExp
+  aggregateExpression: EventAttendeesAggExp
+  orderByExpression: EventAttendeesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventAttendees
+      subscription:
+        rootField: eventAttendees
+    selectUniques:
+      - queryRootField: eventAttendeesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventAttendeesById
+    filterInputTypeName: EventAttendeesFilterInput
+    aggregate:
+      queryRootField: eventAttendeesAggregate
+      subscription:
+        rootField: eventAttendeesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventAttendees
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

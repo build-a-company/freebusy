@@ -1,0 +1,217 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventParticipants
+  fields:
+    - name: calendarAddress
+      type: String_1
+    - name: description
+      type: String_1
+    - name: eventId
+      type: String_1!
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: participantTypes
+      type: String_1!
+    - name: position
+      type: String_1
+    - name: summary
+      type: String_1
+    - name: url
+      type: String_1
+  graphql:
+    typeName: EventParticipants
+    inputTypeName: EventParticipantsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_participants
+      fieldMapping:
+        calendarAddress:
+          column:
+            name: calendar_address
+        description:
+          column:
+            name: description
+        eventId:
+          column:
+            name: event_id
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        participantTypes:
+          column:
+            name: participant_types
+        position:
+          column:
+            name: position
+        summary:
+          column:
+            name: summary
+        url:
+          column:
+            name: url
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventParticipants
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendarAddress
+          - description
+          - eventId
+          - icalUid
+          - id
+          - participantTypes
+          - position
+          - summary
+          - url
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventParticipantsBoolExp
+  operand:
+    object:
+      type: EventParticipants
+      comparableFields:
+        - fieldName: calendarAddress
+          booleanExpressionType: TextBoolExp
+        - fieldName: description
+          booleanExpressionType: TextBoolExp
+        - fieldName: eventId
+          booleanExpressionType: TextBoolExp
+        - fieldName: icalUid
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: participantTypes
+          booleanExpressionType: TextBoolExp
+        - fieldName: position
+          booleanExpressionType: TextBoolExp
+        - fieldName: summary
+          booleanExpressionType: TextBoolExp
+        - fieldName: url
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventParticipantsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventParticipantsAggExp
+  operand:
+    object:
+      aggregatedType: EventParticipants
+      aggregatableFields:
+        - fieldName: calendarAddress
+          aggregateExpression: TextAggExp
+        - fieldName: description
+          aggregateExpression: TextAggExp
+        - fieldName: eventId
+          aggregateExpression: TextAggExp
+        - fieldName: icalUid
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: participantTypes
+          aggregateExpression: TextAggExp
+        - fieldName: position
+          aggregateExpression: TextAggExp
+        - fieldName: summary
+          aggregateExpression: TextAggExp
+        - fieldName: url
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventParticipantsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventParticipantsOrderByExp
+  operand:
+    object:
+      orderedType: EventParticipants
+      orderableFields:
+        - fieldName: calendarAddress
+          orderByExpression: String1OrderByExp
+        - fieldName: description
+          orderByExpression: String1OrderByExp
+        - fieldName: eventId
+          orderByExpression: String1OrderByExp
+        - fieldName: icalUid
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: participantTypes
+          orderByExpression: String1OrderByExp
+        - fieldName: position
+          orderByExpression: String1OrderByExp
+        - fieldName: summary
+          orderByExpression: String1OrderByExp
+        - fieldName: url
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventParticipantsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventParticipants
+  objectType: EventParticipants
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_participants
+  filterExpressionType: EventParticipantsBoolExp
+  aggregateExpression: EventParticipantsAggExp
+  orderByExpression: EventParticipantsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventParticipants
+      subscription:
+        rootField: eventParticipants
+    selectUniques:
+      - queryRootField: eventParticipantsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventParticipantsById
+    filterInputTypeName: EventParticipantsFilterInput
+    aggregate:
+      queryRootField: eventParticipantsAggregate
+      subscription:
+        rootField: eventParticipantsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventParticipants
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

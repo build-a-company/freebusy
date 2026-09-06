@@ -1,0 +1,187 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardNames
+  fields:
+    - name: familyName
+      type: "[String_1]"
+    - name: generations
+      type: "[String_1]"
+    - name: givenName
+      type: "[String_1]"
+    - name: honorificPrefixes
+      type: "[String_1]"
+    - name: honorificSuffixes
+      type: "[String_1]"
+    - name: id
+      type: String_1!
+    - name: middleNames
+      type: "[String_1]"
+    - name: phonetic
+      type: String_1
+    - name: script
+      type: String_1
+    - name: secondarySurnames
+      type: "[String_1]"
+  graphql:
+    typeName: VcardNames
+    inputTypeName: VcardNamesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_names
+      fieldMapping:
+        familyName:
+          column:
+            name: family_name
+        generations:
+          column:
+            name: generations
+        givenName:
+          column:
+            name: given_name
+        honorificPrefixes:
+          column:
+            name: honorific_prefixes
+        honorificSuffixes:
+          column:
+            name: honorific_suffixes
+        id:
+          column:
+            name: id
+        middleNames:
+          column:
+            name: middle_names
+        phonetic:
+          column:
+            name: phonetic
+        script:
+          column:
+            name: script
+        secondarySurnames:
+          column:
+            name: secondary_surnames
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardNames
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - familyName
+          - generations
+          - givenName
+          - honorificPrefixes
+          - honorificSuffixes
+          - id
+          - middleNames
+          - phonetic
+          - script
+          - secondarySurnames
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardNamesBoolExp
+  operand:
+    object:
+      type: VcardNames
+      comparableFields:
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: phonetic
+          booleanExpressionType: TextBoolExp
+        - fieldName: script
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardNamesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardNamesAggExp
+  operand:
+    object:
+      aggregatedType: VcardNames
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: phonetic
+          aggregateExpression: TextAggExp
+        - fieldName: script
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardNamesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardNamesOrderByExp
+  operand:
+    object:
+      orderedType: VcardNames
+      orderableFields:
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: phonetic
+          orderByExpression: String1OrderByExp
+        - fieldName: script
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardNamesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardNames
+  objectType: VcardNames
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_names
+  filterExpressionType: VcardNamesBoolExp
+  aggregateExpression: VcardNamesAggExp
+  orderByExpression: VcardNamesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardNames
+      subscription:
+        rootField: vcardNames
+    selectUniques:
+      - queryRootField: vcardNamesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardNamesById
+    filterInputTypeName: VcardNamesFilterInput
+    aggregate:
+      queryRootField: vcardNamesAggregate
+      subscription:
+        rootField: vcardNamesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardNames
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

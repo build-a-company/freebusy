@@ -1,0 +1,418 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTelephonesContactId
+  description: Update the 'contact_id' column in the 'vcard_telephones' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTelephonesContactId
+    inputTypeName: UpdateColumnVcardTelephonesContactIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_telephones_contact_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTelephonesContactId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTelephonesFeatures
+  description: Update the 'features' column in the 'vcard_telephones' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTelephonesFeatures
+    inputTypeName: UpdateColumnVcardTelephonesFeaturesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_telephones_features
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTelephonesFeatures
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTelephonesId
+  description: Update the 'id' column in the 'vcard_telephones' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTelephonesId
+    inputTypeName: UpdateColumnVcardTelephonesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_telephones_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTelephonesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTelephonesPref
+  description: Update the 'pref' column in the 'vcard_telephones' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTelephonesPref
+    inputTypeName: UpdateColumnVcardTelephonesPrefInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_telephones_pref
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTelephonesPref
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTelephonesText
+  description: Update the 'text' column in the 'vcard_telephones' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTelephonesText
+    inputTypeName: UpdateColumnVcardTelephonesTextInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_telephones_text
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTelephonesText
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTelephonesTypes
+  description: Update the 'types' column in the 'vcard_telephones' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTelephonesTypes
+    inputTypeName: UpdateColumnVcardTelephonesTypesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_telephones_types
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTelephonesTypes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTelephonesUri
+  description: Update the 'uri' column in the 'vcard_telephones' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTelephonesUri
+    inputTypeName: UpdateColumnVcardTelephonesUriInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_telephones_uri
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTelephonesUri
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTelephonesValueCase
+  description: Update the 'value_case' column in the 'vcard_telephones' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTelephonesValueCase
+    inputTypeName: UpdateColumnVcardTelephonesValueCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_telephones_value_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTelephonesValueCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardTelephonesByIdUpdateColumns
+  description: Update the columns of the 'vcard_telephones' collection
+  fields:
+    - name: contactId
+      type: UpdateColumnVcardTelephonesContactId
+      description: Update the 'contact_id' column in the 'vcard_telephones' collection.
+    - name: features
+      type: UpdateColumnVcardTelephonesFeatures
+      description: Update the 'features' column in the 'vcard_telephones' collection.
+    - name: id
+      type: UpdateColumnVcardTelephonesId
+      description: Update the 'id' column in the 'vcard_telephones' collection.
+    - name: pref
+      type: UpdateColumnVcardTelephonesPref
+      description: Update the 'pref' column in the 'vcard_telephones' collection.
+    - name: text
+      type: UpdateColumnVcardTelephonesText
+      description: Update the 'text' column in the 'vcard_telephones' collection.
+    - name: types
+      type: UpdateColumnVcardTelephonesTypes
+      description: Update the 'types' column in the 'vcard_telephones' collection.
+    - name: uri
+      type: UpdateColumnVcardTelephonesUri
+      description: Update the 'uri' column in the 'vcard_telephones' collection.
+    - name: valueCase
+      type: UpdateColumnVcardTelephonesValueCase
+      description: Update the 'value_case' column in the 'vcard_telephones' collection.
+  graphql:
+    typeName: UpdateVcardTelephonesByIdUpdateColumns
+    inputTypeName: UpdateVcardTelephonesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_telephones_by_id_update_columns
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        features:
+          column:
+            name: features
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        text:
+          column:
+            name: text
+        types:
+          column:
+            name: types
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardTelephonesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - features
+          - id
+          - pref
+          - text
+          - types
+          - uri
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardTelephonesByIdResponse
+  description: Responses from the 'update_vcard_telephones_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardTelephones!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardTelephonesByIdResponse
+    inputTypeName: UpdateVcardTelephonesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_telephones_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardTelephonesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardTelephonesById
+  outputType: UpdateVcardTelephonesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardTelephonesBoolExp
+      description: Update permission post-condition predicate over the
+        'vcard_telephones' collection
+    - name: preCheck
+      type: VcardTelephonesBoolExp
+      description: Update permission pre-condition predicate over the
+        'vcard_telephones' collection
+    - name: updateColumns
+      type: UpdateVcardTelephonesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_telephones_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardTelephonesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_telephones' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardTelephonesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

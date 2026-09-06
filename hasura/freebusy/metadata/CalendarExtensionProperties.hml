@@ -1,0 +1,163 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: CalendarExtensionProperties
+  fields:
+    - name: calendarId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: key
+      type: String_1!
+    - name: parameters
+      type: Json
+    - name: values
+      type: "[String_1]"
+  graphql:
+    typeName: CalendarExtensionProperties
+    inputTypeName: CalendarExtensionPropertiesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: calendar_extension_properties
+      fieldMapping:
+        calendarId:
+          column:
+            name: calendar_id
+        id:
+          column:
+            name: id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: CalendarExtensionProperties
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendarId
+          - id
+          - key
+          - parameters
+          - values
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: CalendarExtensionPropertiesBoolExp
+  operand:
+    object:
+      type: CalendarExtensionProperties
+      comparableFields:
+        - fieldName: calendarId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: key
+          booleanExpressionType: TextBoolExp
+        - fieldName: parameters
+          booleanExpressionType: JsonbBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: CalendarExtensionPropertiesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: CalendarExtensionPropertiesAggExp
+  operand:
+    object:
+      aggregatedType: CalendarExtensionProperties
+      aggregatableFields:
+        - fieldName: calendarId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: key
+          aggregateExpression: TextAggExp
+        - fieldName: parameters
+          aggregateExpression: JsonbAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: CalendarExtensionPropertiesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: CalendarExtensionPropertiesOrderByExp
+  operand:
+    object:
+      orderedType: CalendarExtensionProperties
+      orderableFields:
+        - fieldName: calendarId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: key
+          orderByExpression: String1OrderByExp
+        - fieldName: parameters
+          orderByExpression: JsonOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: CalendarExtensionPropertiesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: CalendarExtensionProperties
+  objectType: CalendarExtensionProperties
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: calendar_extension_properties
+  filterExpressionType: CalendarExtensionPropertiesBoolExp
+  aggregateExpression: CalendarExtensionPropertiesAggExp
+  orderByExpression: CalendarExtensionPropertiesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: calendarExtensionProperties
+      subscription:
+        rootField: calendarExtensionProperties
+    selectUniques:
+      - queryRootField: calendarExtensionPropertiesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: calendarExtensionPropertiesById
+    filterInputTypeName: CalendarExtensionPropertiesFilterInput
+    aggregate:
+      queryRootField: calendarExtensionPropertiesAggregate
+      subscription:
+        rootField: calendarExtensionPropertiesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: CalendarExtensionProperties
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

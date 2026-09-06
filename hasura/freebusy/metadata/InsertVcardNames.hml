@@ -1,0 +1,156 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardNamesObject
+  fields:
+    - name: familyName
+      type: "[String_1]"
+    - name: generations
+      type: "[String_1]"
+    - name: givenName
+      type: "[String_1]"
+    - name: honorificPrefixes
+      type: "[String_1]"
+    - name: honorificSuffixes
+      type: "[String_1]"
+    - name: id
+      type: String_1!
+    - name: middleNames
+      type: "[String_1]"
+    - name: phonetic
+      type: String_1
+    - name: script
+      type: String_1
+    - name: secondarySurnames
+      type: "[String_1]"
+  graphql:
+    typeName: InsertVcardNamesObject
+    inputTypeName: InsertVcardNamesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_names_object
+      fieldMapping:
+        familyName:
+          column:
+            name: family_name
+        generations:
+          column:
+            name: generations
+        givenName:
+          column:
+            name: given_name
+        honorificPrefixes:
+          column:
+            name: honorific_prefixes
+        honorificSuffixes:
+          column:
+            name: honorific_suffixes
+        id:
+          column:
+            name: id
+        middleNames:
+          column:
+            name: middle_names
+        phonetic:
+          column:
+            name: phonetic
+        script:
+          column:
+            name: script
+        secondarySurnames:
+          column:
+            name: secondary_surnames
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardNamesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - familyName
+          - generations
+          - givenName
+          - honorificPrefixes
+          - honorificSuffixes
+          - id
+          - middleNames
+          - phonetic
+          - script
+          - secondarySurnames
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardNamesResponse
+  description: Responses from the 'insert_vcard_names' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardNames!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertVcardNamesResponse
+    inputTypeName: InsertVcardNamesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_names_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardNamesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertVcardNames
+  outputType: InsertVcardNamesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertVcardNamesObject!]!"
+    - name: postCheck
+      type: VcardNamesBoolExp
+      description: Insert permission predicate over the 'vcard_names' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_vcard_names
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertVcardNames
+    rootFieldKind: Mutation
+  description: Insert into the vcard_names table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertVcardNames
+  permissions:
+    - role: admin
+      allowExecution: true
+

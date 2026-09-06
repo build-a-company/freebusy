@@ -1,0 +1,74 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteResourceStructuredDatasByIdResponse
+  description: Responses from the 'delete_resource_structured_datas_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[ResourceStructuredDatas!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteResourceStructuredDatasByIdResponse
+    inputTypeName: DeleteResourceStructuredDatasByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_resource_structured_datas_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteResourceStructuredDatasByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteResourceStructuredDatasById
+  outputType: DeleteResourceStructuredDatasByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: ResourceStructuredDatasBoolExp
+      description: Delete permission predicate over the 'resource_structured_datas'
+        collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_resource_structured_datas_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteResourceStructuredDatasById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'resource_structured_datas' collection using
+    the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteResourceStructuredDatasById
+  permissions:
+    - role: admin
+      allowExecution: true
+

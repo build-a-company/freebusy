@@ -1,0 +1,74 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteAvailabilityAvailabilitiesByIdResponse
+  description: Responses from the 'delete_availability_availabilities_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[AvailabilityAvailabilities!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteAvailabilityAvailabilitiesByIdResponse
+    inputTypeName: DeleteAvailabilityAvailabilitiesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_availability_availabilities_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteAvailabilityAvailabilitiesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteAvailabilityAvailabilitiesById
+  outputType: DeleteAvailabilityAvailabilitiesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: AvailabilityAvailabilitiesBoolExp
+      description: Delete permission predicate over the 'availability_availabilities'
+        collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_availability_availabilities_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteAvailabilityAvailabilitiesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'availability_availabilities' collection
+    using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteAvailabilityAvailabilitiesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

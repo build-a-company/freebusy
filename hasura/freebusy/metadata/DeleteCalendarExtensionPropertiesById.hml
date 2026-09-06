@@ -1,0 +1,74 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteCalendarExtensionPropertiesByIdResponse
+  description: Responses from the 'delete_calendar_extension_properties_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CalendarExtensionProperties!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteCalendarExtensionPropertiesByIdResponse
+    inputTypeName: DeleteCalendarExtensionPropertiesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_calendar_extension_properties_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteCalendarExtensionPropertiesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteCalendarExtensionPropertiesById
+  outputType: DeleteCalendarExtensionPropertiesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: CalendarExtensionPropertiesBoolExp
+      description: Delete permission predicate over the
+        'calendar_extension_properties' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_calendar_extension_properties_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteCalendarExtensionPropertiesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'calendar_extension_properties' collection
+    using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteCalendarExtensionPropertiesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

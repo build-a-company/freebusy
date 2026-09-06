@@ -1,0 +1,157 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UserManagers
+  fields:
+    - name: displayName
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: referenceUri
+      type: String_1
+    - name: value
+      type: String_1
+  graphql:
+    typeName: UserManagers
+    inputTypeName: UserManagersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: user_managers
+      fieldMapping:
+        displayName:
+          column:
+            name: display_name
+        id:
+          column:
+            name: id
+        referenceUri:
+          column:
+            name: reference_uri
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UserManagers
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - displayName
+          - id
+          - referenceUri
+          - value
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: UserManagersBoolExp
+  operand:
+    object:
+      type: UserManagers
+      comparableFields:
+        - fieldName: displayName
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: referenceUri
+          booleanExpressionType: TextBoolExp
+        - fieldName: value
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: UserManagersBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: UserManagersAggExp
+  operand:
+    object:
+      aggregatedType: UserManagers
+      aggregatableFields:
+        - fieldName: displayName
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: referenceUri
+          aggregateExpression: TextAggExp
+        - fieldName: value
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: UserManagersAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: UserManagersOrderByExp
+  operand:
+    object:
+      orderedType: UserManagers
+      orderableFields:
+        - fieldName: displayName
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: referenceUri
+          orderByExpression: String1OrderByExp
+        - fieldName: value
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: UserManagersOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: UserManagers
+  objectType: UserManagers
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: user_managers
+  filterExpressionType: UserManagersBoolExp
+  aggregateExpression: UserManagersAggExp
+  orderByExpression: UserManagersOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: userManagers
+      subscription:
+        rootField: userManagers
+    selectUniques:
+      - queryRootField: userManagersById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: userManagersById
+    filterInputTypeName: UserManagersFilterInput
+    aggregate:
+      queryRootField: userManagersAggregate
+      subscription:
+        rootField: userManagersAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: UserManagers
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

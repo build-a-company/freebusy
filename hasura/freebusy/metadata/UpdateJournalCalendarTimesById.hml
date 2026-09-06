@@ -1,0 +1,263 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalCalendarTimesDate
+  description: Update the 'date' column in the 'journal_calendar_times' collection
+  fields:
+    - name: set
+      type: Date
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalCalendarTimesDate
+    inputTypeName: UpdateColumnJournalCalendarTimesDateInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_calendar_times_date
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalCalendarTimesDate
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalCalendarTimesDateTime
+  description: Update the 'date_time' column in the 'journal_calendar_times' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalCalendarTimesDateTime
+    inputTypeName: UpdateColumnJournalCalendarTimesDateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_calendar_times_date_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalCalendarTimesDateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalCalendarTimesId
+  description: Update the 'id' column in the 'journal_calendar_times' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalCalendarTimesId
+    inputTypeName: UpdateColumnJournalCalendarTimesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_calendar_times_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalCalendarTimesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalCalendarTimesValueCase
+  description: Update the 'value_case' column in the 'journal_calendar_times' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalCalendarTimesValueCase
+    inputTypeName: UpdateColumnJournalCalendarTimesValueCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_calendar_times_value_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalCalendarTimesValueCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateJournalCalendarTimesByIdUpdateColumns
+  description: Update the columns of the 'journal_calendar_times' collection
+  fields:
+    - name: date
+      type: UpdateColumnJournalCalendarTimesDate
+      description: Update the 'date' column in the 'journal_calendar_times' collection.
+    - name: dateTime
+      type: UpdateColumnJournalCalendarTimesDateTime
+      description: Update the 'date_time' column in the 'journal_calendar_times' collection.
+    - name: id
+      type: UpdateColumnJournalCalendarTimesId
+      description: Update the 'id' column in the 'journal_calendar_times' collection.
+    - name: valueCase
+      type: UpdateColumnJournalCalendarTimesValueCase
+      description: Update the 'value_case' column in the 'journal_calendar_times'
+        collection.
+  graphql:
+    typeName: UpdateJournalCalendarTimesByIdUpdateColumns
+    inputTypeName: UpdateJournalCalendarTimesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_journal_calendar_times_by_id_update_columns
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        id:
+          column:
+            name: id
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateJournalCalendarTimesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - id
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateJournalCalendarTimesByIdResponse
+  description: Responses from the 'update_journal_calendar_times_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[JournalCalendarTimes!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateJournalCalendarTimesByIdResponse
+    inputTypeName: UpdateJournalCalendarTimesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_journal_calendar_times_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateJournalCalendarTimesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateJournalCalendarTimesById
+  outputType: UpdateJournalCalendarTimesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: JournalCalendarTimesBoolExp
+      description: Update permission post-condition predicate over the
+        'journal_calendar_times' collection
+    - name: preCheck
+      type: JournalCalendarTimesBoolExp
+      description: Update permission pre-condition predicate over the
+        'journal_calendar_times' collection
+    - name: updateColumns
+      type: UpdateJournalCalendarTimesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_journal_calendar_times_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateJournalCalendarTimesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'journal_calendar_times' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateJournalCalendarTimesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

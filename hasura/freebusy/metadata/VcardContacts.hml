@@ -1,0 +1,205 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardContacts
+  fields:
+    - name: anniversaryId
+      type: String_1
+    - name: birthdayId
+      type: String_1
+    - name: categories
+      type: "[String_1]"
+    - name: defaultLanguageCode
+      type: String_1
+    - name: displayNames
+      type: "[String_1]!"
+    - name: id
+      type: String_1!
+    - name: kind
+      type: String_1
+    - name: nameComponentsId
+      type: String_1
+    - name: notes
+      type: "[String_1]"
+    - name: titles
+      type: "[String_1]"
+  graphql:
+    typeName: VcardContacts
+    inputTypeName: VcardContactsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_contacts
+      fieldMapping:
+        anniversaryId:
+          column:
+            name: anniversary_id
+        birthdayId:
+          column:
+            name: birthday_id
+        categories:
+          column:
+            name: categories
+        defaultLanguageCode:
+          column:
+            name: default_language_code
+        displayNames:
+          column:
+            name: display_names
+        id:
+          column:
+            name: id
+        kind:
+          column:
+            name: kind
+        nameComponentsId:
+          column:
+            name: name_components_id
+        notes:
+          column:
+            name: notes
+        titles:
+          column:
+            name: titles
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardContacts
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - anniversaryId
+          - birthdayId
+          - categories
+          - defaultLanguageCode
+          - displayNames
+          - id
+          - kind
+          - nameComponentsId
+          - notes
+          - titles
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardContactsBoolExp
+  operand:
+    object:
+      type: VcardContacts
+      comparableFields:
+        - fieldName: anniversaryId
+          booleanExpressionType: TextBoolExp
+        - fieldName: birthdayId
+          booleanExpressionType: TextBoolExp
+        - fieldName: defaultLanguageCode
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: kind
+          booleanExpressionType: TextBoolExp
+        - fieldName: nameComponentsId
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardContactsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardContactsAggExp
+  operand:
+    object:
+      aggregatedType: VcardContacts
+      aggregatableFields:
+        - fieldName: anniversaryId
+          aggregateExpression: TextAggExp
+        - fieldName: birthdayId
+          aggregateExpression: TextAggExp
+        - fieldName: defaultLanguageCode
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: kind
+          aggregateExpression: TextAggExp
+        - fieldName: nameComponentsId
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardContactsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardContactsOrderByExp
+  operand:
+    object:
+      orderedType: VcardContacts
+      orderableFields:
+        - fieldName: anniversaryId
+          orderByExpression: String1OrderByExp
+        - fieldName: birthdayId
+          orderByExpression: String1OrderByExp
+        - fieldName: defaultLanguageCode
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: kind
+          orderByExpression: String1OrderByExp
+        - fieldName: nameComponentsId
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardContactsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardContacts
+  objectType: VcardContacts
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_contacts
+  filterExpressionType: VcardContactsBoolExp
+  aggregateExpression: VcardContactsAggExp
+  orderByExpression: VcardContactsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardContacts
+      subscription:
+        rootField: vcardContacts
+    selectUniques:
+      - queryRootField: vcardContactsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardContactsById
+    filterInputTypeName: VcardContactsFilterInput
+    aggregate:
+      queryRootField: vcardContactsAggregate
+      subscription:
+        rootField: vcardContactsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardContacts
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteVcardEmailsByIdResponse
+  description: Responses from the 'delete_vcard_emails_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardEmails!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteVcardEmailsByIdResponse
+    inputTypeName: DeleteVcardEmailsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_vcard_emails_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteVcardEmailsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteVcardEmailsById
+  outputType: DeleteVcardEmailsByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: VcardEmailsBoolExp
+      description: Delete permission predicate over the 'vcard_emails' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_vcard_emails_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteVcardEmailsById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'vcard_emails' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteVcardEmailsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

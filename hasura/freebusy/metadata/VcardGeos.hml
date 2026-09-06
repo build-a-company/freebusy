@@ -1,0 +1,169 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardGeos
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: pref
+      type: Int32
+    - name: types
+      type: String_1
+    - name: value
+      type: String_1!
+  graphql:
+    typeName: VcardGeos
+    inputTypeName: VcardGeosInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_geos
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        types:
+          column:
+            name: types
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardGeos
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - types
+          - value
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardGeosBoolExp
+  operand:
+    object:
+      type: VcardGeos
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: pref
+          booleanExpressionType: Int4BoolExp
+        - fieldName: types
+          booleanExpressionType: TextBoolExp
+        - fieldName: value
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardGeosBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardGeosAggExp
+  operand:
+    object:
+      aggregatedType: VcardGeos
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: pref
+          aggregateExpression: Int4AggExp
+        - fieldName: types
+          aggregateExpression: TextAggExp
+        - fieldName: value
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardGeosAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardGeosOrderByExp
+  operand:
+    object:
+      orderedType: VcardGeos
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: pref
+          orderByExpression: Int32OrderByExp
+        - fieldName: types
+          orderByExpression: String1OrderByExp
+        - fieldName: value
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardGeosOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardGeos
+  objectType: VcardGeos
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_geos
+  filterExpressionType: VcardGeosBoolExp
+  aggregateExpression: VcardGeosAggExp
+  orderByExpression: VcardGeosOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardGeos
+      subscription:
+        rootField: vcardGeos
+    selectUniques:
+      - queryRootField: vcardGeosById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardGeosById
+    filterInputTypeName: VcardGeosFilterInput
+    aggregate:
+      queryRootField: vcardGeosAggregate
+      subscription:
+        rootField: vcardGeosAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardGeos
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

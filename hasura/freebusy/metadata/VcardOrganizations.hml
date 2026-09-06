@@ -1,0 +1,163 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardOrganizations
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: types
+      type: String_1
+    - name: units
+      type: "[String_1]"
+    - name: value
+      type: String_1!
+  graphql:
+    typeName: VcardOrganizations
+    inputTypeName: VcardOrganizationsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_organizations
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        types:
+          column:
+            name: types
+        units:
+          column:
+            name: units
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardOrganizations
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - types
+          - units
+          - value
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardOrganizationsBoolExp
+  operand:
+    object:
+      type: VcardOrganizations
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: types
+          booleanExpressionType: TextBoolExp
+        - fieldName: value
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardOrganizationsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardOrganizationsAggExp
+  operand:
+    object:
+      aggregatedType: VcardOrganizations
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: types
+          aggregateExpression: TextAggExp
+        - fieldName: value
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardOrganizationsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardOrganizationsOrderByExp
+  operand:
+    object:
+      orderedType: VcardOrganizations
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: types
+          orderByExpression: String1OrderByExp
+        - fieldName: value
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardOrganizationsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardOrganizations
+  objectType: VcardOrganizations
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_organizations
+  filterExpressionType: VcardOrganizationsBoolExp
+  aggregateExpression: VcardOrganizationsAggExp
+  orderByExpression: VcardOrganizationsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardOrganizations
+      subscription:
+        rootField: vcardOrganizations
+    selectUniques:
+      - queryRootField: vcardOrganizationsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardOrganizationsById
+    filterInputTypeName: VcardOrganizationsFilterInput
+    aggregate:
+      queryRootField: vcardOrganizationsAggregate
+      subscription:
+        rootField: vcardOrganizationsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardOrganizations
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

@@ -1,0 +1,157 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventWeekdayNums
+  fields:
+    - name: day
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: ordinal
+      type: Int32
+    - name: recurrenceId
+      type: String_1!
+  graphql:
+    typeName: EventWeekdayNums
+    inputTypeName: EventWeekdayNumsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_weekday_nums
+      fieldMapping:
+        day:
+          column:
+            name: day
+        id:
+          column:
+            name: id
+        ordinal:
+          column:
+            name: ordinal
+        recurrenceId:
+          column:
+            name: recurrence_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventWeekdayNums
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - day
+          - id
+          - ordinal
+          - recurrenceId
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventWeekdayNumsBoolExp
+  operand:
+    object:
+      type: EventWeekdayNums
+      comparableFields:
+        - fieldName: day
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: ordinal
+          booleanExpressionType: Int4BoolExp
+        - fieldName: recurrenceId
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventWeekdayNumsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventWeekdayNumsAggExp
+  operand:
+    object:
+      aggregatedType: EventWeekdayNums
+      aggregatableFields:
+        - fieldName: day
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: ordinal
+          aggregateExpression: Int4AggExp
+        - fieldName: recurrenceId
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventWeekdayNumsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventWeekdayNumsOrderByExp
+  operand:
+    object:
+      orderedType: EventWeekdayNums
+      orderableFields:
+        - fieldName: day
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: ordinal
+          orderByExpression: Int32OrderByExp
+        - fieldName: recurrenceId
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventWeekdayNumsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventWeekdayNums
+  objectType: EventWeekdayNums
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_weekday_nums
+  filterExpressionType: EventWeekdayNumsBoolExp
+  aggregateExpression: EventWeekdayNumsAggExp
+  orderByExpression: EventWeekdayNumsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventWeekdayNums
+      subscription:
+        rootField: eventWeekdayNums
+    selectUniques:
+      - queryRootField: eventWeekdayNumsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventWeekdayNumsById
+    filterInputTypeName: EventWeekdayNumsFilterInput
+    aggregate:
+      queryRootField: eventWeekdayNumsAggregate
+      subscription:
+        rootField: eventWeekdayNumsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventWeekdayNums
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

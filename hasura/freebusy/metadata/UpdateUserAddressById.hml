@@ -1,0 +1,496 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAddressAttributeType
+  description: Update the 'attribute_type' column in the 'user_address' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAddressAttributeType
+    inputTypeName: UpdateColumnUserAddressAttributeTypeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_address_attribute_type
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAddressAttributeType
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAddressFullAddress
+  description: Update the 'full_address' column in the 'user_address' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAddressFullAddress
+    inputTypeName: UpdateColumnUserAddressFullAddressInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_address_full_address
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAddressFullAddress
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAddressId
+  description: Update the 'id' column in the 'user_address' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAddressId
+    inputTypeName: UpdateColumnUserAddressIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_address_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAddressId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAddressLocality
+  description: Update the 'locality' column in the 'user_address' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAddressLocality
+    inputTypeName: UpdateColumnUserAddressLocalityInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_address_locality
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAddressLocality
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAddressPostalCode
+  description: Update the 'postal_code' column in the 'user_address' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAddressPostalCode
+    inputTypeName: UpdateColumnUserAddressPostalCodeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_address_postal_code
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAddressPostalCode
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAddressPrimary
+  description: Update the 'primary' column in the 'user_address' collection
+  fields:
+    - name: set
+      type: Boolean_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAddressPrimary
+    inputTypeName: UpdateColumnUserAddressPrimaryInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_address_primary
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAddressPrimary
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAddressRegion
+  description: Update the 'region' column in the 'user_address' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAddressRegion
+    inputTypeName: UpdateColumnUserAddressRegionInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_address_region
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAddressRegion
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAddressRegionCode
+  description: Update the 'region_code' column in the 'user_address' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAddressRegionCode
+    inputTypeName: UpdateColumnUserAddressRegionCodeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_address_region_code
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAddressRegionCode
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAddressStreetAddress
+  description: Update the 'street_address' column in the 'user_address' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAddressStreetAddress
+    inputTypeName: UpdateColumnUserAddressStreetAddressInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_address_street_address
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAddressStreetAddress
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAddressUserId
+  description: Update the 'user_id' column in the 'user_address' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAddressUserId
+    inputTypeName: UpdateColumnUserAddressUserIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_address_user_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAddressUserId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateUserAddressByIdUpdateColumns
+  description: Update the columns of the 'user_address' collection
+  fields:
+    - name: attributeType
+      type: UpdateColumnUserAddressAttributeType
+      description: Update the 'attribute_type' column in the 'user_address' collection.
+    - name: fullAddress
+      type: UpdateColumnUserAddressFullAddress
+      description: Update the 'full_address' column in the 'user_address' collection.
+    - name: id
+      type: UpdateColumnUserAddressId
+      description: Update the 'id' column in the 'user_address' collection.
+    - name: locality
+      type: UpdateColumnUserAddressLocality
+      description: Update the 'locality' column in the 'user_address' collection.
+    - name: postalCode
+      type: UpdateColumnUserAddressPostalCode
+      description: Update the 'postal_code' column in the 'user_address' collection.
+    - name: primary
+      type: UpdateColumnUserAddressPrimary
+      description: Update the 'primary' column in the 'user_address' collection.
+    - name: region
+      type: UpdateColumnUserAddressRegion
+      description: Update the 'region' column in the 'user_address' collection.
+    - name: regionCode
+      type: UpdateColumnUserAddressRegionCode
+      description: Update the 'region_code' column in the 'user_address' collection.
+    - name: streetAddress
+      type: UpdateColumnUserAddressStreetAddress
+      description: Update the 'street_address' column in the 'user_address' collection.
+    - name: userId
+      type: UpdateColumnUserAddressUserId
+      description: Update the 'user_id' column in the 'user_address' collection.
+  graphql:
+    typeName: UpdateUserAddressByIdUpdateColumns
+    inputTypeName: UpdateUserAddressByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_user_address_by_id_update_columns
+      fieldMapping:
+        attributeType:
+          column:
+            name: attribute_type
+        fullAddress:
+          column:
+            name: full_address
+        id:
+          column:
+            name: id
+        locality:
+          column:
+            name: locality
+        postalCode:
+          column:
+            name: postal_code
+        primary:
+          column:
+            name: primary
+        region:
+          column:
+            name: region
+        regionCode:
+          column:
+            name: region_code
+        streetAddress:
+          column:
+            name: street_address
+        userId:
+          column:
+            name: user_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateUserAddressByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - attributeType
+          - fullAddress
+          - id
+          - locality
+          - postalCode
+          - primary
+          - region
+          - regionCode
+          - streetAddress
+          - userId
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateUserAddressByIdResponse
+  description: Responses from the 'update_user_address_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserAddress!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateUserAddressByIdResponse
+    inputTypeName: UpdateUserAddressByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_user_address_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateUserAddressByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateUserAddressById
+  outputType: UpdateUserAddressByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: UserAddressBoolExp
+      description: Update permission post-condition predicate over the 'user_address'
+        collection
+    - name: preCheck
+      type: UserAddressBoolExp
+      description: Update permission pre-condition predicate over the 'user_address'
+        collection
+    - name: updateColumns
+      type: UpdateUserAddressByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_user_address_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateUserAddressById
+    rootFieldKind: Mutation
+  description: Update any row on the 'user_address' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateUserAddressById
+  permissions:
+    - role: admin
+      allowExecution: true
+

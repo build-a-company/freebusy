@@ -1,0 +1,163 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventExtensionProperties
+  fields:
+    - name: eventId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: key
+      type: String_1!
+    - name: parameters
+      type: Json
+    - name: values
+      type: "[String_1]"
+  graphql:
+    typeName: EventExtensionProperties
+    inputTypeName: EventExtensionPropertiesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_extension_properties
+      fieldMapping:
+        eventId:
+          column:
+            name: event_id
+        id:
+          column:
+            name: id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventExtensionProperties
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - eventId
+          - id
+          - key
+          - parameters
+          - values
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventExtensionPropertiesBoolExp
+  operand:
+    object:
+      type: EventExtensionProperties
+      comparableFields:
+        - fieldName: eventId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: key
+          booleanExpressionType: TextBoolExp
+        - fieldName: parameters
+          booleanExpressionType: JsonbBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventExtensionPropertiesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventExtensionPropertiesAggExp
+  operand:
+    object:
+      aggregatedType: EventExtensionProperties
+      aggregatableFields:
+        - fieldName: eventId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: key
+          aggregateExpression: TextAggExp
+        - fieldName: parameters
+          aggregateExpression: JsonbAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventExtensionPropertiesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventExtensionPropertiesOrderByExp
+  operand:
+    object:
+      orderedType: EventExtensionProperties
+      orderableFields:
+        - fieldName: eventId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: key
+          orderByExpression: String1OrderByExp
+        - fieldName: parameters
+          orderByExpression: JsonOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventExtensionPropertiesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventExtensionProperties
+  objectType: EventExtensionProperties
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_extension_properties
+  filterExpressionType: EventExtensionPropertiesBoolExp
+  aggregateExpression: EventExtensionPropertiesAggExp
+  orderByExpression: EventExtensionPropertiesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventExtensionProperties
+      subscription:
+        rootField: eventExtensionProperties
+    selectUniques:
+      - queryRootField: eventExtensionPropertiesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventExtensionPropertiesById
+    filterInputTypeName: EventExtensionPropertiesFilterInput
+    aggregate:
+      queryRootField: eventExtensionPropertiesAggregate
+      subscription:
+        rootField: eventExtensionPropertiesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventExtensionProperties
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

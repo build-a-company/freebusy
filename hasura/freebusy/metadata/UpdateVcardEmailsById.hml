@@ -1,0 +1,301 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardEmailsContactId
+  description: Update the 'contact_id' column in the 'vcard_emails' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardEmailsContactId
+    inputTypeName: UpdateColumnVcardEmailsContactIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_emails_contact_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardEmailsContactId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardEmailsId
+  description: Update the 'id' column in the 'vcard_emails' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardEmailsId
+    inputTypeName: UpdateColumnVcardEmailsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_emails_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardEmailsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardEmailsPref
+  description: Update the 'pref' column in the 'vcard_emails' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardEmailsPref
+    inputTypeName: UpdateColumnVcardEmailsPrefInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_emails_pref
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardEmailsPref
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardEmailsTypes
+  description: Update the 'types' column in the 'vcard_emails' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardEmailsTypes
+    inputTypeName: UpdateColumnVcardEmailsTypesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_emails_types
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardEmailsTypes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardEmailsValue
+  description: Update the 'value' column in the 'vcard_emails' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardEmailsValue
+    inputTypeName: UpdateColumnVcardEmailsValueInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_emails_value
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardEmailsValue
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardEmailsByIdUpdateColumns
+  description: Update the columns of the 'vcard_emails' collection
+  fields:
+    - name: contactId
+      type: UpdateColumnVcardEmailsContactId
+      description: Update the 'contact_id' column in the 'vcard_emails' collection.
+    - name: id
+      type: UpdateColumnVcardEmailsId
+      description: Update the 'id' column in the 'vcard_emails' collection.
+    - name: pref
+      type: UpdateColumnVcardEmailsPref
+      description: Update the 'pref' column in the 'vcard_emails' collection.
+    - name: types
+      type: UpdateColumnVcardEmailsTypes
+      description: Update the 'types' column in the 'vcard_emails' collection.
+    - name: value
+      type: UpdateColumnVcardEmailsValue
+      description: Update the 'value' column in the 'vcard_emails' collection.
+  graphql:
+    typeName: UpdateVcardEmailsByIdUpdateColumns
+    inputTypeName: UpdateVcardEmailsByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_emails_by_id_update_columns
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        types:
+          column:
+            name: types
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardEmailsByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - types
+          - value
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardEmailsByIdResponse
+  description: Responses from the 'update_vcard_emails_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardEmails!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardEmailsByIdResponse
+    inputTypeName: UpdateVcardEmailsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_emails_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardEmailsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardEmailsById
+  outputType: UpdateVcardEmailsByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardEmailsBoolExp
+      description: Update permission post-condition predicate over the 'vcard_emails'
+        collection
+    - name: preCheck
+      type: VcardEmailsBoolExp
+      description: Update permission pre-condition predicate over the 'vcard_emails'
+        collection
+    - name: updateColumns
+      type: UpdateVcardEmailsByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_emails_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardEmailsById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_emails' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardEmailsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

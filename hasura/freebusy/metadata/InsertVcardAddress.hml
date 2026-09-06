@@ -1,0 +1,246 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardAddressObject
+  fields:
+    - name: apartments
+      type: "[String_1]"
+    - name: blocks
+      type: "[String_1]"
+    - name: buildings
+      type: "[String_1]"
+    - name: contactId
+      type: String_1!
+    - name: countries
+      type: "[String_1]"
+    - name: directions
+      type: "[String_1]"
+    - name: districts
+      type: "[String_1]"
+    - name: extendedAddresses
+      type: "[String_1]"
+    - name: floors
+      type: "[String_1]"
+    - name: id
+      type: String_1!
+    - name: label
+      type: String_1
+    - name: landmarks
+      type: "[String_1]"
+    - name: localities
+      type: "[String_1]"
+    - name: phonetic
+      type: String_1
+    - name: postOfficeBox
+      type: "[String_1]"
+    - name: postalCodes
+      type: "[String_1]"
+    - name: pref
+      type: Int32
+    - name: regions
+      type: "[String_1]"
+    - name: rooms
+      type: "[String_1]"
+    - name: script
+      type: String_1
+    - name: streetAddresses
+      type: "[String_1]"
+    - name: streetNumbers
+      type: "[String_1]"
+    - name: streets
+      type: "[String_1]"
+    - name: subdistricts
+      type: "[String_1]"
+    - name: types
+      type: String_1
+  graphql:
+    typeName: InsertVcardAddressObject
+    inputTypeName: InsertVcardAddressObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_address_object
+      fieldMapping:
+        apartments:
+          column:
+            name: apartments
+        blocks:
+          column:
+            name: blocks
+        buildings:
+          column:
+            name: buildings
+        contactId:
+          column:
+            name: contact_id
+        countries:
+          column:
+            name: countries
+        directions:
+          column:
+            name: directions
+        districts:
+          column:
+            name: districts
+        extendedAddresses:
+          column:
+            name: extended_addresses
+        floors:
+          column:
+            name: floors
+        id:
+          column:
+            name: id
+        label:
+          column:
+            name: label
+        landmarks:
+          column:
+            name: landmarks
+        localities:
+          column:
+            name: localities
+        phonetic:
+          column:
+            name: phonetic
+        postOfficeBox:
+          column:
+            name: post_office_box
+        postalCodes:
+          column:
+            name: postal_codes
+        pref:
+          column:
+            name: pref
+        regions:
+          column:
+            name: regions
+        rooms:
+          column:
+            name: rooms
+        script:
+          column:
+            name: script
+        streetAddresses:
+          column:
+            name: street_addresses
+        streetNumbers:
+          column:
+            name: street_numbers
+        streets:
+          column:
+            name: streets
+        subdistricts:
+          column:
+            name: subdistricts
+        types:
+          column:
+            name: types
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardAddressObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - apartments
+          - blocks
+          - buildings
+          - contactId
+          - countries
+          - directions
+          - districts
+          - extendedAddresses
+          - floors
+          - id
+          - label
+          - landmarks
+          - localities
+          - phonetic
+          - postOfficeBox
+          - postalCodes
+          - pref
+          - regions
+          - rooms
+          - script
+          - streetAddresses
+          - streetNumbers
+          - streets
+          - subdistricts
+          - types
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardAddressResponse
+  description: Responses from the 'insert_vcard_address' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardAddress!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertVcardAddressResponse
+    inputTypeName: InsertVcardAddressResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_address_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardAddressResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertVcardAddress
+  outputType: InsertVcardAddressResponse!
+  arguments:
+    - name: objects
+      type: "[InsertVcardAddressObject!]!"
+    - name: postCheck
+      type: VcardAddressBoolExp
+      description: Insert permission predicate over the 'vcard_address' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_vcard_address
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertVcardAddress
+    rootFieldKind: Mutation
+  description: Insert into the vcard_address table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertVcardAddress
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,373 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: TodoResource
+  fields:
+    - name: calendarId
+      type: String_1!
+    - name: classification
+      type: String_1
+    - name: completedId
+      type: String_1
+    - name: completion
+      type: String_1
+    - name: createTime
+      type: Timestamptz!
+    - name: deadlineCase
+      type: String_1
+    - name: deleteTime
+      type: Timestamptz
+    - name: description
+      type: String_1
+    - name: dueId
+      type: String_1
+    - name: duration
+      type: String_1
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: location
+      type: String_1
+    - name: name
+      type: String_1!
+    - name: percentComplete
+      type: Int32
+    - name: priority
+      type: Int32
+    - name: startId
+      type: String_1
+    - name: summary
+      type: String_1
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: TodoResource
+    inputTypeName: TodoResourceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: todo_resource
+      fieldMapping:
+        calendarId:
+          column:
+            name: calendar_id
+        classification:
+          column:
+            name: classification
+        completedId:
+          column:
+            name: completed_id
+        completion:
+          column:
+            name: completion
+        createTime:
+          column:
+            name: create_time
+        deadlineCase:
+          column:
+            name: deadline_case
+        deleteTime:
+          column:
+            name: delete_time
+        description:
+          column:
+            name: description
+        dueId:
+          column:
+            name: due_id
+        duration:
+          column:
+            name: duration
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        location:
+          column:
+            name: location
+        name:
+          column:
+            name: name
+        percentComplete:
+          column:
+            name: percent_complete
+        priority:
+          column:
+            name: priority
+        startId:
+          column:
+            name: start_id
+        summary:
+          column:
+            name: summary
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: TodoResource
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendarId
+          - classification
+          - completedId
+          - completion
+          - createTime
+          - deadlineCase
+          - deleteTime
+          - description
+          - dueId
+          - duration
+          - etag
+          - expireTime
+          - icalUid
+          - id
+          - location
+          - name
+          - percentComplete
+          - priority
+          - startId
+          - summary
+          - uid
+          - updateTime
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: TodoResourceBoolExp
+  operand:
+    object:
+      type: TodoResource
+      comparableFields:
+        - fieldName: calendarId
+          booleanExpressionType: TextBoolExp
+        - fieldName: classification
+          booleanExpressionType: TextBoolExp
+        - fieldName: completedId
+          booleanExpressionType: TextBoolExp
+        - fieldName: completion
+          booleanExpressionType: TextBoolExp
+        - fieldName: createTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: deadlineCase
+          booleanExpressionType: TextBoolExp
+        - fieldName: deleteTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: description
+          booleanExpressionType: TextBoolExp
+        - fieldName: dueId
+          booleanExpressionType: TextBoolExp
+        - fieldName: duration
+          booleanExpressionType: TextBoolExp
+        - fieldName: etag
+          booleanExpressionType: TextBoolExp
+        - fieldName: expireTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: icalUid
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: location
+          booleanExpressionType: TextBoolExp
+        - fieldName: name
+          booleanExpressionType: TextBoolExp
+        - fieldName: percentComplete
+          booleanExpressionType: Int4BoolExp
+        - fieldName: priority
+          booleanExpressionType: Int4BoolExp
+        - fieldName: startId
+          booleanExpressionType: TextBoolExp
+        - fieldName: summary
+          booleanExpressionType: TextBoolExp
+        - fieldName: uid
+          booleanExpressionType: TextBoolExp
+        - fieldName: updateTime
+          booleanExpressionType: TimestamptzBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: TodoResourceBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: TodoResourceAggExp
+  operand:
+    object:
+      aggregatedType: TodoResource
+      aggregatableFields:
+        - fieldName: calendarId
+          aggregateExpression: TextAggExp
+        - fieldName: classification
+          aggregateExpression: TextAggExp
+        - fieldName: completedId
+          aggregateExpression: TextAggExp
+        - fieldName: completion
+          aggregateExpression: TextAggExp
+        - fieldName: createTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: deadlineCase
+          aggregateExpression: TextAggExp
+        - fieldName: deleteTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: description
+          aggregateExpression: TextAggExp
+        - fieldName: dueId
+          aggregateExpression: TextAggExp
+        - fieldName: duration
+          aggregateExpression: TextAggExp
+        - fieldName: etag
+          aggregateExpression: TextAggExp
+        - fieldName: expireTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: icalUid
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: location
+          aggregateExpression: TextAggExp
+        - fieldName: name
+          aggregateExpression: TextAggExp
+        - fieldName: percentComplete
+          aggregateExpression: Int4AggExp
+        - fieldName: priority
+          aggregateExpression: Int4AggExp
+        - fieldName: startId
+          aggregateExpression: TextAggExp
+        - fieldName: summary
+          aggregateExpression: TextAggExp
+        - fieldName: uid
+          aggregateExpression: TextAggExp
+        - fieldName: updateTime
+          aggregateExpression: TimestamptzAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: TodoResourceAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: TodoResourceOrderByExp
+  operand:
+    object:
+      orderedType: TodoResource
+      orderableFields:
+        - fieldName: calendarId
+          orderByExpression: String1OrderByExp
+        - fieldName: classification
+          orderByExpression: String1OrderByExp
+        - fieldName: completedId
+          orderByExpression: String1OrderByExp
+        - fieldName: completion
+          orderByExpression: String1OrderByExp
+        - fieldName: createTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: deadlineCase
+          orderByExpression: String1OrderByExp
+        - fieldName: deleteTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: description
+          orderByExpression: String1OrderByExp
+        - fieldName: dueId
+          orderByExpression: String1OrderByExp
+        - fieldName: duration
+          orderByExpression: String1OrderByExp
+        - fieldName: etag
+          orderByExpression: String1OrderByExp
+        - fieldName: expireTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: icalUid
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: location
+          orderByExpression: String1OrderByExp
+        - fieldName: name
+          orderByExpression: String1OrderByExp
+        - fieldName: percentComplete
+          orderByExpression: Int32OrderByExp
+        - fieldName: priority
+          orderByExpression: Int32OrderByExp
+        - fieldName: startId
+          orderByExpression: String1OrderByExp
+        - fieldName: summary
+          orderByExpression: String1OrderByExp
+        - fieldName: uid
+          orderByExpression: String1OrderByExp
+        - fieldName: updateTime
+          orderByExpression: TimestamptzOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: TodoResourceOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: TodoResource
+  objectType: TodoResource
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: todo_resource
+  filterExpressionType: TodoResourceBoolExp
+  aggregateExpression: TodoResourceAggExp
+  orderByExpression: TodoResourceOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: todoResource
+      subscription:
+        rootField: todoResource
+    selectUniques:
+      - queryRootField: todoResourceById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: todoResourceById
+    filterInputTypeName: TodoResourceFilterInput
+    aggregate:
+      queryRootField: todoResourceAggregate
+      subscription:
+        rootField: todoResourceAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: TodoResource
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

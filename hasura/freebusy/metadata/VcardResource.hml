@@ -1,0 +1,241 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardResource
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: name
+      type: String_1!
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+    - name: vcardCreateTime
+      type: Timestamptz
+    - name: vcardUid
+      type: String_1
+  graphql:
+    typeName: VcardResource
+    inputTypeName: VcardResourceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_resource
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+        vcardCreateTime:
+          column:
+            name: vcard_create_time
+        vcardUid:
+          column:
+            name: vcard_uid
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardResource
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - createTime
+          - deleteTime
+          - etag
+          - expireTime
+          - id
+          - name
+          - uid
+          - updateTime
+          - vcardCreateTime
+          - vcardUid
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardResourceBoolExp
+  operand:
+    object:
+      type: VcardResource
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: createTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: deleteTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: etag
+          booleanExpressionType: TextBoolExp
+        - fieldName: expireTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: name
+          booleanExpressionType: TextBoolExp
+        - fieldName: uid
+          booleanExpressionType: TextBoolExp
+        - fieldName: updateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: vcardCreateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: vcardUid
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardResourceBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardResourceAggExp
+  operand:
+    object:
+      aggregatedType: VcardResource
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: createTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: deleteTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: etag
+          aggregateExpression: TextAggExp
+        - fieldName: expireTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: name
+          aggregateExpression: TextAggExp
+        - fieldName: uid
+          aggregateExpression: TextAggExp
+        - fieldName: updateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: vcardCreateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: vcardUid
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardResourceAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardResourceOrderByExp
+  operand:
+    object:
+      orderedType: VcardResource
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: createTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: deleteTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: etag
+          orderByExpression: String1OrderByExp
+        - fieldName: expireTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: name
+          orderByExpression: String1OrderByExp
+        - fieldName: uid
+          orderByExpression: String1OrderByExp
+        - fieldName: updateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: vcardCreateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: vcardUid
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardResourceOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardResource
+  objectType: VcardResource
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_resource
+  filterExpressionType: VcardResourceBoolExp
+  aggregateExpression: VcardResourceAggExp
+  orderByExpression: VcardResourceOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardResource
+      subscription:
+        rootField: vcardResource
+    selectUniques:
+      - queryRootField: vcardResourceById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardResourceById
+    filterInputTypeName: VcardResourceFilterInput
+    aggregate:
+      queryRootField: vcardResourceAggregate
+      subscription:
+        rootField: vcardResourceAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardResource
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

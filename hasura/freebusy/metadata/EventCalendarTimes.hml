@@ -1,0 +1,169 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventCalendarTimes
+  fields:
+    - name: date
+      type: Date
+    - name: dateTime
+      type: Timestamptz
+    - name: eventId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: EventCalendarTimes
+    inputTypeName: EventCalendarTimesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_calendar_times
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        eventId:
+          column:
+            name: event_id
+        id:
+          column:
+            name: id
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventCalendarTimes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - eventId
+          - id
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventCalendarTimesBoolExp
+  operand:
+    object:
+      type: EventCalendarTimes
+      comparableFields:
+        - fieldName: date
+          booleanExpressionType: DateBoolExp
+        - fieldName: dateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: eventId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventCalendarTimesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventCalendarTimesAggExp
+  operand:
+    object:
+      aggregatedType: EventCalendarTimes
+      aggregatableFields:
+        - fieldName: date
+          aggregateExpression: DateAggExp
+        - fieldName: dateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: eventId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventCalendarTimesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventCalendarTimesOrderByExp
+  operand:
+    object:
+      orderedType: EventCalendarTimes
+      orderableFields:
+        - fieldName: date
+          orderByExpression: DateOrderByExp
+        - fieldName: dateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: eventId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventCalendarTimesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventCalendarTimes
+  objectType: EventCalendarTimes
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_calendar_times
+  filterExpressionType: EventCalendarTimesBoolExp
+  aggregateExpression: EventCalendarTimesAggExp
+  orderByExpression: EventCalendarTimesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventCalendarTimes
+      subscription:
+        rootField: eventCalendarTimes
+    selectUniques:
+      - queryRootField: eventCalendarTimesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventCalendarTimesById
+    filterInputTypeName: EventCalendarTimesFilterInput
+    aggregate:
+      queryRootField: eventCalendarTimesAggregate
+      subscription:
+        rootField: eventCalendarTimesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventCalendarTimes
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

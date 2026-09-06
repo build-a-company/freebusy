@@ -1,0 +1,965 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceActive
+  description: Update the 'active' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: Boolean_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceActive
+    inputTypeName: UpdateColumnUserResourceActiveInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_active
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceActive
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceCreateTime
+  description: Update the 'create_time' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceCreateTime
+    inputTypeName: UpdateColumnUserResourceCreateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_create_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceCreateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceDeleteTime
+  description: Update the 'delete_time' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceDeleteTime
+    inputTypeName: UpdateColumnUserResourceDeleteTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_delete_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceDeleteTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceDisplayName
+  description: Update the 'display_name' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceDisplayName
+    inputTypeName: UpdateColumnUserResourceDisplayNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_display_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceDisplayName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceEnterpriseId
+  description: Update the 'enterprise_id' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceEnterpriseId
+    inputTypeName: UpdateColumnUserResourceEnterpriseIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_enterprise_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceEnterpriseId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceEtag
+  description: Update the 'etag' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceEtag
+    inputTypeName: UpdateColumnUserResourceEtagInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_etag
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceEtag
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceExpireTime
+  description: Update the 'expire_time' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceExpireTime
+    inputTypeName: UpdateColumnUserResourceExpireTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_expire_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceExpireTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceExternalUid
+  description: Update the 'external_uid' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceExternalUid
+    inputTypeName: UpdateColumnUserResourceExternalUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_external_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceExternalUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceId
+  description: Update the 'id' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceId
+    inputTypeName: UpdateColumnUserResourceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceLocale
+  description: Update the 'locale' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceLocale
+    inputTypeName: UpdateColumnUserResourceLocaleInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_locale
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceLocale
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceName
+  description: Update the 'name' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceName
+    inputTypeName: UpdateColumnUserResourceNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceNameComponentsId
+  description: Update the 'name_components_id' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceNameComponentsId
+    inputTypeName: UpdateColumnUserResourceNameComponentsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_name_components_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceNameComponentsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceNickname
+  description: Update the 'nickname' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceNickname
+    inputTypeName: UpdateColumnUserResourceNicknameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_nickname
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceNickname
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourcePassword
+  description: Update the 'password' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourcePassword
+    inputTypeName: UpdateColumnUserResourcePasswordInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_password
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourcePassword
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourcePreferredLanguageCode
+  description: Update the 'preferred_language_code' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourcePreferredLanguageCode
+    inputTypeName: UpdateColumnUserResourcePreferredLanguageCodeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_preferred_language_code
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourcePreferredLanguageCode
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceProfileUri
+  description: Update the 'profile_uri' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceProfileUri
+    inputTypeName: UpdateColumnUserResourceProfileUriInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_profile_uri
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceProfileUri
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceTimeZone
+  description: Update the 'time_zone' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceTimeZone
+    inputTypeName: UpdateColumnUserResourceTimeZoneInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_time_zone
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceTimeZone
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceTitle
+  description: Update the 'title' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceTitle
+    inputTypeName: UpdateColumnUserResourceTitleInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_title
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceTitle
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceUid
+  description: Update the 'uid' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceUid
+    inputTypeName: UpdateColumnUserResourceUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceUpdateTime
+  description: Update the 'update_time' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceUpdateTime
+    inputTypeName: UpdateColumnUserResourceUpdateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_update_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceUpdateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceUserType
+  description: Update the 'user_type' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceUserType
+    inputTypeName: UpdateColumnUserResourceUserTypeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_user_type
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceUserType
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserResourceUsername
+  description: Update the 'username' column in the 'user_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserResourceUsername
+    inputTypeName: UpdateColumnUserResourceUsernameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_resource_username
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserResourceUsername
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateUserResourceByIdUpdateColumns
+  description: Update the columns of the 'user_resource' collection
+  fields:
+    - name: active
+      type: UpdateColumnUserResourceActive
+      description: Update the 'active' column in the 'user_resource' collection.
+    - name: createTime
+      type: UpdateColumnUserResourceCreateTime
+      description: Update the 'create_time' column in the 'user_resource' collection.
+    - name: deleteTime
+      type: UpdateColumnUserResourceDeleteTime
+      description: Update the 'delete_time' column in the 'user_resource' collection.
+    - name: displayName
+      type: UpdateColumnUserResourceDisplayName
+      description: Update the 'display_name' column in the 'user_resource' collection.
+    - name: enterpriseId
+      type: UpdateColumnUserResourceEnterpriseId
+      description: Update the 'enterprise_id' column in the 'user_resource' collection.
+    - name: etag
+      type: UpdateColumnUserResourceEtag
+      description: Update the 'etag' column in the 'user_resource' collection.
+    - name: expireTime
+      type: UpdateColumnUserResourceExpireTime
+      description: Update the 'expire_time' column in the 'user_resource' collection.
+    - name: externalUid
+      type: UpdateColumnUserResourceExternalUid
+      description: Update the 'external_uid' column in the 'user_resource' collection.
+    - name: id
+      type: UpdateColumnUserResourceId
+      description: Update the 'id' column in the 'user_resource' collection.
+    - name: locale
+      type: UpdateColumnUserResourceLocale
+      description: Update the 'locale' column in the 'user_resource' collection.
+    - name: name
+      type: UpdateColumnUserResourceName
+      description: Update the 'name' column in the 'user_resource' collection.
+    - name: nameComponentsId
+      type: UpdateColumnUserResourceNameComponentsId
+      description: Update the 'name_components_id' column in the 'user_resource' collection.
+    - name: nickname
+      type: UpdateColumnUserResourceNickname
+      description: Update the 'nickname' column in the 'user_resource' collection.
+    - name: password
+      type: UpdateColumnUserResourcePassword
+      description: Update the 'password' column in the 'user_resource' collection.
+    - name: preferredLanguageCode
+      type: UpdateColumnUserResourcePreferredLanguageCode
+      description: Update the 'preferred_language_code' column in the 'user_resource'
+        collection.
+    - name: profileUri
+      type: UpdateColumnUserResourceProfileUri
+      description: Update the 'profile_uri' column in the 'user_resource' collection.
+    - name: timeZone
+      type: UpdateColumnUserResourceTimeZone
+      description: Update the 'time_zone' column in the 'user_resource' collection.
+    - name: title
+      type: UpdateColumnUserResourceTitle
+      description: Update the 'title' column in the 'user_resource' collection.
+    - name: uid
+      type: UpdateColumnUserResourceUid
+      description: Update the 'uid' column in the 'user_resource' collection.
+    - name: updateTime
+      type: UpdateColumnUserResourceUpdateTime
+      description: Update the 'update_time' column in the 'user_resource' collection.
+    - name: userType
+      type: UpdateColumnUserResourceUserType
+      description: Update the 'user_type' column in the 'user_resource' collection.
+    - name: username
+      type: UpdateColumnUserResourceUsername
+      description: Update the 'username' column in the 'user_resource' collection.
+  graphql:
+    typeName: UpdateUserResourceByIdUpdateColumns
+    inputTypeName: UpdateUserResourceByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_user_resource_by_id_update_columns
+      fieldMapping:
+        active:
+          column:
+            name: active
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        displayName:
+          column:
+            name: display_name
+        enterpriseId:
+          column:
+            name: enterprise_id
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        externalUid:
+          column:
+            name: external_uid
+        id:
+          column:
+            name: id
+        locale:
+          column:
+            name: locale
+        name:
+          column:
+            name: name
+        nameComponentsId:
+          column:
+            name: name_components_id
+        nickname:
+          column:
+            name: nickname
+        password:
+          column:
+            name: password
+        preferredLanguageCode:
+          column:
+            name: preferred_language_code
+        profileUri:
+          column:
+            name: profile_uri
+        timeZone:
+          column:
+            name: time_zone
+        title:
+          column:
+            name: title
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+        userType:
+          column:
+            name: user_type
+        username:
+          column:
+            name: username
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateUserResourceByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - active
+          - createTime
+          - deleteTime
+          - displayName
+          - enterpriseId
+          - etag
+          - expireTime
+          - externalUid
+          - id
+          - locale
+          - name
+          - nameComponentsId
+          - nickname
+          - password
+          - preferredLanguageCode
+          - profileUri
+          - timeZone
+          - title
+          - uid
+          - updateTime
+          - userType
+          - username
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateUserResourceByIdResponse
+  description: Responses from the 'update_user_resource_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateUserResourceByIdResponse
+    inputTypeName: UpdateUserResourceByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_user_resource_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateUserResourceByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateUserResourceById
+  outputType: UpdateUserResourceByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: UserResourceBoolExp
+      description: Update permission post-condition predicate over the 'user_resource'
+        collection
+    - name: preCheck
+      type: UserResourceBoolExp
+      description: Update permission pre-condition predicate over the 'user_resource'
+        collection
+    - name: updateColumns
+      type: UpdateUserResourceByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_user_resource_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateUserResourceById
+    rootFieldKind: Mutation
+  description: Update any row on the 'user_resource' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateUserResourceById
+  permissions:
+    - role: admin
+      allowExecution: true
+

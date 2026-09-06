@@ -1,0 +1,382 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserEnterpriseUsersCostCenter
+  description: Update the 'cost_center' column in the 'user_enterprise_users' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserEnterpriseUsersCostCenter
+    inputTypeName: UpdateColumnUserEnterpriseUsersCostCenterInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_enterprise_users_cost_center
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserEnterpriseUsersCostCenter
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserEnterpriseUsersDepartment
+  description: Update the 'department' column in the 'user_enterprise_users' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserEnterpriseUsersDepartment
+    inputTypeName: UpdateColumnUserEnterpriseUsersDepartmentInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_enterprise_users_department
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserEnterpriseUsersDepartment
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserEnterpriseUsersDivision
+  description: Update the 'division' column in the 'user_enterprise_users' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserEnterpriseUsersDivision
+    inputTypeName: UpdateColumnUserEnterpriseUsersDivisionInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_enterprise_users_division
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserEnterpriseUsersDivision
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserEnterpriseUsersEmployeeNumber
+  description: Update the 'employee_number' column in the 'user_enterprise_users' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserEnterpriseUsersEmployeeNumber
+    inputTypeName: UpdateColumnUserEnterpriseUsersEmployeeNumberInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_enterprise_users_employee_number
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserEnterpriseUsersEmployeeNumber
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserEnterpriseUsersId
+  description: Update the 'id' column in the 'user_enterprise_users' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserEnterpriseUsersId
+    inputTypeName: UpdateColumnUserEnterpriseUsersIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_enterprise_users_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserEnterpriseUsersId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserEnterpriseUsersManagerId
+  description: Update the 'manager_id' column in the 'user_enterprise_users' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserEnterpriseUsersManagerId
+    inputTypeName: UpdateColumnUserEnterpriseUsersManagerIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_enterprise_users_manager_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserEnterpriseUsersManagerId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserEnterpriseUsersOrganization
+  description: Update the 'organization' column in the 'user_enterprise_users' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserEnterpriseUsersOrganization
+    inputTypeName: UpdateColumnUserEnterpriseUsersOrganizationInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_enterprise_users_organization
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserEnterpriseUsersOrganization
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateUserEnterpriseUsersByIdUpdateColumns
+  description: Update the columns of the 'user_enterprise_users' collection
+  fields:
+    - name: costCenter
+      type: UpdateColumnUserEnterpriseUsersCostCenter
+      description: Update the 'cost_center' column in the 'user_enterprise_users'
+        collection.
+    - name: department
+      type: UpdateColumnUserEnterpriseUsersDepartment
+      description: Update the 'department' column in the 'user_enterprise_users' collection.
+    - name: division
+      type: UpdateColumnUserEnterpriseUsersDivision
+      description: Update the 'division' column in the 'user_enterprise_users' collection.
+    - name: employeeNumber
+      type: UpdateColumnUserEnterpriseUsersEmployeeNumber
+      description: Update the 'employee_number' column in the 'user_enterprise_users'
+        collection.
+    - name: id
+      type: UpdateColumnUserEnterpriseUsersId
+      description: Update the 'id' column in the 'user_enterprise_users' collection.
+    - name: managerId
+      type: UpdateColumnUserEnterpriseUsersManagerId
+      description: Update the 'manager_id' column in the 'user_enterprise_users' collection.
+    - name: organization
+      type: UpdateColumnUserEnterpriseUsersOrganization
+      description: Update the 'organization' column in the 'user_enterprise_users'
+        collection.
+  graphql:
+    typeName: UpdateUserEnterpriseUsersByIdUpdateColumns
+    inputTypeName: UpdateUserEnterpriseUsersByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_user_enterprise_users_by_id_update_columns
+      fieldMapping:
+        costCenter:
+          column:
+            name: cost_center
+        department:
+          column:
+            name: department
+        division:
+          column:
+            name: division
+        employeeNumber:
+          column:
+            name: employee_number
+        id:
+          column:
+            name: id
+        managerId:
+          column:
+            name: manager_id
+        organization:
+          column:
+            name: organization
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateUserEnterpriseUsersByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - costCenter
+          - department
+          - division
+          - employeeNumber
+          - id
+          - managerId
+          - organization
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateUserEnterpriseUsersByIdResponse
+  description: Responses from the 'update_user_enterprise_users_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserEnterpriseUsers!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateUserEnterpriseUsersByIdResponse
+    inputTypeName: UpdateUserEnterpriseUsersByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_user_enterprise_users_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateUserEnterpriseUsersByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateUserEnterpriseUsersById
+  outputType: UpdateUserEnterpriseUsersByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: UserEnterpriseUsersBoolExp
+      description: Update permission post-condition predicate over the
+        'user_enterprise_users' collection
+    - name: preCheck
+      type: UserEnterpriseUsersBoolExp
+      description: Update permission pre-condition predicate over the
+        'user_enterprise_users' collection
+    - name: updateColumns
+      type: UpdateUserEnterpriseUsersByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_user_enterprise_users_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateUserEnterpriseUsersById
+    rootFieldKind: Mutation
+  description: Update any row on the 'user_enterprise_users' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateUserEnterpriseUsersById
+  permissions:
+    - role: admin
+      allowExecution: true
+

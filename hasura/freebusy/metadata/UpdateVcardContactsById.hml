@@ -1,0 +1,498 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardContactsAnniversaryId
+  description: Update the 'anniversary_id' column in the 'vcard_contacts' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardContactsAnniversaryId
+    inputTypeName: UpdateColumnVcardContactsAnniversaryIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_contacts_anniversary_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardContactsAnniversaryId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardContactsBirthdayId
+  description: Update the 'birthday_id' column in the 'vcard_contacts' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardContactsBirthdayId
+    inputTypeName: UpdateColumnVcardContactsBirthdayIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_contacts_birthday_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardContactsBirthdayId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardContactsCategories
+  description: Update the 'categories' column in the 'vcard_contacts' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardContactsCategories
+    inputTypeName: UpdateColumnVcardContactsCategoriesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_contacts_categories
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardContactsCategories
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardContactsDefaultLanguageCode
+  description: Update the 'default_language_code' column in the 'vcard_contacts' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardContactsDefaultLanguageCode
+    inputTypeName: UpdateColumnVcardContactsDefaultLanguageCodeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_contacts_default_language_code
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardContactsDefaultLanguageCode
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardContactsDisplayNames
+  description: Update the 'display_names' column in the 'vcard_contacts' collection
+  fields:
+    - name: set
+      type: "[String_1]!"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardContactsDisplayNames
+    inputTypeName: UpdateColumnVcardContactsDisplayNamesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_contacts_display_names
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardContactsDisplayNames
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardContactsId
+  description: Update the 'id' column in the 'vcard_contacts' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardContactsId
+    inputTypeName: UpdateColumnVcardContactsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_contacts_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardContactsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardContactsKind
+  description: Update the 'kind' column in the 'vcard_contacts' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardContactsKind
+    inputTypeName: UpdateColumnVcardContactsKindInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_contacts_kind
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardContactsKind
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardContactsNameComponentsId
+  description: Update the 'name_components_id' column in the 'vcard_contacts' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardContactsNameComponentsId
+    inputTypeName: UpdateColumnVcardContactsNameComponentsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_contacts_name_components_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardContactsNameComponentsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardContactsNotes
+  description: Update the 'notes' column in the 'vcard_contacts' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardContactsNotes
+    inputTypeName: UpdateColumnVcardContactsNotesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_contacts_notes
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardContactsNotes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardContactsTitles
+  description: Update the 'titles' column in the 'vcard_contacts' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardContactsTitles
+    inputTypeName: UpdateColumnVcardContactsTitlesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_contacts_titles
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardContactsTitles
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardContactsByIdUpdateColumns
+  description: Update the columns of the 'vcard_contacts' collection
+  fields:
+    - name: anniversaryId
+      type: UpdateColumnVcardContactsAnniversaryId
+      description: Update the 'anniversary_id' column in the 'vcard_contacts' collection.
+    - name: birthdayId
+      type: UpdateColumnVcardContactsBirthdayId
+      description: Update the 'birthday_id' column in the 'vcard_contacts' collection.
+    - name: categories
+      type: UpdateColumnVcardContactsCategories
+      description: Update the 'categories' column in the 'vcard_contacts' collection.
+    - name: defaultLanguageCode
+      type: UpdateColumnVcardContactsDefaultLanguageCode
+      description: Update the 'default_language_code' column in the 'vcard_contacts'
+        collection.
+    - name: displayNames
+      type: UpdateColumnVcardContactsDisplayNames
+      description: Update the 'display_names' column in the 'vcard_contacts' collection.
+    - name: id
+      type: UpdateColumnVcardContactsId
+      description: Update the 'id' column in the 'vcard_contacts' collection.
+    - name: kind
+      type: UpdateColumnVcardContactsKind
+      description: Update the 'kind' column in the 'vcard_contacts' collection.
+    - name: nameComponentsId
+      type: UpdateColumnVcardContactsNameComponentsId
+      description: Update the 'name_components_id' column in the 'vcard_contacts'
+        collection.
+    - name: notes
+      type: UpdateColumnVcardContactsNotes
+      description: Update the 'notes' column in the 'vcard_contacts' collection.
+    - name: titles
+      type: UpdateColumnVcardContactsTitles
+      description: Update the 'titles' column in the 'vcard_contacts' collection.
+  graphql:
+    typeName: UpdateVcardContactsByIdUpdateColumns
+    inputTypeName: UpdateVcardContactsByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_contacts_by_id_update_columns
+      fieldMapping:
+        anniversaryId:
+          column:
+            name: anniversary_id
+        birthdayId:
+          column:
+            name: birthday_id
+        categories:
+          column:
+            name: categories
+        defaultLanguageCode:
+          column:
+            name: default_language_code
+        displayNames:
+          column:
+            name: display_names
+        id:
+          column:
+            name: id
+        kind:
+          column:
+            name: kind
+        nameComponentsId:
+          column:
+            name: name_components_id
+        notes:
+          column:
+            name: notes
+        titles:
+          column:
+            name: titles
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardContactsByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - anniversaryId
+          - birthdayId
+          - categories
+          - defaultLanguageCode
+          - displayNames
+          - id
+          - kind
+          - nameComponentsId
+          - notes
+          - titles
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardContactsByIdResponse
+  description: Responses from the 'update_vcard_contacts_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardContacts!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardContactsByIdResponse
+    inputTypeName: UpdateVcardContactsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_contacts_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardContactsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardContactsById
+  outputType: UpdateVcardContactsByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardContactsBoolExp
+      description: Update permission post-condition predicate over the
+        'vcard_contacts' collection
+    - name: preCheck
+      type: VcardContactsBoolExp
+      description: Update permission pre-condition predicate over the 'vcard_contacts'
+        collection
+    - name: updateColumns
+      type: UpdateVcardContactsByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_contacts_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardContactsById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_contacts' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardContactsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

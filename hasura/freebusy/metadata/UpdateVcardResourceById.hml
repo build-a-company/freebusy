@@ -1,0 +1,535 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceContactId
+  description: Update the 'contact_id' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceContactId
+    inputTypeName: UpdateColumnVcardResourceContactIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_contact_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceContactId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceCreateTime
+  description: Update the 'create_time' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceCreateTime
+    inputTypeName: UpdateColumnVcardResourceCreateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_create_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceCreateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceDeleteTime
+  description: Update the 'delete_time' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceDeleteTime
+    inputTypeName: UpdateColumnVcardResourceDeleteTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_delete_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceDeleteTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceEtag
+  description: Update the 'etag' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceEtag
+    inputTypeName: UpdateColumnVcardResourceEtagInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_etag
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceEtag
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceExpireTime
+  description: Update the 'expire_time' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceExpireTime
+    inputTypeName: UpdateColumnVcardResourceExpireTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_expire_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceExpireTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceId
+  description: Update the 'id' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceId
+    inputTypeName: UpdateColumnVcardResourceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceName
+  description: Update the 'name' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceName
+    inputTypeName: UpdateColumnVcardResourceNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceUid
+  description: Update the 'uid' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceUid
+    inputTypeName: UpdateColumnVcardResourceUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceUpdateTime
+  description: Update the 'update_time' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceUpdateTime
+    inputTypeName: UpdateColumnVcardResourceUpdateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_update_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceUpdateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceVcardCreateTime
+  description: Update the 'vcard_create_time' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceVcardCreateTime
+    inputTypeName: UpdateColumnVcardResourceVcardCreateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_vcard_create_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceVcardCreateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardResourceVcardUid
+  description: Update the 'vcard_uid' column in the 'vcard_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardResourceVcardUid
+    inputTypeName: UpdateColumnVcardResourceVcardUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_resource_vcard_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardResourceVcardUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardResourceByIdUpdateColumns
+  description: Update the columns of the 'vcard_resource' collection
+  fields:
+    - name: contactId
+      type: UpdateColumnVcardResourceContactId
+      description: Update the 'contact_id' column in the 'vcard_resource' collection.
+    - name: createTime
+      type: UpdateColumnVcardResourceCreateTime
+      description: Update the 'create_time' column in the 'vcard_resource' collection.
+    - name: deleteTime
+      type: UpdateColumnVcardResourceDeleteTime
+      description: Update the 'delete_time' column in the 'vcard_resource' collection.
+    - name: etag
+      type: UpdateColumnVcardResourceEtag
+      description: Update the 'etag' column in the 'vcard_resource' collection.
+    - name: expireTime
+      type: UpdateColumnVcardResourceExpireTime
+      description: Update the 'expire_time' column in the 'vcard_resource' collection.
+    - name: id
+      type: UpdateColumnVcardResourceId
+      description: Update the 'id' column in the 'vcard_resource' collection.
+    - name: name
+      type: UpdateColumnVcardResourceName
+      description: Update the 'name' column in the 'vcard_resource' collection.
+    - name: uid
+      type: UpdateColumnVcardResourceUid
+      description: Update the 'uid' column in the 'vcard_resource' collection.
+    - name: updateTime
+      type: UpdateColumnVcardResourceUpdateTime
+      description: Update the 'update_time' column in the 'vcard_resource' collection.
+    - name: vcardCreateTime
+      type: UpdateColumnVcardResourceVcardCreateTime
+      description: Update the 'vcard_create_time' column in the 'vcard_resource' collection.
+    - name: vcardUid
+      type: UpdateColumnVcardResourceVcardUid
+      description: Update the 'vcard_uid' column in the 'vcard_resource' collection.
+  graphql:
+    typeName: UpdateVcardResourceByIdUpdateColumns
+    inputTypeName: UpdateVcardResourceByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_resource_by_id_update_columns
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+        vcardCreateTime:
+          column:
+            name: vcard_create_time
+        vcardUid:
+          column:
+            name: vcard_uid
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardResourceByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - createTime
+          - deleteTime
+          - etag
+          - expireTime
+          - id
+          - name
+          - uid
+          - updateTime
+          - vcardCreateTime
+          - vcardUid
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardResourceByIdResponse
+  description: Responses from the 'update_vcard_resource_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardResourceByIdResponse
+    inputTypeName: UpdateVcardResourceByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_resource_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardResourceByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardResourceById
+  outputType: UpdateVcardResourceByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardResourceBoolExp
+      description: Update permission post-condition predicate over the
+        'vcard_resource' collection
+    - name: preCheck
+      type: VcardResourceBoolExp
+      description: Update permission pre-condition predicate over the 'vcard_resource'
+        collection
+    - name: updateColumns
+      type: UpdateVcardResourceByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_resource_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardResourceById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_resource' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardResourceById
+  permissions:
+    - role: admin
+      allowExecution: true
+

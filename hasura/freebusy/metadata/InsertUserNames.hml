@@ -1,0 +1,138 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertUserNamesObject
+  fields:
+    - name: displayName
+      type: String_1
+    - name: familyName
+      type: String_1
+    - name: givenName
+      type: String_1
+    - name: honorificPrefix
+      type: String_1
+    - name: honorificSuffix
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: middleNames
+      type: String_1
+  graphql:
+    typeName: InsertUserNamesObject
+    inputTypeName: InsertUserNamesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_user_names_object
+      fieldMapping:
+        displayName:
+          column:
+            name: display_name
+        familyName:
+          column:
+            name: family_name
+        givenName:
+          column:
+            name: given_name
+        honorificPrefix:
+          column:
+            name: honorific_prefix
+        honorificSuffix:
+          column:
+            name: honorific_suffix
+        id:
+          column:
+            name: id
+        middleNames:
+          column:
+            name: middle_names
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertUserNamesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - displayName
+          - familyName
+          - givenName
+          - honorificPrefix
+          - honorificSuffix
+          - id
+          - middleNames
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertUserNamesResponse
+  description: Responses from the 'insert_user_names' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserNames!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertUserNamesResponse
+    inputTypeName: InsertUserNamesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_user_names_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertUserNamesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertUserNames
+  outputType: InsertUserNamesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertUserNamesObject!]!"
+    - name: postCheck
+      type: UserNamesBoolExp
+      description: Insert permission predicate over the 'user_names' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_user_names
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertUserNames
+    rootFieldKind: Mutation
+  description: Insert into the user_names table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertUserNames
+  permissions:
+    - role: admin
+      allowExecution: true
+

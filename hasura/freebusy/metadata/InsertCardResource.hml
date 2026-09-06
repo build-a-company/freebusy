@@ -1,0 +1,318 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCardResourceObject
+  fields:
+    - name: addresses
+      type: Json
+    - name: anniversaries
+      type: Json
+    - name: calendars
+      type: Json
+    - name: createTime
+      type: Timestamptz!
+    - name: cryptoKeys
+      type: Json
+    - name: deleteTime
+      type: Timestamptz
+    - name: directories
+      type: Json
+    - name: emails
+      type: Json
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: jscontactCreateTime
+      type: Timestamptz
+    - name: jscontactProps
+      type: Json
+    - name: jscontactUid
+      type: String_1
+    - name: jscontactUpdateTime
+      type: Timestamptz
+    - name: keywords
+      type: "[String_1]"
+    - name: kind
+      type: String_1
+    - name: languageCode
+      type: String_1
+    - name: links
+      type: Json
+    - name: media
+      type: Json
+    - name: members
+      type: "[String_1]"
+    - name: name
+      type: String_1!
+    - name: nameComponentsId
+      type: String_1
+    - name: nicknames
+      type: Json
+    - name: notes
+      type: Json
+    - name: onlineServices
+      type: Json
+    - name: organizations
+      type: Json
+    - name: personalInfo
+      type: Json
+    - name: phones
+      type: Json
+    - name: preferredLanguages
+      type: Json
+    - name: productId
+      type: String_1
+    - name: relations
+      type: Json
+    - name: schedulingAddresses
+      type: Json
+    - name: speechId
+      type: String_1
+    - name: titles
+      type: Json
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: InsertCardResourceObject
+    inputTypeName: InsertCardResourceObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_card_resource_object
+      fieldMapping:
+        addresses:
+          column:
+            name: addresses
+        anniversaries:
+          column:
+            name: anniversaries
+        calendars:
+          column:
+            name: calendars
+        createTime:
+          column:
+            name: create_time
+        cryptoKeys:
+          column:
+            name: crypto_keys
+        deleteTime:
+          column:
+            name: delete_time
+        directories:
+          column:
+            name: directories
+        emails:
+          column:
+            name: emails
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        jscontactCreateTime:
+          column:
+            name: jscontact_create_time
+        jscontactProps:
+          column:
+            name: jscontact_props
+        jscontactUid:
+          column:
+            name: jscontact_uid
+        jscontactUpdateTime:
+          column:
+            name: jscontact_update_time
+        keywords:
+          column:
+            name: keywords
+        kind:
+          column:
+            name: kind
+        languageCode:
+          column:
+            name: language_code
+        links:
+          column:
+            name: links
+        media:
+          column:
+            name: media
+        members:
+          column:
+            name: members
+        name:
+          column:
+            name: name
+        nameComponentsId:
+          column:
+            name: name_components_id
+        nicknames:
+          column:
+            name: nicknames
+        notes:
+          column:
+            name: notes
+        onlineServices:
+          column:
+            name: online_services
+        organizations:
+          column:
+            name: organizations
+        personalInfo:
+          column:
+            name: personal_info
+        phones:
+          column:
+            name: phones
+        preferredLanguages:
+          column:
+            name: preferred_languages
+        productId:
+          column:
+            name: product_id
+        relations:
+          column:
+            name: relations
+        schedulingAddresses:
+          column:
+            name: scheduling_addresses
+        speechId:
+          column:
+            name: speech_id
+        titles:
+          column:
+            name: titles
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCardResourceObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - addresses
+          - anniversaries
+          - calendars
+          - createTime
+          - cryptoKeys
+          - deleteTime
+          - directories
+          - emails
+          - etag
+          - expireTime
+          - id
+          - jscontactCreateTime
+          - jscontactProps
+          - jscontactUid
+          - jscontactUpdateTime
+          - keywords
+          - kind
+          - languageCode
+          - links
+          - media
+          - members
+          - name
+          - nameComponentsId
+          - nicknames
+          - notes
+          - onlineServices
+          - organizations
+          - personalInfo
+          - phones
+          - preferredLanguages
+          - productId
+          - relations
+          - schedulingAddresses
+          - speechId
+          - titles
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCardResourceResponse
+  description: Responses from the 'insert_card_resource' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CardResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertCardResourceResponse
+    inputTypeName: InsertCardResourceResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_card_resource_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCardResourceResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertCardResource
+  outputType: InsertCardResourceResponse!
+  arguments:
+    - name: objects
+      type: "[InsertCardResourceObject!]!"
+    - name: postCheck
+      type: CardResourceBoolExp
+      description: Insert permission predicate over the 'card_resource' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_card_resource
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertCardResource
+    rootFieldKind: Mutation
+  description: Insert into the card_resource table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertCardResource
+  permissions:
+    - role: admin
+      allowExecution: true
+

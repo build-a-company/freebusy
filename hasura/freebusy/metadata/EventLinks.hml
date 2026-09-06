@@ -1,0 +1,229 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventLinks
+  fields:
+    - name: eventId
+      type: String_1!
+    - name: formatType
+      type: String_1
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: label
+      type: String_1
+    - name: languageCode
+      type: String_1
+    - name: relation
+      type: String_1!
+    - name: uri
+      type: String_1
+    - name: valueCase
+      type: String_1
+    - name: xmlReference
+      type: String_1
+  graphql:
+    typeName: EventLinks
+    inputTypeName: EventLinksInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_links
+      fieldMapping:
+        eventId:
+          column:
+            name: event_id
+        formatType:
+          column:
+            name: format_type
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        label:
+          column:
+            name: label
+        languageCode:
+          column:
+            name: language_code
+        relation:
+          column:
+            name: relation
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+        xmlReference:
+          column:
+            name: xml_reference
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventLinks
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - eventId
+          - formatType
+          - icalUid
+          - id
+          - label
+          - languageCode
+          - relation
+          - uri
+          - valueCase
+          - xmlReference
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventLinksBoolExp
+  operand:
+    object:
+      type: EventLinks
+      comparableFields:
+        - fieldName: eventId
+          booleanExpressionType: TextBoolExp
+        - fieldName: formatType
+          booleanExpressionType: TextBoolExp
+        - fieldName: icalUid
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: label
+          booleanExpressionType: TextBoolExp
+        - fieldName: languageCode
+          booleanExpressionType: TextBoolExp
+        - fieldName: relation
+          booleanExpressionType: TextBoolExp
+        - fieldName: uri
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+        - fieldName: xmlReference
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventLinksBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventLinksAggExp
+  operand:
+    object:
+      aggregatedType: EventLinks
+      aggregatableFields:
+        - fieldName: eventId
+          aggregateExpression: TextAggExp
+        - fieldName: formatType
+          aggregateExpression: TextAggExp
+        - fieldName: icalUid
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: label
+          aggregateExpression: TextAggExp
+        - fieldName: languageCode
+          aggregateExpression: TextAggExp
+        - fieldName: relation
+          aggregateExpression: TextAggExp
+        - fieldName: uri
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+        - fieldName: xmlReference
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventLinksAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventLinksOrderByExp
+  operand:
+    object:
+      orderedType: EventLinks
+      orderableFields:
+        - fieldName: eventId
+          orderByExpression: String1OrderByExp
+        - fieldName: formatType
+          orderByExpression: String1OrderByExp
+        - fieldName: icalUid
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: label
+          orderByExpression: String1OrderByExp
+        - fieldName: languageCode
+          orderByExpression: String1OrderByExp
+        - fieldName: relation
+          orderByExpression: String1OrderByExp
+        - fieldName: uri
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+        - fieldName: xmlReference
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventLinksOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventLinks
+  objectType: EventLinks
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_links
+  filterExpressionType: EventLinksBoolExp
+  aggregateExpression: EventLinksAggExp
+  orderByExpression: EventLinksOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventLinks
+      subscription:
+        rootField: eventLinks
+    selectUniques:
+      - queryRootField: eventLinksById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventLinksById
+    filterInputTypeName: EventLinksFilterInput
+    aggregate:
+      queryRootField: eventLinksAggregate
+      subscription:
+        rootField: eventLinksAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventLinks
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

@@ -1,0 +1,496 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardNamesFamilyName
+  description: Update the 'family_name' column in the 'vcard_names' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardNamesFamilyName
+    inputTypeName: UpdateColumnVcardNamesFamilyNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_names_family_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardNamesFamilyName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardNamesGenerations
+  description: Update the 'generations' column in the 'vcard_names' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardNamesGenerations
+    inputTypeName: UpdateColumnVcardNamesGenerationsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_names_generations
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardNamesGenerations
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardNamesGivenName
+  description: Update the 'given_name' column in the 'vcard_names' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardNamesGivenName
+    inputTypeName: UpdateColumnVcardNamesGivenNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_names_given_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardNamesGivenName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardNamesHonorificPrefixes
+  description: Update the 'honorific_prefixes' column in the 'vcard_names' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardNamesHonorificPrefixes
+    inputTypeName: UpdateColumnVcardNamesHonorificPrefixesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_names_honorific_prefixes
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardNamesHonorificPrefixes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardNamesHonorificSuffixes
+  description: Update the 'honorific_suffixes' column in the 'vcard_names' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardNamesHonorificSuffixes
+    inputTypeName: UpdateColumnVcardNamesHonorificSuffixesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_names_honorific_suffixes
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardNamesHonorificSuffixes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardNamesId
+  description: Update the 'id' column in the 'vcard_names' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardNamesId
+    inputTypeName: UpdateColumnVcardNamesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_names_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardNamesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardNamesMiddleNames
+  description: Update the 'middle_names' column in the 'vcard_names' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardNamesMiddleNames
+    inputTypeName: UpdateColumnVcardNamesMiddleNamesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_names_middle_names
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardNamesMiddleNames
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardNamesPhonetic
+  description: Update the 'phonetic' column in the 'vcard_names' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardNamesPhonetic
+    inputTypeName: UpdateColumnVcardNamesPhoneticInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_names_phonetic
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardNamesPhonetic
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardNamesScript
+  description: Update the 'script' column in the 'vcard_names' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardNamesScript
+    inputTypeName: UpdateColumnVcardNamesScriptInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_names_script
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardNamesScript
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardNamesSecondarySurnames
+  description: Update the 'secondary_surnames' column in the 'vcard_names' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardNamesSecondarySurnames
+    inputTypeName: UpdateColumnVcardNamesSecondarySurnamesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_names_secondary_surnames
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardNamesSecondarySurnames
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardNamesByIdUpdateColumns
+  description: Update the columns of the 'vcard_names' collection
+  fields:
+    - name: familyName
+      type: UpdateColumnVcardNamesFamilyName
+      description: Update the 'family_name' column in the 'vcard_names' collection.
+    - name: generations
+      type: UpdateColumnVcardNamesGenerations
+      description: Update the 'generations' column in the 'vcard_names' collection.
+    - name: givenName
+      type: UpdateColumnVcardNamesGivenName
+      description: Update the 'given_name' column in the 'vcard_names' collection.
+    - name: honorificPrefixes
+      type: UpdateColumnVcardNamesHonorificPrefixes
+      description: Update the 'honorific_prefixes' column in the 'vcard_names' collection.
+    - name: honorificSuffixes
+      type: UpdateColumnVcardNamesHonorificSuffixes
+      description: Update the 'honorific_suffixes' column in the 'vcard_names' collection.
+    - name: id
+      type: UpdateColumnVcardNamesId
+      description: Update the 'id' column in the 'vcard_names' collection.
+    - name: middleNames
+      type: UpdateColumnVcardNamesMiddleNames
+      description: Update the 'middle_names' column in the 'vcard_names' collection.
+    - name: phonetic
+      type: UpdateColumnVcardNamesPhonetic
+      description: Update the 'phonetic' column in the 'vcard_names' collection.
+    - name: script
+      type: UpdateColumnVcardNamesScript
+      description: Update the 'script' column in the 'vcard_names' collection.
+    - name: secondarySurnames
+      type: UpdateColumnVcardNamesSecondarySurnames
+      description: Update the 'secondary_surnames' column in the 'vcard_names' collection.
+  graphql:
+    typeName: UpdateVcardNamesByIdUpdateColumns
+    inputTypeName: UpdateVcardNamesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_names_by_id_update_columns
+      fieldMapping:
+        familyName:
+          column:
+            name: family_name
+        generations:
+          column:
+            name: generations
+        givenName:
+          column:
+            name: given_name
+        honorificPrefixes:
+          column:
+            name: honorific_prefixes
+        honorificSuffixes:
+          column:
+            name: honorific_suffixes
+        id:
+          column:
+            name: id
+        middleNames:
+          column:
+            name: middle_names
+        phonetic:
+          column:
+            name: phonetic
+        script:
+          column:
+            name: script
+        secondarySurnames:
+          column:
+            name: secondary_surnames
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardNamesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - familyName
+          - generations
+          - givenName
+          - honorificPrefixes
+          - honorificSuffixes
+          - id
+          - middleNames
+          - phonetic
+          - script
+          - secondarySurnames
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardNamesByIdResponse
+  description: Responses from the 'update_vcard_names_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardNames!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardNamesByIdResponse
+    inputTypeName: UpdateVcardNamesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_names_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardNamesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardNamesById
+  outputType: UpdateVcardNamesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardNamesBoolExp
+      description: Update permission post-condition predicate over the 'vcard_names'
+        collection
+    - name: preCheck
+      type: VcardNamesBoolExp
+      description: Update permission pre-condition predicate over the 'vcard_names'
+        collection
+    - name: updateColumns
+      type: UpdateVcardNamesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_names_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardNamesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_names' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardNamesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

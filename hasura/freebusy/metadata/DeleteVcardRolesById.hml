@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteVcardRolesByIdResponse
+  description: Responses from the 'delete_vcard_roles_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardRoles!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteVcardRolesByIdResponse
+    inputTypeName: DeleteVcardRolesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_vcard_roles_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteVcardRolesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteVcardRolesById
+  outputType: DeleteVcardRolesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: VcardRolesBoolExp
+      description: Delete permission predicate over the 'vcard_roles' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_vcard_roles_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteVcardRolesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'vcard_roles' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteVcardRolesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

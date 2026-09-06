@@ -1,0 +1,1553 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceAddresses
+  description: Update the 'addresses' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceAddresses
+    inputTypeName: UpdateColumnCardResourceAddressesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_addresses
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceAddresses
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceAnniversaries
+  description: Update the 'anniversaries' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceAnniversaries
+    inputTypeName: UpdateColumnCardResourceAnniversariesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_anniversaries
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceAnniversaries
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceCalendars
+  description: Update the 'calendars' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceCalendars
+    inputTypeName: UpdateColumnCardResourceCalendarsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_calendars
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceCalendars
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceCreateTime
+  description: Update the 'create_time' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceCreateTime
+    inputTypeName: UpdateColumnCardResourceCreateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_create_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceCreateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceCryptoKeys
+  description: Update the 'crypto_keys' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceCryptoKeys
+    inputTypeName: UpdateColumnCardResourceCryptoKeysInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_crypto_keys
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceCryptoKeys
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceDeleteTime
+  description: Update the 'delete_time' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceDeleteTime
+    inputTypeName: UpdateColumnCardResourceDeleteTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_delete_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceDeleteTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceDirectories
+  description: Update the 'directories' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceDirectories
+    inputTypeName: UpdateColumnCardResourceDirectoriesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_directories
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceDirectories
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceEmails
+  description: Update the 'emails' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceEmails
+    inputTypeName: UpdateColumnCardResourceEmailsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_emails
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceEmails
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceEtag
+  description: Update the 'etag' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceEtag
+    inputTypeName: UpdateColumnCardResourceEtagInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_etag
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceEtag
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceExpireTime
+  description: Update the 'expire_time' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceExpireTime
+    inputTypeName: UpdateColumnCardResourceExpireTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_expire_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceExpireTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceId
+  description: Update the 'id' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceId
+    inputTypeName: UpdateColumnCardResourceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceJscontactCreateTime
+  description: Update the 'jscontact_create_time' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceJscontactCreateTime
+    inputTypeName: UpdateColumnCardResourceJscontactCreateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_jscontact_create_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceJscontactCreateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceJscontactProps
+  description: Update the 'jscontact_props' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceJscontactProps
+    inputTypeName: UpdateColumnCardResourceJscontactPropsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_jscontact_props
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceJscontactProps
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceJscontactUid
+  description: Update the 'jscontact_uid' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceJscontactUid
+    inputTypeName: UpdateColumnCardResourceJscontactUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_jscontact_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceJscontactUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceJscontactUpdateTime
+  description: Update the 'jscontact_update_time' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceJscontactUpdateTime
+    inputTypeName: UpdateColumnCardResourceJscontactUpdateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_jscontact_update_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceJscontactUpdateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceKeywords
+  description: Update the 'keywords' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceKeywords
+    inputTypeName: UpdateColumnCardResourceKeywordsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_keywords
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceKeywords
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceKind
+  description: Update the 'kind' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceKind
+    inputTypeName: UpdateColumnCardResourceKindInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_kind
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceKind
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceLanguageCode
+  description: Update the 'language_code' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceLanguageCode
+    inputTypeName: UpdateColumnCardResourceLanguageCodeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_language_code
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceLanguageCode
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceLinks
+  description: Update the 'links' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceLinks
+    inputTypeName: UpdateColumnCardResourceLinksInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_links
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceLinks
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceMedia
+  description: Update the 'media' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceMedia
+    inputTypeName: UpdateColumnCardResourceMediaInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_media
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceMedia
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceMembers
+  description: Update the 'members' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceMembers
+    inputTypeName: UpdateColumnCardResourceMembersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_members
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceMembers
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceName
+  description: Update the 'name' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceName
+    inputTypeName: UpdateColumnCardResourceNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceNameComponentsId
+  description: Update the 'name_components_id' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceNameComponentsId
+    inputTypeName: UpdateColumnCardResourceNameComponentsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_name_components_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceNameComponentsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceNicknames
+  description: Update the 'nicknames' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceNicknames
+    inputTypeName: UpdateColumnCardResourceNicknamesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_nicknames
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceNicknames
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceNotes
+  description: Update the 'notes' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceNotes
+    inputTypeName: UpdateColumnCardResourceNotesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_notes
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceNotes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceOnlineServices
+  description: Update the 'online_services' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceOnlineServices
+    inputTypeName: UpdateColumnCardResourceOnlineServicesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_online_services
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceOnlineServices
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceOrganizations
+  description: Update the 'organizations' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceOrganizations
+    inputTypeName: UpdateColumnCardResourceOrganizationsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_organizations
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceOrganizations
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourcePersonalInfo
+  description: Update the 'personal_info' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourcePersonalInfo
+    inputTypeName: UpdateColumnCardResourcePersonalInfoInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_personal_info
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourcePersonalInfo
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourcePhones
+  description: Update the 'phones' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourcePhones
+    inputTypeName: UpdateColumnCardResourcePhonesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_phones
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourcePhones
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourcePreferredLanguages
+  description: Update the 'preferred_languages' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourcePreferredLanguages
+    inputTypeName: UpdateColumnCardResourcePreferredLanguagesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_preferred_languages
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourcePreferredLanguages
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceProductId
+  description: Update the 'product_id' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceProductId
+    inputTypeName: UpdateColumnCardResourceProductIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_product_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceProductId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceRelations
+  description: Update the 'relations' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceRelations
+    inputTypeName: UpdateColumnCardResourceRelationsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_relations
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceRelations
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceSchedulingAddresses
+  description: Update the 'scheduling_addresses' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceSchedulingAddresses
+    inputTypeName: UpdateColumnCardResourceSchedulingAddressesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_scheduling_addresses
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceSchedulingAddresses
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceSpeechId
+  description: Update the 'speech_id' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceSpeechId
+    inputTypeName: UpdateColumnCardResourceSpeechIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_speech_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceSpeechId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceTitles
+  description: Update the 'titles' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceTitles
+    inputTypeName: UpdateColumnCardResourceTitlesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_titles
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceTitles
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceUid
+  description: Update the 'uid' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceUid
+    inputTypeName: UpdateColumnCardResourceUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardResourceUpdateTime
+  description: Update the 'update_time' column in the 'card_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardResourceUpdateTime
+    inputTypeName: UpdateColumnCardResourceUpdateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_resource_update_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardResourceUpdateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateCardResourceByIdUpdateColumns
+  description: Update the columns of the 'card_resource' collection
+  fields:
+    - name: addresses
+      type: UpdateColumnCardResourceAddresses
+      description: Update the 'addresses' column in the 'card_resource' collection.
+    - name: anniversaries
+      type: UpdateColumnCardResourceAnniversaries
+      description: Update the 'anniversaries' column in the 'card_resource' collection.
+    - name: calendars
+      type: UpdateColumnCardResourceCalendars
+      description: Update the 'calendars' column in the 'card_resource' collection.
+    - name: createTime
+      type: UpdateColumnCardResourceCreateTime
+      description: Update the 'create_time' column in the 'card_resource' collection.
+    - name: cryptoKeys
+      type: UpdateColumnCardResourceCryptoKeys
+      description: Update the 'crypto_keys' column in the 'card_resource' collection.
+    - name: deleteTime
+      type: UpdateColumnCardResourceDeleteTime
+      description: Update the 'delete_time' column in the 'card_resource' collection.
+    - name: directories
+      type: UpdateColumnCardResourceDirectories
+      description: Update the 'directories' column in the 'card_resource' collection.
+    - name: emails
+      type: UpdateColumnCardResourceEmails
+      description: Update the 'emails' column in the 'card_resource' collection.
+    - name: etag
+      type: UpdateColumnCardResourceEtag
+      description: Update the 'etag' column in the 'card_resource' collection.
+    - name: expireTime
+      type: UpdateColumnCardResourceExpireTime
+      description: Update the 'expire_time' column in the 'card_resource' collection.
+    - name: id
+      type: UpdateColumnCardResourceId
+      description: Update the 'id' column in the 'card_resource' collection.
+    - name: jscontactCreateTime
+      type: UpdateColumnCardResourceJscontactCreateTime
+      description: Update the 'jscontact_create_time' column in the 'card_resource'
+        collection.
+    - name: jscontactProps
+      type: UpdateColumnCardResourceJscontactProps
+      description: Update the 'jscontact_props' column in the 'card_resource' collection.
+    - name: jscontactUid
+      type: UpdateColumnCardResourceJscontactUid
+      description: Update the 'jscontact_uid' column in the 'card_resource' collection.
+    - name: jscontactUpdateTime
+      type: UpdateColumnCardResourceJscontactUpdateTime
+      description: Update the 'jscontact_update_time' column in the 'card_resource'
+        collection.
+    - name: keywords
+      type: UpdateColumnCardResourceKeywords
+      description: Update the 'keywords' column in the 'card_resource' collection.
+    - name: kind
+      type: UpdateColumnCardResourceKind
+      description: Update the 'kind' column in the 'card_resource' collection.
+    - name: languageCode
+      type: UpdateColumnCardResourceLanguageCode
+      description: Update the 'language_code' column in the 'card_resource' collection.
+    - name: links
+      type: UpdateColumnCardResourceLinks
+      description: Update the 'links' column in the 'card_resource' collection.
+    - name: media
+      type: UpdateColumnCardResourceMedia
+      description: Update the 'media' column in the 'card_resource' collection.
+    - name: members
+      type: UpdateColumnCardResourceMembers
+      description: Update the 'members' column in the 'card_resource' collection.
+    - name: name
+      type: UpdateColumnCardResourceName
+      description: Update the 'name' column in the 'card_resource' collection.
+    - name: nameComponentsId
+      type: UpdateColumnCardResourceNameComponentsId
+      description: Update the 'name_components_id' column in the 'card_resource' collection.
+    - name: nicknames
+      type: UpdateColumnCardResourceNicknames
+      description: Update the 'nicknames' column in the 'card_resource' collection.
+    - name: notes
+      type: UpdateColumnCardResourceNotes
+      description: Update the 'notes' column in the 'card_resource' collection.
+    - name: onlineServices
+      type: UpdateColumnCardResourceOnlineServices
+      description: Update the 'online_services' column in the 'card_resource' collection.
+    - name: organizations
+      type: UpdateColumnCardResourceOrganizations
+      description: Update the 'organizations' column in the 'card_resource' collection.
+    - name: personalInfo
+      type: UpdateColumnCardResourcePersonalInfo
+      description: Update the 'personal_info' column in the 'card_resource' collection.
+    - name: phones
+      type: UpdateColumnCardResourcePhones
+      description: Update the 'phones' column in the 'card_resource' collection.
+    - name: preferredLanguages
+      type: UpdateColumnCardResourcePreferredLanguages
+      description: Update the 'preferred_languages' column in the 'card_resource'
+        collection.
+    - name: productId
+      type: UpdateColumnCardResourceProductId
+      description: Update the 'product_id' column in the 'card_resource' collection.
+    - name: relations
+      type: UpdateColumnCardResourceRelations
+      description: Update the 'relations' column in the 'card_resource' collection.
+    - name: schedulingAddresses
+      type: UpdateColumnCardResourceSchedulingAddresses
+      description: Update the 'scheduling_addresses' column in the 'card_resource'
+        collection.
+    - name: speechId
+      type: UpdateColumnCardResourceSpeechId
+      description: Update the 'speech_id' column in the 'card_resource' collection.
+    - name: titles
+      type: UpdateColumnCardResourceTitles
+      description: Update the 'titles' column in the 'card_resource' collection.
+    - name: uid
+      type: UpdateColumnCardResourceUid
+      description: Update the 'uid' column in the 'card_resource' collection.
+    - name: updateTime
+      type: UpdateColumnCardResourceUpdateTime
+      description: Update the 'update_time' column in the 'card_resource' collection.
+  graphql:
+    typeName: UpdateCardResourceByIdUpdateColumns
+    inputTypeName: UpdateCardResourceByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_card_resource_by_id_update_columns
+      fieldMapping:
+        addresses:
+          column:
+            name: addresses
+        anniversaries:
+          column:
+            name: anniversaries
+        calendars:
+          column:
+            name: calendars
+        createTime:
+          column:
+            name: create_time
+        cryptoKeys:
+          column:
+            name: crypto_keys
+        deleteTime:
+          column:
+            name: delete_time
+        directories:
+          column:
+            name: directories
+        emails:
+          column:
+            name: emails
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        jscontactCreateTime:
+          column:
+            name: jscontact_create_time
+        jscontactProps:
+          column:
+            name: jscontact_props
+        jscontactUid:
+          column:
+            name: jscontact_uid
+        jscontactUpdateTime:
+          column:
+            name: jscontact_update_time
+        keywords:
+          column:
+            name: keywords
+        kind:
+          column:
+            name: kind
+        languageCode:
+          column:
+            name: language_code
+        links:
+          column:
+            name: links
+        media:
+          column:
+            name: media
+        members:
+          column:
+            name: members
+        name:
+          column:
+            name: name
+        nameComponentsId:
+          column:
+            name: name_components_id
+        nicknames:
+          column:
+            name: nicknames
+        notes:
+          column:
+            name: notes
+        onlineServices:
+          column:
+            name: online_services
+        organizations:
+          column:
+            name: organizations
+        personalInfo:
+          column:
+            name: personal_info
+        phones:
+          column:
+            name: phones
+        preferredLanguages:
+          column:
+            name: preferred_languages
+        productId:
+          column:
+            name: product_id
+        relations:
+          column:
+            name: relations
+        schedulingAddresses:
+          column:
+            name: scheduling_addresses
+        speechId:
+          column:
+            name: speech_id
+        titles:
+          column:
+            name: titles
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateCardResourceByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - addresses
+          - anniversaries
+          - calendars
+          - createTime
+          - cryptoKeys
+          - deleteTime
+          - directories
+          - emails
+          - etag
+          - expireTime
+          - id
+          - jscontactCreateTime
+          - jscontactProps
+          - jscontactUid
+          - jscontactUpdateTime
+          - keywords
+          - kind
+          - languageCode
+          - links
+          - media
+          - members
+          - name
+          - nameComponentsId
+          - nicknames
+          - notes
+          - onlineServices
+          - organizations
+          - personalInfo
+          - phones
+          - preferredLanguages
+          - productId
+          - relations
+          - schedulingAddresses
+          - speechId
+          - titles
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateCardResourceByIdResponse
+  description: Responses from the 'update_card_resource_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CardResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateCardResourceByIdResponse
+    inputTypeName: UpdateCardResourceByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_card_resource_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateCardResourceByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateCardResourceById
+  outputType: UpdateCardResourceByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: CardResourceBoolExp
+      description: Update permission post-condition predicate over the 'card_resource'
+        collection
+    - name: preCheck
+      type: CardResourceBoolExp
+      description: Update permission pre-condition predicate over the 'card_resource'
+        collection
+    - name: updateColumns
+      type: UpdateCardResourceByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_card_resource_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateCardResourceById
+    rootFieldKind: Mutation
+  description: Update any row on the 'card_resource' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateCardResourceById
+  permissions:
+    - role: admin
+      allowExecution: true
+

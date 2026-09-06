@@ -1,0 +1,301 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardDateOrTextsDate
+  description: Update the 'date' column in the 'vcard_date_or_texts' collection
+  fields:
+    - name: set
+      type: Date
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardDateOrTextsDate
+    inputTypeName: UpdateColumnVcardDateOrTextsDateInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_date_or_texts_date
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardDateOrTextsDate
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardDateOrTextsDateTime
+  description: Update the 'date_time' column in the 'vcard_date_or_texts' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardDateOrTextsDateTime
+    inputTypeName: UpdateColumnVcardDateOrTextsDateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_date_or_texts_date_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardDateOrTextsDateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardDateOrTextsId
+  description: Update the 'id' column in the 'vcard_date_or_texts' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardDateOrTextsId
+    inputTypeName: UpdateColumnVcardDateOrTextsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_date_or_texts_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardDateOrTextsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardDateOrTextsText
+  description: Update the 'text' column in the 'vcard_date_or_texts' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardDateOrTextsText
+    inputTypeName: UpdateColumnVcardDateOrTextsTextInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_date_or_texts_text
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardDateOrTextsText
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardDateOrTextsValueCase
+  description: Update the 'value_case' column in the 'vcard_date_or_texts' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardDateOrTextsValueCase
+    inputTypeName: UpdateColumnVcardDateOrTextsValueCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_date_or_texts_value_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardDateOrTextsValueCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardDateOrTextsByIdUpdateColumns
+  description: Update the columns of the 'vcard_date_or_texts' collection
+  fields:
+    - name: date
+      type: UpdateColumnVcardDateOrTextsDate
+      description: Update the 'date' column in the 'vcard_date_or_texts' collection.
+    - name: dateTime
+      type: UpdateColumnVcardDateOrTextsDateTime
+      description: Update the 'date_time' column in the 'vcard_date_or_texts' collection.
+    - name: id
+      type: UpdateColumnVcardDateOrTextsId
+      description: Update the 'id' column in the 'vcard_date_or_texts' collection.
+    - name: text
+      type: UpdateColumnVcardDateOrTextsText
+      description: Update the 'text' column in the 'vcard_date_or_texts' collection.
+    - name: valueCase
+      type: UpdateColumnVcardDateOrTextsValueCase
+      description: Update the 'value_case' column in the 'vcard_date_or_texts' collection.
+  graphql:
+    typeName: UpdateVcardDateOrTextsByIdUpdateColumns
+    inputTypeName: UpdateVcardDateOrTextsByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_date_or_texts_by_id_update_columns
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        id:
+          column:
+            name: id
+        text:
+          column:
+            name: text
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardDateOrTextsByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - id
+          - text
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardDateOrTextsByIdResponse
+  description: Responses from the 'update_vcard_date_or_texts_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardDateOrTexts!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardDateOrTextsByIdResponse
+    inputTypeName: UpdateVcardDateOrTextsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_date_or_texts_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardDateOrTextsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardDateOrTextsById
+  outputType: UpdateVcardDateOrTextsByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardDateOrTextsBoolExp
+      description: Update permission post-condition predicate over the
+        'vcard_date_or_texts' collection
+    - name: preCheck
+      type: VcardDateOrTextsBoolExp
+      description: Update permission pre-condition predicate over the
+        'vcard_date_or_texts' collection
+    - name: updateColumns
+      type: UpdateVcardDateOrTextsByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_date_or_texts_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardDateOrTextsById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_date_or_texts' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardDateOrTextsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

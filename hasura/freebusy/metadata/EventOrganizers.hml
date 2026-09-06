@@ -1,0 +1,157 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventOrganizers
+  fields:
+    - name: address
+      type: String_1!
+    - name: displayName
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: sender
+      type: String_1
+  graphql:
+    typeName: EventOrganizers
+    inputTypeName: EventOrganizersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_organizers
+      fieldMapping:
+        address:
+          column:
+            name: address
+        displayName:
+          column:
+            name: display_name
+        id:
+          column:
+            name: id
+        sender:
+          column:
+            name: sender
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventOrganizers
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - address
+          - displayName
+          - id
+          - sender
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventOrganizersBoolExp
+  operand:
+    object:
+      type: EventOrganizers
+      comparableFields:
+        - fieldName: address
+          booleanExpressionType: TextBoolExp
+        - fieldName: displayName
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: sender
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventOrganizersBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventOrganizersAggExp
+  operand:
+    object:
+      aggregatedType: EventOrganizers
+      aggregatableFields:
+        - fieldName: address
+          aggregateExpression: TextAggExp
+        - fieldName: displayName
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: sender
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventOrganizersAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventOrganizersOrderByExp
+  operand:
+    object:
+      orderedType: EventOrganizers
+      orderableFields:
+        - fieldName: address
+          orderByExpression: String1OrderByExp
+        - fieldName: displayName
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: sender
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventOrganizersOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventOrganizers
+  objectType: EventOrganizers
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_organizers
+  filterExpressionType: EventOrganizersBoolExp
+  aggregateExpression: EventOrganizersAggExp
+  orderByExpression: EventOrganizersOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventOrganizers
+      subscription:
+        rootField: eventOrganizers
+    selectUniques:
+      - queryRootField: eventOrganizersById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventOrganizersById
+    filterInputTypeName: EventOrganizersFilterInput
+    aggregate:
+      queryRootField: eventOrganizersAggregate
+      subscription:
+        rootField: eventOrganizersAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventOrganizers
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

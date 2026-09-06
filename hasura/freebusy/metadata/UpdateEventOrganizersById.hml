@@ -1,0 +1,262 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventOrganizersAddress
+  description: Update the 'address' column in the 'event_organizers' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventOrganizersAddress
+    inputTypeName: UpdateColumnEventOrganizersAddressInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_organizers_address
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventOrganizersAddress
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventOrganizersDisplayName
+  description: Update the 'display_name' column in the 'event_organizers' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventOrganizersDisplayName
+    inputTypeName: UpdateColumnEventOrganizersDisplayNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_organizers_display_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventOrganizersDisplayName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventOrganizersId
+  description: Update the 'id' column in the 'event_organizers' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventOrganizersId
+    inputTypeName: UpdateColumnEventOrganizersIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_organizers_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventOrganizersId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventOrganizersSender
+  description: Update the 'sender' column in the 'event_organizers' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventOrganizersSender
+    inputTypeName: UpdateColumnEventOrganizersSenderInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_organizers_sender
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventOrganizersSender
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventOrganizersByIdUpdateColumns
+  description: Update the columns of the 'event_organizers' collection
+  fields:
+    - name: address
+      type: UpdateColumnEventOrganizersAddress
+      description: Update the 'address' column in the 'event_organizers' collection.
+    - name: displayName
+      type: UpdateColumnEventOrganizersDisplayName
+      description: Update the 'display_name' column in the 'event_organizers' collection.
+    - name: id
+      type: UpdateColumnEventOrganizersId
+      description: Update the 'id' column in the 'event_organizers' collection.
+    - name: sender
+      type: UpdateColumnEventOrganizersSender
+      description: Update the 'sender' column in the 'event_organizers' collection.
+  graphql:
+    typeName: UpdateEventOrganizersByIdUpdateColumns
+    inputTypeName: UpdateEventOrganizersByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_organizers_by_id_update_columns
+      fieldMapping:
+        address:
+          column:
+            name: address
+        displayName:
+          column:
+            name: display_name
+        id:
+          column:
+            name: id
+        sender:
+          column:
+            name: sender
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventOrganizersByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - address
+          - displayName
+          - id
+          - sender
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventOrganizersByIdResponse
+  description: Responses from the 'update_event_organizers_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventOrganizers!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateEventOrganizersByIdResponse
+    inputTypeName: UpdateEventOrganizersByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_organizers_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventOrganizersByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateEventOrganizersById
+  outputType: UpdateEventOrganizersByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: EventOrganizersBoolExp
+      description: Update permission post-condition predicate over the
+        'event_organizers' collection
+    - name: preCheck
+      type: EventOrganizersBoolExp
+      description: Update permission pre-condition predicate over the
+        'event_organizers' collection
+    - name: updateColumns
+      type: UpdateEventOrganizersByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_event_organizers_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateEventOrganizersById
+    rootFieldKind: Mutation
+  description: Update any row on the 'event_organizers' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateEventOrganizersById
+  permissions:
+    - role: admin
+      allowExecution: true
+

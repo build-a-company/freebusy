@@ -18,6 +18,8 @@ definition:
       type: String_1!
     - name: reason
       type: String_1
+    - name: resourceId
+      type: String_1!
     - name: spanCase
       type: String_1
     - name: unitId
@@ -52,6 +54,9 @@ definition:
         reason:
           column:
             name: reason
+        resourceId:
+          column:
+            name: resource_id
         spanCase:
           column:
             name: span_case
@@ -78,6 +83,7 @@ definition:
           - name
           - propertyId
           - reason
+          - resourceId
           - spanCase
           - unitId
           - windowId
@@ -104,6 +110,8 @@ definition:
         - fieldName: propertyId
           booleanExpressionType: TextBoolExp
         - fieldName: reason
+          booleanExpressionType: TextBoolExp
+        - fieldName: resourceId
           booleanExpressionType: TextBoolExp
         - fieldName: spanCase
           booleanExpressionType: TextBoolExp
@@ -142,6 +150,8 @@ definition:
           aggregateExpression: TextAggExp
         - fieldName: reason
           aggregateExpression: TextAggExp
+        - fieldName: resourceId
+          aggregateExpression: TextAggExp
         - fieldName: spanCase
           aggregateExpression: TextAggExp
         - fieldName: unitId
@@ -176,6 +186,8 @@ definition:
         - fieldName: propertyId
           orderByExpression: String1OrderByExp
         - fieldName: reason
+          orderByExpression: String1OrderByExp
+        - fieldName: resourceId
           orderByExpression: String1OrderByExp
         - fieldName: spanCase
           orderByExpression: String1OrderByExp

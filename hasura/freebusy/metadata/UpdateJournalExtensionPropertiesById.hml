@@ -1,0 +1,307 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalExtensionPropertiesId
+  description: Update the 'id' column in the 'journal_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalExtensionPropertiesId
+    inputTypeName: UpdateColumnJournalExtensionPropertiesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_extension_properties_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalExtensionPropertiesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalExtensionPropertiesJournalId
+  description: Update the 'journal_id' column in the
+    'journal_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalExtensionPropertiesJournalId
+    inputTypeName: UpdateColumnJournalExtensionPropertiesJournalIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_extension_properties_journal_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalExtensionPropertiesJournalId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalExtensionPropertiesKey
+  description: Update the 'key' column in the 'journal_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalExtensionPropertiesKey
+    inputTypeName: UpdateColumnJournalExtensionPropertiesKeyInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_extension_properties_key
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalExtensionPropertiesKey
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalExtensionPropertiesParameters
+  description: Update the 'parameters' column in the
+    'journal_extension_properties' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalExtensionPropertiesParameters
+    inputTypeName: UpdateColumnJournalExtensionPropertiesParametersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_extension_properties_parameters
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalExtensionPropertiesParameters
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalExtensionPropertiesValues
+  description: Update the 'values' column in the 'journal_extension_properties' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalExtensionPropertiesValues
+    inputTypeName: UpdateColumnJournalExtensionPropertiesValuesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_extension_properties_values
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalExtensionPropertiesValues
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateJournalExtensionPropertiesByIdUpdateColumns
+  description: Update the columns of the 'journal_extension_properties' collection
+  fields:
+    - name: id
+      type: UpdateColumnJournalExtensionPropertiesId
+      description: Update the 'id' column in the 'journal_extension_properties' collection.
+    - name: journalId
+      type: UpdateColumnJournalExtensionPropertiesJournalId
+      description: Update the 'journal_id' column in the
+        'journal_extension_properties' collection.
+    - name: key
+      type: UpdateColumnJournalExtensionPropertiesKey
+      description: Update the 'key' column in the 'journal_extension_properties' collection.
+    - name: parameters
+      type: UpdateColumnJournalExtensionPropertiesParameters
+      description: Update the 'parameters' column in the
+        'journal_extension_properties' collection.
+    - name: values
+      type: UpdateColumnJournalExtensionPropertiesValues
+      description: Update the 'values' column in the 'journal_extension_properties'
+        collection.
+  graphql:
+    typeName: UpdateJournalExtensionPropertiesByIdUpdateColumns
+    inputTypeName: UpdateJournalExtensionPropertiesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_journal_extension_properties_by_id_update_columns
+      fieldMapping:
+        id:
+          column:
+            name: id
+        journalId:
+          column:
+            name: journal_id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateJournalExtensionPropertiesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - journalId
+          - key
+          - parameters
+          - values
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateJournalExtensionPropertiesByIdResponse
+  description: Responses from the 'update_journal_extension_properties_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[JournalExtensionProperties!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateJournalExtensionPropertiesByIdResponse
+    inputTypeName: UpdateJournalExtensionPropertiesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_journal_extension_properties_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateJournalExtensionPropertiesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateJournalExtensionPropertiesById
+  outputType: UpdateJournalExtensionPropertiesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: JournalExtensionPropertiesBoolExp
+      description: Update permission post-condition predicate over the
+        'journal_extension_properties' collection
+    - name: preCheck
+      type: JournalExtensionPropertiesBoolExp
+      description: Update permission pre-condition predicate over the
+        'journal_extension_properties' collection
+    - name: updateColumns
+      type: UpdateJournalExtensionPropertiesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_journal_extension_properties_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateJournalExtensionPropertiesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'journal_extension_properties' collection
+    using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateJournalExtensionPropertiesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

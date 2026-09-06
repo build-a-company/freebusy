@@ -1,0 +1,633 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceBusinessCategories
+  description: Update the 'business_categories' column in the
+    'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceBusinessCategories
+    inputTypeName: UpdateColumnOrganizationalUnitResourceBusinessCategoriesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_business_categories
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceBusinessCategories
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceCreateTime
+  description: Update the 'create_time' column in the
+    'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceCreateTime
+    inputTypeName: UpdateColumnOrganizationalUnitResourceCreateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_create_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceCreateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceDeleteTime
+  description: Update the 'delete_time' column in the
+    'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceDeleteTime
+    inputTypeName: UpdateColumnOrganizationalUnitResourceDeleteTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_delete_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceDeleteTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceDescriptions
+  description: Update the 'descriptions' column in the
+    'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceDescriptions
+    inputTypeName: UpdateColumnOrganizationalUnitResourceDescriptionsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_descriptions
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceDescriptions
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceDisplayNames
+  description: Update the 'display_names' column in the
+    'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: "[String_1]!"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceDisplayNames
+    inputTypeName: UpdateColumnOrganizationalUnitResourceDisplayNamesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_display_names
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceDisplayNames
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceEtag
+  description: Update the 'etag' column in the 'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceEtag
+    inputTypeName: UpdateColumnOrganizationalUnitResourceEtagInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_etag
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceEtag
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceExpireTime
+  description: Update the 'expire_time' column in the
+    'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceExpireTime
+    inputTypeName: UpdateColumnOrganizationalUnitResourceExpireTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_expire_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceExpireTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceId
+  description: Update the 'id' column in the 'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceId
+    inputTypeName: UpdateColumnOrganizationalUnitResourceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceName
+  description: Update the 'name' column in the 'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceName
+    inputTypeName: UpdateColumnOrganizationalUnitResourceNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceOrganization
+  description: Update the 'organization' column in the
+    'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceOrganization
+    inputTypeName: UpdateColumnOrganizationalUnitResourceOrganizationInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_organization
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceOrganization
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceSeeAlso
+  description: Update the 'see_also' column in the 'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceSeeAlso
+    inputTypeName: UpdateColumnOrganizationalUnitResourceSeeAlsoInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_see_also
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceSeeAlso
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceUid
+  description: Update the 'uid' column in the 'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceUid
+    inputTypeName: UpdateColumnOrganizationalUnitResourceUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnOrganizationalUnitResourceUpdateTime
+  description: Update the 'update_time' column in the
+    'organizational_unit_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnOrganizationalUnitResourceUpdateTime
+    inputTypeName: UpdateColumnOrganizationalUnitResourceUpdateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_organizational_unit_resource_update_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnOrganizationalUnitResourceUpdateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateOrganizationalUnitResourceByIdUpdateColumns
+  description: Update the columns of the 'organizational_unit_resource' collection
+  fields:
+    - name: businessCategories
+      type: UpdateColumnOrganizationalUnitResourceBusinessCategories
+      description: Update the 'business_categories' column in the
+        'organizational_unit_resource' collection.
+    - name: createTime
+      type: UpdateColumnOrganizationalUnitResourceCreateTime
+      description: Update the 'create_time' column in the
+        'organizational_unit_resource' collection.
+    - name: deleteTime
+      type: UpdateColumnOrganizationalUnitResourceDeleteTime
+      description: Update the 'delete_time' column in the
+        'organizational_unit_resource' collection.
+    - name: descriptions
+      type: UpdateColumnOrganizationalUnitResourceDescriptions
+      description: Update the 'descriptions' column in the
+        'organizational_unit_resource' collection.
+    - name: displayNames
+      type: UpdateColumnOrganizationalUnitResourceDisplayNames
+      description: Update the 'display_names' column in the
+        'organizational_unit_resource' collection.
+    - name: etag
+      type: UpdateColumnOrganizationalUnitResourceEtag
+      description: Update the 'etag' column in the 'organizational_unit_resource'
+        collection.
+    - name: expireTime
+      type: UpdateColumnOrganizationalUnitResourceExpireTime
+      description: Update the 'expire_time' column in the
+        'organizational_unit_resource' collection.
+    - name: id
+      type: UpdateColumnOrganizationalUnitResourceId
+      description: Update the 'id' column in the 'organizational_unit_resource' collection.
+    - name: name
+      type: UpdateColumnOrganizationalUnitResourceName
+      description: Update the 'name' column in the 'organizational_unit_resource'
+        collection.
+    - name: organization
+      type: UpdateColumnOrganizationalUnitResourceOrganization
+      description: Update the 'organization' column in the
+        'organizational_unit_resource' collection.
+    - name: seeAlso
+      type: UpdateColumnOrganizationalUnitResourceSeeAlso
+      description: Update the 'see_also' column in the 'organizational_unit_resource'
+        collection.
+    - name: uid
+      type: UpdateColumnOrganizationalUnitResourceUid
+      description: Update the 'uid' column in the 'organizational_unit_resource' collection.
+    - name: updateTime
+      type: UpdateColumnOrganizationalUnitResourceUpdateTime
+      description: Update the 'update_time' column in the
+        'organizational_unit_resource' collection.
+  graphql:
+    typeName: UpdateOrganizationalUnitResourceByIdUpdateColumns
+    inputTypeName: UpdateOrganizationalUnitResourceByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_organizational_unit_resource_by_id_update_columns
+      fieldMapping:
+        businessCategories:
+          column:
+            name: business_categories
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        descriptions:
+          column:
+            name: descriptions
+        displayNames:
+          column:
+            name: display_names
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        organization:
+          column:
+            name: organization
+        seeAlso:
+          column:
+            name: see_also
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateOrganizationalUnitResourceByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - businessCategories
+          - createTime
+          - deleteTime
+          - descriptions
+          - displayNames
+          - etag
+          - expireTime
+          - id
+          - name
+          - organization
+          - seeAlso
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateOrganizationalUnitResourceByIdResponse
+  description: Responses from the 'update_organizational_unit_resource_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[OrganizationalUnitResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateOrganizationalUnitResourceByIdResponse
+    inputTypeName: UpdateOrganizationalUnitResourceByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_organizational_unit_resource_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateOrganizationalUnitResourceByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateOrganizationalUnitResourceById
+  outputType: UpdateOrganizationalUnitResourceByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: OrganizationalUnitResourceBoolExp
+      description: Update permission post-condition predicate over the
+        'organizational_unit_resource' collection
+    - name: preCheck
+      type: OrganizationalUnitResourceBoolExp
+      description: Update permission pre-condition predicate over the
+        'organizational_unit_resource' collection
+    - name: updateColumns
+      type: UpdateOrganizationalUnitResourceByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_organizational_unit_resource_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateOrganizationalUnitResourceById
+    rootFieldKind: Mutation
+  description: Update any row on the 'organizational_unit_resource' collection
+    using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateOrganizationalUnitResourceById
+  permissions:
+    - role: admin
+      allowExecution: true
+

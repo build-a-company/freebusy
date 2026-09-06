@@ -1,0 +1,691 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceCalendarId
+  description: Update the 'calendar_id' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceCalendarId
+    inputTypeName: UpdateColumnJournalResourceCalendarIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_calendar_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceCalendarId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceClassification
+  description: Update the 'classification' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceClassification
+    inputTypeName: UpdateColumnJournalResourceClassificationInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_classification
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceClassification
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceCreateTime
+  description: Update the 'create_time' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceCreateTime
+    inputTypeName: UpdateColumnJournalResourceCreateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_create_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceCreateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceDeleteTime
+  description: Update the 'delete_time' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceDeleteTime
+    inputTypeName: UpdateColumnJournalResourceDeleteTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_delete_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceDeleteTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceDescriptions
+  description: Update the 'descriptions' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceDescriptions
+    inputTypeName: UpdateColumnJournalResourceDescriptionsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_descriptions
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceDescriptions
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceEtag
+  description: Update the 'etag' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceEtag
+    inputTypeName: UpdateColumnJournalResourceEtagInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_etag
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceEtag
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceExpireTime
+  description: Update the 'expire_time' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceExpireTime
+    inputTypeName: UpdateColumnJournalResourceExpireTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_expire_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceExpireTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceIcalUid
+  description: Update the 'ical_uid' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceIcalUid
+    inputTypeName: UpdateColumnJournalResourceIcalUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_ical_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceIcalUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceId
+  description: Update the 'id' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceId
+    inputTypeName: UpdateColumnJournalResourceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceName
+  description: Update the 'name' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceName
+    inputTypeName: UpdateColumnJournalResourceNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourcePublication
+  description: Update the 'publication' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourcePublication
+    inputTypeName: UpdateColumnJournalResourcePublicationInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_publication
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourcePublication
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceStartId
+  description: Update the 'start_id' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceStartId
+    inputTypeName: UpdateColumnJournalResourceStartIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_start_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceStartId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceSummary
+  description: Update the 'summary' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceSummary
+    inputTypeName: UpdateColumnJournalResourceSummaryInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_summary
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceSummary
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceUid
+  description: Update the 'uid' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceUid
+    inputTypeName: UpdateColumnJournalResourceUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnJournalResourceUpdateTime
+  description: Update the 'update_time' column in the 'journal_resource' collection
+  fields:
+    - name: set
+      type: Timestamptz!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnJournalResourceUpdateTime
+    inputTypeName: UpdateColumnJournalResourceUpdateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_journal_resource_update_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnJournalResourceUpdateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateJournalResourceByIdUpdateColumns
+  description: Update the columns of the 'journal_resource' collection
+  fields:
+    - name: calendarId
+      type: UpdateColumnJournalResourceCalendarId
+      description: Update the 'calendar_id' column in the 'journal_resource' collection.
+    - name: classification
+      type: UpdateColumnJournalResourceClassification
+      description: Update the 'classification' column in the 'journal_resource' collection.
+    - name: createTime
+      type: UpdateColumnJournalResourceCreateTime
+      description: Update the 'create_time' column in the 'journal_resource' collection.
+    - name: deleteTime
+      type: UpdateColumnJournalResourceDeleteTime
+      description: Update the 'delete_time' column in the 'journal_resource' collection.
+    - name: descriptions
+      type: UpdateColumnJournalResourceDescriptions
+      description: Update the 'descriptions' column in the 'journal_resource' collection.
+    - name: etag
+      type: UpdateColumnJournalResourceEtag
+      description: Update the 'etag' column in the 'journal_resource' collection.
+    - name: expireTime
+      type: UpdateColumnJournalResourceExpireTime
+      description: Update the 'expire_time' column in the 'journal_resource' collection.
+    - name: icalUid
+      type: UpdateColumnJournalResourceIcalUid
+      description: Update the 'ical_uid' column in the 'journal_resource' collection.
+    - name: id
+      type: UpdateColumnJournalResourceId
+      description: Update the 'id' column in the 'journal_resource' collection.
+    - name: name
+      type: UpdateColumnJournalResourceName
+      description: Update the 'name' column in the 'journal_resource' collection.
+    - name: publication
+      type: UpdateColumnJournalResourcePublication
+      description: Update the 'publication' column in the 'journal_resource' collection.
+    - name: startId
+      type: UpdateColumnJournalResourceStartId
+      description: Update the 'start_id' column in the 'journal_resource' collection.
+    - name: summary
+      type: UpdateColumnJournalResourceSummary
+      description: Update the 'summary' column in the 'journal_resource' collection.
+    - name: uid
+      type: UpdateColumnJournalResourceUid
+      description: Update the 'uid' column in the 'journal_resource' collection.
+    - name: updateTime
+      type: UpdateColumnJournalResourceUpdateTime
+      description: Update the 'update_time' column in the 'journal_resource' collection.
+  graphql:
+    typeName: UpdateJournalResourceByIdUpdateColumns
+    inputTypeName: UpdateJournalResourceByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_journal_resource_by_id_update_columns
+      fieldMapping:
+        calendarId:
+          column:
+            name: calendar_id
+        classification:
+          column:
+            name: classification
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        descriptions:
+          column:
+            name: descriptions
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        publication:
+          column:
+            name: publication
+        startId:
+          column:
+            name: start_id
+        summary:
+          column:
+            name: summary
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateJournalResourceByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendarId
+          - classification
+          - createTime
+          - deleteTime
+          - descriptions
+          - etag
+          - expireTime
+          - icalUid
+          - id
+          - name
+          - publication
+          - startId
+          - summary
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateJournalResourceByIdResponse
+  description: Responses from the 'update_journal_resource_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[JournalResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateJournalResourceByIdResponse
+    inputTypeName: UpdateJournalResourceByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_journal_resource_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateJournalResourceByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateJournalResourceById
+  outputType: UpdateJournalResourceByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: JournalResourceBoolExp
+      description: Update permission post-condition predicate over the
+        'journal_resource' collection
+    - name: preCheck
+      type: JournalResourceBoolExp
+      description: Update permission pre-condition predicate over the
+        'journal_resource' collection
+    - name: updateColumns
+      type: UpdateJournalResourceByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_journal_resource_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateJournalResourceById
+    rootFieldKind: Mutation
+  description: Update any row on the 'journal_resource' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateJournalResourceById
+  permissions:
+    - role: admin
+      allowExecution: true
+

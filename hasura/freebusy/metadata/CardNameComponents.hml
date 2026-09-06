@@ -1,0 +1,169 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: CardNameComponents
+  fields:
+    - name: id
+      type: String_1!
+    - name: kind
+      type: String_1!
+    - name: nameId
+      type: String_1!
+    - name: phonetic
+      type: String_1
+    - name: value
+      type: String_1!
+  graphql:
+    typeName: CardNameComponents
+    inputTypeName: CardNameComponentsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: card_name_components
+      fieldMapping:
+        id:
+          column:
+            name: id
+        kind:
+          column:
+            name: kind
+        nameId:
+          column:
+            name: name_id
+        phonetic:
+          column:
+            name: phonetic
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: CardNameComponents
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - kind
+          - nameId
+          - phonetic
+          - value
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: CardNameComponentsBoolExp
+  operand:
+    object:
+      type: CardNameComponents
+      comparableFields:
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: kind
+          booleanExpressionType: TextBoolExp
+        - fieldName: nameId
+          booleanExpressionType: TextBoolExp
+        - fieldName: phonetic
+          booleanExpressionType: TextBoolExp
+        - fieldName: value
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: CardNameComponentsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: CardNameComponentsAggExp
+  operand:
+    object:
+      aggregatedType: CardNameComponents
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: kind
+          aggregateExpression: TextAggExp
+        - fieldName: nameId
+          aggregateExpression: TextAggExp
+        - fieldName: phonetic
+          aggregateExpression: TextAggExp
+        - fieldName: value
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: CardNameComponentsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: CardNameComponentsOrderByExp
+  operand:
+    object:
+      orderedType: CardNameComponents
+      orderableFields:
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: kind
+          orderByExpression: String1OrderByExp
+        - fieldName: nameId
+          orderByExpression: String1OrderByExp
+        - fieldName: phonetic
+          orderByExpression: String1OrderByExp
+        - fieldName: value
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: CardNameComponentsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: CardNameComponents
+  objectType: CardNameComponents
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: card_name_components
+  filterExpressionType: CardNameComponentsBoolExp
+  aggregateExpression: CardNameComponentsAggExp
+  orderByExpression: CardNameComponentsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: cardNameComponents
+      subscription:
+        rootField: cardNameComponents
+    selectUniques:
+      - queryRootField: cardNameComponentsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: cardNameComponentsById
+    filterInputTypeName: CardNameComponentsFilterInput
+    aggregate:
+      queryRootField: cardNameComponentsAggregate
+      subscription:
+        rootField: cardNameComponentsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: CardNameComponents
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

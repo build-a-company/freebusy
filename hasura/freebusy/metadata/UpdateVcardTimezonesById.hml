@@ -1,0 +1,418 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTimezonesContactId
+  description: Update the 'contact_id' column in the 'vcard_timezones' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTimezonesContactId
+    inputTypeName: UpdateColumnVcardTimezonesContactIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_timezones_contact_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTimezonesContactId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTimezonesId
+  description: Update the 'id' column in the 'vcard_timezones' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTimezonesId
+    inputTypeName: UpdateColumnVcardTimezonesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_timezones_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTimezonesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTimezonesPref
+  description: Update the 'pref' column in the 'vcard_timezones' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTimezonesPref
+    inputTypeName: UpdateColumnVcardTimezonesPrefInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_timezones_pref
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTimezonesPref
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTimezonesText
+  description: Update the 'text' column in the 'vcard_timezones' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTimezonesText
+    inputTypeName: UpdateColumnVcardTimezonesTextInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_timezones_text
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTimezonesText
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTimezonesTypes
+  description: Update the 'types' column in the 'vcard_timezones' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTimezonesTypes
+    inputTypeName: UpdateColumnVcardTimezonesTypesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_timezones_types
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTimezonesTypes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTimezonesUri
+  description: Update the 'uri' column in the 'vcard_timezones' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTimezonesUri
+    inputTypeName: UpdateColumnVcardTimezonesUriInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_timezones_uri
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTimezonesUri
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTimezonesUtcOffset
+  description: Update the 'utc_offset' column in the 'vcard_timezones' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTimezonesUtcOffset
+    inputTypeName: UpdateColumnVcardTimezonesUtcOffsetInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_timezones_utc_offset
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTimezonesUtcOffset
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnVcardTimezonesValueCase
+  description: Update the 'value_case' column in the 'vcard_timezones' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnVcardTimezonesValueCase
+    inputTypeName: UpdateColumnVcardTimezonesValueCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_vcard_timezones_value_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnVcardTimezonesValueCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardTimezonesByIdUpdateColumns
+  description: Update the columns of the 'vcard_timezones' collection
+  fields:
+    - name: contactId
+      type: UpdateColumnVcardTimezonesContactId
+      description: Update the 'contact_id' column in the 'vcard_timezones' collection.
+    - name: id
+      type: UpdateColumnVcardTimezonesId
+      description: Update the 'id' column in the 'vcard_timezones' collection.
+    - name: pref
+      type: UpdateColumnVcardTimezonesPref
+      description: Update the 'pref' column in the 'vcard_timezones' collection.
+    - name: text
+      type: UpdateColumnVcardTimezonesText
+      description: Update the 'text' column in the 'vcard_timezones' collection.
+    - name: types
+      type: UpdateColumnVcardTimezonesTypes
+      description: Update the 'types' column in the 'vcard_timezones' collection.
+    - name: uri
+      type: UpdateColumnVcardTimezonesUri
+      description: Update the 'uri' column in the 'vcard_timezones' collection.
+    - name: utcOffset
+      type: UpdateColumnVcardTimezonesUtcOffset
+      description: Update the 'utc_offset' column in the 'vcard_timezones' collection.
+    - name: valueCase
+      type: UpdateColumnVcardTimezonesValueCase
+      description: Update the 'value_case' column in the 'vcard_timezones' collection.
+  graphql:
+    typeName: UpdateVcardTimezonesByIdUpdateColumns
+    inputTypeName: UpdateVcardTimezonesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_timezones_by_id_update_columns
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        text:
+          column:
+            name: text
+        types:
+          column:
+            name: types
+        uri:
+          column:
+            name: uri
+        utcOffset:
+          column:
+            name: utc_offset
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardTimezonesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - text
+          - types
+          - uri
+          - utcOffset
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateVcardTimezonesByIdResponse
+  description: Responses from the 'update_vcard_timezones_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardTimezones!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateVcardTimezonesByIdResponse
+    inputTypeName: UpdateVcardTimezonesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_vcard_timezones_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateVcardTimezonesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateVcardTimezonesById
+  outputType: UpdateVcardTimezonesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: VcardTimezonesBoolExp
+      description: Update permission post-condition predicate over the
+        'vcard_timezones' collection
+    - name: preCheck
+      type: VcardTimezonesBoolExp
+      description: Update permission pre-condition predicate over the
+        'vcard_timezones' collection
+    - name: updateColumns
+      type: UpdateVcardTimezonesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_vcard_timezones_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateVcardTimezonesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'vcard_timezones' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateVcardTimezonesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

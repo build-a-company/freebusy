@@ -1,0 +1,74 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteEventExtensionPropertiesByIdResponse
+  description: Responses from the 'delete_event_extension_properties_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventExtensionProperties!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteEventExtensionPropertiesByIdResponse
+    inputTypeName: DeleteEventExtensionPropertiesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_event_extension_properties_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteEventExtensionPropertiesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteEventExtensionPropertiesById
+  outputType: DeleteEventExtensionPropertiesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: EventExtensionPropertiesBoolExp
+      description: Delete permission predicate over the 'event_extension_properties'
+        collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_event_extension_properties_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteEventExtensionPropertiesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'event_extension_properties' collection using
+    the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteEventExtensionPropertiesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

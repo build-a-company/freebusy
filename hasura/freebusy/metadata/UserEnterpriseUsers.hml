@@ -1,0 +1,193 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UserEnterpriseUsers
+  fields:
+    - name: costCenter
+      type: String_1
+    - name: department
+      type: String_1
+    - name: division
+      type: String_1
+    - name: employeeNumber
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: managerId
+      type: String_1
+    - name: organization
+      type: String_1
+  graphql:
+    typeName: UserEnterpriseUsers
+    inputTypeName: UserEnterpriseUsersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: user_enterprise_users
+      fieldMapping:
+        costCenter:
+          column:
+            name: cost_center
+        department:
+          column:
+            name: department
+        division:
+          column:
+            name: division
+        employeeNumber:
+          column:
+            name: employee_number
+        id:
+          column:
+            name: id
+        managerId:
+          column:
+            name: manager_id
+        organization:
+          column:
+            name: organization
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UserEnterpriseUsers
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - costCenter
+          - department
+          - division
+          - employeeNumber
+          - id
+          - managerId
+          - organization
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: UserEnterpriseUsersBoolExp
+  operand:
+    object:
+      type: UserEnterpriseUsers
+      comparableFields:
+        - fieldName: costCenter
+          booleanExpressionType: TextBoolExp
+        - fieldName: department
+          booleanExpressionType: TextBoolExp
+        - fieldName: division
+          booleanExpressionType: TextBoolExp
+        - fieldName: employeeNumber
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: managerId
+          booleanExpressionType: TextBoolExp
+        - fieldName: organization
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: UserEnterpriseUsersBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: UserEnterpriseUsersAggExp
+  operand:
+    object:
+      aggregatedType: UserEnterpriseUsers
+      aggregatableFields:
+        - fieldName: costCenter
+          aggregateExpression: TextAggExp
+        - fieldName: department
+          aggregateExpression: TextAggExp
+        - fieldName: division
+          aggregateExpression: TextAggExp
+        - fieldName: employeeNumber
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: managerId
+          aggregateExpression: TextAggExp
+        - fieldName: organization
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: UserEnterpriseUsersAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: UserEnterpriseUsersOrderByExp
+  operand:
+    object:
+      orderedType: UserEnterpriseUsers
+      orderableFields:
+        - fieldName: costCenter
+          orderByExpression: String1OrderByExp
+        - fieldName: department
+          orderByExpression: String1OrderByExp
+        - fieldName: division
+          orderByExpression: String1OrderByExp
+        - fieldName: employeeNumber
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: managerId
+          orderByExpression: String1OrderByExp
+        - fieldName: organization
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: UserEnterpriseUsersOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: UserEnterpriseUsers
+  objectType: UserEnterpriseUsers
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: user_enterprise_users
+  filterExpressionType: UserEnterpriseUsersBoolExp
+  aggregateExpression: UserEnterpriseUsersAggExp
+  orderByExpression: UserEnterpriseUsersOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: userEnterpriseUsers
+      subscription:
+        rootField: userEnterpriseUsers
+    selectUniques:
+      - queryRootField: userEnterpriseUsersById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: userEnterpriseUsersById
+    filterInputTypeName: UserEnterpriseUsersFilterInput
+    aggregate:
+      queryRootField: userEnterpriseUsersAggregate
+      subscription:
+        rootField: userEnterpriseUsersAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: UserEnterpriseUsers
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

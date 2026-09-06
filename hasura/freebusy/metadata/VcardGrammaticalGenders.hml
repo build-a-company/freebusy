@@ -1,0 +1,157 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardGrammaticalGenders
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: kind
+      type: String_1!
+    - name: languageCode
+      type: String_1
+  graphql:
+    typeName: VcardGrammaticalGenders
+    inputTypeName: VcardGrammaticalGendersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_grammatical_genders
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        kind:
+          column:
+            name: kind
+        languageCode:
+          column:
+            name: language_code
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardGrammaticalGenders
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - kind
+          - languageCode
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardGrammaticalGendersBoolExp
+  operand:
+    object:
+      type: VcardGrammaticalGenders
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: kind
+          booleanExpressionType: TextBoolExp
+        - fieldName: languageCode
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardGrammaticalGendersBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardGrammaticalGendersAggExp
+  operand:
+    object:
+      aggregatedType: VcardGrammaticalGenders
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: kind
+          aggregateExpression: TextAggExp
+        - fieldName: languageCode
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardGrammaticalGendersAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardGrammaticalGendersOrderByExp
+  operand:
+    object:
+      orderedType: VcardGrammaticalGenders
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: kind
+          orderByExpression: String1OrderByExp
+        - fieldName: languageCode
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardGrammaticalGendersOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardGrammaticalGenders
+  objectType: VcardGrammaticalGenders
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_grammatical_genders
+  filterExpressionType: VcardGrammaticalGendersBoolExp
+  aggregateExpression: VcardGrammaticalGendersAggExp
+  orderByExpression: VcardGrammaticalGendersOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardGrammaticalGenders
+      subscription:
+        rootField: vcardGrammaticalGenders
+    selectUniques:
+      - queryRootField: vcardGrammaticalGendersById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardGrammaticalGendersById
+    filterInputTypeName: VcardGrammaticalGendersFilterInput
+    aggregate:
+      queryRootField: vcardGrammaticalGendersAggregate
+      subscription:
+        rootField: vcardGrammaticalGendersAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardGrammaticalGenders
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

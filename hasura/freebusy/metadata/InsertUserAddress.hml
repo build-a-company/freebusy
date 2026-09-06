@@ -1,0 +1,156 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertUserAddressObject
+  fields:
+    - name: attributeType
+      type: String_1
+    - name: fullAddress
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: locality
+      type: String_1
+    - name: postalCode
+      type: String_1
+    - name: primary
+      type: Boolean_1
+    - name: region
+      type: String_1
+    - name: regionCode
+      type: String_1
+    - name: streetAddress
+      type: String_1
+    - name: userId
+      type: String_1!
+  graphql:
+    typeName: InsertUserAddressObject
+    inputTypeName: InsertUserAddressObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_user_address_object
+      fieldMapping:
+        attributeType:
+          column:
+            name: attribute_type
+        fullAddress:
+          column:
+            name: full_address
+        id:
+          column:
+            name: id
+        locality:
+          column:
+            name: locality
+        postalCode:
+          column:
+            name: postal_code
+        primary:
+          column:
+            name: primary
+        region:
+          column:
+            name: region
+        regionCode:
+          column:
+            name: region_code
+        streetAddress:
+          column:
+            name: street_address
+        userId:
+          column:
+            name: user_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertUserAddressObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - attributeType
+          - fullAddress
+          - id
+          - locality
+          - postalCode
+          - primary
+          - region
+          - regionCode
+          - streetAddress
+          - userId
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertUserAddressResponse
+  description: Responses from the 'insert_user_address' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserAddress!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertUserAddressResponse
+    inputTypeName: InsertUserAddressResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_user_address_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertUserAddressResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertUserAddress
+  outputType: InsertUserAddressResponse!
+  arguments:
+    - name: objects
+      type: "[InsertUserAddressObject!]!"
+    - name: postCheck
+      type: UserAddressBoolExp
+      description: Insert permission predicate over the 'user_address' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_user_address
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertUserAddress
+    rootFieldKind: Mutation
+  description: Insert into the user_address table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertUserAddress
+  permissions:
+    - role: admin
+      allowExecution: true
+

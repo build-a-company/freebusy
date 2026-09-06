@@ -1,0 +1,379 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAttributesAttributeType
+  description: Update the 'attribute_type' column in the 'user_attributes' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAttributesAttributeType
+    inputTypeName: UpdateColumnUserAttributesAttributeTypeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_attributes_attribute_type
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAttributesAttributeType
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAttributesDisplay
+  description: Update the 'display' column in the 'user_attributes' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAttributesDisplay
+    inputTypeName: UpdateColumnUserAttributesDisplayInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_attributes_display
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAttributesDisplay
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAttributesId
+  description: Update the 'id' column in the 'user_attributes' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAttributesId
+    inputTypeName: UpdateColumnUserAttributesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_attributes_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAttributesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAttributesPrimary
+  description: Update the 'primary' column in the 'user_attributes' collection
+  fields:
+    - name: set
+      type: Boolean_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAttributesPrimary
+    inputTypeName: UpdateColumnUserAttributesPrimaryInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_attributes_primary
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAttributesPrimary
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAttributesReferenceUri
+  description: Update the 'reference_uri' column in the 'user_attributes' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAttributesReferenceUri
+    inputTypeName: UpdateColumnUserAttributesReferenceUriInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_attributes_reference_uri
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAttributesReferenceUri
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAttributesUserId
+  description: Update the 'user_id' column in the 'user_attributes' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAttributesUserId
+    inputTypeName: UpdateColumnUserAttributesUserIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_attributes_user_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAttributesUserId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserAttributesValue
+  description: Update the 'value' column in the 'user_attributes' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserAttributesValue
+    inputTypeName: UpdateColumnUserAttributesValueInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_attributes_value
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserAttributesValue
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateUserAttributesByIdUpdateColumns
+  description: Update the columns of the 'user_attributes' collection
+  fields:
+    - name: attributeType
+      type: UpdateColumnUserAttributesAttributeType
+      description: Update the 'attribute_type' column in the 'user_attributes' collection.
+    - name: display
+      type: UpdateColumnUserAttributesDisplay
+      description: Update the 'display' column in the 'user_attributes' collection.
+    - name: id
+      type: UpdateColumnUserAttributesId
+      description: Update the 'id' column in the 'user_attributes' collection.
+    - name: primary
+      type: UpdateColumnUserAttributesPrimary
+      description: Update the 'primary' column in the 'user_attributes' collection.
+    - name: referenceUri
+      type: UpdateColumnUserAttributesReferenceUri
+      description: Update the 'reference_uri' column in the 'user_attributes' collection.
+    - name: userId
+      type: UpdateColumnUserAttributesUserId
+      description: Update the 'user_id' column in the 'user_attributes' collection.
+    - name: value
+      type: UpdateColumnUserAttributesValue
+      description: Update the 'value' column in the 'user_attributes' collection.
+  graphql:
+    typeName: UpdateUserAttributesByIdUpdateColumns
+    inputTypeName: UpdateUserAttributesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_user_attributes_by_id_update_columns
+      fieldMapping:
+        attributeType:
+          column:
+            name: attribute_type
+        display:
+          column:
+            name: display
+        id:
+          column:
+            name: id
+        primary:
+          column:
+            name: primary
+        referenceUri:
+          column:
+            name: reference_uri
+        userId:
+          column:
+            name: user_id
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateUserAttributesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - attributeType
+          - display
+          - id
+          - primary
+          - referenceUri
+          - userId
+          - value
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateUserAttributesByIdResponse
+  description: Responses from the 'update_user_attributes_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserAttributes!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateUserAttributesByIdResponse
+    inputTypeName: UpdateUserAttributesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_user_attributes_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateUserAttributesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateUserAttributesById
+  outputType: UpdateUserAttributesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: UserAttributesBoolExp
+      description: Update permission post-condition predicate over the
+        'user_attributes' collection
+    - name: preCheck
+      type: UserAttributesBoolExp
+      description: Update permission pre-condition predicate over the
+        'user_attributes' collection
+    - name: updateColumns
+      type: UpdateUserAttributesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_user_attributes_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateUserAttributesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'user_attributes' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateUserAttributesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

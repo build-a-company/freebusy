@@ -1,0 +1,163 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardNicknames
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: pref
+      type: Int32
+    - name: types
+      type: String_1
+    - name: values
+      type: "[String_1]!"
+  graphql:
+    typeName: VcardNicknames
+    inputTypeName: VcardNicknamesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_nicknames
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        types:
+          column:
+            name: types
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardNicknames
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - types
+          - values
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardNicknamesBoolExp
+  operand:
+    object:
+      type: VcardNicknames
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: pref
+          booleanExpressionType: Int4BoolExp
+        - fieldName: types
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardNicknamesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardNicknamesAggExp
+  operand:
+    object:
+      aggregatedType: VcardNicknames
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: pref
+          aggregateExpression: Int4AggExp
+        - fieldName: types
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardNicknamesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardNicknamesOrderByExp
+  operand:
+    object:
+      orderedType: VcardNicknames
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: pref
+          orderByExpression: Int32OrderByExp
+        - fieldName: types
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardNicknamesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardNicknames
+  objectType: VcardNicknames
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_nicknames
+  filterExpressionType: VcardNicknamesBoolExp
+  aggregateExpression: VcardNicknamesAggExp
+  orderByExpression: VcardNicknamesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardNicknames
+      subscription:
+        rootField: vcardNicknames
+    selectUniques:
+      - queryRootField: vcardNicknamesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardNicknamesById
+    filterInputTypeName: VcardNicknamesFilterInput
+    aggregate:
+      queryRootField: vcardNicknamesAggregate
+      subscription:
+        rootField: vcardNicknamesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardNicknames
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

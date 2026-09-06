@@ -1,0 +1,74 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteAvailabilityCalendarTimesByIdResponse
+  description: Responses from the 'delete_availability_calendar_times_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[AvailabilityCalendarTimes!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteAvailabilityCalendarTimesByIdResponse
+    inputTypeName: DeleteAvailabilityCalendarTimesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_availability_calendar_times_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteAvailabilityCalendarTimesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteAvailabilityCalendarTimesById
+  outputType: DeleteAvailabilityCalendarTimesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: AvailabilityCalendarTimesBoolExp
+      description: Delete permission predicate over the 'availability_calendar_times'
+        collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_availability_calendar_times_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteAvailabilityCalendarTimesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'availability_calendar_times' collection
+    using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteAvailabilityCalendarTimesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,169 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardLanguages
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: pref
+      type: Int32
+    - name: types
+      type: String_1
+    - name: value
+      type: String_1!
+  graphql:
+    typeName: VcardLanguages
+    inputTypeName: VcardLanguagesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_languages
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        types:
+          column:
+            name: types
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardLanguages
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - types
+          - value
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardLanguagesBoolExp
+  operand:
+    object:
+      type: VcardLanguages
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: pref
+          booleanExpressionType: Int4BoolExp
+        - fieldName: types
+          booleanExpressionType: TextBoolExp
+        - fieldName: value
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardLanguagesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardLanguagesAggExp
+  operand:
+    object:
+      aggregatedType: VcardLanguages
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: pref
+          aggregateExpression: Int4AggExp
+        - fieldName: types
+          aggregateExpression: TextAggExp
+        - fieldName: value
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardLanguagesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardLanguagesOrderByExp
+  operand:
+    object:
+      orderedType: VcardLanguages
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: pref
+          orderByExpression: Int32OrderByExp
+        - fieldName: types
+          orderByExpression: String1OrderByExp
+        - fieldName: value
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardLanguagesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardLanguages
+  objectType: VcardLanguages
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_languages
+  filterExpressionType: VcardLanguagesBoolExp
+  aggregateExpression: VcardLanguagesAggExp
+  orderByExpression: VcardLanguagesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardLanguages
+      subscription:
+        rootField: vcardLanguages
+    selectUniques:
+      - queryRootField: vcardLanguagesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardLanguagesById
+    filterInputTypeName: VcardLanguagesFilterInput
+    aggregate:
+      queryRootField: vcardLanguagesAggregate
+      subscription:
+        rootField: vcardLanguagesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardLanguages
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

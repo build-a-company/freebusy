@@ -1,0 +1,156 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardContactsObject
+  fields:
+    - name: anniversaryId
+      type: String_1
+    - name: birthdayId
+      type: String_1
+    - name: categories
+      type: "[String_1]"
+    - name: defaultLanguageCode
+      type: String_1
+    - name: displayNames
+      type: "[String_1]!"
+    - name: id
+      type: String_1!
+    - name: kind
+      type: String_1
+    - name: nameComponentsId
+      type: String_1
+    - name: notes
+      type: "[String_1]"
+    - name: titles
+      type: "[String_1]"
+  graphql:
+    typeName: InsertVcardContactsObject
+    inputTypeName: InsertVcardContactsObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_contacts_object
+      fieldMapping:
+        anniversaryId:
+          column:
+            name: anniversary_id
+        birthdayId:
+          column:
+            name: birthday_id
+        categories:
+          column:
+            name: categories
+        defaultLanguageCode:
+          column:
+            name: default_language_code
+        displayNames:
+          column:
+            name: display_names
+        id:
+          column:
+            name: id
+        kind:
+          column:
+            name: kind
+        nameComponentsId:
+          column:
+            name: name_components_id
+        notes:
+          column:
+            name: notes
+        titles:
+          column:
+            name: titles
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardContactsObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - anniversaryId
+          - birthdayId
+          - categories
+          - defaultLanguageCode
+          - displayNames
+          - id
+          - kind
+          - nameComponentsId
+          - notes
+          - titles
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardContactsResponse
+  description: Responses from the 'insert_vcard_contacts' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardContacts!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertVcardContactsResponse
+    inputTypeName: InsertVcardContactsResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_contacts_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardContactsResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertVcardContacts
+  outputType: InsertVcardContactsResponse!
+  arguments:
+    - name: objects
+      type: "[InsertVcardContactsObject!]!"
+    - name: postCheck
+      type: VcardContactsBoolExp
+      description: Insert permission predicate over the 'vcard_contacts' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_vcard_contacts
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertVcardContacts
+    rootFieldKind: Mutation
+  description: Insert into the vcard_contacts table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertVcardContacts
+  permissions:
+    - role: admin
+      allowExecution: true
+

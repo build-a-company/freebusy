@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteEventAttendeesByIdResponse
+  description: Responses from the 'delete_event_attendees_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventAttendees!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteEventAttendeesByIdResponse
+    inputTypeName: DeleteEventAttendeesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_event_attendees_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteEventAttendeesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteEventAttendeesById
+  outputType: DeleteEventAttendeesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: EventAttendeesBoolExp
+      description: Delete permission predicate over the 'event_attendees' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_event_attendees_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteEventAttendeesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'event_attendees' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteEventAttendeesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

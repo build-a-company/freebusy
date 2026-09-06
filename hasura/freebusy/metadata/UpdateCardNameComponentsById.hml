@@ -1,0 +1,301 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardNameComponentsId
+  description: Update the 'id' column in the 'card_name_components' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardNameComponentsId
+    inputTypeName: UpdateColumnCardNameComponentsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_name_components_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardNameComponentsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardNameComponentsKind
+  description: Update the 'kind' column in the 'card_name_components' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardNameComponentsKind
+    inputTypeName: UpdateColumnCardNameComponentsKindInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_name_components_kind
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardNameComponentsKind
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardNameComponentsNameId
+  description: Update the 'name_id' column in the 'card_name_components' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardNameComponentsNameId
+    inputTypeName: UpdateColumnCardNameComponentsNameIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_name_components_name_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardNameComponentsNameId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardNameComponentsPhonetic
+  description: Update the 'phonetic' column in the 'card_name_components' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardNameComponentsPhonetic
+    inputTypeName: UpdateColumnCardNameComponentsPhoneticInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_name_components_phonetic
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardNameComponentsPhonetic
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCardNameComponentsValue
+  description: Update the 'value' column in the 'card_name_components' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCardNameComponentsValue
+    inputTypeName: UpdateColumnCardNameComponentsValueInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_card_name_components_value
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCardNameComponentsValue
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateCardNameComponentsByIdUpdateColumns
+  description: Update the columns of the 'card_name_components' collection
+  fields:
+    - name: id
+      type: UpdateColumnCardNameComponentsId
+      description: Update the 'id' column in the 'card_name_components' collection.
+    - name: kind
+      type: UpdateColumnCardNameComponentsKind
+      description: Update the 'kind' column in the 'card_name_components' collection.
+    - name: nameId
+      type: UpdateColumnCardNameComponentsNameId
+      description: Update the 'name_id' column in the 'card_name_components' collection.
+    - name: phonetic
+      type: UpdateColumnCardNameComponentsPhonetic
+      description: Update the 'phonetic' column in the 'card_name_components' collection.
+    - name: value
+      type: UpdateColumnCardNameComponentsValue
+      description: Update the 'value' column in the 'card_name_components' collection.
+  graphql:
+    typeName: UpdateCardNameComponentsByIdUpdateColumns
+    inputTypeName: UpdateCardNameComponentsByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_card_name_components_by_id_update_columns
+      fieldMapping:
+        id:
+          column:
+            name: id
+        kind:
+          column:
+            name: kind
+        nameId:
+          column:
+            name: name_id
+        phonetic:
+          column:
+            name: phonetic
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateCardNameComponentsByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - kind
+          - nameId
+          - phonetic
+          - value
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateCardNameComponentsByIdResponse
+  description: Responses from the 'update_card_name_components_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CardNameComponents!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateCardNameComponentsByIdResponse
+    inputTypeName: UpdateCardNameComponentsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_card_name_components_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateCardNameComponentsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateCardNameComponentsById
+  outputType: UpdateCardNameComponentsByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: CardNameComponentsBoolExp
+      description: Update permission post-condition predicate over the
+        'card_name_components' collection
+    - name: preCheck
+      type: CardNameComponentsBoolExp
+      description: Update permission pre-condition predicate over the
+        'card_name_components' collection
+    - name: updateColumns
+      type: UpdateCardNameComponentsByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_card_name_components_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateCardNameComponentsById
+    rootFieldKind: Mutation
+  description: Update any row on the 'card_name_components' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateCardNameComponentsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,74 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteVcardGrammaticalGendersByIdResponse
+  description: Responses from the 'delete_vcard_grammatical_genders_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardGrammaticalGenders!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteVcardGrammaticalGendersByIdResponse
+    inputTypeName: DeleteVcardGrammaticalGendersByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_vcard_grammatical_genders_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteVcardGrammaticalGendersByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteVcardGrammaticalGendersById
+  outputType: DeleteVcardGrammaticalGendersByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: VcardGrammaticalGendersBoolExp
+      description: Delete permission predicate over the 'vcard_grammatical_genders'
+        collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_vcard_grammatical_genders_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteVcardGrammaticalGendersById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'vcard_grammatical_genders' collection using
+    the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteVcardGrammaticalGendersById
+  permissions:
+    - role: admin
+      allowExecution: true
+

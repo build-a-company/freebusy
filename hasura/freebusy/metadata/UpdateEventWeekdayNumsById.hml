@@ -1,0 +1,262 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventWeekdayNumsDay
+  description: Update the 'day' column in the 'event_weekday_nums' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventWeekdayNumsDay
+    inputTypeName: UpdateColumnEventWeekdayNumsDayInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_weekday_nums_day
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventWeekdayNumsDay
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventWeekdayNumsId
+  description: Update the 'id' column in the 'event_weekday_nums' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventWeekdayNumsId
+    inputTypeName: UpdateColumnEventWeekdayNumsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_weekday_nums_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventWeekdayNumsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventWeekdayNumsOrdinal
+  description: Update the 'ordinal' column in the 'event_weekday_nums' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventWeekdayNumsOrdinal
+    inputTypeName: UpdateColumnEventWeekdayNumsOrdinalInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_weekday_nums_ordinal
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventWeekdayNumsOrdinal
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventWeekdayNumsRecurrenceId
+  description: Update the 'recurrence_id' column in the 'event_weekday_nums' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventWeekdayNumsRecurrenceId
+    inputTypeName: UpdateColumnEventWeekdayNumsRecurrenceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_weekday_nums_recurrence_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventWeekdayNumsRecurrenceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventWeekdayNumsByIdUpdateColumns
+  description: Update the columns of the 'event_weekday_nums' collection
+  fields:
+    - name: day
+      type: UpdateColumnEventWeekdayNumsDay
+      description: Update the 'day' column in the 'event_weekday_nums' collection.
+    - name: id
+      type: UpdateColumnEventWeekdayNumsId
+      description: Update the 'id' column in the 'event_weekday_nums' collection.
+    - name: ordinal
+      type: UpdateColumnEventWeekdayNumsOrdinal
+      description: Update the 'ordinal' column in the 'event_weekday_nums' collection.
+    - name: recurrenceId
+      type: UpdateColumnEventWeekdayNumsRecurrenceId
+      description: Update the 'recurrence_id' column in the 'event_weekday_nums' collection.
+  graphql:
+    typeName: UpdateEventWeekdayNumsByIdUpdateColumns
+    inputTypeName: UpdateEventWeekdayNumsByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_weekday_nums_by_id_update_columns
+      fieldMapping:
+        day:
+          column:
+            name: day
+        id:
+          column:
+            name: id
+        ordinal:
+          column:
+            name: ordinal
+        recurrenceId:
+          column:
+            name: recurrence_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventWeekdayNumsByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - day
+          - id
+          - ordinal
+          - recurrenceId
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventWeekdayNumsByIdResponse
+  description: Responses from the 'update_event_weekday_nums_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventWeekdayNums!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateEventWeekdayNumsByIdResponse
+    inputTypeName: UpdateEventWeekdayNumsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_weekday_nums_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventWeekdayNumsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateEventWeekdayNumsById
+  outputType: UpdateEventWeekdayNumsByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: EventWeekdayNumsBoolExp
+      description: Update permission post-condition predicate over the
+        'event_weekday_nums' collection
+    - name: preCheck
+      type: EventWeekdayNumsBoolExp
+      description: Update permission pre-condition predicate over the
+        'event_weekday_nums' collection
+    - name: updateColumns
+      type: UpdateEventWeekdayNumsByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_event_weekday_nums_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateEventWeekdayNumsById
+    rootFieldKind: Mutation
+  description: Update any row on the 'event_weekday_nums' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateEventWeekdayNumsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

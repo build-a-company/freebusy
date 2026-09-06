@@ -1,0 +1,496 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventLinksEventId
+  description: Update the 'event_id' column in the 'event_links' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventLinksEventId
+    inputTypeName: UpdateColumnEventLinksEventIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_links_event_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventLinksEventId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventLinksFormatType
+  description: Update the 'format_type' column in the 'event_links' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventLinksFormatType
+    inputTypeName: UpdateColumnEventLinksFormatTypeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_links_format_type
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventLinksFormatType
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventLinksIcalUid
+  description: Update the 'ical_uid' column in the 'event_links' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventLinksIcalUid
+    inputTypeName: UpdateColumnEventLinksIcalUidInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_links_ical_uid
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventLinksIcalUid
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventLinksId
+  description: Update the 'id' column in the 'event_links' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventLinksId
+    inputTypeName: UpdateColumnEventLinksIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_links_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventLinksId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventLinksLabel
+  description: Update the 'label' column in the 'event_links' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventLinksLabel
+    inputTypeName: UpdateColumnEventLinksLabelInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_links_label
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventLinksLabel
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventLinksLanguageCode
+  description: Update the 'language_code' column in the 'event_links' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventLinksLanguageCode
+    inputTypeName: UpdateColumnEventLinksLanguageCodeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_links_language_code
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventLinksLanguageCode
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventLinksRelation
+  description: Update the 'relation' column in the 'event_links' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventLinksRelation
+    inputTypeName: UpdateColumnEventLinksRelationInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_links_relation
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventLinksRelation
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventLinksUri
+  description: Update the 'uri' column in the 'event_links' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventLinksUri
+    inputTypeName: UpdateColumnEventLinksUriInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_links_uri
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventLinksUri
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventLinksValueCase
+  description: Update the 'value_case' column in the 'event_links' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventLinksValueCase
+    inputTypeName: UpdateColumnEventLinksValueCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_links_value_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventLinksValueCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventLinksXmlReference
+  description: Update the 'xml_reference' column in the 'event_links' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventLinksXmlReference
+    inputTypeName: UpdateColumnEventLinksXmlReferenceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_links_xml_reference
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventLinksXmlReference
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventLinksByIdUpdateColumns
+  description: Update the columns of the 'event_links' collection
+  fields:
+    - name: eventId
+      type: UpdateColumnEventLinksEventId
+      description: Update the 'event_id' column in the 'event_links' collection.
+    - name: formatType
+      type: UpdateColumnEventLinksFormatType
+      description: Update the 'format_type' column in the 'event_links' collection.
+    - name: icalUid
+      type: UpdateColumnEventLinksIcalUid
+      description: Update the 'ical_uid' column in the 'event_links' collection.
+    - name: id
+      type: UpdateColumnEventLinksId
+      description: Update the 'id' column in the 'event_links' collection.
+    - name: label
+      type: UpdateColumnEventLinksLabel
+      description: Update the 'label' column in the 'event_links' collection.
+    - name: languageCode
+      type: UpdateColumnEventLinksLanguageCode
+      description: Update the 'language_code' column in the 'event_links' collection.
+    - name: relation
+      type: UpdateColumnEventLinksRelation
+      description: Update the 'relation' column in the 'event_links' collection.
+    - name: uri
+      type: UpdateColumnEventLinksUri
+      description: Update the 'uri' column in the 'event_links' collection.
+    - name: valueCase
+      type: UpdateColumnEventLinksValueCase
+      description: Update the 'value_case' column in the 'event_links' collection.
+    - name: xmlReference
+      type: UpdateColumnEventLinksXmlReference
+      description: Update the 'xml_reference' column in the 'event_links' collection.
+  graphql:
+    typeName: UpdateEventLinksByIdUpdateColumns
+    inputTypeName: UpdateEventLinksByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_links_by_id_update_columns
+      fieldMapping:
+        eventId:
+          column:
+            name: event_id
+        formatType:
+          column:
+            name: format_type
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        label:
+          column:
+            name: label
+        languageCode:
+          column:
+            name: language_code
+        relation:
+          column:
+            name: relation
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+        xmlReference:
+          column:
+            name: xml_reference
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventLinksByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - eventId
+          - formatType
+          - icalUid
+          - id
+          - label
+          - languageCode
+          - relation
+          - uri
+          - valueCase
+          - xmlReference
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventLinksByIdResponse
+  description: Responses from the 'update_event_links_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventLinks!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateEventLinksByIdResponse
+    inputTypeName: UpdateEventLinksByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_links_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventLinksByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateEventLinksById
+  outputType: UpdateEventLinksByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: EventLinksBoolExp
+      description: Update permission post-condition predicate over the 'event_links'
+        collection
+    - name: preCheck
+      type: EventLinksBoolExp
+      description: Update permission pre-condition predicate over the 'event_links'
+        collection
+    - name: updateColumns
+      type: UpdateEventLinksByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_event_links_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateEventLinksById
+    rootFieldKind: Mutation
+  description: Update any row on the 'event_links' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateEventLinksById
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,283 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventRecurrences
+  fields:
+    - name: boundCase
+      type: String_1
+    - name: count
+      type: Int32
+    - name: frequency
+      type: String_1!
+    - name: hourNumbers
+      type: "[Int32]"
+    - name: id
+      type: String_1!
+    - name: interval
+      type: Int32
+    - name: leapMonths
+      type: String_1
+    - name: minuteNumbers
+      type: "[Int32]"
+    - name: monthDays
+      type: "[Int32]"
+    - name: months
+      type: String_1
+    - name: rscale
+      type: String_1
+    - name: secondNumbers
+      type: "[Int32]"
+    - name: setPositions
+      type: "[Int32]"
+    - name: skip
+      type: String_1
+    - name: untilId
+      type: String_1
+    - name: weekNumbers
+      type: "[Int32]"
+    - name: weekStart
+      type: String_1
+    - name: yearDays
+      type: "[Int32]"
+  graphql:
+    typeName: EventRecurrences
+    inputTypeName: EventRecurrencesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_recurrences
+      fieldMapping:
+        boundCase:
+          column:
+            name: bound_case
+        count:
+          column:
+            name: count
+        frequency:
+          column:
+            name: frequency
+        hourNumbers:
+          column:
+            name: hour_numbers
+        id:
+          column:
+            name: id
+        interval:
+          column:
+            name: interval
+        leapMonths:
+          column:
+            name: leap_months
+        minuteNumbers:
+          column:
+            name: minute_numbers
+        monthDays:
+          column:
+            name: month_days
+        months:
+          column:
+            name: months
+        rscale:
+          column:
+            name: rscale
+        secondNumbers:
+          column:
+            name: second_numbers
+        setPositions:
+          column:
+            name: set_positions
+        skip:
+          column:
+            name: skip
+        untilId:
+          column:
+            name: until_id
+        weekNumbers:
+          column:
+            name: week_numbers
+        weekStart:
+          column:
+            name: week_start
+        yearDays:
+          column:
+            name: year_days
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventRecurrences
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - boundCase
+          - count
+          - frequency
+          - hourNumbers
+          - id
+          - interval
+          - leapMonths
+          - minuteNumbers
+          - monthDays
+          - months
+          - rscale
+          - secondNumbers
+          - setPositions
+          - skip
+          - untilId
+          - weekNumbers
+          - weekStart
+          - yearDays
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventRecurrencesBoolExp
+  operand:
+    object:
+      type: EventRecurrences
+      comparableFields:
+        - fieldName: boundCase
+          booleanExpressionType: TextBoolExp
+        - fieldName: count
+          booleanExpressionType: Int4BoolExp
+        - fieldName: frequency
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: interval
+          booleanExpressionType: Int4BoolExp
+        - fieldName: leapMonths
+          booleanExpressionType: TextBoolExp
+        - fieldName: months
+          booleanExpressionType: TextBoolExp
+        - fieldName: rscale
+          booleanExpressionType: TextBoolExp
+        - fieldName: skip
+          booleanExpressionType: TextBoolExp
+        - fieldName: untilId
+          booleanExpressionType: TextBoolExp
+        - fieldName: weekStart
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventRecurrencesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventRecurrencesAggExp
+  operand:
+    object:
+      aggregatedType: EventRecurrences
+      aggregatableFields:
+        - fieldName: boundCase
+          aggregateExpression: TextAggExp
+        - fieldName: count
+          aggregateExpression: Int4AggExp
+        - fieldName: frequency
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: interval
+          aggregateExpression: Int4AggExp
+        - fieldName: leapMonths
+          aggregateExpression: TextAggExp
+        - fieldName: months
+          aggregateExpression: TextAggExp
+        - fieldName: rscale
+          aggregateExpression: TextAggExp
+        - fieldName: skip
+          aggregateExpression: TextAggExp
+        - fieldName: untilId
+          aggregateExpression: TextAggExp
+        - fieldName: weekStart
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventRecurrencesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventRecurrencesOrderByExp
+  operand:
+    object:
+      orderedType: EventRecurrences
+      orderableFields:
+        - fieldName: boundCase
+          orderByExpression: String1OrderByExp
+        - fieldName: count
+          orderByExpression: Int32OrderByExp
+        - fieldName: frequency
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: interval
+          orderByExpression: Int32OrderByExp
+        - fieldName: leapMonths
+          orderByExpression: String1OrderByExp
+        - fieldName: months
+          orderByExpression: String1OrderByExp
+        - fieldName: rscale
+          orderByExpression: String1OrderByExp
+        - fieldName: skip
+          orderByExpression: String1OrderByExp
+        - fieldName: untilId
+          orderByExpression: String1OrderByExp
+        - fieldName: weekStart
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventRecurrencesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventRecurrences
+  objectType: EventRecurrences
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_recurrences
+  filterExpressionType: EventRecurrencesBoolExp
+  aggregateExpression: EventRecurrencesAggExp
+  orderByExpression: EventRecurrencesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventRecurrences
+      subscription:
+        rootField: eventRecurrences
+    selectUniques:
+      - queryRootField: eventRecurrencesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventRecurrencesById
+    filterInputTypeName: EventRecurrencesFilterInput
+    aggregate:
+      queryRootField: eventRecurrencesAggregate
+      subscription:
+        rootField: eventRecurrencesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventRecurrences
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

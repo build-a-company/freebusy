@@ -1,0 +1,217 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertAvailabilityAvailabilitiesObject
+  fields:
+    - name: busyType
+      type: String_1
+    - name: calendarId
+      type: String_1!
+    - name: categories
+      type: "[String_1]"
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: description
+      type: String_1
+    - name: duration
+      type: String_1
+    - name: endFormCase
+      type: String_1
+    - name: endId
+      type: String_1
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: name
+      type: String_1!
+    - name: organizer
+      type: String_1
+    - name: priority
+      type: Int32
+    - name: startId
+      type: String_1
+    - name: summary
+      type: String_1
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: InsertAvailabilityAvailabilitiesObject
+    inputTypeName: InsertAvailabilityAvailabilitiesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_availability_availabilities_object
+      fieldMapping:
+        busyType:
+          column:
+            name: busy_type
+        calendarId:
+          column:
+            name: calendar_id
+        categories:
+          column:
+            name: categories
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        description:
+          column:
+            name: description
+        duration:
+          column:
+            name: duration
+        endFormCase:
+          column:
+            name: end_form_case
+        endId:
+          column:
+            name: end_id
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        organizer:
+          column:
+            name: organizer
+        priority:
+          column:
+            name: priority
+        startId:
+          column:
+            name: start_id
+        summary:
+          column:
+            name: summary
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertAvailabilityAvailabilitiesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - busyType
+          - calendarId
+          - categories
+          - createTime
+          - deleteTime
+          - description
+          - duration
+          - endFormCase
+          - endId
+          - etag
+          - expireTime
+          - icalUid
+          - id
+          - name
+          - organizer
+          - priority
+          - startId
+          - summary
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertAvailabilityAvailabilitiesResponse
+  description: Responses from the 'insert_availability_availabilities' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[AvailabilityAvailabilities!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertAvailabilityAvailabilitiesResponse
+    inputTypeName: InsertAvailabilityAvailabilitiesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_availability_availabilities_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertAvailabilityAvailabilitiesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertAvailabilityAvailabilities
+  outputType: InsertAvailabilityAvailabilitiesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertAvailabilityAvailabilitiesObject!]!"
+    - name: postCheck
+      type: AvailabilityAvailabilitiesBoolExp
+      description: Insert permission predicate over the 'availability_availabilities'
+        collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_availability_availabilities
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertAvailabilityAvailabilities
+    rootFieldKind: Mutation
+  description: Insert into the availability_availabilities table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertAvailabilityAvailabilities
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,808 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesBoundCase
+  description: Update the 'bound_case' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesBoundCase
+    inputTypeName: UpdateColumnEventRecurrencesBoundCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_bound_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesBoundCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesCount
+  description: Update the 'count' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesCount
+    inputTypeName: UpdateColumnEventRecurrencesCountInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_count
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesCount
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesFrequency
+  description: Update the 'frequency' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesFrequency
+    inputTypeName: UpdateColumnEventRecurrencesFrequencyInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_frequency
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesFrequency
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesHourNumbers
+  description: Update the 'hour_numbers' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: "[Int32]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesHourNumbers
+    inputTypeName: UpdateColumnEventRecurrencesHourNumbersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_hour_numbers
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesHourNumbers
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesId
+  description: Update the 'id' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesId
+    inputTypeName: UpdateColumnEventRecurrencesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesInterval
+  description: Update the 'interval' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: Int32
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesInterval
+    inputTypeName: UpdateColumnEventRecurrencesIntervalInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_interval
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesInterval
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesLeapMonths
+  description: Update the 'leap_months' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesLeapMonths
+    inputTypeName: UpdateColumnEventRecurrencesLeapMonthsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_leap_months
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesLeapMonths
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesMinuteNumbers
+  description: Update the 'minute_numbers' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: "[Int32]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesMinuteNumbers
+    inputTypeName: UpdateColumnEventRecurrencesMinuteNumbersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_minute_numbers
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesMinuteNumbers
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesMonthDays
+  description: Update the 'month_days' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: "[Int32]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesMonthDays
+    inputTypeName: UpdateColumnEventRecurrencesMonthDaysInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_month_days
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesMonthDays
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesMonths
+  description: Update the 'months' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesMonths
+    inputTypeName: UpdateColumnEventRecurrencesMonthsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_months
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesMonths
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesRscale
+  description: Update the 'rscale' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesRscale
+    inputTypeName: UpdateColumnEventRecurrencesRscaleInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_rscale
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesRscale
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesSecondNumbers
+  description: Update the 'second_numbers' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: "[Int32]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesSecondNumbers
+    inputTypeName: UpdateColumnEventRecurrencesSecondNumbersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_second_numbers
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesSecondNumbers
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesSetPositions
+  description: Update the 'set_positions' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: "[Int32]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesSetPositions
+    inputTypeName: UpdateColumnEventRecurrencesSetPositionsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_set_positions
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesSetPositions
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesSkip
+  description: Update the 'skip' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesSkip
+    inputTypeName: UpdateColumnEventRecurrencesSkipInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_skip
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesSkip
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesUntilId
+  description: Update the 'until_id' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesUntilId
+    inputTypeName: UpdateColumnEventRecurrencesUntilIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_until_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesUntilId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesWeekNumbers
+  description: Update the 'week_numbers' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: "[Int32]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesWeekNumbers
+    inputTypeName: UpdateColumnEventRecurrencesWeekNumbersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_week_numbers
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesWeekNumbers
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesWeekStart
+  description: Update the 'week_start' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesWeekStart
+    inputTypeName: UpdateColumnEventRecurrencesWeekStartInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_week_start
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesWeekStart
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventRecurrencesYearDays
+  description: Update the 'year_days' column in the 'event_recurrences' collection
+  fields:
+    - name: set
+      type: "[Int32]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventRecurrencesYearDays
+    inputTypeName: UpdateColumnEventRecurrencesYearDaysInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_recurrences_year_days
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventRecurrencesYearDays
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventRecurrencesByIdUpdateColumns
+  description: Update the columns of the 'event_recurrences' collection
+  fields:
+    - name: boundCase
+      type: UpdateColumnEventRecurrencesBoundCase
+      description: Update the 'bound_case' column in the 'event_recurrences' collection.
+    - name: count
+      type: UpdateColumnEventRecurrencesCount
+      description: Update the 'count' column in the 'event_recurrences' collection.
+    - name: frequency
+      type: UpdateColumnEventRecurrencesFrequency
+      description: Update the 'frequency' column in the 'event_recurrences' collection.
+    - name: hourNumbers
+      type: UpdateColumnEventRecurrencesHourNumbers
+      description: Update the 'hour_numbers' column in the 'event_recurrences' collection.
+    - name: id
+      type: UpdateColumnEventRecurrencesId
+      description: Update the 'id' column in the 'event_recurrences' collection.
+    - name: interval
+      type: UpdateColumnEventRecurrencesInterval
+      description: Update the 'interval' column in the 'event_recurrences' collection.
+    - name: leapMonths
+      type: UpdateColumnEventRecurrencesLeapMonths
+      description: Update the 'leap_months' column in the 'event_recurrences' collection.
+    - name: minuteNumbers
+      type: UpdateColumnEventRecurrencesMinuteNumbers
+      description: Update the 'minute_numbers' column in the 'event_recurrences' collection.
+    - name: monthDays
+      type: UpdateColumnEventRecurrencesMonthDays
+      description: Update the 'month_days' column in the 'event_recurrences' collection.
+    - name: months
+      type: UpdateColumnEventRecurrencesMonths
+      description: Update the 'months' column in the 'event_recurrences' collection.
+    - name: rscale
+      type: UpdateColumnEventRecurrencesRscale
+      description: Update the 'rscale' column in the 'event_recurrences' collection.
+    - name: secondNumbers
+      type: UpdateColumnEventRecurrencesSecondNumbers
+      description: Update the 'second_numbers' column in the 'event_recurrences' collection.
+    - name: setPositions
+      type: UpdateColumnEventRecurrencesSetPositions
+      description: Update the 'set_positions' column in the 'event_recurrences' collection.
+    - name: skip
+      type: UpdateColumnEventRecurrencesSkip
+      description: Update the 'skip' column in the 'event_recurrences' collection.
+    - name: untilId
+      type: UpdateColumnEventRecurrencesUntilId
+      description: Update the 'until_id' column in the 'event_recurrences' collection.
+    - name: weekNumbers
+      type: UpdateColumnEventRecurrencesWeekNumbers
+      description: Update the 'week_numbers' column in the 'event_recurrences' collection.
+    - name: weekStart
+      type: UpdateColumnEventRecurrencesWeekStart
+      description: Update the 'week_start' column in the 'event_recurrences' collection.
+    - name: yearDays
+      type: UpdateColumnEventRecurrencesYearDays
+      description: Update the 'year_days' column in the 'event_recurrences' collection.
+  graphql:
+    typeName: UpdateEventRecurrencesByIdUpdateColumns
+    inputTypeName: UpdateEventRecurrencesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_recurrences_by_id_update_columns
+      fieldMapping:
+        boundCase:
+          column:
+            name: bound_case
+        count:
+          column:
+            name: count
+        frequency:
+          column:
+            name: frequency
+        hourNumbers:
+          column:
+            name: hour_numbers
+        id:
+          column:
+            name: id
+        interval:
+          column:
+            name: interval
+        leapMonths:
+          column:
+            name: leap_months
+        minuteNumbers:
+          column:
+            name: minute_numbers
+        monthDays:
+          column:
+            name: month_days
+        months:
+          column:
+            name: months
+        rscale:
+          column:
+            name: rscale
+        secondNumbers:
+          column:
+            name: second_numbers
+        setPositions:
+          column:
+            name: set_positions
+        skip:
+          column:
+            name: skip
+        untilId:
+          column:
+            name: until_id
+        weekNumbers:
+          column:
+            name: week_numbers
+        weekStart:
+          column:
+            name: week_start
+        yearDays:
+          column:
+            name: year_days
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventRecurrencesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - boundCase
+          - count
+          - frequency
+          - hourNumbers
+          - id
+          - interval
+          - leapMonths
+          - minuteNumbers
+          - monthDays
+          - months
+          - rscale
+          - secondNumbers
+          - setPositions
+          - skip
+          - untilId
+          - weekNumbers
+          - weekStart
+          - yearDays
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventRecurrencesByIdResponse
+  description: Responses from the 'update_event_recurrences_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventRecurrences!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateEventRecurrencesByIdResponse
+    inputTypeName: UpdateEventRecurrencesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_recurrences_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventRecurrencesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateEventRecurrencesById
+  outputType: UpdateEventRecurrencesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: EventRecurrencesBoolExp
+      description: Update permission post-condition predicate over the
+        'event_recurrences' collection
+    - name: preCheck
+      type: EventRecurrencesBoolExp
+      description: Update permission pre-condition predicate over the
+        'event_recurrences' collection
+    - name: updateColumns
+      type: UpdateEventRecurrencesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_event_recurrences_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateEventRecurrencesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'event_recurrences' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateEventRecurrencesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

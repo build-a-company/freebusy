@@ -1,0 +1,163 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: JournalExtensionProperties
+  fields:
+    - name: id
+      type: String_1!
+    - name: journalId
+      type: String_1!
+    - name: key
+      type: String_1!
+    - name: parameters
+      type: Json
+    - name: values
+      type: "[String_1]"
+  graphql:
+    typeName: JournalExtensionProperties
+    inputTypeName: JournalExtensionPropertiesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: journal_extension_properties
+      fieldMapping:
+        id:
+          column:
+            name: id
+        journalId:
+          column:
+            name: journal_id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: JournalExtensionProperties
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - journalId
+          - key
+          - parameters
+          - values
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: JournalExtensionPropertiesBoolExp
+  operand:
+    object:
+      type: JournalExtensionProperties
+      comparableFields:
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: journalId
+          booleanExpressionType: TextBoolExp
+        - fieldName: key
+          booleanExpressionType: TextBoolExp
+        - fieldName: parameters
+          booleanExpressionType: JsonbBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: JournalExtensionPropertiesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: JournalExtensionPropertiesAggExp
+  operand:
+    object:
+      aggregatedType: JournalExtensionProperties
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: journalId
+          aggregateExpression: TextAggExp
+        - fieldName: key
+          aggregateExpression: TextAggExp
+        - fieldName: parameters
+          aggregateExpression: JsonbAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: JournalExtensionPropertiesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: JournalExtensionPropertiesOrderByExp
+  operand:
+    object:
+      orderedType: JournalExtensionProperties
+      orderableFields:
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: journalId
+          orderByExpression: String1OrderByExp
+        - fieldName: key
+          orderByExpression: String1OrderByExp
+        - fieldName: parameters
+          orderByExpression: JsonOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: JournalExtensionPropertiesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: JournalExtensionProperties
+  objectType: JournalExtensionProperties
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: journal_extension_properties
+  filterExpressionType: JournalExtensionPropertiesBoolExp
+  aggregateExpression: JournalExtensionPropertiesAggExp
+  orderByExpression: JournalExtensionPropertiesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: journalExtensionProperties
+      subscription:
+        rootField: journalExtensionProperties
+    selectUniques:
+      - queryRootField: journalExtensionPropertiesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: journalExtensionPropertiesById
+    filterInputTypeName: JournalExtensionPropertiesFilterInput
+    aggregate:
+      queryRootField: journalExtensionPropertiesAggregate
+      subscription:
+        rootField: journalExtensionPropertiesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: JournalExtensionProperties
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

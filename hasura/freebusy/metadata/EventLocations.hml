@@ -1,0 +1,199 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventLocations
+  fields:
+    - name: description
+      type: String_1
+    - name: displayName
+      type: String_1
+    - name: eventId
+      type: String_1!
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: locationTypes
+      type: "[String_1]"
+    - name: participantId
+      type: String_1!
+    - name: position
+      type: String_1
+  graphql:
+    typeName: EventLocations
+    inputTypeName: EventLocationsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_locations
+      fieldMapping:
+        description:
+          column:
+            name: description
+        displayName:
+          column:
+            name: display_name
+        eventId:
+          column:
+            name: event_id
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        locationTypes:
+          column:
+            name: location_types
+        participantId:
+          column:
+            name: participant_id
+        position:
+          column:
+            name: position
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventLocations
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - description
+          - displayName
+          - eventId
+          - icalUid
+          - id
+          - locationTypes
+          - participantId
+          - position
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventLocationsBoolExp
+  operand:
+    object:
+      type: EventLocations
+      comparableFields:
+        - fieldName: description
+          booleanExpressionType: TextBoolExp
+        - fieldName: displayName
+          booleanExpressionType: TextBoolExp
+        - fieldName: eventId
+          booleanExpressionType: TextBoolExp
+        - fieldName: icalUid
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: participantId
+          booleanExpressionType: TextBoolExp
+        - fieldName: position
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventLocationsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventLocationsAggExp
+  operand:
+    object:
+      aggregatedType: EventLocations
+      aggregatableFields:
+        - fieldName: description
+          aggregateExpression: TextAggExp
+        - fieldName: displayName
+          aggregateExpression: TextAggExp
+        - fieldName: eventId
+          aggregateExpression: TextAggExp
+        - fieldName: icalUid
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: participantId
+          aggregateExpression: TextAggExp
+        - fieldName: position
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventLocationsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventLocationsOrderByExp
+  operand:
+    object:
+      orderedType: EventLocations
+      orderableFields:
+        - fieldName: description
+          orderByExpression: String1OrderByExp
+        - fieldName: displayName
+          orderByExpression: String1OrderByExp
+        - fieldName: eventId
+          orderByExpression: String1OrderByExp
+        - fieldName: icalUid
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: participantId
+          orderByExpression: String1OrderByExp
+        - fieldName: position
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventLocationsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventLocations
+  objectType: EventLocations
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_locations
+  filterExpressionType: EventLocationsBoolExp
+  aggregateExpression: EventLocationsAggExp
+  orderByExpression: EventLocationsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventLocations
+      subscription:
+        rootField: eventLocations
+    selectUniques:
+      - queryRootField: eventLocationsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventLocationsById
+    filterInputTypeName: EventLocationsFilterInput
+    aggregate:
+      queryRootField: eventLocationsAggregate
+      subscription:
+        rootField: eventLocationsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventLocations
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

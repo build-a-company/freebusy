@@ -1,0 +1,72 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteJournalCalendarTimesByIdResponse
+  description: Responses from the 'delete_journal_calendar_times_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[JournalCalendarTimes!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteJournalCalendarTimesByIdResponse
+    inputTypeName: DeleteJournalCalendarTimesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: delete_journal_calendar_times_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteJournalCalendarTimesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteJournalCalendarTimesById
+  outputType: DeleteJournalCalendarTimesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: preCheck
+      type: JournalCalendarTimesBoolExp
+      description: Delete permission predicate over the 'journal_calendar_times' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: delete_journal_calendar_times_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteJournalCalendarTimesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'journal_calendar_times' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteJournalCalendarTimesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

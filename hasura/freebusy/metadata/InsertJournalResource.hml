@@ -1,0 +1,186 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertJournalResourceObject
+  fields:
+    - name: calendarId
+      type: String_1!
+    - name: classification
+      type: String_1
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: descriptions
+      type: "[String_1]"
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: name
+      type: String_1!
+    - name: publication
+      type: String_1
+    - name: startId
+      type: String_1!
+    - name: summary
+      type: String_1
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: InsertJournalResourceObject
+    inputTypeName: InsertJournalResourceObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_journal_resource_object
+      fieldMapping:
+        calendarId:
+          column:
+            name: calendar_id
+        classification:
+          column:
+            name: classification
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        descriptions:
+          column:
+            name: descriptions
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        publication:
+          column:
+            name: publication
+        startId:
+          column:
+            name: start_id
+        summary:
+          column:
+            name: summary
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertJournalResourceObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendarId
+          - classification
+          - createTime
+          - deleteTime
+          - descriptions
+          - etag
+          - expireTime
+          - icalUid
+          - id
+          - name
+          - publication
+          - startId
+          - summary
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertJournalResourceResponse
+  description: Responses from the 'insert_journal_resource' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[JournalResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertJournalResourceResponse
+    inputTypeName: InsertJournalResourceResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_journal_resource_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertJournalResourceResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertJournalResource
+  outputType: InsertJournalResourceResponse!
+  arguments:
+    - name: objects
+      type: "[InsertJournalResourceObject!]!"
+    - name: postCheck
+      type: JournalResourceBoolExp
+      description: Insert permission predicate over the 'journal_resource' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_journal_resource
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertJournalResource
+    rootFieldKind: Mutation
+  description: Insert into the journal_resource table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertJournalResource
+  permissions:
+    - role: admin
+      allowExecution: true
+

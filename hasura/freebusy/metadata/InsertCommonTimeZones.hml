@@ -1,0 +1,101 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCommonTimeZonesObject
+  fields:
+    - name: id
+      type: String_1!
+    - name: version
+      type: String_1
+  graphql:
+    typeName: InsertCommonTimeZonesObject
+    inputTypeName: InsertCommonTimeZonesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_common_time_zones_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCommonTimeZonesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - version
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCommonTimeZonesResponse
+  description: Responses from the 'insert_common_time_zones' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CommonTimeZones!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertCommonTimeZonesResponse
+    inputTypeName: InsertCommonTimeZonesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_common_time_zones_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCommonTimeZonesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertCommonTimeZones
+  outputType: InsertCommonTimeZonesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertCommonTimeZonesObject!]!"
+    - name: postCheck
+      type: CommonTimeZonesBoolExp
+      description: Insert permission predicate over the 'common_time_zones' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_common_time_zones
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertCommonTimeZones
+    rootFieldKind: Mutation
+  description: Insert into the common_time_zones table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertCommonTimeZones
+  permissions:
+    - role: admin
+      allowExecution: true
+

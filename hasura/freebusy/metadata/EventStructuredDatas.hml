@@ -1,0 +1,241 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EventStructuredDatas
+  fields:
+    - name: binary
+      type: Json
+    - name: eventId
+      type: String_1!
+    - name: formatType
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: locationId
+      type: String_1!
+    - name: participantId
+      type: String_1!
+    - name: resourceId
+      type: String_1!
+    - name: schema
+      type: String_1
+    - name: text
+      type: String_1
+    - name: uri
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: EventStructuredDatas
+    inputTypeName: EventStructuredDatasInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: event_structured_datas
+      fieldMapping:
+        binary:
+          column:
+            name: binary
+        eventId:
+          column:
+            name: event_id
+        formatType:
+          column:
+            name: format_type
+        id:
+          column:
+            name: id
+        locationId:
+          column:
+            name: location_id
+        participantId:
+          column:
+            name: participant_id
+        resourceId:
+          column:
+            name: resource_id
+        schema:
+          column:
+            name: schema
+        text:
+          column:
+            name: text
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EventStructuredDatas
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - binary
+          - eventId
+          - formatType
+          - id
+          - locationId
+          - participantId
+          - resourceId
+          - schema
+          - text
+          - uri
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EventStructuredDatasBoolExp
+  operand:
+    object:
+      type: EventStructuredDatas
+      comparableFields:
+        - fieldName: binary
+          booleanExpressionType: ByteaBoolExp
+        - fieldName: eventId
+          booleanExpressionType: TextBoolExp
+        - fieldName: formatType
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: locationId
+          booleanExpressionType: TextBoolExp
+        - fieldName: participantId
+          booleanExpressionType: TextBoolExp
+        - fieldName: resourceId
+          booleanExpressionType: TextBoolExp
+        - fieldName: schema
+          booleanExpressionType: TextBoolExp
+        - fieldName: text
+          booleanExpressionType: TextBoolExp
+        - fieldName: uri
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EventStructuredDatasBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EventStructuredDatasAggExp
+  operand:
+    object:
+      aggregatedType: EventStructuredDatas
+      aggregatableFields:
+        - fieldName: binary
+          aggregateExpression: ByteaAggExp
+        - fieldName: eventId
+          aggregateExpression: TextAggExp
+        - fieldName: formatType
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: locationId
+          aggregateExpression: TextAggExp
+        - fieldName: participantId
+          aggregateExpression: TextAggExp
+        - fieldName: resourceId
+          aggregateExpression: TextAggExp
+        - fieldName: schema
+          aggregateExpression: TextAggExp
+        - fieldName: text
+          aggregateExpression: TextAggExp
+        - fieldName: uri
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: EventStructuredDatasAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EventStructuredDatasOrderByExp
+  operand:
+    object:
+      orderedType: EventStructuredDatas
+      orderableFields:
+        - fieldName: binary
+          orderByExpression: JsonOrderByExp
+        - fieldName: eventId
+          orderByExpression: String1OrderByExp
+        - fieldName: formatType
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: locationId
+          orderByExpression: String1OrderByExp
+        - fieldName: participantId
+          orderByExpression: String1OrderByExp
+        - fieldName: resourceId
+          orderByExpression: String1OrderByExp
+        - fieldName: schema
+          orderByExpression: String1OrderByExp
+        - fieldName: text
+          orderByExpression: String1OrderByExp
+        - fieldName: uri
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EventStructuredDatasOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: EventStructuredDatas
+  objectType: EventStructuredDatas
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: event_structured_datas
+  filterExpressionType: EventStructuredDatasBoolExp
+  aggregateExpression: EventStructuredDatasAggExp
+  orderByExpression: EventStructuredDatasOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: eventStructuredDatas
+      subscription:
+        rootField: eventStructuredDatas
+    selectUniques:
+      - queryRootField: eventStructuredDatasById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: eventStructuredDatasById
+    filterInputTypeName: EventStructuredDatasFilterInput
+    aggregate:
+      queryRootField: eventStructuredDatasAggregate
+      subscription:
+        rootField: eventStructuredDatasAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: EventStructuredDatas
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

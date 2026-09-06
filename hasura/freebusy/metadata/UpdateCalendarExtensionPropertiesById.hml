@@ -1,0 +1,308 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarExtensionPropertiesCalendarId
+  description: Update the 'calendar_id' column in the
+    'calendar_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarExtensionPropertiesCalendarId
+    inputTypeName: UpdateColumnCalendarExtensionPropertiesCalendarIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_extension_properties_calendar_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarExtensionPropertiesCalendarId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarExtensionPropertiesId
+  description: Update the 'id' column in the 'calendar_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarExtensionPropertiesId
+    inputTypeName: UpdateColumnCalendarExtensionPropertiesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_extension_properties_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarExtensionPropertiesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarExtensionPropertiesKey
+  description: Update the 'key' column in the 'calendar_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarExtensionPropertiesKey
+    inputTypeName: UpdateColumnCalendarExtensionPropertiesKeyInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_extension_properties_key
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarExtensionPropertiesKey
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarExtensionPropertiesParameters
+  description: Update the 'parameters' column in the
+    'calendar_extension_properties' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarExtensionPropertiesParameters
+    inputTypeName: UpdateColumnCalendarExtensionPropertiesParametersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_extension_properties_parameters
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarExtensionPropertiesParameters
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnCalendarExtensionPropertiesValues
+  description: Update the 'values' column in the 'calendar_extension_properties' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnCalendarExtensionPropertiesValues
+    inputTypeName: UpdateColumnCalendarExtensionPropertiesValuesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_calendar_extension_properties_values
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnCalendarExtensionPropertiesValues
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateCalendarExtensionPropertiesByIdUpdateColumns
+  description: Update the columns of the 'calendar_extension_properties' collection
+  fields:
+    - name: calendarId
+      type: UpdateColumnCalendarExtensionPropertiesCalendarId
+      description: Update the 'calendar_id' column in the
+        'calendar_extension_properties' collection.
+    - name: id
+      type: UpdateColumnCalendarExtensionPropertiesId
+      description: Update the 'id' column in the 'calendar_extension_properties' collection.
+    - name: key
+      type: UpdateColumnCalendarExtensionPropertiesKey
+      description: Update the 'key' column in the 'calendar_extension_properties'
+        collection.
+    - name: parameters
+      type: UpdateColumnCalendarExtensionPropertiesParameters
+      description: Update the 'parameters' column in the
+        'calendar_extension_properties' collection.
+    - name: values
+      type: UpdateColumnCalendarExtensionPropertiesValues
+      description: Update the 'values' column in the 'calendar_extension_properties'
+        collection.
+  graphql:
+    typeName: UpdateCalendarExtensionPropertiesByIdUpdateColumns
+    inputTypeName: UpdateCalendarExtensionPropertiesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_calendar_extension_properties_by_id_update_columns
+      fieldMapping:
+        calendarId:
+          column:
+            name: calendar_id
+        id:
+          column:
+            name: id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateCalendarExtensionPropertiesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendarId
+          - id
+          - key
+          - parameters
+          - values
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateCalendarExtensionPropertiesByIdResponse
+  description: Responses from the 'update_calendar_extension_properties_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CalendarExtensionProperties!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateCalendarExtensionPropertiesByIdResponse
+    inputTypeName: UpdateCalendarExtensionPropertiesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_calendar_extension_properties_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateCalendarExtensionPropertiesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateCalendarExtensionPropertiesById
+  outputType: UpdateCalendarExtensionPropertiesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: CalendarExtensionPropertiesBoolExp
+      description: Update permission post-condition predicate over the
+        'calendar_extension_properties' collection
+    - name: preCheck
+      type: CalendarExtensionPropertiesBoolExp
+      description: Update permission pre-condition predicate over the
+        'calendar_extension_properties' collection
+    - name: updateColumns
+      type: UpdateCalendarExtensionPropertiesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_calendar_extension_properties_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateCalendarExtensionPropertiesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'calendar_extension_properties' collection
+    using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateCalendarExtensionPropertiesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

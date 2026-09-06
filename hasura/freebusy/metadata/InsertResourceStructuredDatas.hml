@@ -1,0 +1,145 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertResourceStructuredDatasObject
+  fields:
+    - name: binary
+      type: Json
+    - name: formatType
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: resourceId
+      type: String_1!
+    - name: schema
+      type: String_1
+    - name: text
+      type: String_1
+    - name: uri
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: InsertResourceStructuredDatasObject
+    inputTypeName: InsertResourceStructuredDatasObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_resource_structured_datas_object
+      fieldMapping:
+        binary:
+          column:
+            name: binary
+        formatType:
+          column:
+            name: format_type
+        id:
+          column:
+            name: id
+        resourceId:
+          column:
+            name: resource_id
+        schema:
+          column:
+            name: schema
+        text:
+          column:
+            name: text
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertResourceStructuredDatasObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - binary
+          - formatType
+          - id
+          - resourceId
+          - schema
+          - text
+          - uri
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertResourceStructuredDatasResponse
+  description: Responses from the 'insert_resource_structured_datas' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[ResourceStructuredDatas!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertResourceStructuredDatasResponse
+    inputTypeName: InsertResourceStructuredDatasResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_resource_structured_datas_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertResourceStructuredDatasResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertResourceStructuredDatas
+  outputType: InsertResourceStructuredDatasResponse!
+  arguments:
+    - name: objects
+      type: "[InsertResourceStructuredDatasObject!]!"
+    - name: postCheck
+      type: ResourceStructuredDatasBoolExp
+      description: Insert permission predicate over the 'resource_structured_datas'
+        collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_resource_structured_datas
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertResourceStructuredDatas
+    rootFieldKind: Mutation
+  description: Insert into the resource_structured_datas table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertResourceStructuredDatas
+  permissions:
+    - role: admin
+      allowExecution: true
+

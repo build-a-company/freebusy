@@ -1,0 +1,145 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: CardSpeeches
+  fields:
+    - name: grammaticalGender
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: pronouns
+      type: Json
+  graphql:
+    typeName: CardSpeeches
+    inputTypeName: CardSpeechesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: card_speeches
+      fieldMapping:
+        grammaticalGender:
+          column:
+            name: grammatical_gender
+        id:
+          column:
+            name: id
+        pronouns:
+          column:
+            name: pronouns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: CardSpeeches
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - grammaticalGender
+          - id
+          - pronouns
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: CardSpeechesBoolExp
+  operand:
+    object:
+      type: CardSpeeches
+      comparableFields:
+        - fieldName: grammaticalGender
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: pronouns
+          booleanExpressionType: JsonbBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: CardSpeechesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: CardSpeechesAggExp
+  operand:
+    object:
+      aggregatedType: CardSpeeches
+      aggregatableFields:
+        - fieldName: grammaticalGender
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: pronouns
+          aggregateExpression: JsonbAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: CardSpeechesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: CardSpeechesOrderByExp
+  operand:
+    object:
+      orderedType: CardSpeeches
+      orderableFields:
+        - fieldName: grammaticalGender
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: pronouns
+          orderByExpression: JsonOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: CardSpeechesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: CardSpeeches
+  objectType: CardSpeeches
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: card_speeches
+  filterExpressionType: CardSpeechesBoolExp
+  aggregateExpression: CardSpeechesAggExp
+  orderByExpression: CardSpeechesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: cardSpeeches
+      subscription:
+        rootField: cardSpeeches
+    selectUniques:
+      - queryRootField: cardSpeechesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: cardSpeechesById
+    filterInputTypeName: CardSpeechesFilterInput
+    aggregate:
+      queryRootField: cardSpeechesAggregate
+      subscription:
+        rootField: cardSpeechesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: CardSpeeches
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

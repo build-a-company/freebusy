@@ -1,0 +1,229 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UserAddress
+  fields:
+    - name: attributeType
+      type: String_1
+    - name: fullAddress
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: locality
+      type: String_1
+    - name: postalCode
+      type: String_1
+    - name: primary
+      type: Boolean_1
+    - name: region
+      type: String_1
+    - name: regionCode
+      type: String_1
+    - name: streetAddress
+      type: String_1
+    - name: userId
+      type: String_1!
+  graphql:
+    typeName: UserAddress
+    inputTypeName: UserAddressInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: user_address
+      fieldMapping:
+        attributeType:
+          column:
+            name: attribute_type
+        fullAddress:
+          column:
+            name: full_address
+        id:
+          column:
+            name: id
+        locality:
+          column:
+            name: locality
+        postalCode:
+          column:
+            name: postal_code
+        primary:
+          column:
+            name: primary
+        region:
+          column:
+            name: region
+        regionCode:
+          column:
+            name: region_code
+        streetAddress:
+          column:
+            name: street_address
+        userId:
+          column:
+            name: user_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UserAddress
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - attributeType
+          - fullAddress
+          - id
+          - locality
+          - postalCode
+          - primary
+          - region
+          - regionCode
+          - streetAddress
+          - userId
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: UserAddressBoolExp
+  operand:
+    object:
+      type: UserAddress
+      comparableFields:
+        - fieldName: attributeType
+          booleanExpressionType: TextBoolExp
+        - fieldName: fullAddress
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: locality
+          booleanExpressionType: TextBoolExp
+        - fieldName: postalCode
+          booleanExpressionType: TextBoolExp
+        - fieldName: primary
+          booleanExpressionType: BoolBoolExp
+        - fieldName: region
+          booleanExpressionType: TextBoolExp
+        - fieldName: regionCode
+          booleanExpressionType: TextBoolExp
+        - fieldName: streetAddress
+          booleanExpressionType: TextBoolExp
+        - fieldName: userId
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: UserAddressBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: UserAddressAggExp
+  operand:
+    object:
+      aggregatedType: UserAddress
+      aggregatableFields:
+        - fieldName: attributeType
+          aggregateExpression: TextAggExp
+        - fieldName: fullAddress
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: locality
+          aggregateExpression: TextAggExp
+        - fieldName: postalCode
+          aggregateExpression: TextAggExp
+        - fieldName: primary
+          aggregateExpression: BoolAggExp
+        - fieldName: region
+          aggregateExpression: TextAggExp
+        - fieldName: regionCode
+          aggregateExpression: TextAggExp
+        - fieldName: streetAddress
+          aggregateExpression: TextAggExp
+        - fieldName: userId
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: UserAddressAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: UserAddressOrderByExp
+  operand:
+    object:
+      orderedType: UserAddress
+      orderableFields:
+        - fieldName: attributeType
+          orderByExpression: String1OrderByExp
+        - fieldName: fullAddress
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: locality
+          orderByExpression: String1OrderByExp
+        - fieldName: postalCode
+          orderByExpression: String1OrderByExp
+        - fieldName: primary
+          orderByExpression: Boolean1OrderByExp
+        - fieldName: region
+          orderByExpression: String1OrderByExp
+        - fieldName: regionCode
+          orderByExpression: String1OrderByExp
+        - fieldName: streetAddress
+          orderByExpression: String1OrderByExp
+        - fieldName: userId
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: UserAddressOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: UserAddress
+  objectType: UserAddress
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: user_address
+  filterExpressionType: UserAddressBoolExp
+  aggregateExpression: UserAddressAggExp
+  orderByExpression: UserAddressOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: userAddress
+      subscription:
+        rootField: userAddress
+    selectUniques:
+      - queryRootField: userAddressById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: userAddressById
+    filterInputTypeName: UserAddressFilterInput
+    aggregate:
+      queryRootField: userAddressAggregate
+      subscription:
+        rootField: userAddressAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: UserAddress
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

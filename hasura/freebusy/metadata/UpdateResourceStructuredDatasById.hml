@@ -1,0 +1,422 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnResourceStructuredDatasBinary
+  description: Update the 'binary' column in the 'resource_structured_datas' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnResourceStructuredDatasBinary
+    inputTypeName: UpdateColumnResourceStructuredDatasBinaryInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_resource_structured_datas_binary
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnResourceStructuredDatasBinary
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnResourceStructuredDatasFormatType
+  description: Update the 'format_type' column in the 'resource_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnResourceStructuredDatasFormatType
+    inputTypeName: UpdateColumnResourceStructuredDatasFormatTypeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_resource_structured_datas_format_type
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnResourceStructuredDatasFormatType
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnResourceStructuredDatasId
+  description: Update the 'id' column in the 'resource_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnResourceStructuredDatasId
+    inputTypeName: UpdateColumnResourceStructuredDatasIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_resource_structured_datas_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnResourceStructuredDatasId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnResourceStructuredDatasResourceId
+  description: Update the 'resource_id' column in the 'resource_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnResourceStructuredDatasResourceId
+    inputTypeName: UpdateColumnResourceStructuredDatasResourceIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_resource_structured_datas_resource_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnResourceStructuredDatasResourceId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnResourceStructuredDatasSchema
+  description: Update the 'schema' column in the 'resource_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnResourceStructuredDatasSchema
+    inputTypeName: UpdateColumnResourceStructuredDatasSchemaInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_resource_structured_datas_schema
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnResourceStructuredDatasSchema
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnResourceStructuredDatasText
+  description: Update the 'text' column in the 'resource_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnResourceStructuredDatasText
+    inputTypeName: UpdateColumnResourceStructuredDatasTextInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_resource_structured_datas_text
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnResourceStructuredDatasText
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnResourceStructuredDatasUri
+  description: Update the 'uri' column in the 'resource_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnResourceStructuredDatasUri
+    inputTypeName: UpdateColumnResourceStructuredDatasUriInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_resource_structured_datas_uri
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnResourceStructuredDatasUri
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnResourceStructuredDatasValueCase
+  description: Update the 'value_case' column in the 'resource_structured_datas' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnResourceStructuredDatasValueCase
+    inputTypeName: UpdateColumnResourceStructuredDatasValueCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_resource_structured_datas_value_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnResourceStructuredDatasValueCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateResourceStructuredDatasByIdUpdateColumns
+  description: Update the columns of the 'resource_structured_datas' collection
+  fields:
+    - name: binary
+      type: UpdateColumnResourceStructuredDatasBinary
+      description: Update the 'binary' column in the 'resource_structured_datas' collection.
+    - name: formatType
+      type: UpdateColumnResourceStructuredDatasFormatType
+      description: Update the 'format_type' column in the 'resource_structured_datas'
+        collection.
+    - name: id
+      type: UpdateColumnResourceStructuredDatasId
+      description: Update the 'id' column in the 'resource_structured_datas' collection.
+    - name: resourceId
+      type: UpdateColumnResourceStructuredDatasResourceId
+      description: Update the 'resource_id' column in the 'resource_structured_datas'
+        collection.
+    - name: schema
+      type: UpdateColumnResourceStructuredDatasSchema
+      description: Update the 'schema' column in the 'resource_structured_datas' collection.
+    - name: text
+      type: UpdateColumnResourceStructuredDatasText
+      description: Update the 'text' column in the 'resource_structured_datas' collection.
+    - name: uri
+      type: UpdateColumnResourceStructuredDatasUri
+      description: Update the 'uri' column in the 'resource_structured_datas' collection.
+    - name: valueCase
+      type: UpdateColumnResourceStructuredDatasValueCase
+      description: Update the 'value_case' column in the 'resource_structured_datas'
+        collection.
+  graphql:
+    typeName: UpdateResourceStructuredDatasByIdUpdateColumns
+    inputTypeName: UpdateResourceStructuredDatasByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_resource_structured_datas_by_id_update_columns
+      fieldMapping:
+        binary:
+          column:
+            name: binary
+        formatType:
+          column:
+            name: format_type
+        id:
+          column:
+            name: id
+        resourceId:
+          column:
+            name: resource_id
+        schema:
+          column:
+            name: schema
+        text:
+          column:
+            name: text
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateResourceStructuredDatasByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - binary
+          - formatType
+          - id
+          - resourceId
+          - schema
+          - text
+          - uri
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateResourceStructuredDatasByIdResponse
+  description: Responses from the 'update_resource_structured_datas_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[ResourceStructuredDatas!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateResourceStructuredDatasByIdResponse
+    inputTypeName: UpdateResourceStructuredDatasByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_resource_structured_datas_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateResourceStructuredDatasByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateResourceStructuredDatasById
+  outputType: UpdateResourceStructuredDatasByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: ResourceStructuredDatasBoolExp
+      description: Update permission post-condition predicate over the
+        'resource_structured_datas' collection
+    - name: preCheck
+      type: ResourceStructuredDatasBoolExp
+      description: Update permission pre-condition predicate over the
+        'resource_structured_datas' collection
+    - name: updateColumns
+      type: UpdateResourceStructuredDatasByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_resource_structured_datas_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateResourceStructuredDatasById
+    rootFieldKind: Mutation
+  description: Update any row on the 'resource_structured_datas' collection using
+    the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateResourceStructuredDatasById
+  permissions:
+    - role: admin
+      allowExecution: true
+

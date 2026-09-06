@@ -1,0 +1,162 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardResourceObject
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: name
+      type: String_1!
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+    - name: vcardCreateTime
+      type: Timestamptz
+    - name: vcardUid
+      type: String_1
+  graphql:
+    typeName: InsertVcardResourceObject
+    inputTypeName: InsertVcardResourceObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_resource_object
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+        vcardCreateTime:
+          column:
+            name: vcard_create_time
+        vcardUid:
+          column:
+            name: vcard_uid
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardResourceObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - createTime
+          - deleteTime
+          - etag
+          - expireTime
+          - id
+          - name
+          - uid
+          - updateTime
+          - vcardCreateTime
+          - vcardUid
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardResourceResponse
+  description: Responses from the 'insert_vcard_resource' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertVcardResourceResponse
+    inputTypeName: InsertVcardResourceResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_resource_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardResourceResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertVcardResource
+  outputType: InsertVcardResourceResponse!
+  arguments:
+    - name: objects
+      type: "[InsertVcardResourceObject!]!"
+    - name: postCheck
+      type: VcardResourceBoolExp
+      description: Insert permission predicate over the 'vcard_resource' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_vcard_resource
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertVcardResource
+    rootFieldKind: Mutation
+  description: Insert into the vcard_resource table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertVcardResource
+  permissions:
+    - role: admin
+      allowExecution: true
+

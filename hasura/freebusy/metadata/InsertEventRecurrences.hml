@@ -1,0 +1,204 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertEventRecurrencesObject
+  fields:
+    - name: boundCase
+      type: String_1
+    - name: count
+      type: Int32
+    - name: frequency
+      type: String_1
+    - name: hourNumbers
+      type: "[Int32]"
+    - name: id
+      type: String_1!
+    - name: interval
+      type: Int32
+    - name: leapMonths
+      type: String_1
+    - name: minuteNumbers
+      type: "[Int32]"
+    - name: monthDays
+      type: "[Int32]"
+    - name: months
+      type: String_1
+    - name: rscale
+      type: String_1
+    - name: secondNumbers
+      type: "[Int32]"
+    - name: setPositions
+      type: "[Int32]"
+    - name: skip
+      type: String_1
+    - name: untilId
+      type: String_1
+    - name: weekNumbers
+      type: "[Int32]"
+    - name: weekStart
+      type: String_1
+    - name: yearDays
+      type: "[Int32]"
+  graphql:
+    typeName: InsertEventRecurrencesObject
+    inputTypeName: InsertEventRecurrencesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_event_recurrences_object
+      fieldMapping:
+        boundCase:
+          column:
+            name: bound_case
+        count:
+          column:
+            name: count
+        frequency:
+          column:
+            name: frequency
+        hourNumbers:
+          column:
+            name: hour_numbers
+        id:
+          column:
+            name: id
+        interval:
+          column:
+            name: interval
+        leapMonths:
+          column:
+            name: leap_months
+        minuteNumbers:
+          column:
+            name: minute_numbers
+        monthDays:
+          column:
+            name: month_days
+        months:
+          column:
+            name: months
+        rscale:
+          column:
+            name: rscale
+        secondNumbers:
+          column:
+            name: second_numbers
+        setPositions:
+          column:
+            name: set_positions
+        skip:
+          column:
+            name: skip
+        untilId:
+          column:
+            name: until_id
+        weekNumbers:
+          column:
+            name: week_numbers
+        weekStart:
+          column:
+            name: week_start
+        yearDays:
+          column:
+            name: year_days
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertEventRecurrencesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - boundCase
+          - count
+          - frequency
+          - hourNumbers
+          - id
+          - interval
+          - leapMonths
+          - minuteNumbers
+          - monthDays
+          - months
+          - rscale
+          - secondNumbers
+          - setPositions
+          - skip
+          - untilId
+          - weekNumbers
+          - weekStart
+          - yearDays
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertEventRecurrencesResponse
+  description: Responses from the 'insert_event_recurrences' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventRecurrences!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertEventRecurrencesResponse
+    inputTypeName: InsertEventRecurrencesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_event_recurrences_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertEventRecurrencesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertEventRecurrences
+  outputType: InsertEventRecurrencesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertEventRecurrencesObject!]!"
+    - name: postCheck
+      type: EventRecurrencesBoolExp
+      description: Insert permission predicate over the 'event_recurrences' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_event_recurrences
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertEventRecurrences
+    rootFieldKind: Mutation
+  description: Insert into the event_recurrences table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertEventRecurrences
+  permissions:
+    - role: admin
+      allowExecution: true
+

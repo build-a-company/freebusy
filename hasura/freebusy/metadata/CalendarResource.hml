@@ -1,0 +1,313 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: CalendarResource
+  fields:
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: description
+      type: String_1
+    - name: displayName
+      type: String_1!
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: maxAttendeesPerInstance
+      type: Int32
+    - name: maxDateTime
+      type: Timestamptz
+    - name: maxInstances
+      type: Int32
+    - name: maxResourceSize
+      type: Int64
+    - name: minDateTime
+      type: Timestamptz
+    - name: name
+      type: String_1!
+    - name: scale
+      type: String_1
+    - name: timeZoneId
+      type: String_1
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: CalendarResource
+    inputTypeName: CalendarResourceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: calendar_resource
+      fieldMapping:
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        description:
+          column:
+            name: description
+        displayName:
+          column:
+            name: display_name
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        maxAttendeesPerInstance:
+          column:
+            name: max_attendees_per_instance
+        maxDateTime:
+          column:
+            name: max_date_time
+        maxInstances:
+          column:
+            name: max_instances
+        maxResourceSize:
+          column:
+            name: max_resource_size
+        minDateTime:
+          column:
+            name: min_date_time
+        name:
+          column:
+            name: name
+        scale:
+          column:
+            name: scale
+        timeZoneId:
+          column:
+            name: time_zone_id
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: CalendarResource
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - createTime
+          - deleteTime
+          - description
+          - displayName
+          - etag
+          - expireTime
+          - id
+          - maxAttendeesPerInstance
+          - maxDateTime
+          - maxInstances
+          - maxResourceSize
+          - minDateTime
+          - name
+          - scale
+          - timeZoneId
+          - uid
+          - updateTime
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: CalendarResourceBoolExp
+  operand:
+    object:
+      type: CalendarResource
+      comparableFields:
+        - fieldName: createTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: deleteTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: description
+          booleanExpressionType: TextBoolExp
+        - fieldName: displayName
+          booleanExpressionType: TextBoolExp
+        - fieldName: etag
+          booleanExpressionType: TextBoolExp
+        - fieldName: expireTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: maxAttendeesPerInstance
+          booleanExpressionType: Int4BoolExp
+        - fieldName: maxDateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: maxInstances
+          booleanExpressionType: Int4BoolExp
+        - fieldName: maxResourceSize
+          booleanExpressionType: Int8BoolExp
+        - fieldName: minDateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: name
+          booleanExpressionType: TextBoolExp
+        - fieldName: scale
+          booleanExpressionType: TextBoolExp
+        - fieldName: timeZoneId
+          booleanExpressionType: TextBoolExp
+        - fieldName: uid
+          booleanExpressionType: TextBoolExp
+        - fieldName: updateTime
+          booleanExpressionType: TimestamptzBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: CalendarResourceBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: CalendarResourceAggExp
+  operand:
+    object:
+      aggregatedType: CalendarResource
+      aggregatableFields:
+        - fieldName: createTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: deleteTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: description
+          aggregateExpression: TextAggExp
+        - fieldName: displayName
+          aggregateExpression: TextAggExp
+        - fieldName: etag
+          aggregateExpression: TextAggExp
+        - fieldName: expireTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: maxAttendeesPerInstance
+          aggregateExpression: Int4AggExp
+        - fieldName: maxDateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: maxInstances
+          aggregateExpression: Int4AggExp
+        - fieldName: maxResourceSize
+          aggregateExpression: Int8AggExp
+        - fieldName: minDateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: name
+          aggregateExpression: TextAggExp
+        - fieldName: scale
+          aggregateExpression: TextAggExp
+        - fieldName: timeZoneId
+          aggregateExpression: TextAggExp
+        - fieldName: uid
+          aggregateExpression: TextAggExp
+        - fieldName: updateTime
+          aggregateExpression: TimestamptzAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: CalendarResourceAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: CalendarResourceOrderByExp
+  operand:
+    object:
+      orderedType: CalendarResource
+      orderableFields:
+        - fieldName: createTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: deleteTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: description
+          orderByExpression: String1OrderByExp
+        - fieldName: displayName
+          orderByExpression: String1OrderByExp
+        - fieldName: etag
+          orderByExpression: String1OrderByExp
+        - fieldName: expireTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: maxAttendeesPerInstance
+          orderByExpression: Int32OrderByExp
+        - fieldName: maxDateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: maxInstances
+          orderByExpression: Int32OrderByExp
+        - fieldName: maxResourceSize
+          orderByExpression: Int64OrderByExp
+        - fieldName: minDateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: name
+          orderByExpression: String1OrderByExp
+        - fieldName: scale
+          orderByExpression: String1OrderByExp
+        - fieldName: timeZoneId
+          orderByExpression: String1OrderByExp
+        - fieldName: uid
+          orderByExpression: String1OrderByExp
+        - fieldName: updateTime
+          orderByExpression: TimestamptzOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: CalendarResourceOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: CalendarResource
+  objectType: CalendarResource
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: calendar_resource
+  filterExpressionType: CalendarResourceBoolExp
+  aggregateExpression: CalendarResourceAggExp
+  orderByExpression: CalendarResourceOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: calendarResource
+      subscription:
+        rootField: calendarResource
+    selectUniques:
+      - queryRootField: calendarResourceById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: calendarResourceById
+    filterInputTypeName: CalendarResourceFilterInput
+    aggregate:
+      queryRootField: calendarResourceAggregate
+      subscription:
+        rootField: calendarResourceAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: CalendarResource
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

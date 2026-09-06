@@ -1,0 +1,114 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCardSpeechesObject
+  fields:
+    - name: grammaticalGender
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: pronouns
+      type: Json
+  graphql:
+    typeName: InsertCardSpeechesObject
+    inputTypeName: InsertCardSpeechesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_card_speeches_object
+      fieldMapping:
+        grammaticalGender:
+          column:
+            name: grammatical_gender
+        id:
+          column:
+            name: id
+        pronouns:
+          column:
+            name: pronouns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCardSpeechesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - grammaticalGender
+          - id
+          - pronouns
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCardSpeechesResponse
+  description: Responses from the 'insert_card_speeches' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CardSpeeches!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertCardSpeechesResponse
+    inputTypeName: InsertCardSpeechesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_card_speeches_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCardSpeechesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertCardSpeeches
+  outputType: InsertCardSpeechesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertCardSpeechesObject!]!"
+    - name: postCheck
+      type: CardSpeechesBoolExp
+      description: Insert permission predicate over the 'card_speeches' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_card_speeches
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertCardSpeeches
+    rootFieldKind: Mutation
+  description: Insert into the card_speeches table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertCardSpeeches
+  permissions:
+    - role: admin
+      allowExecution: true
+

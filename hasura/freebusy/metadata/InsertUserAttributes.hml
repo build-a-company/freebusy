@@ -1,0 +1,138 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertUserAttributesObject
+  fields:
+    - name: attributeType
+      type: String_1
+    - name: display
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: primary
+      type: Boolean_1
+    - name: referenceUri
+      type: String_1
+    - name: userId
+      type: String_1!
+    - name: value
+      type: String_1
+  graphql:
+    typeName: InsertUserAttributesObject
+    inputTypeName: InsertUserAttributesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_user_attributes_object
+      fieldMapping:
+        attributeType:
+          column:
+            name: attribute_type
+        display:
+          column:
+            name: display
+        id:
+          column:
+            name: id
+        primary:
+          column:
+            name: primary
+        referenceUri:
+          column:
+            name: reference_uri
+        userId:
+          column:
+            name: user_id
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertUserAttributesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - attributeType
+          - display
+          - id
+          - primary
+          - referenceUri
+          - userId
+          - value
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertUserAttributesResponse
+  description: Responses from the 'insert_user_attributes' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserAttributes!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertUserAttributesResponse
+    inputTypeName: InsertUserAttributesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_user_attributes_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertUserAttributesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertUserAttributes
+  outputType: InsertUserAttributesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertUserAttributesObject!]!"
+    - name: postCheck
+      type: UserAttributesBoolExp
+      description: Insert permission predicate over the 'user_attributes' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_user_attributes
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertUserAttributes
+    rootFieldKind: Mutation
+  description: Insert into the user_attributes table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertUserAttributes
+  permissions:
+    - role: admin
+      allowExecution: true
+

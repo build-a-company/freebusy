@@ -1,0 +1,175 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertAvailabilityAvailablePeriodsObject
+  fields:
+    - name: availabilityId
+      type: String_1!
+    - name: categories
+      type: "[String_1]"
+    - name: comments
+      type: "[String_1]"
+    - name: description
+      type: String_1
+    - name: duration
+      type: String_1
+    - name: endFormCase
+      type: String_1
+    - name: endId
+      type: String_1
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: location
+      type: String_1
+    - name: recurrenceRule
+      type: String_1
+    - name: startId
+      type: String_1!
+    - name: summary
+      type: String_1
+  graphql:
+    typeName: InsertAvailabilityAvailablePeriodsObject
+    inputTypeName: InsertAvailabilityAvailablePeriodsObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_availability_available_periods_object
+      fieldMapping:
+        availabilityId:
+          column:
+            name: availability_id
+        categories:
+          column:
+            name: categories
+        comments:
+          column:
+            name: comments
+        description:
+          column:
+            name: description
+        duration:
+          column:
+            name: duration
+        endFormCase:
+          column:
+            name: end_form_case
+        endId:
+          column:
+            name: end_id
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        location:
+          column:
+            name: location
+        recurrenceRule:
+          column:
+            name: recurrence_rule
+        startId:
+          column:
+            name: start_id
+        summary:
+          column:
+            name: summary
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertAvailabilityAvailablePeriodsObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - availabilityId
+          - categories
+          - comments
+          - description
+          - duration
+          - endFormCase
+          - endId
+          - icalUid
+          - id
+          - location
+          - recurrenceRule
+          - startId
+          - summary
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertAvailabilityAvailablePeriodsResponse
+  description: Responses from the 'insert_availability_available_periods' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[AvailabilityAvailablePeriods!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertAvailabilityAvailablePeriodsResponse
+    inputTypeName: InsertAvailabilityAvailablePeriodsResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_availability_available_periods_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertAvailabilityAvailablePeriodsResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertAvailabilityAvailablePeriods
+  outputType: InsertAvailabilityAvailablePeriodsResponse!
+  arguments:
+    - name: objects
+      type: "[InsertAvailabilityAvailablePeriodsObject!]!"
+    - name: postCheck
+      type: AvailabilityAvailablePeriodsBoolExp
+      description: Insert permission predicate over the
+        'availability_available_periods' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_availability_available_periods
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertAvailabilityAvailablePeriods
+    rootFieldKind: Mutation
+  description: Insert into the availability_available_periods table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertAvailabilityAvailablePeriods
+  permissions:
+    - role: admin
+      allowExecution: true
+

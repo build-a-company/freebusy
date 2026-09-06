@@ -1,0 +1,138 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertUserEnterpriseUsersObject
+  fields:
+    - name: costCenter
+      type: String_1
+    - name: department
+      type: String_1
+    - name: division
+      type: String_1
+    - name: employeeNumber
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: managerId
+      type: String_1
+    - name: organization
+      type: String_1
+  graphql:
+    typeName: InsertUserEnterpriseUsersObject
+    inputTypeName: InsertUserEnterpriseUsersObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_user_enterprise_users_object
+      fieldMapping:
+        costCenter:
+          column:
+            name: cost_center
+        department:
+          column:
+            name: department
+        division:
+          column:
+            name: division
+        employeeNumber:
+          column:
+            name: employee_number
+        id:
+          column:
+            name: id
+        managerId:
+          column:
+            name: manager_id
+        organization:
+          column:
+            name: organization
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertUserEnterpriseUsersObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - costCenter
+          - department
+          - division
+          - employeeNumber
+          - id
+          - managerId
+          - organization
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertUserEnterpriseUsersResponse
+  description: Responses from the 'insert_user_enterprise_users' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserEnterpriseUsers!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertUserEnterpriseUsersResponse
+    inputTypeName: InsertUserEnterpriseUsersResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_user_enterprise_users_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertUserEnterpriseUsersResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertUserEnterpriseUsers
+  outputType: InsertUserEnterpriseUsersResponse!
+  arguments:
+    - name: objects
+      type: "[InsertUserEnterpriseUsersObject!]!"
+    - name: postCheck
+      type: UserEnterpriseUsersBoolExp
+      description: Insert permission predicate over the 'user_enterprise_users' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_user_enterprise_users
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertUserEnterpriseUsers
+    rootFieldKind: Mutation
+  description: Insert into the user_enterprise_users table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertUserEnterpriseUsers
+  permissions:
+    - role: admin
+      allowExecution: true
+

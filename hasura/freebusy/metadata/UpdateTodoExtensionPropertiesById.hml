@@ -1,0 +1,304 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoExtensionPropertiesId
+  description: Update the 'id' column in the 'todo_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoExtensionPropertiesId
+    inputTypeName: UpdateColumnTodoExtensionPropertiesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_extension_properties_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoExtensionPropertiesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoExtensionPropertiesKey
+  description: Update the 'key' column in the 'todo_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoExtensionPropertiesKey
+    inputTypeName: UpdateColumnTodoExtensionPropertiesKeyInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_extension_properties_key
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoExtensionPropertiesKey
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoExtensionPropertiesParameters
+  description: Update the 'parameters' column in the 'todo_extension_properties' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoExtensionPropertiesParameters
+    inputTypeName: UpdateColumnTodoExtensionPropertiesParametersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_extension_properties_parameters
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoExtensionPropertiesParameters
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoExtensionPropertiesTodoId
+  description: Update the 'todo_id' column in the 'todo_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoExtensionPropertiesTodoId
+    inputTypeName: UpdateColumnTodoExtensionPropertiesTodoIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_extension_properties_todo_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoExtensionPropertiesTodoId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnTodoExtensionPropertiesValues
+  description: Update the 'values' column in the 'todo_extension_properties' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnTodoExtensionPropertiesValues
+    inputTypeName: UpdateColumnTodoExtensionPropertiesValuesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_todo_extension_properties_values
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnTodoExtensionPropertiesValues
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateTodoExtensionPropertiesByIdUpdateColumns
+  description: Update the columns of the 'todo_extension_properties' collection
+  fields:
+    - name: id
+      type: UpdateColumnTodoExtensionPropertiesId
+      description: Update the 'id' column in the 'todo_extension_properties' collection.
+    - name: key
+      type: UpdateColumnTodoExtensionPropertiesKey
+      description: Update the 'key' column in the 'todo_extension_properties' collection.
+    - name: parameters
+      type: UpdateColumnTodoExtensionPropertiesParameters
+      description: Update the 'parameters' column in the 'todo_extension_properties'
+        collection.
+    - name: todoId
+      type: UpdateColumnTodoExtensionPropertiesTodoId
+      description: Update the 'todo_id' column in the 'todo_extension_properties'
+        collection.
+    - name: values
+      type: UpdateColumnTodoExtensionPropertiesValues
+      description: Update the 'values' column in the 'todo_extension_properties' collection.
+  graphql:
+    typeName: UpdateTodoExtensionPropertiesByIdUpdateColumns
+    inputTypeName: UpdateTodoExtensionPropertiesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_todo_extension_properties_by_id_update_columns
+      fieldMapping:
+        id:
+          column:
+            name: id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        todoId:
+          column:
+            name: todo_id
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateTodoExtensionPropertiesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - key
+          - parameters
+          - todoId
+          - values
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateTodoExtensionPropertiesByIdResponse
+  description: Responses from the 'update_todo_extension_properties_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[TodoExtensionProperties!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateTodoExtensionPropertiesByIdResponse
+    inputTypeName: UpdateTodoExtensionPropertiesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_todo_extension_properties_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateTodoExtensionPropertiesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateTodoExtensionPropertiesById
+  outputType: UpdateTodoExtensionPropertiesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: TodoExtensionPropertiesBoolExp
+      description: Update permission post-condition predicate over the
+        'todo_extension_properties' collection
+    - name: preCheck
+      type: TodoExtensionPropertiesBoolExp
+      description: Update permission pre-condition predicate over the
+        'todo_extension_properties' collection
+    - name: updateColumns
+      type: UpdateTodoExtensionPropertiesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_todo_extension_properties_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateTodoExtensionPropertiesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'todo_extension_properties' collection using
+    the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateTodoExtensionPropertiesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,266 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAvailabilityCalendarTimesDate
+  description: Update the 'date' column in the 'availability_calendar_times' collection
+  fields:
+    - name: set
+      type: Date
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAvailabilityCalendarTimesDate
+    inputTypeName: UpdateColumnAvailabilityCalendarTimesDateInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_availability_calendar_times_date
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAvailabilityCalendarTimesDate
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAvailabilityCalendarTimesDateTime
+  description: Update the 'date_time' column in the 'availability_calendar_times' collection
+  fields:
+    - name: set
+      type: Timestamptz
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAvailabilityCalendarTimesDateTime
+    inputTypeName: UpdateColumnAvailabilityCalendarTimesDateTimeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_availability_calendar_times_date_time
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAvailabilityCalendarTimesDateTime
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAvailabilityCalendarTimesId
+  description: Update the 'id' column in the 'availability_calendar_times' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAvailabilityCalendarTimesId
+    inputTypeName: UpdateColumnAvailabilityCalendarTimesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_availability_calendar_times_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAvailabilityCalendarTimesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAvailabilityCalendarTimesValueCase
+  description: Update the 'value_case' column in the 'availability_calendar_times'
+    collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAvailabilityCalendarTimesValueCase
+    inputTypeName: UpdateColumnAvailabilityCalendarTimesValueCaseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_availability_calendar_times_value_case
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAvailabilityCalendarTimesValueCase
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateAvailabilityCalendarTimesByIdUpdateColumns
+  description: Update the columns of the 'availability_calendar_times' collection
+  fields:
+    - name: date
+      type: UpdateColumnAvailabilityCalendarTimesDate
+      description: Update the 'date' column in the 'availability_calendar_times' collection.
+    - name: dateTime
+      type: UpdateColumnAvailabilityCalendarTimesDateTime
+      description: Update the 'date_time' column in the 'availability_calendar_times'
+        collection.
+    - name: id
+      type: UpdateColumnAvailabilityCalendarTimesId
+      description: Update the 'id' column in the 'availability_calendar_times' collection.
+    - name: valueCase
+      type: UpdateColumnAvailabilityCalendarTimesValueCase
+      description: Update the 'value_case' column in the 'availability_calendar_times'
+        collection.
+  graphql:
+    typeName: UpdateAvailabilityCalendarTimesByIdUpdateColumns
+    inputTypeName: UpdateAvailabilityCalendarTimesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_availability_calendar_times_by_id_update_columns
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        id:
+          column:
+            name: id
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateAvailabilityCalendarTimesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - id
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateAvailabilityCalendarTimesByIdResponse
+  description: Responses from the 'update_availability_calendar_times_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[AvailabilityCalendarTimes!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateAvailabilityCalendarTimesByIdResponse
+    inputTypeName: UpdateAvailabilityCalendarTimesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_availability_calendar_times_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateAvailabilityCalendarTimesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateAvailabilityCalendarTimesById
+  outputType: UpdateAvailabilityCalendarTimesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: AvailabilityCalendarTimesBoolExp
+      description: Update permission post-condition predicate over the
+        'availability_calendar_times' collection
+    - name: preCheck
+      type: AvailabilityCalendarTimesBoolExp
+      description: Update permission pre-condition predicate over the
+        'availability_calendar_times' collection
+    - name: updateColumns
+      type: UpdateAvailabilityCalendarTimesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_availability_calendar_times_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateAvailabilityCalendarTimesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'availability_calendar_times' collection
+    using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateAvailabilityCalendarTimesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

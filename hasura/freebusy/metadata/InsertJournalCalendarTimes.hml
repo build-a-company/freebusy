@@ -1,0 +1,120 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertJournalCalendarTimesObject
+  fields:
+    - name: date
+      type: Date
+    - name: dateTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: InsertJournalCalendarTimesObject
+    inputTypeName: InsertJournalCalendarTimesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_journal_calendar_times_object
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        id:
+          column:
+            name: id
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertJournalCalendarTimesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - id
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertJournalCalendarTimesResponse
+  description: Responses from the 'insert_journal_calendar_times' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[JournalCalendarTimes!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertJournalCalendarTimesResponse
+    inputTypeName: InsertJournalCalendarTimesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_journal_calendar_times_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertJournalCalendarTimesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertJournalCalendarTimes
+  outputType: InsertJournalCalendarTimesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertJournalCalendarTimesObject!]!"
+    - name: postCheck
+      type: JournalCalendarTimesBoolExp
+      description: Insert permission predicate over the 'journal_calendar_times' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_journal_calendar_times
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertJournalCalendarTimes
+    rootFieldKind: Mutation
+  description: Insert into the journal_calendar_times table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertJournalCalendarTimes
+  permissions:
+    - role: admin
+      allowExecution: true
+

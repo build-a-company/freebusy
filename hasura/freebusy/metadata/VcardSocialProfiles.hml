@@ -1,0 +1,217 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: VcardSocialProfiles
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: pref
+      type: Int32
+    - name: serviceType
+      type: String_1
+    - name: text
+      type: String_1
+    - name: types
+      type: String_1
+    - name: uri
+      type: String_1
+    - name: username
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: VcardSocialProfiles
+    inputTypeName: VcardSocialProfilesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: vcard_social_profiles
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        serviceType:
+          column:
+            name: service_type
+        text:
+          column:
+            name: text
+        types:
+          column:
+            name: types
+        uri:
+          column:
+            name: uri
+        username:
+          column:
+            name: username
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: VcardSocialProfiles
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - serviceType
+          - text
+          - types
+          - uri
+          - username
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: VcardSocialProfilesBoolExp
+  operand:
+    object:
+      type: VcardSocialProfiles
+      comparableFields:
+        - fieldName: contactId
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: pref
+          booleanExpressionType: Int4BoolExp
+        - fieldName: serviceType
+          booleanExpressionType: TextBoolExp
+        - fieldName: text
+          booleanExpressionType: TextBoolExp
+        - fieldName: types
+          booleanExpressionType: TextBoolExp
+        - fieldName: uri
+          booleanExpressionType: TextBoolExp
+        - fieldName: username
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: VcardSocialProfilesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: VcardSocialProfilesAggExp
+  operand:
+    object:
+      aggregatedType: VcardSocialProfiles
+      aggregatableFields:
+        - fieldName: contactId
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: pref
+          aggregateExpression: Int4AggExp
+        - fieldName: serviceType
+          aggregateExpression: TextAggExp
+        - fieldName: text
+          aggregateExpression: TextAggExp
+        - fieldName: types
+          aggregateExpression: TextAggExp
+        - fieldName: uri
+          aggregateExpression: TextAggExp
+        - fieldName: username
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: VcardSocialProfilesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: VcardSocialProfilesOrderByExp
+  operand:
+    object:
+      orderedType: VcardSocialProfiles
+      orderableFields:
+        - fieldName: contactId
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: pref
+          orderByExpression: Int32OrderByExp
+        - fieldName: serviceType
+          orderByExpression: String1OrderByExp
+        - fieldName: text
+          orderByExpression: String1OrderByExp
+        - fieldName: types
+          orderByExpression: String1OrderByExp
+        - fieldName: uri
+          orderByExpression: String1OrderByExp
+        - fieldName: username
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: VcardSocialProfilesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: VcardSocialProfiles
+  objectType: VcardSocialProfiles
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: vcard_social_profiles
+  filterExpressionType: VcardSocialProfilesBoolExp
+  aggregateExpression: VcardSocialProfilesAggExp
+  orderByExpression: VcardSocialProfilesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: vcardSocialProfiles
+      subscription:
+        rootField: vcardSocialProfiles
+    selectUniques:
+      - queryRootField: vcardSocialProfilesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: vcardSocialProfilesById
+    filterInputTypeName: VcardSocialProfilesFilterInput
+    aggregate:
+      queryRootField: vcardSocialProfilesAggregate
+      subscription:
+        rootField: vcardSocialProfilesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: VcardSocialProfiles
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

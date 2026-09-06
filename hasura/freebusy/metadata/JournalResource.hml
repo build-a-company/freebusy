@@ -1,0 +1,283 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: JournalResource
+  fields:
+    - name: calendarId
+      type: String_1!
+    - name: classification
+      type: String_1
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: descriptions
+      type: "[String_1]"
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: icalUid
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: name
+      type: String_1!
+    - name: publication
+      type: String_1
+    - name: startId
+      type: String_1!
+    - name: summary
+      type: String_1
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: JournalResource
+    inputTypeName: JournalResourceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: journal_resource
+      fieldMapping:
+        calendarId:
+          column:
+            name: calendar_id
+        classification:
+          column:
+            name: classification
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        descriptions:
+          column:
+            name: descriptions
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        icalUid:
+          column:
+            name: ical_uid
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        publication:
+          column:
+            name: publication
+        startId:
+          column:
+            name: start_id
+        summary:
+          column:
+            name: summary
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: JournalResource
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - calendarId
+          - classification
+          - createTime
+          - deleteTime
+          - descriptions
+          - etag
+          - expireTime
+          - icalUid
+          - id
+          - name
+          - publication
+          - startId
+          - summary
+          - uid
+          - updateTime
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: JournalResourceBoolExp
+  operand:
+    object:
+      type: JournalResource
+      comparableFields:
+        - fieldName: calendarId
+          booleanExpressionType: TextBoolExp
+        - fieldName: classification
+          booleanExpressionType: TextBoolExp
+        - fieldName: createTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: deleteTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: etag
+          booleanExpressionType: TextBoolExp
+        - fieldName: expireTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: icalUid
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: name
+          booleanExpressionType: TextBoolExp
+        - fieldName: publication
+          booleanExpressionType: TextBoolExp
+        - fieldName: startId
+          booleanExpressionType: TextBoolExp
+        - fieldName: summary
+          booleanExpressionType: TextBoolExp
+        - fieldName: uid
+          booleanExpressionType: TextBoolExp
+        - fieldName: updateTime
+          booleanExpressionType: TimestamptzBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: JournalResourceBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: JournalResourceAggExp
+  operand:
+    object:
+      aggregatedType: JournalResource
+      aggregatableFields:
+        - fieldName: calendarId
+          aggregateExpression: TextAggExp
+        - fieldName: classification
+          aggregateExpression: TextAggExp
+        - fieldName: createTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: deleteTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: etag
+          aggregateExpression: TextAggExp
+        - fieldName: expireTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: icalUid
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: name
+          aggregateExpression: TextAggExp
+        - fieldName: publication
+          aggregateExpression: TextAggExp
+        - fieldName: startId
+          aggregateExpression: TextAggExp
+        - fieldName: summary
+          aggregateExpression: TextAggExp
+        - fieldName: uid
+          aggregateExpression: TextAggExp
+        - fieldName: updateTime
+          aggregateExpression: TimestamptzAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: JournalResourceAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: JournalResourceOrderByExp
+  operand:
+    object:
+      orderedType: JournalResource
+      orderableFields:
+        - fieldName: calendarId
+          orderByExpression: String1OrderByExp
+        - fieldName: classification
+          orderByExpression: String1OrderByExp
+        - fieldName: createTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: deleteTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: etag
+          orderByExpression: String1OrderByExp
+        - fieldName: expireTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: icalUid
+          orderByExpression: String1OrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: name
+          orderByExpression: String1OrderByExp
+        - fieldName: publication
+          orderByExpression: String1OrderByExp
+        - fieldName: startId
+          orderByExpression: String1OrderByExp
+        - fieldName: summary
+          orderByExpression: String1OrderByExp
+        - fieldName: uid
+          orderByExpression: String1OrderByExp
+        - fieldName: updateTime
+          orderByExpression: TimestamptzOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: JournalResourceOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: JournalResource
+  objectType: JournalResource
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: journal_resource
+  filterExpressionType: JournalResourceBoolExp
+  aggregateExpression: JournalResourceAggExp
+  orderByExpression: JournalResourceOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: journalResource
+      subscription:
+        rootField: journalResource
+    selectUniques:
+      - queryRootField: journalResourceById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: journalResourceById
+    filterInputTypeName: JournalResourceFilterInput
+    aggregate:
+      queryRootField: journalResourceAggregate
+      subscription:
+        rootField: journalResourceAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: JournalResource
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

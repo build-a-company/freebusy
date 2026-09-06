@@ -1,0 +1,379 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserNamesDisplayName
+  description: Update the 'display_name' column in the 'user_names' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserNamesDisplayName
+    inputTypeName: UpdateColumnUserNamesDisplayNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_names_display_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserNamesDisplayName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserNamesFamilyName
+  description: Update the 'family_name' column in the 'user_names' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserNamesFamilyName
+    inputTypeName: UpdateColumnUserNamesFamilyNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_names_family_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserNamesFamilyName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserNamesGivenName
+  description: Update the 'given_name' column in the 'user_names' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserNamesGivenName
+    inputTypeName: UpdateColumnUserNamesGivenNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_names_given_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserNamesGivenName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserNamesHonorificPrefix
+  description: Update the 'honorific_prefix' column in the 'user_names' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserNamesHonorificPrefix
+    inputTypeName: UpdateColumnUserNamesHonorificPrefixInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_names_honorific_prefix
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserNamesHonorificPrefix
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserNamesHonorificSuffix
+  description: Update the 'honorific_suffix' column in the 'user_names' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserNamesHonorificSuffix
+    inputTypeName: UpdateColumnUserNamesHonorificSuffixInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_names_honorific_suffix
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserNamesHonorificSuffix
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserNamesId
+  description: Update the 'id' column in the 'user_names' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserNamesId
+    inputTypeName: UpdateColumnUserNamesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_names_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserNamesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnUserNamesMiddleNames
+  description: Update the 'middle_names' column in the 'user_names' collection
+  fields:
+    - name: set
+      type: String_1
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnUserNamesMiddleNames
+    inputTypeName: UpdateColumnUserNamesMiddleNamesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_user_names_middle_names
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnUserNamesMiddleNames
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateUserNamesByIdUpdateColumns
+  description: Update the columns of the 'user_names' collection
+  fields:
+    - name: displayName
+      type: UpdateColumnUserNamesDisplayName
+      description: Update the 'display_name' column in the 'user_names' collection.
+    - name: familyName
+      type: UpdateColumnUserNamesFamilyName
+      description: Update the 'family_name' column in the 'user_names' collection.
+    - name: givenName
+      type: UpdateColumnUserNamesGivenName
+      description: Update the 'given_name' column in the 'user_names' collection.
+    - name: honorificPrefix
+      type: UpdateColumnUserNamesHonorificPrefix
+      description: Update the 'honorific_prefix' column in the 'user_names' collection.
+    - name: honorificSuffix
+      type: UpdateColumnUserNamesHonorificSuffix
+      description: Update the 'honorific_suffix' column in the 'user_names' collection.
+    - name: id
+      type: UpdateColumnUserNamesId
+      description: Update the 'id' column in the 'user_names' collection.
+    - name: middleNames
+      type: UpdateColumnUserNamesMiddleNames
+      description: Update the 'middle_names' column in the 'user_names' collection.
+  graphql:
+    typeName: UpdateUserNamesByIdUpdateColumns
+    inputTypeName: UpdateUserNamesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_user_names_by_id_update_columns
+      fieldMapping:
+        displayName:
+          column:
+            name: display_name
+        familyName:
+          column:
+            name: family_name
+        givenName:
+          column:
+            name: given_name
+        honorificPrefix:
+          column:
+            name: honorific_prefix
+        honorificSuffix:
+          column:
+            name: honorific_suffix
+        id:
+          column:
+            name: id
+        middleNames:
+          column:
+            name: middle_names
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateUserNamesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - displayName
+          - familyName
+          - givenName
+          - honorificPrefix
+          - honorificSuffix
+          - id
+          - middleNames
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateUserNamesByIdResponse
+  description: Responses from the 'update_user_names_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[UserNames!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateUserNamesByIdResponse
+    inputTypeName: UpdateUserNamesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_user_names_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateUserNamesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateUserNamesById
+  outputType: UpdateUserNamesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: UserNamesBoolExp
+      description: Update permission post-condition predicate over the 'user_names'
+        collection
+    - name: preCheck
+      type: UserNamesBoolExp
+      description: Update permission pre-condition predicate over the 'user_names'
+        collection
+    - name: updateColumns
+      type: UpdateUserNamesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_user_names_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateUserNamesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'user_names' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateUserNamesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

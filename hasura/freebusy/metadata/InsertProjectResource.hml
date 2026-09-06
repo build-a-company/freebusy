@@ -1,0 +1,180 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertProjectResourceObject
+  fields:
+    - name: createTime
+      type: Timestamptz!
+    - name: deleteTime
+      type: Timestamptz
+    - name: description
+      type: String_1
+    - name: displayName
+      type: String_1!
+    - name: endTime
+      type: Timestamptz
+    - name: etag
+      type: String_1
+    - name: expireTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: name
+      type: String_1!
+    - name: owner
+      type: String_1
+    - name: startTime
+      type: Timestamptz
+    - name: state
+      type: String_1
+    - name: uid
+      type: String_1
+    - name: updateTime
+      type: Timestamptz!
+  graphql:
+    typeName: InsertProjectResourceObject
+    inputTypeName: InsertProjectResourceObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_project_resource_object
+      fieldMapping:
+        createTime:
+          column:
+            name: create_time
+        deleteTime:
+          column:
+            name: delete_time
+        description:
+          column:
+            name: description
+        displayName:
+          column:
+            name: display_name
+        endTime:
+          column:
+            name: end_time
+        etag:
+          column:
+            name: etag
+        expireTime:
+          column:
+            name: expire_time
+        id:
+          column:
+            name: id
+        name:
+          column:
+            name: name
+        owner:
+          column:
+            name: owner
+        startTime:
+          column:
+            name: start_time
+        state:
+          column:
+            name: state
+        uid:
+          column:
+            name: uid
+        updateTime:
+          column:
+            name: update_time
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertProjectResourceObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - createTime
+          - deleteTime
+          - description
+          - displayName
+          - endTime
+          - etag
+          - expireTime
+          - id
+          - name
+          - owner
+          - startTime
+          - state
+          - uid
+          - updateTime
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertProjectResourceResponse
+  description: Responses from the 'insert_project_resource' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[ProjectResource!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertProjectResourceResponse
+    inputTypeName: InsertProjectResourceResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_project_resource_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertProjectResourceResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertProjectResource
+  outputType: InsertProjectResourceResponse!
+  arguments:
+    - name: objects
+      type: "[InsertProjectResourceObject!]!"
+    - name: postCheck
+      type: ProjectResourceBoolExp
+      description: Insert permission predicate over the 'project_resource' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_project_resource
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertProjectResource
+    rootFieldKind: Mutation
+  description: Insert into the project_resource table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertProjectResource
+  permissions:
+    - role: admin
+      allowExecution: true
+

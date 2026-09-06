@@ -1,0 +1,138 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCardNamesObject
+  fields:
+    - name: defaultSeparator
+      type: String_1
+    - name: displayName
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: isOrdered
+      type: Boolean_1
+    - name: phoneticScript
+      type: String_1
+    - name: phoneticSystem
+      type: String_1
+    - name: sortAs
+      type: Json
+  graphql:
+    typeName: InsertCardNamesObject
+    inputTypeName: InsertCardNamesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_card_names_object
+      fieldMapping:
+        defaultSeparator:
+          column:
+            name: default_separator
+        displayName:
+          column:
+            name: display_name
+        id:
+          column:
+            name: id
+        isOrdered:
+          column:
+            name: is_ordered
+        phoneticScript:
+          column:
+            name: phonetic_script
+        phoneticSystem:
+          column:
+            name: phonetic_system
+        sortAs:
+          column:
+            name: sort_as
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCardNamesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - defaultSeparator
+          - displayName
+          - id
+          - isOrdered
+          - phoneticScript
+          - phoneticSystem
+          - sortAs
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCardNamesResponse
+  description: Responses from the 'insert_card_names' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[CardNames!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertCardNamesResponse
+    inputTypeName: InsertCardNamesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_card_names_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCardNamesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertCardNames
+  outputType: InsertCardNamesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertCardNamesObject!]!"
+    - name: postCheck
+      type: CardNamesBoolExp
+      description: Insert permission predicate over the 'card_names' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_card_names
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertCardNames
+    rootFieldKind: Mutation
+  description: Insert into the card_names table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertCardNames
+  permissions:
+    - role: admin
+      allowExecution: true
+

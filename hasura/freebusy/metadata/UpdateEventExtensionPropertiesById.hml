@@ -1,0 +1,305 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventExtensionPropertiesEventId
+  description: Update the 'event_id' column in the 'event_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventExtensionPropertiesEventId
+    inputTypeName: UpdateColumnEventExtensionPropertiesEventIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_extension_properties_event_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventExtensionPropertiesEventId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventExtensionPropertiesId
+  description: Update the 'id' column in the 'event_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventExtensionPropertiesId
+    inputTypeName: UpdateColumnEventExtensionPropertiesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_extension_properties_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventExtensionPropertiesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventExtensionPropertiesKey
+  description: Update the 'key' column in the 'event_extension_properties' collection
+  fields:
+    - name: set
+      type: String_1!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventExtensionPropertiesKey
+    inputTypeName: UpdateColumnEventExtensionPropertiesKeyInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_extension_properties_key
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventExtensionPropertiesKey
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventExtensionPropertiesParameters
+  description: Update the 'parameters' column in the 'event_extension_properties' collection
+  fields:
+    - name: set
+      type: Json
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventExtensionPropertiesParameters
+    inputTypeName: UpdateColumnEventExtensionPropertiesParametersInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_extension_properties_parameters
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventExtensionPropertiesParameters
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnEventExtensionPropertiesValues
+  description: Update the 'values' column in the 'event_extension_properties' collection
+  fields:
+    - name: set
+      type: "[String_1]"
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnEventExtensionPropertiesValues
+    inputTypeName: UpdateColumnEventExtensionPropertiesValuesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_column_event_extension_properties_values
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnEventExtensionPropertiesValues
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventExtensionPropertiesByIdUpdateColumns
+  description: Update the columns of the 'event_extension_properties' collection
+  fields:
+    - name: eventId
+      type: UpdateColumnEventExtensionPropertiesEventId
+      description: Update the 'event_id' column in the 'event_extension_properties'
+        collection.
+    - name: id
+      type: UpdateColumnEventExtensionPropertiesId
+      description: Update the 'id' column in the 'event_extension_properties' collection.
+    - name: key
+      type: UpdateColumnEventExtensionPropertiesKey
+      description: Update the 'key' column in the 'event_extension_properties' collection.
+    - name: parameters
+      type: UpdateColumnEventExtensionPropertiesParameters
+      description: Update the 'parameters' column in the 'event_extension_properties'
+        collection.
+    - name: values
+      type: UpdateColumnEventExtensionPropertiesValues
+      description: Update the 'values' column in the 'event_extension_properties'
+        collection.
+  graphql:
+    typeName: UpdateEventExtensionPropertiesByIdUpdateColumns
+    inputTypeName: UpdateEventExtensionPropertiesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_extension_properties_by_id_update_columns
+      fieldMapping:
+        eventId:
+          column:
+            name: event_id
+        id:
+          column:
+            name: id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventExtensionPropertiesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - eventId
+          - id
+          - key
+          - parameters
+          - values
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateEventExtensionPropertiesByIdResponse
+  description: Responses from the 'update_event_extension_properties_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[EventExtensionProperties!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateEventExtensionPropertiesByIdResponse
+    inputTypeName: UpdateEventExtensionPropertiesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: update_event_extension_properties_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateEventExtensionPropertiesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateEventExtensionPropertiesById
+  outputType: UpdateEventExtensionPropertiesByIdResponse!
+  arguments:
+    - name: keyId
+      type: String_1!
+    - name: postCheck
+      type: EventExtensionPropertiesBoolExp
+      description: Update permission post-condition predicate over the
+        'event_extension_properties' collection
+    - name: preCheck
+      type: EventExtensionPropertiesBoolExp
+      description: Update permission pre-condition predicate over the
+        'event_extension_properties' collection
+    - name: updateColumns
+      type: UpdateEventExtensionPropertiesByIdUpdateColumns!
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: update_event_extension_properties_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateEventExtensionPropertiesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'event_extension_properties' collection using
+    the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateEventExtensionPropertiesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

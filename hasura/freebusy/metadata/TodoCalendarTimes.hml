@@ -1,0 +1,157 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: TodoCalendarTimes
+  fields:
+    - name: date
+      type: Date
+    - name: dateTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: TodoCalendarTimes
+    inputTypeName: TodoCalendarTimesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: todo_calendar_times
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        id:
+          column:
+            name: id
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: TodoCalendarTimes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - id
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: TodoCalendarTimesBoolExp
+  operand:
+    object:
+      type: TodoCalendarTimes
+      comparableFields:
+        - fieldName: date
+          booleanExpressionType: DateBoolExp
+        - fieldName: dateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: TodoCalendarTimesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: TodoCalendarTimesAggExp
+  operand:
+    object:
+      aggregatedType: TodoCalendarTimes
+      aggregatableFields:
+        - fieldName: date
+          aggregateExpression: DateAggExp
+        - fieldName: dateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: TodoCalendarTimesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: TodoCalendarTimesOrderByExp
+  operand:
+    object:
+      orderedType: TodoCalendarTimes
+      orderableFields:
+        - fieldName: date
+          orderByExpression: DateOrderByExp
+        - fieldName: dateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: TodoCalendarTimesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: TodoCalendarTimes
+  objectType: TodoCalendarTimes
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: todo_calendar_times
+  filterExpressionType: TodoCalendarTimesBoolExp
+  aggregateExpression: TodoCalendarTimesAggExp
+  orderByExpression: TodoCalendarTimesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: todoCalendarTimes
+      subscription:
+        rootField: todoCalendarTimes
+    selectUniques:
+      - queryRootField: todoCalendarTimesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: todoCalendarTimesById
+    filterInputTypeName: TodoCalendarTimesFilterInput
+    aggregate:
+      queryRootField: todoCalendarTimesAggregate
+      subscription:
+        rootField: todoCalendarTimesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: TodoCalendarTimes
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

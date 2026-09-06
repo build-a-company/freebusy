@@ -1,0 +1,133 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardExtensionPropertiesObject
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: group
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: key
+      type: String_1!
+    - name: parameters
+      type: Json
+    - name: values
+      type: "[String_1]"
+  graphql:
+    typeName: InsertVcardExtensionPropertiesObject
+    inputTypeName: InsertVcardExtensionPropertiesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_extension_properties_object
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        group:
+          column:
+            name: group
+        id:
+          column:
+            name: id
+        key:
+          column:
+            name: key
+        parameters:
+          column:
+            name: parameters
+        values:
+          column:
+            name: values
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardExtensionPropertiesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - group
+          - id
+          - key
+          - parameters
+          - values
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardExtensionPropertiesResponse
+  description: Responses from the 'insert_vcard_extension_properties' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardExtensionProperties!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertVcardExtensionPropertiesResponse
+    inputTypeName: InsertVcardExtensionPropertiesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_extension_properties_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardExtensionPropertiesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertVcardExtensionProperties
+  outputType: InsertVcardExtensionPropertiesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertVcardExtensionPropertiesObject!]!"
+    - name: postCheck
+      type: VcardExtensionPropertiesBoolExp
+      description: Insert permission predicate over the 'vcard_extension_properties'
+        collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_vcard_extension_properties
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertVcardExtensionProperties
+    rootFieldKind: Mutation
+  description: Insert into the vcard_extension_properties table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertVcardExtensionProperties
+  permissions:
+    - role: admin
+      allowExecution: true
+

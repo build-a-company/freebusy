@@ -1,0 +1,126 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardDateOrTextsObject
+  fields:
+    - name: date
+      type: Date
+    - name: dateTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: text
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: InsertVcardDateOrTextsObject
+    inputTypeName: InsertVcardDateOrTextsObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_date_or_texts_object
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        id:
+          column:
+            name: id
+        text:
+          column:
+            name: text
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardDateOrTextsObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - id
+          - text
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardDateOrTextsResponse
+  description: Responses from the 'insert_vcard_date_or_texts' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardDateOrTexts!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertVcardDateOrTextsResponse
+    inputTypeName: InsertVcardDateOrTextsResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_date_or_texts_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardDateOrTextsResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertVcardDateOrTexts
+  outputType: InsertVcardDateOrTextsResponse!
+  arguments:
+    - name: objects
+      type: "[InsertVcardDateOrTextsObject!]!"
+    - name: postCheck
+      type: VcardDateOrTextsBoolExp
+      description: Insert permission predicate over the 'vcard_date_or_texts' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_vcard_date_or_texts
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertVcardDateOrTexts
+    rootFieldKind: Mutation
+  description: Insert into the vcard_date_or_texts table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertVcardDateOrTexts
+  permissions:
+    - role: admin
+      allowExecution: true
+

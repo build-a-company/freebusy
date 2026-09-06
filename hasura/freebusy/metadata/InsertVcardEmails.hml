@@ -1,0 +1,126 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardEmailsObject
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: id
+      type: String_1!
+    - name: pref
+      type: Int32
+    - name: types
+      type: String_1
+    - name: value
+      type: String_1!
+  graphql:
+    typeName: InsertVcardEmailsObject
+    inputTypeName: InsertVcardEmailsObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_emails_object
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        types:
+          column:
+            name: types
+        value:
+          column:
+            name: value
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardEmailsObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - id
+          - pref
+          - types
+          - value
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardEmailsResponse
+  description: Responses from the 'insert_vcard_emails' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardEmails!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertVcardEmailsResponse
+    inputTypeName: InsertVcardEmailsResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_emails_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardEmailsResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertVcardEmails
+  outputType: InsertVcardEmailsResponse!
+  arguments:
+    - name: objects
+      type: "[InsertVcardEmailsObject!]!"
+    - name: postCheck
+      type: VcardEmailsBoolExp
+      description: Insert permission predicate over the 'vcard_emails' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_vcard_emails
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertVcardEmails
+    rootFieldKind: Mutation
+  description: Insert into the vcard_emails table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertVcardEmails
+  permissions:
+    - role: admin
+      allowExecution: true
+

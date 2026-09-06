@@ -1,0 +1,157 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: AvailabilityCalendarTimes
+  fields:
+    - name: date
+      type: Date
+    - name: dateTime
+      type: Timestamptz
+    - name: id
+      type: String_1!
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: AvailabilityCalendarTimes
+    inputTypeName: AvailabilityCalendarTimesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: availability_calendar_times
+      fieldMapping:
+        date:
+          column:
+            name: date
+        dateTime:
+          column:
+            name: date_time
+        id:
+          column:
+            name: id
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: AvailabilityCalendarTimes
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - dateTime
+          - id
+          - valueCase
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: AvailabilityCalendarTimesBoolExp
+  operand:
+    object:
+      type: AvailabilityCalendarTimes
+      comparableFields:
+        - fieldName: date
+          booleanExpressionType: DateBoolExp
+        - fieldName: dateTime
+          booleanExpressionType: TimestamptzBoolExp
+        - fieldName: id
+          booleanExpressionType: TextBoolExp
+        - fieldName: valueCase
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: AvailabilityCalendarTimesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: AvailabilityCalendarTimesAggExp
+  operand:
+    object:
+      aggregatedType: AvailabilityCalendarTimes
+      aggregatableFields:
+        - fieldName: date
+          aggregateExpression: DateAggExp
+        - fieldName: dateTime
+          aggregateExpression: TimestamptzAggExp
+        - fieldName: id
+          aggregateExpression: TextAggExp
+        - fieldName: valueCase
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+    returnType: Int64
+  graphql:
+    selectTypeName: AvailabilityCalendarTimesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: AvailabilityCalendarTimesOrderByExp
+  operand:
+    object:
+      orderedType: AvailabilityCalendarTimes
+      orderableFields:
+        - fieldName: date
+          orderByExpression: DateOrderByExp
+        - fieldName: dateTime
+          orderByExpression: TimestamptzOrderByExp
+        - fieldName: id
+          orderByExpression: String1OrderByExp
+        - fieldName: valueCase
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: AvailabilityCalendarTimesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: AvailabilityCalendarTimes
+  objectType: AvailabilityCalendarTimes
+  source:
+    dataConnectorName: freebusy_pgsql
+    collection: availability_calendar_times
+  filterExpressionType: AvailabilityCalendarTimesBoolExp
+  aggregateExpression: AvailabilityCalendarTimesAggExp
+  orderByExpression: AvailabilityCalendarTimesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: availabilityCalendarTimes
+      subscription:
+        rootField: availabilityCalendarTimes
+    selectUniques:
+      - queryRootField: availabilityCalendarTimesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: availabilityCalendarTimesById
+    filterInputTypeName: AvailabilityCalendarTimesFilterInput
+    aggregate:
+      queryRootField: availabilityCalendarTimesAggregate
+      subscription:
+        rootField: availabilityCalendarTimesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: AvailabilityCalendarTimes
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

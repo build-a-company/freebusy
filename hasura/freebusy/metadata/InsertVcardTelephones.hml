@@ -1,0 +1,144 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardTelephonesObject
+  fields:
+    - name: contactId
+      type: String_1!
+    - name: features
+      type: String_1
+    - name: id
+      type: String_1!
+    - name: pref
+      type: Int32
+    - name: text
+      type: String_1
+    - name: types
+      type: String_1
+    - name: uri
+      type: String_1
+    - name: valueCase
+      type: String_1
+  graphql:
+    typeName: InsertVcardTelephonesObject
+    inputTypeName: InsertVcardTelephonesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_telephones_object
+      fieldMapping:
+        contactId:
+          column:
+            name: contact_id
+        features:
+          column:
+            name: features
+        id:
+          column:
+            name: id
+        pref:
+          column:
+            name: pref
+        text:
+          column:
+            name: text
+        types:
+          column:
+            name: types
+        uri:
+          column:
+            name: uri
+        valueCase:
+          column:
+            name: value_case
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardTelephonesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - contactId
+          - features
+          - id
+          - pref
+          - text
+          - types
+          - uri
+          - valueCase
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertVcardTelephonesResponse
+  description: Responses from the 'insert_vcard_telephones' procedure
+  fields:
+    - name: affectedRows
+      type: Int32!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[VcardTelephones!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertVcardTelephonesResponse
+    inputTypeName: InsertVcardTelephonesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: freebusy_pgsql
+      dataConnectorObjectType: insert_vcard_telephones_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertVcardTelephonesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertVcardTelephones
+  outputType: InsertVcardTelephonesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertVcardTelephonesObject!]!"
+    - name: postCheck
+      type: VcardTelephonesBoolExp
+      description: Insert permission predicate over the 'vcard_telephones' collection
+  source:
+    dataConnectorName: freebusy_pgsql
+    dataConnectorCommand:
+      procedure: insert_vcard_telephones
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertVcardTelephones
+    rootFieldKind: Mutation
+  description: Insert into the vcard_telephones table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertVcardTelephones
+  permissions:
+    - role: admin
+      allowExecution: true
+
