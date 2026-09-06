@@ -101,7 +101,7 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 		ID:             id,
 		Name:           name,
 		Unit:           unitID,
-		CustomerID:     strOrNil(repox.LastSegment(b.GetCustomer())),
+		Customer:       strOrNil(b.GetCustomer()),
 		Units:          repox.Ptr(requested),
 		State:          &state,
 		HoldExpireTime: &holdExpire,

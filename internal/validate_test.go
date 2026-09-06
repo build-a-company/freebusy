@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/schedule/v1/schedulepbv1"
@@ -108,10 +108,10 @@ func TestValidationInterceptor_Services(t *testing.T) {
 		{"org list page_size too big", &orgpbv1.ListOrganisationsRequest{PageSize: 5000}, true},
 
 		// identity
-		{"user get empty name", &identitypbv1.GetUserRequest{}, true},
-		{"user get me ok", &identitypbv1.GetUserRequest{Name: "users/me"}, false},
-		{"user update missing user", &identitypbv1.UpdateUserRequest{}, true},
-		{"user update bad name", &identitypbv1.UpdateUserRequest{User: &identitypbv1.User{Name: "people/1"}}, true},
+		{"user get empty name", &guestpbv1.GetUserRequest{}, true},
+		{"user get me ok", &guestpbv1.GetUserRequest{Name: "users/me"}, false},
+		{"user update missing user", &guestpbv1.UpdateUserRequest{}, true},
+		{"user update bad name", &guestpbv1.UpdateUserRequest{User: &guestpbv1.User{Name: "people/1"}}, true},
 
 		// property
 

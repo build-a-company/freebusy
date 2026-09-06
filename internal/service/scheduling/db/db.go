@@ -12,7 +12,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/db/gorm"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/db/hasura"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"google.golang.org/genproto/googleapis/type/money"
 )
@@ -60,7 +60,7 @@ type BookingRepository interface {
 	// a booking. Allowed only while PENDING_HOLD or CONFIRMED (types.ErrConflict
 	// otherwise); re-validates the party against the unit's max occupancy
 	// (types.ErrInvalidArgument when it overflows).
-	UpdateBookingGuests(ctx context.Context, name string, guests []*identitypbv1.Guest, occupancy *schedulingpbv1.Occupancy) (*schedulingpbv1.Booking, error)
+	UpdateBookingGuests(ctx context.Context, name string, guests []*guestpbv1.Guest, occupancy *schedulingpbv1.Occupancy) (*schedulingpbv1.Booking, error)
 }
 
 // Assert the provider implementations satisfy the contract here, so the

@@ -55,11 +55,11 @@ model Attachment {
   /// When the file was uploaded.
   uploadTime DateTime? @freebusy.Timestamptz(6) @map("upload_time")
 
-  /// Back-relation: IdDocument records that reference this model via attachment_id.
-  idDocuments IdDocument[]
-
   /// Back-relation: Licence records that reference this model via attachment_id.
   licences Licence[]
+
+  /// Back-relation: IdDocument records that reference this model via attachment_id.
+  idDocuments IdDocument[]
 
   /// Maps the model to the "attachments" table in the database.
   @@map("attachments")

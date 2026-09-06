@@ -102,9 +102,7 @@ func bookingToCreateInput(in *schedulingpbv1.Booking) bookingsql.CreateInput {
 	var ci bookingsql.CreateInput
 	ci.Name = in.GetName()
 	ci.Unit = in.GetUnit()
-	if v := in.GetCustomer(); v != "" {
-		ci.Customer = repox.LastSegment(v)
-	}
+	ci.Customer = in.GetCustomer()
 	ci.Units = int32(in.GetUnits())
 	if v := in.GetPromoCode(); v != "" {
 		ci.PromoCode = repox.LastSegment(v)
@@ -124,7 +122,7 @@ func bookingToUpdatePatch(merged *schedulingpbv1.Booking) bookingsql.UpdateInput
 	var patch bookingsql.UpdateInput
 	patch.Name = graphql.Value(merged.GetName())
 	patch.Unit = graphql.Value(merged.GetUnit())
-	if v := repox.LastSegment(merged.GetCustomer()); v != "" {
+	if v := merged.GetCustomer(); v != "" {
 		patch.Customer = graphql.Value(v)
 	} else {
 		patch.Customer = graphql.Null[string]()
@@ -162,9 +160,7 @@ func bookingFromRow(row *bookingsql.SchedulingBookings) *schedulingpbv1.Booking 
 	out := &schedulingpbv1.Booking{}
 	out.Name = row.Name
 	out.Unit = row.Unit
-	if v := repox.Deref(row.Customer); v != "" {
-		out.Customer = "users/" + v
-	}
+	out.Customer = repox.Deref(row.Customer)
 	out.Units = int32(repox.Deref(row.Units))
 	if v := repox.Deref(row.PromoCode); v != "" {
 		out.PromoCode = "promoCodes/" + v

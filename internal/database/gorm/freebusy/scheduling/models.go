@@ -66,8 +66,8 @@ type Booking struct {
 	Name string `gorm:"column:name;not null;uniqueIndex" json:"name" validate:"required"`
 	// The unit being booked. Format: resources/{resource} TODO: unresolved reference to Resource (not in this generation set); kept as a plain indexed column.
 	Unit string `gorm:"column:unit;not null;index:idx_bookings_unit" json:"unit" validate:"required"`
-	// The user the booking is for. Format: users/{user}
-	CustomerID *string `gorm:"column:customer;index:idx_bookings_customer" json:"customer,omitempty"`
+	// The user the booking is for. Format: users/{user} TODO: unresolved reference to User (not in this generation set); kept as a plain indexed column.
+	Customer *string `gorm:"column:customer;index:idx_bookings_customer" json:"customer,omitempty"`
 	// Number of units / party size reserved. Defaults to 1.
 	Units *int32 `gorm:"column:units" json:"units,omitempty"`
 	// Which specific unit of the pool was assigned (the shell's atomic pick).

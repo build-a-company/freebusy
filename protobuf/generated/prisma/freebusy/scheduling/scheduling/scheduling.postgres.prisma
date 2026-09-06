@@ -23,11 +23,8 @@ model Booking {
   /// The unit being booked. Format: resources/{resource} TODO: unresolved reference to Resource (not in this generation set); kept as a plain indexed column.
   unit String @map("unit")
 
-  /// The user the booking is for. Format: users/{user}
-  customerID String? @map("customer")
-
-  /// Relation to User via customer.
-  customer User? @relation(fields: [customerID], references: [id])
+  /// The user the booking is for. Format: users/{user} TODO: unresolved reference to User (not in this generation set); kept as a plain indexed column.
+  customer String? @map("customer")
 
   /// Number of units / party size reserved. Defaults to 1.
   units Int? @map("units")
@@ -119,19 +116,19 @@ model Booking {
   /// Relation to Money via refund_amount_id.
   refundAmount Money? @relation("BookingRefundAmount", fields: [refundAmountID], references: [id], onDelete: SetNull)
 
-  /// Back-relation: Guest records that reference this model via booking_id.
-  guests Guest[]
-
   /// Back-relation: Redemption records that reference this model via booking.
   redemptions Redemption[]
 
   /// Back-relation: PriceComponent records that reference this model via booking_id.
   priceComponents PriceComponent[]
 
+  /// Back-relation: Guest records that reference this model via booking_id.
+  resource Guest[]
+
   /// Index on [unit].
   @@index([unit])
   /// Index on [customer].
-  @@index([customerID])
+  @@index([customer])
   /// Index on [promo_code].
   @@index([promoCodeID])
   /// Index on [contact_id].

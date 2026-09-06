@@ -26,7 +26,6 @@ erDiagram
     }
     Redemption {
         string id PK
-        string customer FK
         string booking FK
         string promo_code_id FK
         string amount_applied_id FK
@@ -47,15 +46,11 @@ erDiagram
     Money {
         string externalStub PK
     }
-    User {
-        string externalStub PK
-    }
     Discount }o--|| Money : "amount_off_id"
     PromoCode }o--|| Discount : "discount_id"
     PromoCode }o--|| RedemptionWindow : "window_id"
     PromoCode }o--|| UsageLimits : "limits_id"
     PromoCode }o--|| Scope : "scope_id"
-    Redemption }o--|| User : "customer"
     Redemption }o--|| Booking : "booking"
     Redemption }o--|| PromoCode : "promo_code_id"
     Redemption }o--|| Money : "amount_applied_id"

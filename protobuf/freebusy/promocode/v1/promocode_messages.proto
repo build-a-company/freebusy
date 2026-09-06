@@ -181,7 +181,7 @@ message ValidatePromoCodeRequest {
   // Format: users/{user}
   string customer = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (google.api.resource_reference) = {type: "freebusy.identity.v1/User"},
+    (google.api.resource_reference) = {type: "protobufrfc.dev/User"},
     (buf.validate.field).string.pattern = "^users/[^/]+$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];

@@ -6,7 +6,7 @@ Generated from Protobuf by protoc-gen-store. Source of truth is the `.proto` fil
 
 | Models | Enums |
 | ---: | ---: |
-| 46 | 26 |
+| 40 | 20 |
 
 ## Entity relationships
 
@@ -27,7 +27,6 @@ erDiagram
     }
     Booking {
         string id PK
-        string customer FK
         string promo_code FK
         string contact_id FK
         string occupancy_id FK
@@ -41,12 +40,6 @@ erDiagram
         string id PK
     }
     CancellationPolicy {
-        string id PK
-    }
-    Channel {
-        string id PK
-    }
-    ChannelSyncStatus {
         string id PK
     }
     Contact {
@@ -104,19 +97,10 @@ erDiagram
         string rate_plan_id FK
         string amount_off_id FK
     }
-    Member {
-        string id PK
-        string user FK
-        string inviter FK
-        string organisation_id FK
-    }
     Money {
         string id PK
     }
     Occupancy {
-        string id PK
-    }
-    Organisation {
         string id PK
     }
     PostalAddress {
@@ -159,7 +143,6 @@ erDiagram
     }
     Redemption {
         string id PK
-        string customer FK
         string booking FK
         string promo_code_id FK
         string amount_applied_id FK
@@ -199,20 +182,12 @@ erDiagram
     TimeWindow {
         string id PK
     }
-    UnitMapping {
-        string id PK
-        string channel_id FK
-    }
     UsageLimits {
-        string id PK
-    }
-    User {
         string id PK
     }
     Adjustment }o--|| Money : "amount_delta_id"
     AvailabilityException }o--|| TimeWindow : "window_id"
     AvailabilityException }o--|| SharedDateRange : "date_range_id"
-    Booking }o--|| User : "customer"
     Booking }o--|| PromoCode : "promo_code"
     Booking }o--|| Contact : "contact_id"
     Booking }o--|| Occupancy : "occupancy_id"
@@ -237,9 +212,6 @@ erDiagram
     Licence }o--|| Attachment : "attachment_id"
     LosDiscount }o--|| RatePlan : "rate_plan_id"
     LosDiscount }o--|| Money : "amount_off_id"
-    Member }o--|| User : "user"
-    Member }o--|| User : "inviter"
-    Member }o--|| Organisation : "organisation_id"
     PriceBounds }o--|| Money : "floor_id"
     PriceBounds }o--|| Money : "ceiling_id"
     PriceComponent }o--|| Booking : "booking_id"
@@ -254,7 +226,6 @@ erDiagram
     RatePlan }o--|| Money : "price_id"
     RatePlan }o--|| PriceBounds : "bounds_id"
     RecurringRule }o--|| Schedule : "schedule_id"
-    Redemption }o--|| User : "customer"
     Redemption }o--|| Booking : "booking"
     Redemption }o--|| PromoCode : "promo_code_id"
     Redemption }o--|| Money : "amount_applied_id"
@@ -266,15 +237,12 @@ erDiagram
     ScheduleExceptions }o--|| AvailabilityException : "availability_exception_id"
     Scope }o--|| Money : "min_subtotal_id"
     Tax }o--|| RatePlan : "rate_plan_id"
-    UnitMapping }o--|| Channel : "channel_id"
 ```
 
 ## Subfolders
 
 - [`allocation/`](./allocation/README.md)
-- [`channel/`](./channel/README.md)
-- [`identity/`](./identity/README.md)
-- [`organisation/`](./organisation/README.md)
+- [`guest/`](./guest/README.md)
 - [`pricing/`](./pricing/README.md)
 - [`promocode/`](./promocode/README.md)
 - [`property/`](./property/README.md)

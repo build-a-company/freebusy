@@ -66,9 +66,6 @@ func (r *GormBookingRepository) Create(ctx context.Context, in *schedulingpbv1.B
 	m := scheduling.BookingFromProto(in)
 	m.ID = id
 	m.Name = in.GetName()
-	if v := in.GetCustomer(); v != "" {
-		m.CustomerID = repox.Ptr(repox.LastSegment(v))
-	}
 	if v := in.GetPromoCode(); v != "" {
 		m.PromoCodeID = repox.Ptr(repox.LastSegment(v))
 	}
@@ -160,9 +157,6 @@ func (r *GormBookingRepository) get(ctx context.Context, id string) (*scheduling
 // AfterRead hook.
 func (r *GormBookingRepository) toProto(ctx context.Context, m *scheduling.Booking) (*schedulingpbv1.Booking, error) {
 	out := scheduling.BookingToProto(m)
-	if m.CustomerID != nil && *m.CustomerID != "" {
-		out.Customer = "users/" + *m.CustomerID
-	}
 	if m.PromoCodeID != nil && *m.PromoCodeID != "" {
 		out.PromoCode = "promoCodes/" + *m.PromoCodeID
 	}
@@ -234,9 +228,6 @@ func (r *GormBookingRepository) Update(ctx context.Context, in *schedulingpbv1.B
 		existingPB := scheduling.BookingToProto(&existing)
 		{
 			m, out := &existing, existingPB
-			if m.CustomerID != nil && *m.CustomerID != "" {
-				out.Customer = "users/" + *m.CustomerID
-			}
 			if m.PromoCodeID != nil && *m.PromoCodeID != "" {
 				out.PromoCode = "promoCodes/" + *m.PromoCodeID
 			}
@@ -252,11 +243,7 @@ func (r *GormBookingRepository) Update(ctx context.Context, in *schedulingpbv1.B
 		_ = next
 		existing.Name = next.Name
 		existing.Unit = next.Unit
-		if v := merged.GetCustomer(); v != "" {
-			existing.CustomerID = repox.Ptr(repox.LastSegment(v))
-		} else {
-			existing.CustomerID = nil
-		}
+		existing.Customer = next.Customer
 		existing.Units = next.Units
 		if v := merged.GetPromoCode(); v != "" {
 			existing.PromoCodeID = repox.Ptr(repox.LastSegment(v))

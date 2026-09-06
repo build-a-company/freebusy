@@ -635,20 +635,20 @@ const file_freebusy_schedule_v1_schedule_proto_rawDesc = "" +
 	"\x10advance_min_days\x18\x05 \x01(\x05B\n" +
 	"\xe0A\x01\xbaH\x04\x1a\x02(\x00R\x0eadvanceMinDays\x124\n" +
 	"\x10advance_max_days\x18\x06 \x01(\x05B\n" +
-	"\xe0A\x01\xbaH\x04\x1a\x02(\x00R\x0eadvanceMaxDays\"\xde\x04\n" +
-	"\x15AvailabilityException\x12\\\n" +
-	"\x04name\x18\x01 \x01(\tBH\xe0A\b\xbaHB\xd8\x01\x01r=2;^properties/[^/]+/units/[^/]+/availabilityExceptions/[^/]+$R\x04name\x12D\n" +
+	"\xe0A\x01\xbaH\x04\x1a\x02(\x00R\x0eadvanceMaxDays\"\xc3\x04\n" +
+	"\x15AvailabilityException\x12O\n" +
+	"\x04name\x18\x01 \x01(\tB;\xe0A\b\xbaH5\xd8\x01\x01r02.^resources/[^/]+/availabilityExceptions/[^/]+$R\x04name\x12D\n" +
 	"\x04kind\x18\x03 \x01(\x0e2#.freebusy.schedule.v1.ExceptionKindB\v\xe0A\x02\xbaH\x05\x82\x01\x02\x10\x01R\x04kind\x128\n" +
 	"\x06window\x18\x04 \x01(\v2\x1e.freebusy.shared.v1.TimeWindowH\x00R\x06window\x12>\n" +
 	"\n" +
 	"date_range\x18\a \x01(\v2\x1d.freebusy.shared.v1.DateRangeH\x00R\tdateRange\x12!\n" +
 	"\x06reason\x18\x05 \x01(\tB\t\xe0A\x01\xe2\xb5\x18\x02\x18\x01R\x06reason\x12@\n" +
 	"\vcreate_time\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\n" +
-	"createTime:\xb3\x01\xeaA\xaf\x01\n" +
-	"*freebusy.schedule.v1/AvailabilityException\x12Rproperties/{property}/units/{unit}/availabilityExceptions/{availability_exception}*\x16availabilityExceptions2\x15availabilityExceptionB\x06\n" +
-	"\x04spanJ\x04\b\x02\x10\x03\"\xf1\x04\n" +
-	"\bSchedule\x12H\n" +
-	"\x04name\x18\x01 \x01(\tB4\xe0A\b\xbaH.\xd8\x01\x01r)2'^properties/[^/]+/units/[^/]+/schedule$R\x04name\x12Q\n" +
+	"createTime:\xa5\x01\xeaA\xa1\x01\n" +
+	"*freebusy.schedule.v1/AvailabilityException\x12Dresources/{resource}/availabilityExceptions/{availability_exception}*\x16availabilityExceptions2\x15availabilityExceptionB\x06\n" +
+	"\x04spanJ\x04\b\x02\x10\x03\"\xd6\x04\n" +
+	"\bSchedule\x12;\n" +
+	"\x04name\x18\x01 \x01(\tB'\xe0A\b\xbaH!\xd8\x01\x01r\x1c2\x1a^resources/[^/]+/schedule$R\x04name\x12Q\n" +
 	"\x0frecurring_rules\x18\x02 \x03(\v2#.freebusy.schedule.v1.RecurringRuleB\x03\xe0A\x01R\x0erecurringRules\x12C\n" +
 	"\abuffers\x18\x03 \x01(\v2$.freebusy.schedule.v1.BufferSettingsB\x03\xe0A\x01R\abuffers\x12U\n" +
 	"\x10stay_constraints\x18\x04 \x01(\v2%.freebusy.schedule.v1.StayConstraintsB\x03\xe0A\x01R\x0fstayConstraints\x12R\n" +
@@ -657,8 +657,8 @@ const file_freebusy_schedule_v1_schedule_proto_rawDesc = "" +
 	"*freebusy.schedule.v1/AvailabilityExceptionR\n" +
 	"exceptions\x12^\n" +
 	"\x13cancellation_policy\x18\a \x01(\v2(.freebusy.schedule.v1.CancellationPolicyB\x03\xe0A\x01R\x12cancellationPolicy\x12\x12\n" +
-	"\x04etag\x18\x06 \x01(\tR\x04etag:d\xeaAa\n" +
-	"\x1dfreebusy.schedule.v1/Schedule\x12+properties/{property}/units/{unit}/schedule*\tschedules2\bschedule\"Q\n" +
+	"\x04etag\x18\x06 \x01(\tR\x04etag:V\xeaAS\n" +
+	"\x1dfreebusy.schedule.v1/Schedule\x12\x1dresources/{resource}/schedule*\tschedules2\bschedule\"Q\n" +
 	"\x12CancellationPolicy\x12;\n" +
 	"\x05tiers\x18\x01 \x03(\v2 .freebusy.schedule.v1.RefundTierB\x03\xe0A\x01R\x05tiers\"p\n" +
 	"\n" +

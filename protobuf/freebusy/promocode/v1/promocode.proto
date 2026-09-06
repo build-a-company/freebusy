@@ -251,7 +251,7 @@ message Redemption {
   // Format: users/{user}
   string customer = 2 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference) = {type: "freebusy.identity.v1/User"}
+    (google.api.resource_reference) = {type: "protobufrfc.dev/User"}
   ];
 
   // The booking the code was applied to.

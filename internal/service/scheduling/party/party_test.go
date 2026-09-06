@@ -3,7 +3,7 @@ package party
 import (
 	"testing"
 
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 )
 
@@ -14,11 +14,11 @@ func TestSize(t *testing.T) {
 		t.Fatalf("Size(occupancy) = %d, want 3", n)
 	}
 	// Derived from guests: 2 adults + 1 child counted, 1 infant excluded.
-	guests := []*identitypbv1.Guest{
-		{DisplayName: "A", AgeGroup: identitypbv1.AgeGroup_AGE_GROUP_ADULT},
-		{DisplayName: "B", AgeGroup: identitypbv1.AgeGroup_AGE_GROUP_ADULT},
-		{DisplayName: "C", AgeGroup: identitypbv1.AgeGroup_AGE_GROUP_CHILD},
-		{DisplayName: "D", AgeGroup: identitypbv1.AgeGroup_AGE_GROUP_INFANT},
+	guests := []*guestpbv1.Guest{
+		{DisplayName: "A", AgeGroup: guestpbv1.AgeGroup_AGE_GROUP_ADULT},
+		{DisplayName: "B", AgeGroup: guestpbv1.AgeGroup_AGE_GROUP_ADULT},
+		{DisplayName: "C", AgeGroup: guestpbv1.AgeGroup_AGE_GROUP_CHILD},
+		{DisplayName: "D", AgeGroup: guestpbv1.AgeGroup_AGE_GROUP_INFANT},
 	}
 	if n := Size(nil, guests); n != 3 {
 		t.Fatalf("Size(guests) = %d, want 3", n)

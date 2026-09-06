@@ -55,11 +55,12 @@ var RedemptionFilterSpec = filterx.Spec{
 	Table: `"promocode"."redemptions"`,
 	Fields: map[string]filterx.FieldSpec{
 		"booking":       {Column: "booking", Kind: filterx.KindRef},
-		"customer":      {Column: "customer", Kind: filterx.KindRef},
+		"customer":      {Column: "customer", Kind: filterx.KindText},
 		"name":          {Column: "name", Kind: filterx.KindText},
 		"redeemed_time": {Column: "redeemed_time", Kind: filterx.KindTimestamp},
 	},
 	Sort: map[string]filterx.SortSpec{
+		"customer":      {Column: "customer", Kind: filterx.KindText, NotNull: true},
 		"name":          {Column: "name", Kind: filterx.KindText, NotNull: true},
 		"redeemed_time": {Column: "redeemed_time", Kind: filterx.KindTimestamp},
 	},

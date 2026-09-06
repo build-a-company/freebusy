@@ -22,14 +22,14 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/freebusy/identity"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/freebusy/organisation"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
 	"google.golang.org/protobuf/types/known/structpb"
 )
 
 func TestRepositorySmoke_OrganisationGorm(t *testing.T) {
 	db := openTestGorm(t)
-	orgLifecycle(t, organisation.NewGorm(db), identity.NewGorm(db))
+	orgLifecycle(t, organisation.NewGorm(db), guest.NewGorm(db))
 }
 
 // TestRepositorySmoke_OrganisationGraphQL runs the exact same lifecycle
@@ -37,12 +37,12 @@ func TestRepositorySmoke_OrganisationGorm(t *testing.T) {
 // generated backends.
 func TestRepositorySmoke_OrganisationGraphQL(t *testing.T) {
 	svc := connectTestGraphQL(t)
-	orgLifecycle(t, organisation.NewGraphQL(svc), identity.NewGraphQL(svc))
+	orgLifecycle(t, organisation.NewGraphQL(svc), guest.NewGraphQL(svc))
 }
 
 // orgLifecycle drives the full organisation + member lifecycle through
 // whichever adapter set it is handed.
-func orgLifecycle(t *testing.T, repos organisation.Repositories, idRepos identity.Repositories) {
+func orgLifecycle(t *testing.T, repos organisation.Repositories, idRepos guest.Repositories) {
 	t.Helper()
 	ctx := context.Background()
 
@@ -121,7 +121,7 @@ func orgLifecycle(t *testing.T, repos organisation.Repositories, idRepos identit
 	// Parented child: member under the organisation, with a real user
 	// reference (the FK is enforced) created through the generated identity
 	// repository — two schemas' generated adapters cooperating.
-	user, err := idRepos.Users.Create(ctx, &identitypbv1.User{DisplayName: "smoke-user"})
+	user, err := idRepos.Users.Create(ctx, &guestpbv1.User{DisplayName: "smoke-user"})
 	if err != nil {
 		t.Fatalf("Create user: %v", err)
 	}

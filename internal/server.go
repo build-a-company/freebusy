@@ -9,8 +9,6 @@ import (
 
 	"github.com/oh-tarnished/freebusy/config"
 	"github.com/oh-tarnished/freebusy/internal/runtime/idempotency"
-	"github.com/oh-tarnished/freebusy/internal/seed"
-	"github.com/oh-tarnished/freebusy/shared"
 	"github.com/the-protobuf-project/runtime-go/grpc"
 	"github.com/the-protobuf-project/runtime-go/grpc/options"
 )
@@ -102,9 +100,6 @@ func (s *Server) Start() error {
 	// Dev-only baseline data (a known organisation), gated by [seed] and
 	// idempotent across restarts. Non-fatal: a seeding failure is logged, not
 	// allowed to keep the server from serving.
-	if err := seed.Run(s.ctx, s.svc.conn, config.Get().Seed); err != nil {
-		_ = shared.Telemetry.Logger.Error("seed: failed to plant baseline data", "error", err)
-	}
 	s.svc.StartBackground(s.ctx)
 	return nil
 }

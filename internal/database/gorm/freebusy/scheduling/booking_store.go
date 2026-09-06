@@ -49,7 +49,6 @@ type BookingStoreIface interface {
 	GetByID(ctx context.Context, id string) (*Booking, error)
 	DeleteByID(ctx context.Context, id string) error
 	GetByName(ctx context.Context, v string) (*Booking, error)
-	ListByCustomerID(ctx context.Context, id string, opts gormx.ListOptions) ([]Booking, error)
 	ListByPromoCodeID(ctx context.Context, id string, opts gormx.ListOptions) ([]Booking, error)
 	ListByContactID(ctx context.Context, id string, opts gormx.ListOptions) ([]Booking, error)
 	ListByOccupancyID(ctx context.Context, id string, opts gormx.ListOptions) ([]Booking, error)
@@ -183,21 +182,6 @@ func (s *BookingStore) GetByName(ctx context.Context, v string) (*Booking, error
 		return nil, err
 	}
 	return &m, nil
-}
-
-// ListByCustomerID returns the Booking records whose customer matches id, with opts applied.
-func (s *BookingStore) ListByCustomerID(ctx context.Context, id string, opts gormx.ListOptions) ([]Booking, error) {
-	var out []Booking
-	tel := gormx.OrNop(s.Telemetry)
-	start := time.Now()
-	err := tel.Span(ctx, "scheduling.Booking/ListByCustomerID", nil, func(ctx context.Context) error {
-		return opts.Apply(s.DB.WithContext(ctx).Where("customer = ?", id)).Find(&out).Error
-	})
-	tel.RecordOp(ctx, "scheduling.bookings", "list_by_customer", time.Since(start), err)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 // ListByPromoCodeID returns the Booking records whose promo_code matches id, with opts applied.

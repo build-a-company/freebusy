@@ -4,9 +4,9 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"testing"
 
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/identity"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/guest"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"google.golang.org/genproto/googleapis/type/date"
 )
@@ -22,29 +22,29 @@ func TestOccupancyRoundTrip(t *testing.T) {
 // A foreign guest with passport + Form C details + preferences survives the
 // graph build and the model→proto conversion intact.
 func TestGuestGraphRoundTrip(t *testing.T) {
-	in := &identitypbv1.Guest{
+	in := &guestpbv1.Guest{
 		DisplayName: "Asha Kumar",
 		Primary:     true,
-		Gender:      identitypbv1.Gender_GENDER_FEMALE,
+		Gender:      guestpbv1.Gender_GENDER_FEMALE,
 		BirthDate:   &date.Date{Year: 1990, Month: 5, Day: 12},
-		AgeGroup:    identitypbv1.AgeGroup_AGE_GROUP_ADULT,
+		AgeGroup:    guestpbv1.AgeGroup_AGE_GROUP_ADULT,
 		Nationality: "GB",
-		IdDocument: &identitypbv1.IdDocument{
-			Type:           identitypbv1.IdDocumentType_ID_DOCUMENT_TYPE_PASSPORT,
+		IdDocument: &guestpbv1.IdDocument{
+			Type:           guestpbv1.IdDocumentType_ID_DOCUMENT_TYPE_PASSPORT,
 			Number:         "P1234567",
 			IssuingCountry: "GB",
 			IssuePlace:     "London",
 		},
-		Foreigner: &identitypbv1.ForeignerDetails{
+		Foreigner: &guestpbv1.ForeignerDetails{
 			VisaNumber:   "V999",
 			VisaType:     "Tourist",
 			ArrivalDate:  &date.Date{Year: 2026, Month: 12, Day: 24},
 			EntryPort:    "Goa",
 			VisitPurpose: "Tourism",
 		},
-		Preferences: &identitypbv1.GuestPreferences{
-			Smoking:         identitypbv1.SmokingPreference_SMOKING_PREFERENCE_NON_SMOKING,
-			Bed:             identitypbv1.BedPreference_BED_PREFERENCE_KING,
+		Preferences: &guestpbv1.GuestPreferences{
+			Smoking:         guestpbv1.SmokingPreference_SMOKING_PREFERENCE_NON_SMOKING,
+			Bed:             guestpbv1.BedPreference_BED_PREFERENCE_KING,
 			Dietary:         []string{"vegetarian"},
 			SpecialRequests: []string{"late check-in"},
 		},
@@ -67,18 +67,18 @@ func TestGuestGraphRoundTrip(t *testing.T) {
 	g.guest.IDDocument = g.idDocument
 	g.guest.Foreigner = g.foreigner
 	g.guest.Preferences = g.preferences
-	out := identity.GuestToProto(g.guest)
+	out := guest.GuestToProto(g.guest)
 
-	if out.GetNationality() != "GB" || out.GetGender() != identitypbv1.Gender_GENDER_FEMALE {
+	if out.GetNationality() != "GB" || out.GetGender() != guestpbv1.Gender_GENDER_FEMALE {
 		t.Fatalf("guest scalars lost: %+v", out)
 	}
-	if out.GetIdDocument().GetType() != identitypbv1.IdDocumentType_ID_DOCUMENT_TYPE_PASSPORT || out.GetIdDocument().GetNumber() != "P1234567" {
+	if out.GetIdDocument().GetType() != guestpbv1.IdDocumentType_ID_DOCUMENT_TYPE_PASSPORT || out.GetIdDocument().GetNumber() != "P1234567" {
 		t.Fatalf("id document lost: %+v", out.GetIdDocument())
 	}
 	if out.GetForeigner().GetEntryPort() != "Goa" || out.GetForeigner().GetVisitPurpose() != "Tourism" {
 		t.Fatalf("foreigner details lost: %+v", out.GetForeigner())
 	}
-	if out.GetPreferences().GetBed() != identitypbv1.BedPreference_BED_PREFERENCE_KING || len(out.GetPreferences().GetDietary()) != 1 {
+	if out.GetPreferences().GetBed() != guestpbv1.BedPreference_BED_PREFERENCE_KING || len(out.GetPreferences().GetDietary()) != 1 {
 		t.Fatalf("preferences lost: %+v", out.GetPreferences())
 	}
 	if out.GetBirthDate().GetYear() != 1990 {

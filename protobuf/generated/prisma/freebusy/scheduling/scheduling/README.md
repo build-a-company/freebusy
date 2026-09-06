@@ -15,7 +15,6 @@ erDiagram
     direction LR
     Booking {
         string id PK
-        string customer FK
         string promo_code FK
         string contact_id FK
         string occupancy_id FK
@@ -40,10 +39,6 @@ erDiagram
     TimeWindow {
         string externalStub PK
     }
-    User {
-        string externalStub PK
-    }
-    Booking }o--|| User : "customer"
     Booking }o--|| PromoCode : "promo_code"
     Booking }o--|| Contact : "contact_id"
     Booking }o--|| Occupancy : "occupancy_id"
@@ -65,7 +60,7 @@ A reservation against a unit. The hold lifecycle lives here as states rather tha
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
 | `unit` | `VARCHAR(255)` | not null |
-| `customer` | `CHAR(26)` | nullable |
+| `customer` | `VARCHAR(255)` | nullable |
 | `units` | `INTEGER` | nullable |
 | `assigned_unit` | `VARCHAR(255)` | nullable |
 | `state` | `BookingState` | nullable |

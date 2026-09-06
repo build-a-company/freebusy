@@ -51,10 +51,10 @@ model PostalAddress {
   organization String? @map("organization")
 
   /// Back-relation: Guest records that reference this model via permanent_address_id.
-  guests Guest[] @relation("GuestPermanentAddress")
+  resource Guest[] @relation("GuestPermanentAddress")
 
   /// Back-relation: Guest records that reference this model via local_address_id.
-  guests2 Guest[] @relation("GuestLocalAddress")
+  resource2 Guest[] @relation("GuestLocalAddress")
 
   /// GIN index: tag containment (@>) cannot use a B-tree.
   @@index([addressLines], type: Gin)

@@ -28,7 +28,7 @@ import (
 	propertiesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/propertiesql"
 	unitsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/propertyql/unitsql"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
@@ -102,8 +102,8 @@ func seedUnit(t *testing.T, svc *freebusyql.Service) string {
 	return unitName
 }
 
-func guest(name string, age identitypbv1.AgeGroup) *identitypbv1.Guest {
-	return &identitypbv1.Guest{DisplayName: name, AgeGroup: age}
+func guest(name string, age guestpbv1.AgeGroup) *guestpbv1.Guest {
+	return &guestpbv1.Guest{DisplayName: name, AgeGroup: age}
 }
 
 // TestBookingLifecycleLive walks a booking through create → replace party →
@@ -124,7 +124,7 @@ func TestBookingLifecycleLive(t *testing.T) {
 	created, err := repo.CreateBooking(ctx, &schedulingpbv1.Booking{
 		Unit:      unitName,
 		Window:    window,
-		Guests:    []*identitypbv1.Guest{guest("Asha", identitypbv1.AgeGroup_AGE_GROUP_ADULT)},
+		Guests:    []*guestpbv1.Guest{guest("Asha", guestpbv1.AgeGroup_AGE_GROUP_ADULT)},
 		Occupancy: &schedulingpbv1.Occupancy{Adults: 1},
 	})
 	if err != nil {
@@ -138,9 +138,9 @@ func TestBookingLifecycleLive(t *testing.T) {
 	// Replace the party: 2 adults. Exactly 2 guests afterwards proves the
 	// native delete-by-booking_id removed the old party (no doubling).
 	updated, err := repo.UpdateBookingGuests(ctx, name,
-		[]*identitypbv1.Guest{
-			guest("Asha", identitypbv1.AgeGroup_AGE_GROUP_ADULT),
-			guest("Ravi", identitypbv1.AgeGroup_AGE_GROUP_ADULT),
+		[]*guestpbv1.Guest{
+			guest("Asha", guestpbv1.AgeGroup_AGE_GROUP_ADULT),
+			guest("Ravi", guestpbv1.AgeGroup_AGE_GROUP_ADULT),
 		},
 		&schedulingpbv1.Occupancy{Adults: 2},
 	)
@@ -173,7 +173,7 @@ func TestBookingLifecycleLive(t *testing.T) {
 
 	// Party edits stay legal while CONFIRMED.
 	if _, err := repo.UpdateBookingGuests(ctx, name,
-		[]*identitypbv1.Guest{guest("Asha", identitypbv1.AgeGroup_AGE_GROUP_ADULT)},
+		[]*guestpbv1.Guest{guest("Asha", guestpbv1.AgeGroup_AGE_GROUP_ADULT)},
 		&schedulingpbv1.Occupancy{Adults: 1},
 	); err != nil {
 		t.Fatalf("UpdateBookingGuests on CONFIRMED: %v", err)

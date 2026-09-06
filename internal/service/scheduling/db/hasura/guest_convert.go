@@ -7,7 +7,7 @@ import (
 	"time"
 
 	postaladdressql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/commonql/postaladdressql"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 	"google.golang.org/genproto/googleapis/type/date"
 	"google.golang.org/genproto/googleapis/type/postaladdress"
@@ -104,37 +104,37 @@ func bare(protoName, prefix string) string {
 	return strings.TrimPrefix(protoName, prefix)
 }
 
-func genderFromStr(s *string) identitypbv1.Gender {
+func genderFromStr(s *string) guestpbv1.Gender {
 	if s == nil || *s == "" {
-		return identitypbv1.Gender_GENDER_UNSPECIFIED
+		return guestpbv1.Gender_GENDER_UNSPECIFIED
 	}
-	return identitypbv1.Gender(identitypbv1.Gender_value["GENDER_"+*s])
+	return guestpbv1.Gender(guestpbv1.Gender_value["GENDER_"+*s])
 }
 
-func ageGroupFromStr(s *string) identitypbv1.AgeGroup {
+func ageGroupFromStr(s *string) guestpbv1.AgeGroup {
 	if s == nil || *s == "" {
-		return identitypbv1.AgeGroup_AGE_GROUP_UNSPECIFIED
+		return guestpbv1.AgeGroup_AGE_GROUP_UNSPECIFIED
 	}
-	return identitypbv1.AgeGroup(identitypbv1.AgeGroup_value["AGE_GROUP_"+*s])
+	return guestpbv1.AgeGroup(guestpbv1.AgeGroup_value["AGE_GROUP_"+*s])
 }
 
-func idDocTypeFromStr(s string) identitypbv1.IdDocumentType {
+func idDocTypeFromStr(s string) guestpbv1.IdDocumentType {
 	if s == "" {
-		return identitypbv1.IdDocumentType_ID_DOCUMENT_TYPE_UNSPECIFIED
+		return guestpbv1.IdDocumentType_ID_DOCUMENT_TYPE_UNSPECIFIED
 	}
-	return identitypbv1.IdDocumentType(identitypbv1.IdDocumentType_value["ID_DOCUMENT_TYPE_"+s])
+	return guestpbv1.IdDocumentType(guestpbv1.IdDocumentType_value["ID_DOCUMENT_TYPE_"+s])
 }
 
-func smokingFromStr(s *string) identitypbv1.SmokingPreference {
+func smokingFromStr(s *string) guestpbv1.SmokingPreference {
 	if s == nil || *s == "" {
-		return identitypbv1.SmokingPreference_SMOKING_PREFERENCE_UNSPECIFIED
+		return guestpbv1.SmokingPreference_SMOKING_PREFERENCE_UNSPECIFIED
 	}
-	return identitypbv1.SmokingPreference(identitypbv1.SmokingPreference_value["SMOKING_PREFERENCE_"+*s])
+	return guestpbv1.SmokingPreference(guestpbv1.SmokingPreference_value["SMOKING_PREFERENCE_"+*s])
 }
 
-func bedFromStr(s *string) identitypbv1.BedPreference {
+func bedFromStr(s *string) guestpbv1.BedPreference {
 	if s == nil || *s == "" {
-		return identitypbv1.BedPreference_BED_PREFERENCE_UNSPECIFIED
+		return guestpbv1.BedPreference_BED_PREFERENCE_UNSPECIFIED
 	}
-	return identitypbv1.BedPreference(identitypbv1.BedPreference_value["BED_PREFERENCE_"+*s])
+	return guestpbv1.BedPreference(guestpbv1.BedPreference_value["BED_PREFERENCE_"+*s])
 }

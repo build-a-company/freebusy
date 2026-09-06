@@ -4,7 +4,7 @@ package freebusy.scheduling.v1;
 
 import "buf/validate/validate.proto";
 import "entity/v1/annotations.proto";
-import "freebusy/identity/v1/guest.proto";
+import "freebusy/guest/v1/guest.proto";
 import "freebusy/scheduling/v1/enums.proto";
 import "freebusy/shared/v1/types.proto";
 import "google/api/field_behavior.proto";
@@ -60,7 +60,7 @@ message Booking {
   // Format: users/{user}
   string customer = 5 [
     (google.api.field_behavior) = OPTIONAL,
-    (google.api.resource_reference) = {type: "freebusy.identity.v1/User"},
+    (google.api.resource_reference) = {type: "protobufrfc.dev/User"},
     (buf.validate.field).string.pattern = "^users/[^/]+$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
@@ -77,7 +77,7 @@ message Booking {
   // guest's own preferences. The number of guests must not exceed
   // `units × unit.max_occupancy`. Distinct from `customer`/`contact`, who is the
   // booker.
-  repeated freebusy.identity.v1.Guest guests = 28 [(google.api.field_behavior) = OPTIONAL];
+  repeated freebusy.guest.v1.Guest guests = 28 [(google.api.field_behavior) = OPTIONAL];
 
   // Party-size breakdown, for capacity math and child pricing. When guests are
   // listed the counts must reconcile with them; otherwise it stands alone as the
@@ -215,7 +215,7 @@ message BookingGuests {
   ];
 
   // The guest party. An empty list clears the party.
-  repeated freebusy.identity.v1.Guest guests = 2 [(google.api.field_behavior) = OPTIONAL];
+  repeated freebusy.guest.v1.Guest guests = 2 [(google.api.field_behavior) = OPTIONAL];
 
   // The occupancy breakdown, replacing the existing one.
   Occupancy occupancy = 3 [(google.api.field_behavior) = OPTIONAL];

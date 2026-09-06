@@ -170,7 +170,10 @@ func promoCodeNameOrEmpty(id *string) string {
 func bookingFromModel(m *scheduling.Booking, unitName string) *schedulingpbv1.Booking {
 	out := scheduling.BookingToProto(m)
 	out.Unit = unitName
-	out.Customer = userNameOrEmpty(m.CustomerID)
+	// The column stores the full resource name now that customer references an
+	// RFC 7643 SCIM user another service owns — there is no local users table to
+	// rebuild a name from.
+	out.Customer = repox.Deref(m.Customer)
 	out.PromoCode = promoCodeNameOrEmpty(m.PromoCodeID)
 	return out
 }

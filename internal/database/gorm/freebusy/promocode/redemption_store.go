@@ -49,7 +49,6 @@ type RedemptionStoreIface interface {
 	GetByID(ctx context.Context, id string) (*Redemption, error)
 	DeleteByID(ctx context.Context, id string) error
 	GetByName(ctx context.Context, v string) (*Redemption, error)
-	ListByCustomerID(ctx context.Context, id string, opts gormx.ListOptions) ([]Redemption, error)
 	ListByBookingID(ctx context.Context, id string, opts gormx.ListOptions) ([]Redemption, error)
 	ListByPromoCodeID(ctx context.Context, id string, opts gormx.ListOptions) ([]Redemption, error)
 	ListByAmountAppliedID(ctx context.Context, id string, opts gormx.ListOptions) ([]Redemption, error)
@@ -178,21 +177,6 @@ func (s *RedemptionStore) GetByName(ctx context.Context, v string) (*Redemption,
 		return nil, err
 	}
 	return &m, nil
-}
-
-// ListByCustomerID returns the Redemption records whose customer matches id, with opts applied.
-func (s *RedemptionStore) ListByCustomerID(ctx context.Context, id string, opts gormx.ListOptions) ([]Redemption, error) {
-	var out []Redemption
-	tel := gormx.OrNop(s.Telemetry)
-	start := time.Now()
-	err := tel.Span(ctx, "promocode.Redemption/ListByCustomerID", nil, func(ctx context.Context) error {
-		return opts.Apply(s.DB.WithContext(ctx).Where("customer = ?", id)).Find(&out).Error
-	})
-	tel.RecordOp(ctx, "promocode.redemptions", "list_by_customer", time.Since(start), err)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 // ListByBookingID returns the Redemption records whose booking matches id, with opts applied.

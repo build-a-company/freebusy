@@ -8,7 +8,7 @@ Generated from Protobuf by protoc-gen-store. Source of truth is the `.proto` fil
 
 | Models | Enums |
 | ---: | ---: |
-| 46 | 26 |
+| 40 | 20 |
 
 ## Entity relationships
 
@@ -29,7 +29,6 @@ erDiagram
     }
     Booking {
         string id PK
-        string customer FK
         string promo_code FK
         string contact_id FK
         string occupancy_id FK
@@ -43,12 +42,6 @@ erDiagram
         string id PK
     }
     CancellationPolicy {
-        string id PK
-    }
-    Channel {
-        string id PK
-    }
-    ChannelSyncStatus {
         string id PK
     }
     Contact {
@@ -112,19 +105,10 @@ erDiagram
         string rate_plan_id FK
         string amount_off_id FK
     }
-    Member {
-        string id PK
-        string user FK
-        string inviter FK
-        string organisation_id FK
-    }
     Money {
         string id PK
     }
     Occupancy {
-        string id PK
-    }
-    Organisation {
         string id PK
     }
     PostalAddress {
@@ -164,7 +148,6 @@ erDiagram
     }
     Redemption {
         string id PK
-        string customer FK
         string booking FK
         string promo_code_id FK
         string amount_applied_id FK
@@ -201,20 +184,12 @@ erDiagram
     TimeWindow {
         string id PK
     }
-    UnitMapping {
-        string id PK
-        string channel_id FK
-    }
     UsageLimits {
-        string id PK
-    }
-    User {
         string id PK
     }
     Adjustment }o--|| Money : "amount_delta_id"
     AvailabilityException }o--|| TimeWindow : "window_id"
     AvailabilityException }o--|| DateRange : "date_range_id"
-    Booking }o--|| User : "customer"
     Booking }o--|| PromoCode : "promo_code"
     Booking }o--|| Contact : "contact_id"
     Booking }o--|| Occupancy : "occupancy_id"
@@ -239,9 +214,6 @@ erDiagram
     Licence }o--|| Attachment : "attachment_id"
     LosDiscount }o--|| RatePlan : "rate_plan_id"
     LosDiscount }o--|| Money : "amount_off_id"
-    Member }o--|| User : "user"
-    Member }o--|| User : "inviter"
-    Member }o--|| Organisation : "organisation_id"
     PriceBounds }o--|| Money : "floor_id"
     PriceBounds }o--|| Money : "ceiling_id"
     PriceComponent }o--|| Booking : "booking_id"
@@ -256,7 +228,6 @@ erDiagram
     RatePlan }o--|| Money : "price_id"
     RatePlan }o--|| PriceBounds : "bounds_id"
     RecurringRule }o--|| Schedule : "schedule_id"
-    Redemption }o--|| User : "customer"
     Redemption }o--|| Booking : "booking"
     Redemption }o--|| PromoCode : "promo_code_id"
     Redemption }o--|| Money : "amount_applied_id"
@@ -268,7 +239,6 @@ erDiagram
     ScheduleExceptions }o--|| AvailabilityException : "availability_exception_id"
     Scope }o--|| Money : "min_subtotal_id"
     Tax }o--|| RatePlan : "rate_plan_id"
-    UnitMapping }o--|| Channel : "channel_id"
 ```
 
 ## Output
@@ -307,207 +277,6 @@ A Hold is a temporary, expiring claim on one or more bookable resources for a wi
 ### Enums
 
 - `HoldState`: ACTIVE, RELEASED, EXPIRED, CONVERTED
-
-## Schema `channel`
-
-### `Channel` → `resource`
-
-A connection between one property and one distribution channel (OTA/GDS). It is the anchor for 2-way ARI: availability/rates/inventory are pushed out per mapped unit, and reservations made on the channel are pulled in as bookings. Credentials are never carried in the API — only an opaque handle to where they are stored.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `name` | `VARCHAR(255)` | not null |
-| `property` | `VARCHAR(255)` | not null |
-| `type` | `ChannelType` | not null |
-| `display_name` | `VARCHAR(255)` | nullable |
-| `external_property_id` | `VARCHAR(255)` | nullable |
-| `credential_ref` | `VARCHAR(255)` | nullable |
-| `state` | `ChannelState` | nullable |
-| `last_sync_time` | `TIMESTAMPTZ` | nullable |
-| `create_time` | `TIMESTAMPTZ` | not null |
-| `update_time` | `TIMESTAMPTZ` | not null |
-| `etag` | `VARCHAR(255)` | nullable |
-
-### `UnitMapping` → `unit_mappings`
-
-Maps a freebusy Unit to its counterpart on the channel. ARI for a unit only flows once a MAPPED mapping exists: the external room-type and rate-plan ids key the availability/rate/restriction push and resolve inbound reservations back to the right unit.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `name` | `VARCHAR(255)` | not null |
-| `unit` | `VARCHAR(255)` | not null |
-| `external_room_type_id` | `VARCHAR(255)` | not null |
-| `external_rate_plan_id` | `VARCHAR(255)` | nullable |
-| `state` | `MappingState` | nullable |
-| `create_time` | `TIMESTAMPTZ` | not null |
-| `update_time` | `TIMESTAMPTZ` | not null |
-| `etag` | `VARCHAR(255)` | nullable |
-| `channel_id` | `CHAR(26)` | not null |
-
-### `ChannelSyncStatus` → `sync_statuses`
-
-A rollup of a channel's sync health, modeled as a singleton sub-resource of the channel (one per channel) and read via GetChannelSyncStatus.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `name` | `VARCHAR(255)` | not null |
-| `state` | `ChannelState` | nullable |
-| `last_sync_time` | `TIMESTAMPTZ` | nullable |
-| `pending_count` | `INTEGER` | nullable |
-| `failed_count` | `INTEGER` | nullable |
-| `last_error` | `VARCHAR(255)` | nullable |
-
-### Enums
-
-- `ChannelType`: AGODA, BOOKING_COM, EXPEDIA, AIRBNB, MAKEMYTRIP, GOIBIBO, GDS, DIRECT
-- `ChannelState`: CONNECTED, DISABLED, ERROR
-- `MappingState`: MAPPED, UNMAPPED
-
-## Schema `identity`
-
-### `User` → `users`
-
-A signed-in person. Identity is deliberately thin: actual login is an OIDC redirect flow handled over plain HTTP by the IdP, so most of "auth" never appears as an RPC. Email and identity come from the IdP and are read-only here; only profile preferences are editable.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `name` | `VARCHAR(255)` | not null |
-| `email` | `VARCHAR(255)` | nullable |
-| `display_name` | `VARCHAR(255)` | nullable |
-| `avatar_url` | `VARCHAR(255)` | nullable |
-| `locale` | `VARCHAR(255)` | nullable |
-| `time_zone` | `VARCHAR(255)` | nullable |
-| `create_time` | `TIMESTAMPTZ` | not null |
-| `update_time` | `TIMESTAMPTZ` | not null |
-| `etag` | `VARCHAR(255)` | nullable |
-
-### `Guest` → `guests`
-
-A guest is a person who stays under a booking. It is one of three distinct people the system models, all in the identity domain: - User   (identity.proto): the account that signs in and books online. - Guest  (this message):   a person actually staying — the party on a booking. - Member (organisation):   hotel staff who manage the chain/property. The booker (a User, or an anonymous contact) is not necessarily a guest, and a booking has one or more guests. This message captures what a hotel records on a Guest Registration Card at check-in — identity, nationality, and ID — plus the foreigner-registration details required for foreign nationals (e.g. India's Form C / FRRO), and the guest's own stay preferences. It is an embedded value on a booking, not an addressable account resource.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `display_name` | `VARCHAR(255)` | not null |
-| `primary` | `BOOLEAN` | nullable |
-| `gender` | `Gender` | nullable |
-| `birth_date` | `DATE` | nullable |
-| `age_group` | `AgeGroup` | nullable |
-| `nationality` | `VARCHAR(255)` | nullable |
-| `email` | `VARCHAR(255)` | nullable |
-| `phone_number` | `VARCHAR(255)` | nullable |
-| `booking_id` | `CHAR(26)` | not null |
-| `id_document_id` | `CHAR(26)` | nullable |
-| `permanent_address_id` | `CHAR(26)` | nullable |
-| `local_address_id` | `CHAR(26)` | nullable |
-| `foreigner_id` | `CHAR(26)` | nullable |
-| `preferences_id` | `CHAR(26)` | nullable |
-
-### `IdDocument` → `id_documents`
-
-A government identity document. Passport fields are required for foreign nationals; domestic guests may present any accepted document type.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `type` | `IdDocumentType` | not null |
-| `number` | `VARCHAR(255)` | not null |
-| `issuing_country` | `VARCHAR(255)` | nullable |
-| `issue_place` | `VARCHAR(255)` | nullable |
-| `issue_date` | `DATE` | nullable |
-| `expiry_date` | `DATE` | nullable |
-| `attachment_id` | `CHAR(26)` | nullable |
-
-### `ForeignerDetails` → `foreigner_details`
-
-Foreigner-registration details a hotel must capture for foreign nationals to file Form C with the FRRO within 24 hours of arrival (India). Nationals of exempt countries (e.g. Nepal, Bhutan) and diplomats may omit these.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `visa_number` | `VARCHAR(255)` | nullable |
-| `visa_type` | `VARCHAR(255)` | nullable |
-| `visa_issue_place` | `VARCHAR(255)` | nullable |
-| `visa_issue_date` | `DATE` | nullable |
-| `visa_expiry_date` | `DATE` | nullable |
-| `arrival_date` | `DATE` | nullable |
-| `entry_port` | `VARCHAR(255)` | nullable |
-| `origin` | `VARCHAR(255)` | nullable |
-| `next_destination` | `VARCHAR(255)` | nullable |
-| `visit_purpose` | `VARCHAR(255)` | nullable |
-
-### `GuestPreferences` → `guest_preferences`
-
-A guest's stay preferences and special requests. All optional; used to guide unit assignment and to surface requests to housekeeping / front desk.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `smoking` | `SmokingPreference` | nullable |
-| `bed` | `BedPreference` | nullable |
-| `dietary` | `VARCHAR(255)[]` | nullable |
-| `accessibility` | `VARCHAR(255)[]` | nullable |
-| `floor_preference` | `INTEGER` | nullable |
-| `loyalty_number` | `VARCHAR(255)` | nullable |
-| `special_requests` | `VARCHAR(255)[]` | nullable |
-| `notes` | `VARCHAR(255)` | nullable |
-
-### Enums
-
-- `Gender`: MALE, FEMALE, OTHER, UNDISCLOSED
-- `AgeGroup`: ADULT, CHILD, INFANT
-- `IdDocumentType`: PASSPORT, NATIONAL_ID, DRIVING_LICENSE, AADHAAR, VOTER_ID, OTHER
-- `SmokingPreference`: NON_SMOKING, SMOKING
-- `BedPreference`: NO_PREFERENCE, KING, QUEEN, TWIN, SINGLE
-
-## Schema `organisation`
-
-### `Organisation` → `resource`
-
-A chain: the hotel brand/company that owns one or more properties, and the unit of multi-tenancy. The shell enforces isolation with row-level security keyed off the caller's organisation. Each Property references the Organisation it belongs to; members here are the chain's administrators, not its guests (guests relate to a property only through bookings).
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `name` | `VARCHAR(255)` | not null |
-| `display_name` | `VARCHAR(255)` | not null |
-| `slug` | `VARCHAR(255)` | nullable |
-| `billing_email` | `VARCHAR(255)` | nullable |
-| `state` | `OrganisationState` | nullable |
-| `settings` | `JSONB` | nullable |
-| `member_count` | `BIGINT` | nullable |
-| `create_time` | `TIMESTAMPTZ` | not null |
-| `update_time` | `TIMESTAMPTZ` | not null |
-| `etag` | `VARCHAR(255)` | nullable |
-
-### `Member` → `members`
-
-The membership of a user in an organisation, with their role.
-
-| Column | Type | Null |
-| --- | --- | --- |
-| `id` | `CHAR(26)` | not null |
-| `name` | `VARCHAR(255)` | not null |
-| `user` | `CHAR(26)` | nullable |
-| `email` | `VARCHAR(255)` | not null |
-| `display_name` | `VARCHAR(255)` | nullable |
-| `role` | `OrganisationRole` | not null |
-| `state` | `MemberState` | nullable |
-| `inviter` | `CHAR(26)` | nullable |
-| `create_time` | `TIMESTAMPTZ` | not null |
-| `update_time` | `TIMESTAMPTZ` | not null |
-| `etag` | `VARCHAR(255)` | nullable |
-| `organisation_id` | `CHAR(26)` | not null |
-
-### Enums
-
-- `OrganisationState`: ACTIVE, SUSPENDED
-- `OrganisationRole`: OWNER, ADMIN, MEMBER, VIEWER
-- `MemberState`: INVITED, ACTIVE, SUSPENDED
 
 ## Schema `pricing`
 
@@ -672,7 +441,7 @@ Redemption is a single use of a promo code, modeled as a sub-resource of PromoCo
 | --- | --- | --- |
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
-| `customer` | `CHAR(26)` | not null |
+| `customer` | `VARCHAR(255)` | not null |
 | `booking` | `CHAR(26)` | not null |
 | `redeemed_time` | `TIMESTAMPTZ` | nullable |
 | `promo_code_id` | `CHAR(26)` | not null |
@@ -872,7 +641,7 @@ A reservation against a unit. The hold lifecycle lives here as states rather tha
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
 | `unit` | `VARCHAR(255)` | not null |
-| `customer` | `CHAR(26)` | nullable |
+| `customer` | `VARCHAR(255)` | nullable |
 | `units` | `INTEGER` | nullable |
 | `assigned_unit` | `VARCHAR(255)` | nullable |
 | `state` | `BookingState` | nullable |
@@ -1023,3 +792,84 @@ Represents a postal address, such as for postal delivery or payments addresses. 
 | `address_lines` | `VARCHAR(255)[]` | nullable |
 | `recipients` | `VARCHAR(255)[]` | nullable |
 | `organization` | `VARCHAR(255)` | nullable |
+
+## Schema `guest`
+
+### `Guest` → `resource`
+
+A guest is a person who stays under a booking. It is one of three distinct people the system models, all in the identity domain: - User   (identity.proto): the account that signs in and books online. - Guest  (this message):   a person actually staying — the party on a booking. - Member (organisation):   hotel staff who manage the chain/property. The booker (a User, or an anonymous contact) is not necessarily a guest, and a booking has one or more guests. This message captures what a hotel records on a Guest Registration Card at check-in — identity, nationality, and ID — plus the foreigner-registration details required for foreign nationals (e.g. India's Form C / FRRO), and the guest's own stay preferences. It is an embedded value on a booking, not an addressable account resource.
+
+| Column | Type | Null |
+| --- | --- | --- |
+| `id` | `CHAR(26)` | not null |
+| `display_name` | `VARCHAR(255)` | not null |
+| `primary` | `BOOLEAN` | nullable |
+| `gender` | `Gender` | nullable |
+| `birth_date` | `DATE` | nullable |
+| `age_group` | `AgeGroup` | nullable |
+| `nationality` | `VARCHAR(255)` | nullable |
+| `email` | `VARCHAR(255)` | nullable |
+| `phone_number` | `VARCHAR(255)` | nullable |
+| `booking_id` | `CHAR(26)` | not null |
+| `id_document_id` | `CHAR(26)` | nullable |
+| `permanent_address_id` | `CHAR(26)` | nullable |
+| `local_address_id` | `CHAR(26)` | nullable |
+| `foreigner_id` | `CHAR(26)` | nullable |
+| `preferences_id` | `CHAR(26)` | nullable |
+
+### `IdDocument` → `id_documents`
+
+A government identity document. Passport fields are required for foreign nationals; domestic guests may present any accepted document type.
+
+| Column | Type | Null |
+| --- | --- | --- |
+| `id` | `CHAR(26)` | not null |
+| `type` | `IdDocumentType` | not null |
+| `number` | `VARCHAR(255)` | not null |
+| `issuing_country` | `VARCHAR(255)` | nullable |
+| `issue_place` | `VARCHAR(255)` | nullable |
+| `issue_date` | `DATE` | nullable |
+| `expiry_date` | `DATE` | nullable |
+| `attachment_id` | `CHAR(26)` | nullable |
+
+### `ForeignerDetails` → `foreigner_details`
+
+Foreigner-registration details a hotel must capture for foreign nationals to file Form C with the FRRO within 24 hours of arrival (India). Nationals of exempt countries (e.g. Nepal, Bhutan) and diplomats may omit these.
+
+| Column | Type | Null |
+| --- | --- | --- |
+| `id` | `CHAR(26)` | not null |
+| `visa_number` | `VARCHAR(255)` | nullable |
+| `visa_type` | `VARCHAR(255)` | nullable |
+| `visa_issue_place` | `VARCHAR(255)` | nullable |
+| `visa_issue_date` | `DATE` | nullable |
+| `visa_expiry_date` | `DATE` | nullable |
+| `arrival_date` | `DATE` | nullable |
+| `entry_port` | `VARCHAR(255)` | nullable |
+| `origin` | `VARCHAR(255)` | nullable |
+| `next_destination` | `VARCHAR(255)` | nullable |
+| `visit_purpose` | `VARCHAR(255)` | nullable |
+
+### `GuestPreferences` → `preferences`
+
+A guest's stay preferences and special requests. All optional; used to guide unit assignment and to surface requests to housekeeping / front desk.
+
+| Column | Type | Null |
+| --- | --- | --- |
+| `id` | `CHAR(26)` | not null |
+| `smoking` | `SmokingPreference` | nullable |
+| `bed` | `BedPreference` | nullable |
+| `dietary` | `VARCHAR(255)[]` | nullable |
+| `accessibility` | `VARCHAR(255)[]` | nullable |
+| `floor_preference` | `INTEGER` | nullable |
+| `loyalty_number` | `VARCHAR(255)` | nullable |
+| `special_requests` | `VARCHAR(255)[]` | nullable |
+| `notes` | `VARCHAR(255)` | nullable |
+
+### Enums
+
+- `Gender`: MALE, FEMALE, OTHER, UNDISCLOSED
+- `AgeGroup`: ADULT, CHILD, INFANT
+- `IdDocumentType`: PASSPORT, NATIONAL_ID, DRIVING_LICENSE, AADHAAR, VOTER_ID, OTHER
+- `SmokingPreference`: NON_SMOKING, SMOKING
+- `BedPreference`: NO_PREFERENCE, KING, QUEEN, TWIN, SINGLE

@@ -4,7 +4,7 @@
 // 	protoc (unknown)
 //
 // database: freebusy
-// schemas:  allocation, channel, identity, organisation, pricing, promocode, property, schedule, scheduling, shared, common
+// schemas:  allocation, pricing, promocode, property, schedule, scheduling, shared, common, guest
 //
 // Migration aggregator: every model in one factory Registry.
 // annotations: entity.v1 1.5.4, store.v1 1.5.4
@@ -20,10 +20,8 @@ package freebusy
 
 import (
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/allocation"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/channel"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/identity"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/organisation"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/guest"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/pricing"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/promocode"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
@@ -46,9 +44,6 @@ type Migrator interface {
 // EnsureSchemas can create them before AutoMigrate builds schema-qualified tables.
 var schemas = []string{
 	"allocation",
-	"channel",
-	"identity",
-	"organisation",
 	"pricing",
 	"promocode",
 	"property",
@@ -56,6 +51,7 @@ var schemas = []string{
 	"scheduling",
 	"shared",
 	"common",
+	"guest",
 }
 
 // extensions lists the Postgres extensions the models' search indexes are built
@@ -126,16 +122,6 @@ func (*Registry) EnsureSchemas(db *gorm.DB) error {
 //	freebusy.Default.Register(&MyModel{})
 var Default = New().Register(
 	&allocation.Hold{},
-	&channel.Channel{},
-	&channel.UnitMapping{},
-	&channel.ChannelSyncStatus{},
-	&identity.User{},
-	&identity.Guest{},
-	&identity.IdDocument{},
-	&identity.ForeignerDetails{},
-	&identity.GuestPreferences{},
-	&organisation.Organisation{},
-	&organisation.Member{},
 	&pricing.RatePlan{},
 	&pricing.RateOverride{},
 	&pricing.LosDiscount{},
@@ -171,6 +157,10 @@ var Default = New().Register(
 	&shared.PriceComponent{},
 	&common.Money{},
 	&common.PostalAddress{},
+	&guest.Guest{},
+	&guest.IdDocument{},
+	&guest.ForeignerDetails{},
+	&guest.GuestPreferences{},
 )
 
 // Instrument installs the generated first-party telemetry GORM plugin on

@@ -613,12 +613,12 @@ const file_freebusy_promocode_v1_promocode_proto_rawDesc = "" +
 	"\x15applicable_properties\x18\x02 \x03(\tBQ\xe0A\x01\xfaA$\n" +
 	"\"protobufrfc.dev/OrganizationalUnit\xbaH$\x92\x01!\"\x1fr\x1d2\x1b^organizationalUnits/[^/]+$R\x14applicableProperties\x12h\n" +
 	"\x10applicable_units\x18\x03 \x03(\tB=\xe0A\x01\xfaA\x1a\n" +
-	"\x18protobufrfc.dev/Resource\xbaH\x1a\x92\x01\x17\"\x15r\x132\x11^resources/[^/]+$R\x0fapplicableUnits\"\xd2\x03\n" +
+	"\x18protobufrfc.dev/Resource\xbaH\x1a\x92\x01\x17\"\x15r\x132\x11^resources/[^/]+$R\x0fapplicableUnits\"\xcd\x03\n" +
 	"\n" +
 	"Redemption\x12E\n" +
-	"\x04name\x18\x01 \x01(\tB1\xe0A\b\xbaH+\xd8\x01\x01r&2$^promoCodes/[^/]+/redemptions/[^/]+$R\x04name\x12=\n" +
-	"\bcustomer\x18\x02 \x01(\tB!\xe0A\x02\xfaA\x1b\n" +
-	"\x19freebusy.identity.v1/UserR\bcustomer\x12@\n" +
+	"\x04name\x18\x01 \x01(\tB1\xe0A\b\xbaH+\xd8\x01\x01r&2$^promoCodes/[^/]+/redemptions/[^/]+$R\x04name\x128\n" +
+	"\bcustomer\x18\x02 \x01(\tB\x1c\xe0A\x02\xfaA\x16\n" +
+	"\x14protobufrfc.dev/UserR\bcustomer\x12@\n" +
 	"\abooking\x18\x03 \x01(\tB&\xe0A\x02\xfaA \n" +
 	"\x1efreebusy.scheduling.v1/BookingR\abooking\x12D\n" +
 	"\rredeemed_time\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampB\x03\xe0A\x03R\fredeemedTime\x12>\n" +

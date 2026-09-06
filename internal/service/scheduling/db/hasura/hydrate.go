@@ -11,7 +11,7 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestsql"
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 )
 
@@ -78,12 +78,12 @@ func (r *BookingRepository) hydrateBooking(ctx context.Context, res *bookingsql.
 
 // loadGuests returns a booking's guest party, each with its sub-rows hydrated,
 // ordered by id (ULIDs preserve insertion order).
-func (r *BookingRepository) loadGuests(ctx context.Context, bookingID string) ([]*identitypbv1.Guest, error) {
+func (r *BookingRepository) loadGuests(ctx context.Context, bookingID string) ([]*guestpbv1.Guest, error) {
 	rows, err := r.svc.Query.Identity.Guests.List(ctx, guestsql.List().Where(guestsql.BookingId.Eq(bookingID)).OrderBy(guestsql.Id.Asc()))
 	if err != nil {
 		return nil, dbutil.MapHasuraErr(err)
 	}
-	out := make([]*identitypbv1.Guest, 0, len(rows))
+	out := make([]*guestpbv1.Guest, 0, len(rows))
 	for i := range rows {
 		g := &rows[i]
 		var doc *iddocumentsql.IdentityIdDocuments

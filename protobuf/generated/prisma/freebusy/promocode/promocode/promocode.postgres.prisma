@@ -117,11 +117,8 @@ model Redemption {
   /// The redemption resource name. Format: promoCodes/{promo_code}/redemptions/{redemption}
   name String @unique @map("name")
 
-  /// The customer who redeemed the code. Format: users/{user}
-  customerID String @map("customer")
-
-  /// Relation to User via customer.
-  customer User @relation(fields: [customerID], references: [id])
+  /// The customer who redeemed the code. Format: users/{user} TODO: unresolved reference to User (not in this generation set); kept as a plain indexed column.
+  customer String @map("customer")
 
   /// The booking the code was applied to. Format: bookings/{booking}
   bookingID String @map("booking")
@@ -145,7 +142,7 @@ model Redemption {
   amountApplied Money? @relation(fields: [amountAppliedID], references: [id], onDelete: SetNull)
 
   /// Index on [customer].
-  @@index([customerID])
+  @@index([customer])
   /// Index on [booking].
   @@index([bookingID])
   /// Index on [promo_code_id].

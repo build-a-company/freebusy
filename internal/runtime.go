@@ -4,18 +4,14 @@ import (
 	"context"
 	"github.com/oh-tarnished/freebusy/config"
 	"github.com/oh-tarnished/freebusy/internal/rfc"
-	"github.com/oh-tarnished/freebusy/internal/runtime/pricing"
+	"github.com/oh-tarnished/freebusy/internal/service/pricing"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/pricing/v1/pricingpbv1"
 	"github.com/oh-tarnished/freebusy/shared"
 
 	"github.com/oh-tarnished/freebusy/internal/database"
-	"github.com/oh-tarnished/freebusy/internal/runtime/identity"
-	"github.com/oh-tarnished/freebusy/internal/runtime/organisation"
-	"github.com/oh-tarnished/freebusy/internal/runtime/promocode"
-	"github.com/oh-tarnished/freebusy/internal/runtime/schedule"
-	"github.com/oh-tarnished/freebusy/internal/runtime/scheduling"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
+	"github.com/oh-tarnished/freebusy/internal/service/promocode"
+	"github.com/oh-tarnished/freebusy/internal/service/schedule"
+	"github.com/oh-tarnished/freebusy/internal/service/scheduling"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/schedule/v1/schedulepbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
@@ -49,11 +45,9 @@ func newServiceInstance(conn *database.Connection) (*Service, error) {
 
 	svc := NewService(
 		promocode.New(conn),
-		organisation.New(conn),
 		schedule.New(conn),
 		scheduling.New(conn, catalogue),
 		pricing.New(conn),
-		identity.New(conn),
 	)
 	svc.conn = conn
 	return svc, nil
@@ -72,11 +66,9 @@ func registerGRPCServers(svc *Service) grpc.Option {
 // suites.
 func registerServices(s *grpc.GRPCServer, svc *Service) {
 	promocodepbv1.RegisterPromoCodeServiceServer(s, svc)
-	orgpbv1.RegisterOrganisationServiceServer(s, svc)
 	schedulepbv1.RegisterScheduleServiceServer(s, svc)
 	schedulingpbv1.RegisterSchedulingServiceServer(s, svc)
 	pricingpbv1.RegisterRatePlanServiceServer(s, svc)
-	identitypbv1.RegisterIdentityServiceServer(s, svc)
 }
 
 // NewGRPCServer assembles the freebusy service on conn (opened from config
@@ -103,19 +95,13 @@ func registerHTTPGateways() grpc.Option {
 		if err := promocodepbv1.RegisterPromoCodeServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 			return err
 		}
-		if err := orgpbv1.RegisterOrganisationServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
-			return err
-		}
 		if err := schedulepbv1.RegisterScheduleServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 			return err
 		}
 		if err := schedulingpbv1.RegisterSchedulingServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 			return err
 		}
-		if err := pricingpbv1.RegisterRatePlanServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
-			return err
-		}
-		return identitypbv1.RegisterIdentityServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts)
+		return pricingpbv1.RegisterRatePlanServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts)
 	})
 }
 
@@ -131,16 +117,10 @@ func registerMCPServices(svc *Service) grpc.Option {
 			return promocodepbv1.ServePromoCodeServiceMCP(ctx, svc, cfg)
 		},
 		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
-			return orgpbv1.ServeOrganisationServiceMCP(ctx, svc, cfg)
-		},
-		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
 			return schedulepbv1.ServeScheduleServiceMCP(ctx, svc, cfg)
 		},
 		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
 			return schedulingpbv1.ServeSchedulingServiceMCP(ctx, svc, cfg)
-		},
-		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
-			return identitypbv1.ServeIdentityServiceMCP(ctx, svc, cfg)
 		},
 	)
 }

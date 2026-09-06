@@ -6,7 +6,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/graphqlx"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/db/hasura"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"google.golang.org/genproto/googleapis/type/money"
 )
@@ -106,7 +106,7 @@ func (i *instrumentedBookingRepository) ExpireHolds(ctx context.Context) (n int6
 	return n, err
 }
 
-func (i *instrumentedBookingRepository) UpdateBookingGuests(ctx context.Context, name string, guests []*identitypbv1.Guest, occupancy *schedulingpbv1.Occupancy) (out *schedulingpbv1.Booking, err error) {
+func (i *instrumentedBookingRepository) UpdateBookingGuests(ctx context.Context, name string, guests []*guestpbv1.Guest, occupancy *schedulingpbv1.Occupancy) (out *schedulingpbv1.Booking, err error) {
 	err = graphqlx.Wrap(ctx, i.t, bookingResource, "update_guests", func(ctx context.Context) error {
 		out, err = i.repo.UpdateBookingGuests(ctx, name, guests, occupancy)
 		return err

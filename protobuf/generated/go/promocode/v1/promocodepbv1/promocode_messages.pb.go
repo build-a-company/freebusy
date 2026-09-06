@@ -850,7 +850,7 @@ const file_freebusy_promocode_v1_promocode_messages_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tB@\xe0A\x02\xfaA!\n" +
 	"\x1ffreebusy.promocode.v1/PromoCode\xbaH\x16r\x142\x12^promoCodes/[^/]+$R\x04name\x12\x17\n" +
 	"\x04etag\x18\x02 \x01(\tB\x03\xe0A\x01R\x04etag\x12\x19\n" +
-	"\x05force\x18\x03 \x01(\bB\x03\xe0A\x01R\x05force\"\x89\x03\n" +
+	"\x05force\x18\x03 \x01(\bB\x03\xe0A\x01R\x05force\"\x84\x03\n" +
 	"\x18ValidatePromoCodeRequest\x12\x1e\n" +
 	"\x04code\x18\x01 \x01(\tB\n" +
 	"\xe0A\x02\xbaH\x04r\x02\x10\x01R\x04code\x129\n" +
@@ -858,9 +858,9 @@ const file_freebusy_promocode_v1_promocode_messages_proto_rawDesc = "" +
 	"\bproperty\x18\x03 \x01(\tBO\xe0A\x01\xfaA$\n" +
 	"\"protobufrfc.dev/OrganizationalUnit\xbaH\"\xd8\x01\x01r\x1d2\x1b^organizationalUnits/[^/]+$R\bproperty\x12O\n" +
 	"\x04unit\x18\x04 \x01(\tB;\xe0A\x01\xfaA\x1a\n" +
-	"\x18protobufrfc.dev/Resource\xbaH\x18\xd8\x01\x01r\x132\x11^resources/[^/]+$R\x04unit\x12T\n" +
-	"\bcustomer\x18\x05 \x01(\tB8\xe0A\x01\xfaA\x1b\n" +
-	"\x19freebusy.identity.v1/User\xbaH\x14\xd8\x01\x01r\x0f2\r^users/[^/]+$R\bcustomer\"\xd6\x02\n" +
+	"\x18protobufrfc.dev/Resource\xbaH\x18\xd8\x01\x01r\x132\x11^resources/[^/]+$R\x04unit\x12O\n" +
+	"\bcustomer\x18\x05 \x01(\tB3\xe0A\x01\xfaA\x16\n" +
+	"\x14protobufrfc.dev/User\xbaH\x14\xd8\x01\x01r\x0f2\r^users/[^/]+$R\bcustomer\"\xd6\x02\n" +
 	"\x19ValidatePromoCodeResponse\x12\x14\n" +
 	"\x05valid\x18\x01 \x01(\bR\x05valid\x12T\n" +
 	"\x0einvalid_reason\x18\x06 \x01(\x0e2-.freebusy.promocode.v1.PromoCodeInvalidReasonR\rinvalidReason\x12\x16\n" +

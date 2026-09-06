@@ -14,7 +14,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/bookingsql"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
 	"github.com/oh-tarnished/freebusy/internal/types"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 	"github.com/the-protobuf-project/runtime-go/network/graphql"
@@ -32,7 +32,7 @@ import (
 // old-guest snapshot below race-free. A failure between the CAS and the batch
 // leaves only orphaned value-object rows (never a corrupted booking); the swap
 // batch itself is atomic.
-func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string, guests []*identitypbv1.Guest, occupancy *schedulingpbv1.Occupancy) (*schedulingpbv1.Booking, error) {
+func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string, guests []*guestpbv1.Guest, occupancy *schedulingpbv1.Occupancy) (*schedulingpbv1.Booking, error) {
 	id, err := types.BookingID(name)
 	if err != nil {
 		return nil, err

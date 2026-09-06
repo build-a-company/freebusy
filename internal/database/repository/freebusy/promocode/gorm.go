@@ -325,9 +325,6 @@ func (r *GormRedemptionRepository) Create(ctx context.Context, parent string, in
 	m.ID = id
 	m.Name = in.GetName()
 	m.PromoCodeID = parentIDs[0]
-	if v := in.GetCustomer(); v != "" {
-		m.CustomerID = repox.LastSegment(v)
-	}
 	if v := in.GetBooking(); v != "" {
 		m.BookingID = repox.LastSegment(v)
 	}
@@ -370,9 +367,6 @@ func (r *GormRedemptionRepository) get(ctx context.Context, id string) (*promoco
 // AfterRead hook.
 func (r *GormRedemptionRepository) toProto(ctx context.Context, m *promocode.Redemption) (*promocodepbv1.Redemption, error) {
 	out := promocode.RedemptionToProto(m)
-	if m.CustomerID != "" {
-		out.Customer = "users/" + m.CustomerID
-	}
 	if m.BookingID != "" {
 		out.Booking = "bookings/" + m.BookingID
 	}
@@ -440,9 +434,6 @@ func (r *GormRedemptionRepository) Update(ctx context.Context, in *promocodepbv1
 		existingPB := promocode.RedemptionToProto(&existing)
 		{
 			m, out := &existing, existingPB
-			if m.CustomerID != "" {
-				out.Customer = "users/" + m.CustomerID
-			}
 			if m.BookingID != "" {
 				out.Booking = "bookings/" + m.BookingID
 			}
@@ -457,7 +448,7 @@ func (r *GormRedemptionRepository) Update(ctx context.Context, in *promocodepbv1
 		next := promocode.RedemptionFromProto(merged)
 		_ = next
 		existing.Name = next.Name
-		existing.CustomerID = repox.LastSegment(merged.GetCustomer())
+		existing.Customer = next.Customer
 		existing.BookingID = repox.LastSegment(merged.GetBooking())
 		if repox.GroupTouched(paths, "amount_applied") {
 			if existing.AmountAppliedID != nil {

@@ -357,7 +357,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/GetSchedule", runtime.WithHTTPPathPattern("/v1/{name=properties/*/units/*/schedule}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/GetSchedule", runtime.WithHTTPPathPattern("/v1/{name=resources/*/schedule}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -377,7 +377,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/UpdateSchedule", runtime.WithHTTPPathPattern("/v1/{schedule.name=properties/*/units/*/schedule}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/UpdateSchedule", runtime.WithHTTPPathPattern("/v1/{schedule.name=resources/*/schedule}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -397,7 +397,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/ListAvailabilityExceptions", runtime.WithHTTPPathPattern("/v1/{parent=properties/*/units/*}/availabilityExceptions"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/ListAvailabilityExceptions", runtime.WithHTTPPathPattern("/v1/{parent=resources/*}/availabilityExceptions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -417,7 +417,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/GetAvailabilityException", runtime.WithHTTPPathPattern("/v1/{name=properties/*/units/*/availabilityExceptions/*}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/GetAvailabilityException", runtime.WithHTTPPathPattern("/v1/{name=resources/*/availabilityExceptions/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -437,7 +437,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/CreateAvailabilityException", runtime.WithHTTPPathPattern("/v1/{parent=properties/*/units/*}/availabilityExceptions"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/CreateAvailabilityException", runtime.WithHTTPPathPattern("/v1/{parent=resources/*}/availabilityExceptions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -457,7 +457,7 @@ func RegisterScheduleServiceHandlerServer(ctx context.Context, mux *runtime.Serv
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/DeleteAvailabilityException", runtime.WithHTTPPathPattern("/v1/{name=properties/*/units/*/availabilityExceptions/*}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/DeleteAvailabilityException", runtime.WithHTTPPathPattern("/v1/{name=resources/*/availabilityExceptions/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -515,7 +515,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/GetSchedule", runtime.WithHTTPPathPattern("/v1/{name=properties/*/units/*/schedule}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/GetSchedule", runtime.WithHTTPPathPattern("/v1/{name=resources/*/schedule}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -532,7 +532,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/UpdateSchedule", runtime.WithHTTPPathPattern("/v1/{schedule.name=properties/*/units/*/schedule}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/UpdateSchedule", runtime.WithHTTPPathPattern("/v1/{schedule.name=resources/*/schedule}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -549,7 +549,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/ListAvailabilityExceptions", runtime.WithHTTPPathPattern("/v1/{parent=properties/*/units/*}/availabilityExceptions"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/ListAvailabilityExceptions", runtime.WithHTTPPathPattern("/v1/{parent=resources/*}/availabilityExceptions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -566,7 +566,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/GetAvailabilityException", runtime.WithHTTPPathPattern("/v1/{name=properties/*/units/*/availabilityExceptions/*}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/GetAvailabilityException", runtime.WithHTTPPathPattern("/v1/{name=resources/*/availabilityExceptions/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -583,7 +583,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/CreateAvailabilityException", runtime.WithHTTPPathPattern("/v1/{parent=properties/*/units/*}/availabilityExceptions"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/CreateAvailabilityException", runtime.WithHTTPPathPattern("/v1/{parent=resources/*}/availabilityExceptions"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -600,7 +600,7 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/DeleteAvailabilityException", runtime.WithHTTPPathPattern("/v1/{name=properties/*/units/*/availabilityExceptions/*}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/freebusy.schedule.v1.ScheduleService/DeleteAvailabilityException", runtime.WithHTTPPathPattern("/v1/{name=resources/*/availabilityExceptions/*}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -617,12 +617,12 @@ func RegisterScheduleServiceHandlerClient(ctx context.Context, mux *runtime.Serv
 }
 
 var (
-	pattern_ScheduleService_GetSchedule_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 2, 3, 4, 5, 5, 4}, []string{"v1", "properties", "units", "schedule", "name"}, ""))
-	pattern_ScheduleService_UpdateSchedule_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 2, 3, 4, 5, 5, 4}, []string{"v1", "properties", "units", "schedule", "schedule.name"}, ""))
-	pattern_ScheduleService_ListAvailabilityExceptions_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 4, 4, 5, 3, 2, 4}, []string{"v1", "properties", "units", "parent", "availabilityExceptions"}, ""))
-	pattern_ScheduleService_GetAvailabilityException_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 2, 3, 1, 0, 4, 6, 5, 4}, []string{"v1", "properties", "units", "availabilityExceptions", "name"}, ""))
-	pattern_ScheduleService_CreateAvailabilityException_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 4, 4, 5, 3, 2, 4}, []string{"v1", "properties", "units", "parent", "availabilityExceptions"}, ""))
-	pattern_ScheduleService_DeleteAvailabilityException_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 2, 3, 1, 0, 4, 6, 5, 4}, []string{"v1", "properties", "units", "availabilityExceptions", "name"}, ""))
+	pattern_ScheduleService_GetSchedule_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 4, 3, 5, 3}, []string{"v1", "resources", "schedule", "name"}, ""))
+	pattern_ScheduleService_UpdateSchedule_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 4, 3, 5, 3}, []string{"v1", "resources", "schedule", "schedule.name"}, ""))
+	pattern_ScheduleService_ListAvailabilityExceptions_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2, 2, 3}, []string{"v1", "resources", "parent", "availabilityExceptions"}, ""))
+	pattern_ScheduleService_GetAvailabilityException_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 4, 4, 5, 3}, []string{"v1", "resources", "availabilityExceptions", "name"}, ""))
+	pattern_ScheduleService_CreateAvailabilityException_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 2, 5, 2, 2, 3}, []string{"v1", "resources", "parent", "availabilityExceptions"}, ""))
+	pattern_ScheduleService_DeleteAvailabilityException_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 2, 2, 1, 0, 4, 4, 5, 3}, []string{"v1", "resources", "availabilityExceptions", "name"}, ""))
 )
 
 var (

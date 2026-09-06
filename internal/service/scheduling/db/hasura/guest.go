@@ -9,7 +9,7 @@ import (
 	guestsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/guestsql"
 	iddocumentsql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/identityql/iddocumentsql"
 	occupanciesql "github.com/oh-tarnished/freebusy/internal/database/hasura/freebusyql/schedulingql/occupanciesql"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/runtime-go/ulid"
 )
@@ -49,7 +49,7 @@ type guestGraph struct {
 	local     *postaladdressql.CreateInput
 }
 
-func buildGuestGraph(g *identitypbv1.Guest, bookingID string) guestGraph {
+func buildGuestGraph(g *guestpbv1.Guest, bookingID string) guestGraph {
 	graph := guestGraph{
 		guest: guestsql.CreateInput{
 			Id:          ulid.GenerateString(),
@@ -121,7 +121,7 @@ func buildGuestGraph(g *identitypbv1.Guest, bookingID string) guestGraph {
 }
 
 // buildGuestGraphs turns a proto guest party into its insert graphs under bookingID.
-func buildGuestGraphs(guests []*identitypbv1.Guest, bookingID string) []guestGraph {
+func buildGuestGraphs(guests []*guestpbv1.Guest, bookingID string) []guestGraph {
 	graphs := make([]guestGraph, 0, len(guests))
 	for _, g := range guests {
 		graphs = append(graphs, buildGuestGraph(g, bookingID))
@@ -130,8 +130,8 @@ func buildGuestGraphs(guests []*identitypbv1.Guest, bookingID string) []guestGra
 }
 
 // guestFromSchema hydrates a protobuf Guest from its stored rows.
-func guestFromSchema(g *guestsql.IdentityGuests, doc *iddocumentsql.IdentityIdDocuments, f *foreignerdetailsql.IdentityForeignerDetails, p *guestpreferencesql.IdentityGuestPreferences, perm, loc *postaladdressql.CommonPostalAddress) *identitypbv1.Guest {
-	out := &identitypbv1.Guest{
+func guestFromSchema(g *guestsql.IdentityGuests, doc *iddocumentsql.IdentityIdDocuments, f *foreignerdetailsql.IdentityForeignerDetails, p *guestpreferencesql.IdentityGuestPreferences, perm, loc *postaladdressql.CommonPostalAddress) *guestpbv1.Guest {
+	out := &guestpbv1.Guest{
 		DisplayName:      g.DisplayName,
 		Primary:          repox.Deref(g.Primary),
 		Gender:           genderFromStr(g.Gender),
@@ -144,7 +144,7 @@ func guestFromSchema(g *guestsql.IdentityGuests, doc *iddocumentsql.IdentityIdDo
 		LocalAddress:     addressFromSchema(loc),
 	}
 	if doc != nil {
-		out.IdDocument = &identitypbv1.IdDocument{
+		out.IdDocument = &guestpbv1.IdDocument{
 			Type:           idDocTypeFromStr(doc.Type),
 			Number:         doc.Number,
 			IssuingCountry: repox.Deref(doc.IssuingCountry),
@@ -154,7 +154,7 @@ func guestFromSchema(g *guestsql.IdentityGuests, doc *iddocumentsql.IdentityIdDo
 		}
 	}
 	if f != nil {
-		out.Foreigner = &identitypbv1.ForeignerDetails{
+		out.Foreigner = &guestpbv1.ForeignerDetails{
 			VisaNumber:      repox.Deref(f.VisaNumber),
 			VisaType:        repox.Deref(f.VisaType),
 			VisaIssuePlace:  repox.Deref(f.VisaIssuePlace),
@@ -168,7 +168,7 @@ func guestFromSchema(g *guestsql.IdentityGuests, doc *iddocumentsql.IdentityIdDo
 		}
 	}
 	if p != nil {
-		out.Preferences = &identitypbv1.GuestPreferences{
+		out.Preferences = &guestpbv1.GuestPreferences{
 			Smoking:         smokingFromStr(p.Smoking),
 			Bed:             bedFromStr(p.Bed),
 			Dietary:         fromStrPtrs(p.Dietary),

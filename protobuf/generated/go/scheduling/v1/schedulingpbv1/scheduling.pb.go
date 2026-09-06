@@ -8,7 +8,7 @@ package schedulingpbv1
 
 import (
 	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	identitypbv1 "github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	guestpbv1 "github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	sharedpbv1 "github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	_ "github.com/the-protobuf-project/store/plugin/entity/pb/entitypbv1"
 	_ "github.com/the-protobuf-project/store/plugin/pb/storepbv1"
@@ -57,7 +57,7 @@ type Booking struct {
 	// guest's own preferences. The number of guests must not exceed
 	// `units × unit.max_occupancy`. Distinct from `customer`/`contact`, who is the
 	// booker.
-	Guests []*identitypbv1.Guest `protobuf:"bytes,28,rep,name=guests,proto3" json:"guests,omitempty"`
+	Guests []*guestpbv1.Guest `protobuf:"bytes,28,rep,name=guests,proto3" json:"guests,omitempty"`
 	// Party-size breakdown, for capacity math and child pricing. When guests are
 	// listed the counts must reconcile with them; otherwise it stands alone as the
 	// occupancy. `adults + children` counts against `unit.max_occupancy`.
@@ -175,7 +175,7 @@ func (x *Booking) GetContact() *sharedpbv1.Contact {
 	return nil
 }
 
-func (x *Booking) GetGuests() []*identitypbv1.Guest {
+func (x *Booking) GetGuests() []*guestpbv1.Guest {
 	if x != nil {
 		return x.Guests
 	}
@@ -416,7 +416,7 @@ type BookingGuests struct {
 	// Format: bookings/{booking}/guests
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	// The guest party. An empty list clears the party.
-	Guests []*identitypbv1.Guest `protobuf:"bytes,2,rep,name=guests,proto3" json:"guests,omitempty"`
+	Guests []*guestpbv1.Guest `protobuf:"bytes,2,rep,name=guests,proto3" json:"guests,omitempty"`
 	// The occupancy breakdown, replacing the existing one.
 	Occupancy     *Occupancy `protobuf:"bytes,3,opt,name=occupancy,proto3" json:"occupancy,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -460,7 +460,7 @@ func (x *BookingGuests) GetName() string {
 	return ""
 }
 
-func (x *BookingGuests) GetGuests() []*identitypbv1.Guest {
+func (x *BookingGuests) GetGuests() []*guestpbv1.Guest {
 	if x != nil {
 		return x.Guests
 	}
@@ -478,15 +478,15 @@ var File_freebusy_scheduling_v1_scheduling_proto protoreflect.FileDescriptor
 
 const file_freebusy_scheduling_v1_scheduling_proto_rawDesc = "" +
 	"\n" +
-	"'freebusy/scheduling/v1/scheduling.proto\x12\x16freebusy.scheduling.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1bentity/v1/annotations.proto\x1a freebusy/identity/v1/guest.proto\x1a\"freebusy/scheduling/v1/enums.proto\x1a\x1efreebusy/shared/v1/types.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17google/type/money.proto\x1a\x1astore/v1/annotations.proto\"\xb4\r\n" +
+	"'freebusy/scheduling/v1/scheduling.proto\x12\x16freebusy.scheduling.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1bentity/v1/annotations.proto\x1a\x1dfreebusy/guest/v1/guest.proto\x1a\"freebusy/scheduling/v1/enums.proto\x1a\x1efreebusy/shared/v1/types.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/resource.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17google/type/money.proto\x1a\x1astore/v1/annotations.proto\"\xac\r\n" +
 	"\aBooking\x121\n" +
 	"\x04name\x18\x01 \x01(\tB\x1d\xe0A\b\xbaH\x17\xd8\x01\x01r\x122\x10^bookings/[^/]+$R\x04name\x12O\n" +
 	"\x04unit\x18\x03 \x01(\tB;\xe0A\x02\xfaA\x1a\n" +
-	"\x18protobufrfc.dev/Resource\xbaH\x18\xd8\x01\x01r\x132\x11^resources/[^/]+$R\x04unit\x12T\n" +
-	"\bcustomer\x18\x05 \x01(\tB8\xe0A\x01\xfaA\x1b\n" +
-	"\x19freebusy.identity.v1/User\xbaH\x14\xd8\x01\x01r\x0f2\r^users/[^/]+$R\bcustomer\x12:\n" +
-	"\acontact\x18\x18 \x01(\v2\x1b.freebusy.shared.v1.ContactB\x03\xe0A\x01R\acontact\x128\n" +
-	"\x06guests\x18\x1c \x03(\v2\x1b.freebusy.identity.v1.GuestB\x03\xe0A\x01R\x06guests\x12D\n" +
+	"\x18protobufrfc.dev/Resource\xbaH\x18\xd8\x01\x01r\x132\x11^resources/[^/]+$R\x04unit\x12O\n" +
+	"\bcustomer\x18\x05 \x01(\tB3\xe0A\x01\xfaA\x16\n" +
+	"\x14protobufrfc.dev/User\xbaH\x14\xd8\x01\x01r\x0f2\r^users/[^/]+$R\bcustomer\x12:\n" +
+	"\acontact\x18\x18 \x01(\v2\x1b.freebusy.shared.v1.ContactB\x03\xe0A\x01R\acontact\x125\n" +
+	"\x06guests\x18\x1c \x03(\v2\x18.freebusy.guest.v1.GuestB\x03\xe0A\x01R\x06guests\x12D\n" +
 	"\toccupancy\x18\x1d \x01(\v2!.freebusy.scheduling.v1.OccupancyB\x03\xe0A\x01R\toccupancy\x12 \n" +
 	"\x05units\x18\x06 \x01(\x05B\n" +
 	"\xe0A\x01\xbaH\x04\x1a\x02(\x00R\x05units\x12;\n" +
@@ -525,10 +525,10 @@ const file_freebusy_scheduling_v1_scheduling_proto_rawDesc = "" +
 	"\bchildren\x18\x02 \x01(\x05B\n" +
 	"\xe0A\x01\xbaH\x04\x1a\x02(\x00R\bchildren\x12$\n" +
 	"\ainfants\x18\x03 \x01(\x05B\n" +
-	"\xe0A\x01\xbaH\x04\x1a\x02(\x00R\ainfants\"\xb0\x02\n" +
+	"\xe0A\x01\xbaH\x04\x1a\x02(\x00R\ainfants\"\xad\x02\n" +
 	"\rBookingGuests\x125\n" +
-	"\x04name\x18\x01 \x01(\tB!\xe0A\b\xbaH\x1br\x192\x17^bookings/[^/]+/guests$R\x04name\x128\n" +
-	"\x06guests\x18\x02 \x03(\v2\x1b.freebusy.identity.v1.GuestB\x03\xe0A\x01R\x06guests\x12D\n" +
+	"\x04name\x18\x01 \x01(\tB!\xe0A\b\xbaH\x1br\x192\x17^bookings/[^/]+/guests$R\x04name\x125\n" +
+	"\x06guests\x18\x02 \x03(\v2\x18.freebusy.guest.v1.GuestB\x03\xe0A\x01R\x06guests\x12D\n" +
 	"\toccupancy\x18\x03 \x01(\v2!.freebusy.scheduling.v1.OccupancyB\x03\xe0A\x01R\toccupancy:h\xeaA_\n" +
 	"$freebusy.scheduling.v1/BookingGuests\x12\x19bookings/{booking}/guests*\rbookingGuests2\rbookingGuests\xca\xf3\x18\x02\x10\x01B\x8b\x02\n" +
 	"\x1acom.freebusy.scheduling.v1B\x0fSchedulingProtoP\x01Zbgithub.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1;schedulingpbv1\xa2\x02\x03FSX\xaa\x02\x16Freebusy.Scheduling.V1\xca\x02\x16Freebusy\\Scheduling\\V1\xe2\x02\"Freebusy\\Scheduling\\V1\\GPBMetadata\xea\x02\x18Freebusy::Scheduling::V1b\x06proto3"
@@ -551,7 +551,7 @@ var file_freebusy_scheduling_v1_scheduling_proto_goTypes = []any{
 	(*Occupancy)(nil),                 // 1: freebusy.scheduling.v1.Occupancy
 	(*BookingGuests)(nil),             // 2: freebusy.scheduling.v1.BookingGuests
 	(*sharedpbv1.Contact)(nil),        // 3: freebusy.shared.v1.Contact
-	(*identitypbv1.Guest)(nil),        // 4: freebusy.identity.v1.Guest
+	(*guestpbv1.Guest)(nil),           // 4: freebusy.guest.v1.Guest
 	(*sharedpbv1.TimeWindow)(nil),     // 5: freebusy.shared.v1.TimeWindow
 	(BookingState)(0),                 // 6: freebusy.scheduling.v1.BookingState
 	(*timestamppb.Timestamp)(nil),     // 7: google.protobuf.Timestamp
@@ -563,7 +563,7 @@ var file_freebusy_scheduling_v1_scheduling_proto_goTypes = []any{
 }
 var file_freebusy_scheduling_v1_scheduling_proto_depIdxs = []int32{
 	3,  // 0: freebusy.scheduling.v1.Booking.contact:type_name -> freebusy.shared.v1.Contact
-	4,  // 1: freebusy.scheduling.v1.Booking.guests:type_name -> freebusy.identity.v1.Guest
+	4,  // 1: freebusy.scheduling.v1.Booking.guests:type_name -> freebusy.guest.v1.Guest
 	1,  // 2: freebusy.scheduling.v1.Booking.occupancy:type_name -> freebusy.scheduling.v1.Occupancy
 	5,  // 3: freebusy.scheduling.v1.Booking.window:type_name -> freebusy.shared.v1.TimeWindow
 	6,  // 4: freebusy.scheduling.v1.Booking.state:type_name -> freebusy.scheduling.v1.BookingState
@@ -580,7 +580,7 @@ var file_freebusy_scheduling_v1_scheduling_proto_depIdxs = []int32{
 	7,  // 15: freebusy.scheduling.v1.Booking.cancel_time:type_name -> google.protobuf.Timestamp
 	8,  // 16: freebusy.scheduling.v1.Booking.refund_amount:type_name -> google.type.Money
 	12, // 17: freebusy.scheduling.v1.Booking.hold_ttl:type_name -> google.protobuf.Duration
-	4,  // 18: freebusy.scheduling.v1.BookingGuests.guests:type_name -> freebusy.identity.v1.Guest
+	4,  // 18: freebusy.scheduling.v1.BookingGuests.guests:type_name -> freebusy.guest.v1.Guest
 	1,  // 19: freebusy.scheduling.v1.BookingGuests.occupancy:type_name -> freebusy.scheduling.v1.Occupancy
 	20, // [20:20] is the sub-list for method output_type
 	20, // [20:20] is the sub-list for method input_type

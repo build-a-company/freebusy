@@ -93,8 +93,8 @@ type Redemption struct {
 	ID string `gorm:"column:id;primaryKey;not null" json:"id"`
 	// The redemption resource name. Format: promoCodes/{promo_code}/redemptions/{redemption}
 	Name string `gorm:"column:name;not null;uniqueIndex" json:"name" validate:"required"`
-	// The customer who redeemed the code. Format: users/{user}
-	CustomerID string `gorm:"column:customer;not null;index:idx_redemptions_customer" json:"customer" validate:"required"`
+	// The customer who redeemed the code. Format: users/{user} TODO: unresolved reference to User (not in this generation set); kept as a plain indexed column.
+	Customer string `gorm:"column:customer;not null;index:idx_redemptions_customer" json:"customer" validate:"required"`
 	// The booking the code was applied to. Format: bookings/{booking}
 	BookingID string `gorm:"column:booking;not null;index:idx_redemptions_booking" json:"booking" validate:"required"`
 	// When the code was redeemed.

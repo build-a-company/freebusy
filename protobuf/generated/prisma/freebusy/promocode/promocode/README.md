@@ -26,7 +26,6 @@ erDiagram
     }
     Redemption {
         string id PK
-        string customer FK
         string booking FK
         string promo_code_id FK
         string amount_applied_id FK
@@ -47,15 +46,11 @@ erDiagram
     Money {
         string externalStub PK
     }
-    User {
-        string externalStub PK
-    }
     Discount }o--|| Money : "amount_off_id"
     PromoCode }o--|| Discount : "discount_id"
     PromoCode }o--|| RedemptionWindow : "window_id"
     PromoCode }o--|| UsageLimits : "limits_id"
     PromoCode }o--|| Scope : "scope_id"
-    Redemption }o--|| User : "customer"
     Redemption }o--|| Booking : "booking"
     Redemption }o--|| PromoCode : "promo_code_id"
     Redemption }o--|| Money : "amount_applied_id"
@@ -94,7 +89,7 @@ Redemption is a single use of a promo code, modeled as a sub-resource of PromoCo
 | --- | --- | --- |
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
-| `customer` | `CHAR(26)` | not null |
+| `customer` | `VARCHAR(255)` | not null |
 | `booking` | `CHAR(26)` | not null |
 | `redeemed_time` | `TIMESTAMPTZ` | nullable |
 | `promo_code_id` | `CHAR(26)` | not null |

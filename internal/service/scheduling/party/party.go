@@ -5,20 +5,20 @@
 package party
 
 import (
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/guest/v1/guestpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 )
 
 // Size is the headcount charged against occupancy: the adults+children of the
 // explicit Occupancy when given, else the non-infant guests. Infants are not
 // counted.
-func Size(o *schedulingpbv1.Occupancy, guests []*identitypbv1.Guest) int32 {
+func Size(o *schedulingpbv1.Occupancy, guests []*guestpbv1.Guest) int32 {
 	if o != nil && o.GetAdults()+o.GetChildren() > 0 {
 		return o.GetAdults() + o.GetChildren()
 	}
 	var n int32
 	for _, g := range guests {
-		if g.GetAgeGroup() != identitypbv1.AgeGroup_AGE_GROUP_INFANT {
+		if g.GetAgeGroup() != guestpbv1.AgeGroup_AGE_GROUP_INFANT {
 			n++
 		}
 	}
@@ -29,7 +29,7 @@ func Size(o *schedulingpbv1.Occupancy, guests []*identitypbv1.Guest) int32 {
 // of units the booking reserves. A non-positive maxOcc means the unit declares
 // no occupancy limit; units is floored to 1 (a booking always occupies at least
 // one unit).
-func Fits(maxOcc, units int32, o *schedulingpbv1.Occupancy, guests []*identitypbv1.Guest) bool {
+func Fits(maxOcc, units int32, o *schedulingpbv1.Occupancy, guests []*guestpbv1.Guest) bool {
 	if maxOcc <= 0 {
 		return true
 	}
