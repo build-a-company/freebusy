@@ -15,6 +15,7 @@ import (
 
 	"github.com/oh-tarnished/freebusy/config"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/rfc"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -30,11 +31,23 @@ func main() {
 		log.Fatalf("open database: %v", err)
 	}
 
+	// Two registries in one Postgres instance: freebusy's own tables, and the
+	// RFC catalogue it books against. They come from different proto modules
+	// with separate lifecycles, so the generator emits a registry each — and
+	// each Migrate takes its own package's Migrator type, which is why this is
+	// written out twice rather than looped.
 	if err := freebusy.Default.EnsureSchemas(db); err != nil {
-		log.Fatalf("ensure schemas: %v", err)
+		log.Fatalf("ensure freebusy schemas: %v", err)
 	}
 	if err := freebusy.Default.Migrate(db); err != nil {
-		log.Fatalf("auto-migrate: %v", err)
+		log.Fatalf("auto-migrate freebusy: %v", err)
 	}
-	log.Printf("migrated %d models across all freebusy schemas", len(freebusy.Default.Models()))
+	if err := rfc.Default.EnsureSchemas(db); err != nil {
+		log.Fatalf("ensure rfc schemas: %v", err)
+	}
+	if err := rfc.Default.Migrate(db); err != nil {
+		log.Fatalf("auto-migrate rfc: %v", err)
+	}
+	log.Printf("migrated %d freebusy models and %d rfc models",
+		len(freebusy.Default.Models()), len(rfc.Default.Models()))
 }

@@ -77,8 +77,7 @@ An override of a unit's normal hours on a specific span: a blackout / holiday cl
 | `reason` | `VARCHAR(255)` | nullable |
 | `create_time` | `TIMESTAMPTZ` | not null |
 | `span_case` | `AvailabilityExceptionSpanCase` | nullable |
-| `property_id` | `CHAR(26)` | not null |
-| `unit_id` | `CHAR(26)` | not null |
+| `resource_id` | `CHAR(26)` | not null |
 | `window_id` | `CHAR(26)` | nullable |
 | `date_range_id` | `CHAR(26)` | nullable |
 
@@ -91,7 +90,6 @@ Aggregate read view of a unit's availability configuration: the inputs the freeb
 | `id` | `CHAR(26)` | not null |
 | `name` | `VARCHAR(255)` | not null |
 | `etag` | `VARCHAR(255)` | nullable |
-| `property_id` | `CHAR(26)` | not null |
 | `buffers_id` | `CHAR(26)` | nullable |
 | `stay_constraints_id` | `CHAR(26)` | nullable |
 | `cancellation_policy_id` | `CHAR(26)` | nullable |

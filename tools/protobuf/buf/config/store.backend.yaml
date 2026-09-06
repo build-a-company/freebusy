@@ -33,6 +33,16 @@ datasources:
   - match: "freebusy.**" # every freebusy.<service>.<version> package
     database: freebusy
     schema: "{leaf}" # the service segment: schedule, identity, booking, ...
+
+  # The RFC schema module, generated alongside freebusy's own protos. Its own
+  # database, because the catalogue is upstream data with its own lifecycle —
+  # regenerated when protobuf-rfc releases, not when freebusy changes. Without a
+  # rule here every RFC resource collapses into one schema: protoc-gen-store
+  # falls back to the AIP resource-type host, and every protobuf-rfc resource
+  # declares the same one ("protobufrfc.dev").
+  - match: "protobuf.**"
+    database: rfc
+    schema: "{leaf}" # rfc9073.resource.v1 -> schema "resource"
 telemetry:
   enabled: true                # override the telemetry opt's master switch
   metrics: true                 # ops counter + duration histogram, in addition to spans/logs
