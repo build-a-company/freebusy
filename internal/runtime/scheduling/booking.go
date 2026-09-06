@@ -6,6 +6,7 @@ package scheduling
 
 import (
 	"context"
+	"github.com/oh-tarnished/freebusy/internal/rfc"
 
 	"github.com/oh-tarnished/freebusy/internal/database"
 
@@ -28,8 +29,11 @@ type Server struct {
 
 // New builds the booking service on conn: the provider-selected repository
 // wrapped in the gRPC server implementation.
-func New(conn *database.Connection) *Server {
-	return NewServer(db.New(conn))
+//
+// catalogue may be nil, which is the "no RFC catalogue configured" case the
+// booking path handles with its defaults.
+func New(conn *database.Connection, catalogue *rfc.Client) *Server {
+	return NewServer(db.New(conn, catalogue))
 }
 
 // NewServer returns a Server backed by repo.

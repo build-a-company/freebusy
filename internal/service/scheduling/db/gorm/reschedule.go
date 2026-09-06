@@ -44,7 +44,7 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 		if perr != nil {
 			return perr
 		}
-		prof := resolveResourceProfile(ctx, resourceName)
+		prof := r.resolveResourceProfile(ctx, resourceName)
 		var promo *promocode.PromoCode
 		if pid := repox.Deref(m.PromoCodeID); pid != "" {
 			var p promocode.PromoCode

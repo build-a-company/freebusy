@@ -35,7 +35,7 @@ func (r *BookingRepository) PreviewBooking(ctx context.Context, b *schedulingpbv
 	if err != nil {
 		return nil, err
 	}
-	prof := resolveResourceProfile(ctx, b.GetUnit())
+	prof := r.resolveResourceProfile(ctx, b.GetUnit())
 
 	var promo *promocode.PromoCode
 	if pid := repox.LastSegment(b.GetPromoCode()); pid != "" {

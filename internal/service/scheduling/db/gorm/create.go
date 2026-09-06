@@ -39,7 +39,7 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 	if err != nil {
 		return nil, err
 	}
-	prof := resolveResourceProfile(ctx, b.GetUnit())
+	prof := r.resolveResourceProfile(ctx, b.GetUnit())
 
 	// Load the promo code (with its discount and scope) when one is applied, so the
 	// pricing engine can evaluate its scope and discount.

@@ -7,6 +7,7 @@ package gorm
 
 import (
 	"context"
+	"github.com/oh-tarnished/freebusy/internal/rfc"
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/filterx"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
@@ -32,6 +33,10 @@ WHERE b.unit = ? AND b.state IN ('PENDING_HOLD','CONFIRMED')
 // BookingRepository is the GORM-backed booking repository.
 type BookingRepository struct {
 	db *gorm.DB
+	// catalogue reads resource facts from the RFC services. Nil is valid and
+	// means "no catalogue configured", which resolveResourceProfile handles by
+	// falling back to its defaults rather than failing the booking.
+	catalogue *rfc.Client
 }
 
 // NewBookingRepository returns a GORM-backed BookingRepository bound to db.
@@ -98,4 +103,12 @@ func (r *BookingRepository) ListBookings(ctx context.Context, in repox.ListInput
 		items = append(items, out)
 	}
 	return items, next, nil
+}
+
+// WithCatalogue attaches an RFC catalogue client, returning the repository for
+// chaining. Mirrors the generated stores' WithTelemetry: optional collaborator,
+// set once at construction, nil-safe if never called.
+func (r *BookingRepository) WithCatalogue(c *rfc.Client) *BookingRepository {
+	r.catalogue = c
+	return r
 }

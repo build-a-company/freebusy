@@ -5,7 +5,7 @@ set working-directory := '../..'
 
 # Regenerate everything: Go, OpenAPI (+merge+envoy), database layer + cache, docs.
 [group('codegen')]
-all: deps go openapi envoy store docs
+all: deps go rfc openapi envoy store docs
 
 # Update buf module dependencies.
 [group('codegen')]
@@ -28,6 +28,13 @@ openapi:
 [group('codegen')]
 envoy:
     go run ./tools/protobuf/envoy
+
+# Generate Go client stubs for the RFC schema module (protobuf-rfc's Resources,
+# Calendars and the rest). Separate from `go` because that template cleans its
+# output directory, so the two runs would wipe each other.
+[group('codegen')]
+rfc:
+    buf generate --template tools/protobuf/buf/rfc.buf.gen.yaml
 
 # Generate the database layer and its cache decorators: prisma + gorm schemas,
 # the proto-facing repositories, the typed Hasura client, and the read-through

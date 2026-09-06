@@ -6,6 +6,7 @@ package db
 
 import (
 	"context"
+	"github.com/oh-tarnished/freebusy/internal/rfc"
 
 	"github.com/oh-tarnished/freebusy/internal/database"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
@@ -71,9 +72,14 @@ var (
 
 // New returns the BookingRepository for the configured provider, built over the
 // matching handle on conn (conn.Provider).
-func New(conn *database.Connection) BookingRepository {
+//
+// catalogue may be nil, and is on the GORM path only for now: the Hasura
+// repository reads the same facts through the same seam, but porting it is a
+// separate change and a nil catalogue is the documented "use the defaults" case
+// on both.
+func New(conn *database.Connection, catalogue *rfc.Client) BookingRepository {
 	if conn.Provider == database.ProviderHasura {
 		return instrumentHasuraBooking(hasura.NewBookingRepository(conn.Hasura))
 	}
-	return gorm.NewBookingRepository(conn.PgSQLConn)
+	return gorm.NewBookingRepository(conn.PgSQLConn).WithCatalogue(catalogue)
 }

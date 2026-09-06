@@ -2,6 +2,9 @@ package internal
 
 import (
 	"context"
+	"github.com/oh-tarnished/freebusy/config"
+	"github.com/oh-tarnished/freebusy/internal/rfc"
+	"github.com/oh-tarnished/freebusy/shared"
 
 	"github.com/oh-tarnished/freebusy/internal/database"
 	"github.com/oh-tarnished/freebusy/internal/runtime/identity"
@@ -29,11 +32,24 @@ func newServiceInstance(conn *database.Connection) (*Service, error) {
 		}
 		conn = opened
 	}
+	// The RFC catalogue is optional: a dial failure is logged and the booking
+	// path runs on its defaults rather than the process refusing to start over a
+	// service that only enriches bookings.
+	var catalogue *rfc.Client
+	if cc := config.Get().Catalogue; cc.Enabled && cc.Endpoint != "" {
+		c, derr := rfc.Dial(context.Background(), cc.Endpoint)
+		if derr != nil {
+			_ = shared.Telemetry.Logger.Error("catalogue: dial failed, using defaults", "endpoint", cc.Endpoint, "error", derr)
+		} else {
+			catalogue = c
+		}
+	}
+
 	svc := NewService(
 		promocode.New(conn),
 		organisation.New(conn),
 		schedule.New(conn),
-		scheduling.New(conn),
+		scheduling.New(conn, catalogue),
 		identity.New(conn),
 	)
 	svc.conn = conn

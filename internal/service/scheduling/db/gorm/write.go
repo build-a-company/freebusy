@@ -55,7 +55,7 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 		}
 
 		// Re-validate the party against the resource's max occupancy.
-		prof := resolveResourceProfile(ctx, m.Unit)
+		prof := r.resolveResourceProfile(ctx, m.Unit)
 		if !party.Fits(prof.MaxOccupancy, repox.Deref(m.Units), occupancy, guests) {
 			return types.ErrInvalidArgument
 		}

@@ -1,0 +1,27 @@
+# Go client stubs for the RFC schema module.
+#
+# Separate from go.buf.gen.yaml on purpose: that template sets clean: true over
+# protobuf/generated/go, so adding a second input there would have the two runs
+# wipe each other's output. This one writes into the same tree with clean: false
+# and lands under protobuf/rfc*/, which cannot collide with freebusy/*.
+#
+# protobuf-rfc deliberately sets no go_package — the right value depends on where
+# a consumer generates — so managed mode supplies one here, scoped to that module
+# so freebusy's own explicit go_package options are left alone.
+version: v2
+clean: false
+managed:
+  enabled: true
+  override:
+    - file_option: go_package_prefix
+      value: github.com/oh-tarnished/freebusy/protobuf/generated/go
+      module: buf.build/the-protobuf-project/rfc
+inputs:
+  - module: buf.build/the-protobuf-project/rfc
+plugins:
+  - remote: buf.build/protocolbuffers/go:v1.36.11
+    out: protobuf/generated/go
+    opt: module=github.com/oh-tarnished/freebusy/protobuf/generated/go
+  - remote: buf.build/grpc/go:v1.6.0
+    out: protobuf/generated/go
+    opt: module=github.com/oh-tarnished/freebusy/protobuf/generated/go
