@@ -32,7 +32,7 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 	if err != nil {
 		return nil, err
 	}
-	_, unitID, err := types.ParseUnitParent(b.GetUnit())
+	unitID, err := types.ParseResource(b.GetUnit())
 	if err != nil {
 		return nil, err
 	}

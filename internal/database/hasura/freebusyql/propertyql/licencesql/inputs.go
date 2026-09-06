@@ -39,6 +39,8 @@ type CreateInput struct {
 	Name string `json:"name"`
 	// Notes sets the "notes" column; the zero value is omitted (column default / NULL).
 	Notes string `json:"notes,omitzero"`
+	// OrganizationalUnitId sets the "organizationalUnitId" column (required).
+	OrganizationalUnitId string `json:"organizationalUnitId"`
 	// PropertyId sets the "propertyId" column (required).
 	PropertyId string `json:"propertyId"`
 	// State sets the "state" column; the zero value is omitted (column default / NULL).
@@ -75,6 +77,8 @@ type UpdateInput struct {
 	Name graphql.Nullable[string] `json:"name"`
 	// Update the 'notes' column in the 'property_licences' collection.
 	Notes graphql.Nullable[string] `json:"notes"`
+	// Update the 'organizational_unit_id' column in the 'property_licences' collection.
+	OrganizationalUnitId graphql.Nullable[string] `json:"organizationalUnitId"`
 	// Update the 'property_id' column in the 'property_licences' collection.
 	PropertyId graphql.Nullable[string] `json:"propertyId"`
 	// Update the 'state' column in the 'property_licences' collection.

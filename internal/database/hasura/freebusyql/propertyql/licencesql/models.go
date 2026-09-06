@@ -43,6 +43,8 @@ type DeletePropertyLicencesByIdResponse struct {
 		Name string `graphql:"name"`
 		// Notes selects the "notes" field; nil when the column is NULL.
 		Notes *string `graphql:"notes"`
+		// OrganizationalUnitId selects the "organizationalUnitId" field.
+		OrganizationalUnitId string `graphql:"organizationalUnitId"`
 		// PropertyId selects the "propertyId" field.
 		PropertyId string `graphql:"propertyId"`
 		// State selects the "state" field; nil when the column is NULL.
@@ -84,6 +86,8 @@ type InsertPropertyLicencesResponse struct {
 		Name string `graphql:"name"`
 		// Notes selects the "notes" field; nil when the column is NULL.
 		Notes *string `graphql:"notes"`
+		// OrganizationalUnitId selects the "organizationalUnitId" field.
+		OrganizationalUnitId string `graphql:"organizationalUnitId"`
 		// PropertyId selects the "propertyId" field.
 		PropertyId string `graphql:"propertyId"`
 		// State selects the "state" field; nil when the column is NULL.
@@ -123,6 +127,8 @@ type PropertyLicences struct {
 	Name string `graphql:"name"`
 	// Notes selects the "notes" field; nil when the column is NULL.
 	Notes *string `graphql:"notes"`
+	// OrganizationalUnitId selects the "organizationalUnitId" field.
+	OrganizationalUnitId string `graphql:"organizationalUnitId"`
 	// PropertyId selects the "propertyId" field.
 	PropertyId string `graphql:"propertyId"`
 	// State selects the "state" field; nil when the column is NULL.
@@ -252,6 +258,17 @@ type PropertyLicencesAggExp struct {
 		// Min selects the "min" field; nil when the column is NULL.
 		Min *string `graphql:"min"`
 	} `graphql:"notes"`
+	// OrganizationalUnitId selects the "organizationalUnitId" field.
+	OrganizationalUnitId struct {
+		// Count selects the "_count" field.
+		Count graphql.Int64 `graphql:"_count"`
+		// CountDistinct selects the "_count_distinct" field.
+		CountDistinct graphql.Int64 `graphql:"_count_distinct"`
+		// Max selects the "max" field; nil when the column is NULL.
+		Max *string `graphql:"max"`
+		// Min selects the "min" field; nil when the column is NULL.
+		Min *string `graphql:"min"`
+	} `graphql:"organizationalUnitId"`
 	// PropertyId selects the "propertyId" field.
 	PropertyId struct {
 		// Count selects the "_count" field.
@@ -346,6 +363,8 @@ type UpdatePropertyLicencesByIdResponse struct {
 		Name string `graphql:"name"`
 		// Notes selects the "notes" field; nil when the column is NULL.
 		Notes *string `graphql:"notes"`
+		// OrganizationalUnitId selects the "organizationalUnitId" field.
+		OrganizationalUnitId string `graphql:"organizationalUnitId"`
 		// PropertyId selects the "propertyId" field.
 		PropertyId string `graphql:"propertyId"`
 		// State selects the "state" field; nil when the column is NULL.

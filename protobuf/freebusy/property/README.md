@@ -18,169 +18,17 @@ LicenceService manages the regulatory licences/certificates of properties and th
 | `CreateLicence` | `CreateLicenceRequest` | `Licence` | Creates a licence under a property, e.g. after uploading a scan of a trade or fire-safety certificate. Set the licence's `unit` to cover a single unit instead of the whole property. |
 | `UpdateLicence` | `UpdateLicenceRequest` | `Licence` | Updates a licence, e.g. to record its renewal. |
 
-### PropertyService
-
-PropertyService is the catalog of hotels (properties) and the bookable units (room types) within them. Properties carry showcase media and guest-facing policy; units carry pricing, occupancy, and availability inputs.
-
-| Method | Request | Response | Description |
-| --- | --- | --- | --- |
-| `ListProperties` | `ListPropertiesRequest` | `ListPropertiesResponse` | Lists properties. |
-| `GetProperty` | `GetPropertyRequest` | `Property` | Gets a single property. |
-| `CreateProperty` | `CreatePropertyRequest` | `Property` | Creates a property. The caller's chain becomes its owner. |
-| `UpdateProperty` | `UpdatePropertyRequest` | `Property` | Updates a property. |
-| `ArchiveProperty` | `ArchivePropertyRequest` | `Property` | Archives a property, hiding it from the storefront and new bookings. |
-| `UnarchiveProperty` | `UnarchivePropertyRequest` | `Property` | Unarchives a property, restoring it to the active state. |
-| `ListUnits` | `ListUnitsRequest` | `ListUnitsResponse` | Lists the units (room types) within a property. |
-| `GetUnit` | `GetUnitRequest` | `Unit` | Gets a single unit. |
-| `CreateUnit` | `CreateUnitRequest` | `Unit` | Creates a unit within a property. |
-| `UpdateUnit` | `UpdateUnitRequest` | `Unit` | Updates a unit. |
-
 ## Messages
-
-### Property
-
-A hotel (or other lodging property): the guest-facing venue a chain operates. A Property belongs to an Organisation (the chain/brand) and carries the showcase media, address, and informational policies shown to guests. Its bookable inventory lives in child Units (room types); pricing and availability are modeled there, not here.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `name` | `string` | `IDENTIFIER` | The property name. Format: properties/{property} |
-| `organisation` | `string` | `REQUIRED` | The chain/brand that owns this property. Format: organisations/{organisation} |
-| `display_name` | `string` | `REQUIRED` | Human-friendly name (e.g. "Grand Beach Resort, Goa"). |
-| `description` | `string` | `OPTIONAL` | Free-form description shown on the property's page. |
-| `address` | `PostalAddress` | `OPTIONAL` | Postal address of the property. |
-| `time_zone` | `string` | `REQUIRED` | IANA timezone (e.g. "Asia/Kolkata") the property operates in. |
-| `media` | `repeated Media` | `OPTIONAL` | Showcase gallery and documents (images, video, floor plans, PDFs). Documents are Media with type DOCUMENT. |
-| `policy` | `Policy` | `OPTIONAL` | Guest-facing informational policy (display only). The enforced rules (cancellation, stay constraints, buffers) live per-Unit in the schedule service, not here. |
-| `tags` | `repeated string` | `OPTIONAL` | Arbitrary tags for grouping and filtering (e.g. "beachfront", "5-star"). |
-| `attributes` | `Struct` | `OPTIONAL` | Arbitrary attributes used for templating, policy, and segmentation. |
-| `units` | `repeated string` | `OUTPUT_ONLY` | Resource names of the units (room types) under this property; manage them with the Unit standard methods. Format: properties/{property}/units/{unit} |
-| `state` | `PropertyState` | `OUTPUT_ONLY` | Lifecycle state. New properties start ACTIVE (database default). |
-| `create_time` | `Timestamp` | `OUTPUT_ONLY` | Creation timestamp. |
-| `update_time` | `Timestamp` | `OUTPUT_ONLY` | Last-modification timestamp. |
-| `etag` | `string` | - | Opaque version for optimistic concurrency (AIP-154); echo on update/delete. |
-| `licences` | `repeated string` | `OUTPUT_ONLY` | Resource names of the regulatory licences/certificates held by this property and its units (e.g. trade licence, fire safety NOC); manage them with the LicenceService. Derived from the licences' parent FK at read time, so no join table is materialized (orm skip). Format: properties/{property}/licences/{licence} |
-
-### Policy
-
-Guest-facing, informational property policy: what to *display* to a guest (check-in/out hours, house rules). The enforced refund/stay rules that gate bookability live on each Unit's Schedule (freebusy.schedule.v1), not here, so there is a single source of truth for enforcement.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `checkin_time` | `TimeOfDay` | `OPTIONAL` | Local check-in time (e.g. 14:00). |
-| `checkout_time` | `TimeOfDay` | `OPTIONAL` | Local check-out time (e.g. 11:00). |
-| `house_rules` | `repeated string` | `OPTIONAL` | House rules shown to guests (e.g. "No smoking", "Pets on request"). |
-| `notes` | `string` | `OPTIONAL` | Any additional free-text notes displayed with the policy. |
-
-### Unit
-
-A bookable unit type within a property: a pool of `capacity` interchangeable rooms/units of the same kind (e.g. "Deluxe King", capacity 12). A Unit carries its own pricing, media, occupancy limit, and the promo codes advertised for it. The freebusy engine computes how many units are free for a window; its booking_mode decides whether availability is time slots or per-night counts.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `name` | `string` | `IDENTIFIER` | The unit name. Format: properties/{property}/units/{unit} |
-| `display_name` | `string` | `REQUIRED` | Human-friendly name (e.g. "Deluxe King", "Sea-View Suite"). |
-| `description` | `string` | `OPTIONAL` | Free-form description. |
-| `type` | `UnitType` | `REQUIRED` | What kind of unit this is. |
-| `booking_mode` | `BookingMode` | `REQUIRED` | How this unit is booked, and therefore the availability shape it yields. Immutable: flipping it after bookings exist would invalidate every existing booking and availability computation. |
-| `capacity` | `int32` | `OPTIONAL` | Number of interchangeable units in the pool. Defaults to 1 when unset. |
-| `max_occupancy` | `int32` | `OPTIONAL` | Maximum guests per unit (occupancy limit). A future policy layer (OPA) reads this to validate party size on a booking. Zero means unspecified. |
-| `time_zone` | `string` | `REQUIRED` | IANA timezone the unit's hours and dates are evaluated in. Required so availability is timezone-correct. |
-| `price` | `Money` | `OPTIONAL` | Base price, interpreted per pricing_unit. For NIGHTLY units this is the default nightly rate; rate_overrides layer seasonal/weekend rates on top. |
-| `pricing_unit` | `PricingUnit` | `OPTIONAL` | What the price is charged per. |
-| `duration` | `Duration` | `OPTIONAL` | Slot length. Required for TIME_SLOT units; ignored for NIGHTLY. |
-| `rate_overrides` | `repeated RateOverride` | `OPTIONAL` | Rate calendar: date- and weekday-scoped overrides of `price`. For NIGHTLY units this is the seasonal/weekend rate calendar. `price` is the default when no override matches. Later-listed overrides win where they overlap. |
-| `los_discounts` | `repeated LosDiscount` | `OPTIONAL` | Length-of-stay discounts applied to the NIGHTLY subtotal when a stay is at least `min_nights` long. The most generous matching discount applies. |
-| `fees` | `repeated Fee` | `OPTIONAL` | Fees added on top of the base subtotal (e.g. cleaning, service). Each surfaces as a TYPE_FEE line in a booking's price_components. |
-| `taxes` | `repeated Tax` | `OPTIONAL` | Taxes applied to the taxable base (subtotal plus taxable fees). Each surfaces as a TYPE_TAX line in a booking's price_components. |
-| `media` | `repeated UnitMedia` | `OPTIONAL` | Showcase gallery and documents for this unit (images, video, floor plans). |
-| `applicable_promo_codes` | `repeated string` | `OPTIONAL` | Promo codes advertised as applicable to this unit (an allow-list shown to guests). Actual eligibility/validation still happens at booking time. Format: promo-codes/{promo_code} |
-| `tags` | `repeated string` | `OPTIONAL` | Arbitrary tags for grouping and filtering. |
-| `attributes` | `Struct` | `OPTIONAL` | Arbitrary attributes used for templating, policy, and segmentation. |
-| `state` | `UnitState` | `OUTPUT_ONLY` | Lifecycle state. New units start ACTIVE (database default). |
-| `create_time` | `Timestamp` | `OUTPUT_ONLY` | Creation timestamp. |
-| `update_time` | `Timestamp` | `OUTPUT_ONLY` | Last-modification timestamp. |
-| `etag` | `string` | - | Opaque version for optimistic concurrency (AIP-154); echo on update/delete. |
-
-### RateOverride
-
-A price override for a span of dates and/or specific weekdays, layered over a unit's base `price`. The price is still interpreted per the unit's pricing_unit (per night, per booking, per person).
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `date_range` | `DateRange` | `OPTIONAL` | Dates the override applies to, in the unit's timezone. Unset means it applies on every date (a pure weekday rule). |
-| `weekdays` | `repeated Weekday` | `OPTIONAL` | Weekdays the override applies to. Empty means every day within date_range. |
-| `price` | `Money` | `REQUIRED` | The price in effect while this override matches. |
-
-### LosDiscount
-
-A discount applied to a NIGHTLY subtotal once the stay reaches a minimum length. Exactly one of percent_off or amount_off is set.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `min_nights` | `int32` | `REQUIRED` | Minimum nights for the discount to apply. |
-| `percent_off` | `int32` | `OPTIONAL` | Percent off the subtotal (1-100), when discounting by percentage. |
-| `amount_off` | `Money` | `OPTIONAL` | Fixed amount off the subtotal, when discounting by a flat amount. |
-
-### Fee
-
-A fee added on top of a unit's base subtotal. Exactly one of `amount` or `percent` is set. Surfaces as a TYPE_FEE line in a booking's price_components.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `code` | `string` | `REQUIRED` | Stable machine code, e.g. "cleaning_fee". |
-| `display_name` | `string` | `OPTIONAL` | Human-readable label for receipts. |
-| `amount` | `Money` | `OPTIONAL` | Fixed fee amount, when charging a flat fee. |
-| `percent` | `int32` | `OPTIONAL` | Percent of the base subtotal (1-100), when charging a proportional fee. |
-| `pricing_unit` | `PricingUnit` | `OPTIONAL` | What the fee is charged per (per booking, per night, per person). Defaults to per booking. |
-| `taxable` | `bool` | `OPTIONAL` | Whether this fee is included in the taxable base. |
-
-### Media
-
-A media asset in a Property's showcase gallery — an image, video, floor plan, virtual tour, or a document (PDF fact sheet, policy, house rules). The bytes live in object storage (S3 or any HTTP-reachable host); this message only carries the link and its presentation metadata. `UnitMedia` is the identical per-Unit gallery; they are separate messages so the ORM materializes each as a child table with a single owning parent.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `uri` | `string` | `REQUIRED` | Publicly reachable URL of the asset (an S3/CDN link or any HTTPS URL). |
-| `type` | `MediaType` | `REQUIRED` | What kind of asset this is; DOCUMENT covers PDFs/policies/house rules. |
-| `title` | `string` | `OPTIONAL` | Short human-readable caption/title for display. |
-| `description` | `string` | `OPTIONAL` | Longer description or alt text. |
-| `mime_type` | `string` | `OPTIONAL` | MIME type of the asset (e.g. "image/jpeg", "application/pdf"), when known. |
-| `sort_order` | `int32` | `OPTIONAL` | Ordering hint within a gallery; lower sorts first. |
-| `primary` | `bool` | `OPTIONAL` | Whether this is the primary/hero asset of its gallery. |
-
-### UnitMedia
-
-A media asset in a Unit's gallery. Identical in shape to `Media`; kept a separate message so the ORM gives it its own child table owned solely by the Unit (a single unit_id foreign key).
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `uri` | `string` | `REQUIRED` | Publicly reachable URL of the asset (an S3/CDN link or any HTTPS URL). |
-| `type` | `MediaType` | `REQUIRED` | What kind of asset this is; DOCUMENT covers PDFs/policies/house rules. |
-| `title` | `string` | `OPTIONAL` | Short human-readable caption/title for display. |
-| `description` | `string` | `OPTIONAL` | Longer description or alt text. |
-| `mime_type` | `string` | `OPTIONAL` | MIME type of the asset (e.g. "image/jpeg", "application/pdf"), when known. |
-| `sort_order` | `int32` | `OPTIONAL` | Ordering hint within a gallery; lower sorts first. |
-| `primary` | `bool` | `OPTIONAL` | Whether this is the primary/hero asset of its gallery. |
-
-### Tax
-
-A tax applied to the taxable base (base subtotal plus taxable fees). Surfaces as a TYPE_TAX line in a booking's price_components.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `code` | `string` | `REQUIRED` | Stable machine code, e.g. "occupancy_tax" or "gst". |
-| `display_name` | `string` | `OPTIONAL` | Human-readable label for receipts. |
-| `percent` | `double` | `REQUIRED` | Tax rate as a percentage, e.g. 12 for 12% GST. |
 
 ### Licence
 
-A regulatory licence or certificate held by a Property or one of its Units (e.g. trade licence, fire safety NOC, per-room liquor licence). One resource covers both: every licence is parented by the property, `target` says what it covers, and a unit licence names its unit in `unit`. Tracks the issuing authority and validity window so `expiry_date` can be filtered on to find licences due for renewal; the certificate itself is carried in `attachment`. A standalone resource (own Get/List/Create/Update/Delete), like Unit, rather than an embedded repeated field like Media, so a renewal doesn't require resending the whole Property.
+A regulatory licence or certificate held by a site or one of its bookable resources (e.g. trade licence, fire safety NOC, per-room liquor licence).  Native, and it stays native because no RFC covers it: the IETF standardises calendars and directories, not the paperwork a jurisdiction demands to operate. It parents onto an RFC 4519 organizationalUnit and names an RFC 9073 resource, so the only thing freebusy defines here is the licence itself.  One resource covers both scopes: `target` says which, and a resource-scoped licence names it in `unit`. `expiry_date` is filterable so renewals due can be listed; the certificate itself rides in `attachment`.
 
 | Field | Type | Behavior | Description |
 | --- | --- | --- | --- |
-| `name` | `string` | `IDENTIFIER` | The licence name. Format: properties/{property}/licences/{licence} |
+| `name` | `string` | `IDENTIFIER` | The licence name. Format: organizationalUnits/{organizational_unit}/licences/{licence} |
 | `target` | `LicenceTarget` | `OUTPUT_ONLY` | What the licence covers: the whole property, or the single unit named in `unit`. Derived from whether `unit` is set at create time. |
-| `unit` | `string` | `OPTIONAL` | The unit this licence covers, for a LICENCE_TARGET_UNIT licence; unset for a property-wide licence. Must belong to the parent property. Format: properties/{property}/units/{unit} |
+| `unit` | `string` | `OPTIONAL` | The bookable resource this licence covers, for a LICENCE_TARGET_UNIT licence; unset for a site-wide one. Must belong to the parent site.  An RFC 9073 VRESOURCE, named rather than embedded: AIP-215 says to refer to a resource by name, and the catalogue is served by the RFC Resources service, not by this one. Format: resources/{resource} |
 | `type` | `LicenceType` | `REQUIRED` | What kind of licence/certificate this is. |
 | `licence_number` | `string` | `OPTIONAL` | Licence/certificate number as printed by the issuing authority. |
 | `issuing_authority` | `string` | `OPTIONAL` | The authority or body that issued the licence (e.g. "Municipal Corporation of Goa"). |
@@ -193,160 +41,16 @@ A regulatory licence or certificate held by a Property or one of its Units (e.g.
 | `update_time` | `Timestamp` | `OUTPUT_ONLY` | Last-modification timestamp. |
 | `etag` | `string` | - | Opaque version for optimistic concurrency (AIP-154); echo on update/delete. |
 
-### AddPropertyArgs
-
-Arguments for the "add_property" prompt.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `organisation` | `string` | `REQUIRED` | The chain/brand that owns the property. Format: organisations/{organisation} |
-| `display_name` | `string` | `REQUIRED` | Human-friendly name of the property (e.g. "Grand Beach Resort, Goa"). |
-| `time_zone` | `string` | `REQUIRED` | IANA timezone the property operates in (e.g. "Asia/Kolkata"). |
-
-### AddUnitArgs
-
-Arguments for the "add_unit" prompt.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `property` | `string` | `REQUIRED` | The property to add the unit to. Format: properties/{property} |
-| `display_name` | `string` | `REQUIRED` | Human-friendly name of the unit (e.g. "Deluxe King"). |
-| `type` | `string` | `REQUIRED` | What kind of unit it is (e.g. "room", "lodging"). |
-| `booking_mode` | `BookingMode` | `REQUIRED` | How it is booked: time-slot appointments or nightly stays. |
-| `time_zone` | `string` | `REQUIRED` | IANA timezone the unit operates in (e.g. "Asia/Kolkata"). |
-| `capacity` | `int32` | `OPTIONAL` | Number of interchangeable units in the pool. Defaults to 1. |
-
-### ListPropertiesRequest
-
-Request message for ListProperties.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `page_size` | `int32` | `OPTIONAL` | Maximum number of properties to return. Must be at most 1000; larger values are rejected. |
-| `page_token` | `string` | `OPTIONAL` | Page token from a previous ListProperties call, for pagination. |
-| `filter` | `string` | `OPTIONAL` | Filter expression (AIP-160), e.g. `organisation = "organisations/7"`, `state = PROPERTY_STATE_ACTIVE`, `tags:"beachfront"`, or a display_name match. |
-| `order_by` | `string` | `OPTIONAL` | Sort order, e.g. "display_name" or "create_time desc". |
-
-### ListPropertiesResponse
-
-Response message for ListProperties.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `properties` | `repeated Property` | - | The page of properties. |
-| `next_page_token` | `string` | - | Next page token, if more results remain. Omitted if this is the last page. |
-
-### GetPropertyRequest
-
-Request message for GetProperty.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `name` | `string` | `REQUIRED` | The property to retrieve. Format: properties/{property} |
-
-### CreatePropertyRequest
-
-Request message for CreateProperty.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `property` | `Property` | `REQUIRED` | The property to create. The name, state, and units fields are ignored. |
-| `property_id` | `string` | `OPTIONAL` | Optional caller-chosen ID for the property; the server generates one if unset. |
-| `request_id` | `string` | `OPTIONAL` | Caller-supplied idempotency key; identical retries return the first result. |
-
-### UpdatePropertyRequest
-
-Request message for UpdateProperty.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `property` | `Property` | `REQUIRED` | The property to update; its name identifies the target. |
-| `update_mask` | `FieldMask` | `OPTIONAL` | Fields to overwrite. Omit to replace all mutable fields. |
-
-### ArchivePropertyRequest
-
-Request message for ArchiveProperty.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `name` | `string` | `REQUIRED` | The property to archive. Format: properties/{property} |
-
-### UnarchivePropertyRequest
-
-Request message for UnarchiveProperty.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `name` | `string` | `REQUIRED` | The property to restore to the active state. Format: properties/{property} |
-
-### ListUnitsRequest
-
-Request message for ListUnits.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `parent` | `string` | `REQUIRED` | The parent property whose units to list. Format: properties/{property} |
-| `page_size` | `int32` | `OPTIONAL` | Maximum number of units to return. Must be at most 1000; larger values are rejected. |
-| `page_token` | `string` | `OPTIONAL` | Page token from a previous ListUnits call's next_page_token. |
-| `filter` | `string` | `OPTIONAL` | Filter expression (AIP-160), e.g. `type = UNIT_TYPE_ROOM`, `state = UNIT_STATE_ACTIVE`, or a match on display_name. |
-| `order_by` | `string` | `OPTIONAL` | Sort order, e.g. "display_name" or "create_time desc". |
-
-### ListUnitsResponse
-
-Response message for ListUnits.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `units` | `repeated Unit` | - | The page of units. |
-| `next_page_token` | `string` | - | Next page token. Omitted if this is the last page. |
-
-### GetUnitRequest
-
-Request message for GetUnit.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `name` | `string` | `REQUIRED` | The unit to retrieve. Format: properties/{property}/units/{unit} |
-
-### CreateUnitRequest
-
-Request message for CreateUnit.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `parent` | `string` | `REQUIRED` | The property to attach the unit to. Format: properties/{property} |
-| `unit` | `Unit` | `REQUIRED` | The unit to create. Its name and state fields are ignored. |
-| `unit_id` | `string` | `OPTIONAL` | Optional caller-chosen ID for the unit; the server generates one if unset. |
-| `request_id` | `string` | `OPTIONAL` | Caller-supplied idempotency key; identical retries return the first result. |
-
-### UpdateUnitRequest
-
-Request message for UpdateUnit.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `unit` | `Unit` | `REQUIRED` | The unit to update; its name identifies the target. |
-| `update_mask` | `FieldMask` | `OPTIONAL` | Fields to overwrite. Omit to replace all mutable fields. |
-
-### DeleteUnitRequest
-
-Request message for DeleteUnit.
-
-| Field | Type | Behavior | Description |
-| --- | --- | --- | --- |
-| `name` | `string` | `REQUIRED` | The unit to delete. Format: properties/{property}/units/{unit} |
-| `force` | `bool` | `OPTIONAL` | Whether to delete the unit's child licences along with it. Required to be true if any exist; otherwise the delete is rejected. |
-
 ### ListLicencesRequest
 
 Request message for ListLicences.
 
 | Field | Type | Behavior | Description |
 | --- | --- | --- | --- |
-| `parent` | `string` | `REQUIRED` | The parent property whose licences to list — property-wide and per-unit ones alike; narrow with `filter`. Format: properties/{property} |
+| `parent` | `string` | `REQUIRED` | The parent property whose licences to list — property-wide and per-unit ones alike; narrow with `filter`. Format: organizationalUnits/{organizational_unit} |
 | `page_size` | `int32` | `OPTIONAL` | Maximum number of licences to return. Must be at most 1000; larger values are rejected. |
 | `page_token` | `string` | `OPTIONAL` | Page token from a previous ListLicences call's next_page_token. |
-| `filter` | `string` | `OPTIONAL` | Filter expression (AIP-160), e.g. `type = LICENCE_TYPE_FIRE_SAFETY`, `target = LICENCE_TARGET_UNIT`, `unit = properties/p1/units/u1`, or `expiry_date <= 2026-08-01` to find licences due for renewal. |
+| `filter` | `string` | `OPTIONAL` | Filter expression (AIP-160), e.g. `type = LICENCE_TYPE_FIRE_SAFETY`, `target = LICENCE_TARGET_UNIT`, `unit = resources/bay-l2-014`, or `expiry_date <= 2026-08-01` to find licences due for renewal. |
 | `order_by` | `string` | `OPTIONAL` | Sort order, e.g. "expiry_date" or "create_time desc". |
 
 ### ListLicencesResponse
@@ -364,7 +68,7 @@ Request message for GetLicence.
 
 | Field | Type | Behavior | Description |
 | --- | --- | --- | --- |
-| `name` | `string` | `REQUIRED` | The licence to retrieve. Format: properties/{property}/licences/{licence} |
+| `name` | `string` | `REQUIRED` | The licence to retrieve. Format: organizationalUnits/{organizational_unit}/licences/{licence} |
 
 ### CreateLicenceRequest
 
@@ -372,7 +76,7 @@ Request message for CreateLicence.
 
 | Field | Type | Behavior | Description |
 | --- | --- | --- | --- |
-| `parent` | `string` | `REQUIRED` | The property to attach the licence to. A licence covering a single unit also lives under the property: set the licence's `unit` field. Format: properties/{property} |
+| `parent` | `string` | `REQUIRED` | The property to attach the licence to. A licence covering a single unit also lives under the property: set the licence's `unit` field. Format: organizationalUnits/{organizational_unit} |
 | `licence` | `Licence` | `REQUIRED` | The licence to create. Its name, target, and state fields are ignored; target derives from whether `unit` is set. |
 | `licence_id` | `string` | `OPTIONAL` | Optional caller-chosen ID for the licence; the server generates one if unset. |
 | `request_id` | `string` | `OPTIONAL` | Caller-supplied idempotency key; identical retries return the first result. |
@@ -392,53 +96,9 @@ Request message for DeleteLicence.
 
 | Field | Type | Behavior | Description |
 | --- | --- | --- | --- |
-| `name` | `string` | `REQUIRED` | The licence to delete. Format: properties/{property}/licences/{licence} |
+| `name` | `string` | `REQUIRED` | The licence to delete. Format: organizationalUnits/{organizational_unit}/licences/{licence} |
 
 ## Enums
-
-### PropertyState
-
-Lifecycle status of a property.
-
-| Value | Number | Description |
-| --- | --- | --- |
-| `PROPERTY_STATE_UNSPECIFIED` | 0 | Unset. |
-| `PROPERTY_STATE_ACTIVE` | 1 | Live and visible to guests. |
-| `PROPERTY_STATE_ARCHIVED` | 2 | Retired; hidden from storefront and new bookings. |
-
-### UnitState
-
-Lifecycle status of a unit.
-
-| Value | Number | Description |
-| --- | --- | --- |
-| `UNIT_STATE_UNSPECIFIED` | 0 | Unset. |
-| `UNIT_STATE_ACTIVE` | 1 | Bookable. |
-| `UNIT_STATE_ARCHIVED` | 2 | Retired; hidden from availability and new bookings. |
-
-### UnitType
-
-Kind of bookable unit.
-
-| Value | Number | Description |
-| --- | --- | --- |
-| `UNIT_TYPE_UNSPECIFIED` | 0 | Unset. |
-| `UNIT_TYPE_PROVIDER` | 1 | A person who delivers a service (e.g. a doctor, stylist). |
-| `UNIT_TYPE_ROOM` | 2 | A bookable room or space (e.g. a hotel room, meeting room). |
-| `UNIT_TYPE_EQUIPMENT` | 3 | A bookable piece of equipment (e.g. a kayak). |
-| `UNIT_TYPE_LODGING` | 4 | A lodging unit type backed by a pool of identical units (e.g. a room type). |
-| `UNIT_TYPE_SPACE` | 5 | A generic space or venue. |
-
-### PricingUnit
-
-What a unit's price is charged per.
-
-| Value | Number | Description |
-| --- | --- | --- |
-| `PRICING_UNIT_UNSPECIFIED` | 0 | Unset; treated as per-booking. |
-| `PRICING_UNIT_PER_BOOKING` | 1 | A flat price for the whole booking. |
-| `PRICING_UNIT_PER_NIGHT` | 2 | Price multiplied by the number of nights (NIGHTLY units). |
-| `PRICING_UNIT_PER_PERSON` | 3 | Price multiplied by party size / units booked. |
 
 ### LicenceType
 

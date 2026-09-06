@@ -9,11 +9,9 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal/database"
 	"github.com/oh-tarnished/freebusy/internal/runtime/scheduling"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/property/v1/propertypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/schedule/v1/schedulepbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 )
@@ -27,7 +25,6 @@ type Service struct {
 	orgpbv1.OrganisationServiceServer
 	schedulepbv1.ScheduleServiceServer
 	schedulingpbv1.SchedulingServiceServer
-	availabilitypbv1.AvailabilityServiceServer
 	identitypbv1.IdentityServiceServer
 
 	// scheduling is the concrete scheduling server, retained so background tasks (the
@@ -48,17 +45,13 @@ func NewService(
 	organisation orgpbv1.OrganisationServiceServer,
 	schedule schedulepbv1.ScheduleServiceServer,
 	scheduling *scheduling.Server,
-	availability availabilitypbv1.AvailabilityServiceServer,
 	identity identitypbv1.IdentityServiceServer,
 ) *Service {
 	return &Service{
 		PromoCodeServiceServer:    promoCode,
-		PropertyServiceServer:     property,
-		LicenceServiceServer:      property,
 		OrganisationServiceServer: organisation,
 		ScheduleServiceServer:     schedule,
 		SchedulingServiceServer:   scheduling,
-		AvailabilityServiceServer: availability,
 		IdentityServiceServer:     identity,
 		scheduling:                scheduling,
 	}

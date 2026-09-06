@@ -75,14 +75,12 @@ func int32Wrapper(w *wrapperspb.Int32Value) *int32 {
 // persists it in one transaction (moneys and children before the resource that
 // references them; join rows after the scope they belong to).
 type promoGraph struct {
-	promo      *promocode.PromoCode
-	discount   *promocode.Discount
-	window     *promocode.RedemptionWindow
-	limits     *promocode.UsageLimits
-	scope      *promocode.Scope
-	moneys     []*common.Money
-	properties []*promocode.ScopeApplicableProperties
-	units      []*promocode.ScopeApplicableUnits
+	promo    *promocode.PromoCode
+	discount *promocode.Discount
+	window   *promocode.RedemptionWindow
+	limits   *promocode.UsageLimits
+	scope    *promocode.Scope
+	moneys   []*common.Money
 }
 
 // buildGraph turns a proto PromoCode into the row graph that backs it, minting a
@@ -141,21 +139,13 @@ func buildGraph(pc *promocodepbv1.PromoCode) *promoGraph {
 			g.moneys = append(g.moneys, min)
 			g.scope.MinSubtotalID = &min.ID
 		}
-		for _, name := range sc.GetApplicableProperties() {
-			g.properties = append(g.properties, &promocode.ScopeApplicableProperties{
-				ID:         ulid.GenerateString(),
-				ScopeID:    g.scope.ID,
-				PropertyID: name,
-			})
-		}
-		for _, name := range sc.GetApplicableUnits() {
-			g.units = append(g.units, &promocode.ScopeApplicableUnits{
-				ID:       ulid.GenerateString(),
-				ScopeID:  g.scope.ID,
-				UnitID:   repox.LastSegment(name),
-				UnitName: name,
-			})
-		}
+		// applicable_properties / applicable_units are plain text[] columns now
+		// that they name resources another service owns: a cross-service
+		// reference cannot be a join table, because there is no local table to
+		// join to. The generated converter maps both arrays, so nothing is
+		// assembled by hand here.
+		g.scope.ApplicableProperties = sc.GetApplicableProperties()
+		g.scope.ApplicableUnits = sc.GetApplicableUnits()
 		g.promo.ScopeID = &g.scope.ID
 	}
 
@@ -165,18 +155,10 @@ func buildGraph(pc *promocodepbv1.PromoCode) *promoGraph {
 // fromModel assembles the protobuf PromoCode from a stored resource row and its
 // preloaded associations. The generated converter covers the flat fields and
 // the whole belongs-to graph (discount + amount money, window, limits, scope +
-// min money); only the scope's applicable join rows and the derived state are
-// layered on here.
+// min money), including the scope's applicable-name arrays; only the derived
+// state is layered on here.
 func fromModel(m *promocode.PromoCode) *promocodepbv1.PromoCode {
 	pc := promocode.PromoCodeToProto(m)
-	if s := m.Scope; s != nil && pc.GetScope() != nil {
-		for i := range s.ScopeApplicableProperties {
-			pc.Scope.ApplicableProperties = append(pc.Scope.ApplicableProperties, s.ScopeApplicableProperties[i].PropertyID)
-		}
-		for i := range s.ScopeApplicableUnits {
-			pc.Scope.ApplicableUnits = append(pc.Scope.ApplicableUnits, s.ScopeApplicableUnits[i].UnitName)
-		}
-	}
 	// Derive the lifecycle state from the window/flags rather than trusting the
 	// possibly-stale stored value (a code becomes EXPIRED purely with time).
 	pc.State = discount.EffectiveState(pc, time.Now().UTC())

@@ -7,7 +7,6 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/promocode"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/shared"
 	"github.com/oh-tarnished/freebusy/internal/types"
@@ -33,29 +32,25 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 		if e := preloadBooking(tx.WithContext(ctx)).First(&m, "id = ?", id).Error; e != nil {
 			return e
 		}
-		unitID := m.UnitID
+		// The booking stores the resource name, and a move supplies one, so both
+		// branches yield a name rather than a bare id — which is what the rate
+		// plan and the profile are both keyed by.
+		resourceName := m.Unit
 		if newUnit != "" {
-			_, uid, perr := types.ParseUnitParent(newUnit)
-			if perr != nil {
-				return perr
-			}
-			unitID = uid
+			resourceName = newUnit
 		}
-		var unit property.Unit
-		if e := tx.WithContext(ctx).
-			Preload("Price").
-			Preload("Fees").Preload("Fees.Amount").
-			Preload("Taxes").
-			Preload("LosDiscounts").Preload("LosDiscounts.AmountOff").
-			First(&unit, "id = ?", unitID).Error; e != nil {
-			return e
+		unitID := resourceName
+		plan, perr := loadRatePlan(ctx, tx, resourceName)
+		if perr != nil {
+			return perr
 		}
+		prof := resolveResourceProfile(ctx, resourceName)
 		var promo *promocode.PromoCode
 		if pid := repox.Deref(m.PromoCodeID); pid != "" {
 			var p promocode.PromoCode
 			if e := tx.WithContext(ctx).
 				Preload("Discount").Preload("Discount.AmountOff").
-				Preload("Scope").Preload("Scope.MinSubtotal").Preload("Scope.ScopeApplicableUnits").
+				Preload("Scope").Preload("Scope.MinSubtotal").Preload("Scope.ApplicableUnits").
 				First(&p, "id = ?", pid).Error; e != nil {
 				return e
 			}
@@ -68,10 +63,7 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 		if e := tx.WithContext(ctx).Raw(overlapSQL+" AND b.id <> ?", unitID, window.EndTime, window.StartTime, id).Scan(&reserved).Error; e != nil {
 			return e
 		}
-		capacity := int64(1)
-		if unit.Capacity != nil && *unit.Capacity > 0 {
-			capacity = int64(*unit.Capacity)
-		}
+		capacity := prof.Capacity
 		requested := repox.Deref(m.Units)
 		if requested < 1 {
 			requested = 1
@@ -89,9 +81,9 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 		// Recompute the full price breakdown for the new window/unit (base, LOS +
 		// promo discounts, fees, taxes), carrying the booking's promo code.
 		var priceID, discountID, totalID *string
-		if unit.Price != nil {
-			nights := nightsBetween(w.GetWindow(), unit.TimeZone)
-			p := computePricing(&unit, nights, int64(requested), promo)
+		if plan.Price != nil {
+			nights := nightsBetween(w.GetWindow(), prof.TimeZone)
+			p := computePricing(plan, nights, int64(requested), promo)
 			price := moneyToModel(p.base)
 			total := moneyToModel(p.total)
 			moneys := common.NewMoneyStore(tx)
@@ -112,7 +104,7 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 			components = p.components
 		}
 
-		m.UnitID = unitID
+		m.Unit = unitID
 		m.WindowID = window.ID
 		m.PriceID = priceID
 		m.DiscountID = discountID

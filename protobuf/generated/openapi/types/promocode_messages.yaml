@@ -107,13 +107,13 @@ components:
               properties:
                 applicableProperties:
                   description: 'Properties the code applies to. Empty means all properties.
-                    Format: properties/{property}'
+                    Format: organizationalUnits/{organizational_unit}'
                   items:
                     type: string
                   type: array
                 applicableUnits:
                   description: 'Units the code applies to. Empty means all units.
-                    Format: properties/{property}/units/{unit}'
+                    Format: resources/{resource}'
                   items:
                     type: string
                   type: array
@@ -337,13 +337,13 @@ components:
                 properties:
                   applicableProperties:
                     description: 'Properties the code applies to. Empty means all
-                      properties. Format: properties/{property}'
+                      properties. Format: organizationalUnits/{organizational_unit}'
                     items:
                       type: string
                     type: array
                   applicableUnits:
                     description: 'Units the code applies to. Empty means all units.
-                      Format: properties/{property}/units/{unit}'
+                      Format: resources/{resource}'
                     items:
                       type: string
                     type: array
@@ -590,13 +590,13 @@ components:
               properties:
                 applicableProperties:
                   description: 'Properties the code applies to. Empty means all properties.
-                    Format: properties/{property}'
+                    Format: organizationalUnits/{organizational_unit}'
                   items:
                     type: string
                   type: array
                 applicableUnits:
                   description: 'Units the code applies to. Empty means all units.
-                    Format: properties/{property}/units/{unit}'
+                    Format: resources/{resource}'
                   items:
                     type: string
                   type: array
@@ -684,7 +684,7 @@ components:
             Format: users/{user}'
           type: string
         property:
-          description: 'Property being booked, for scope checks. Format: properties/{property}'
+          description: 'Property being booked, for scope checks. Format: organizationalUnits/{organizational_unit}'
           type: string
         subtotal:
           description: Subtotal the discount would apply to.
@@ -709,7 +709,7 @@ components:
               x-kubernetes-int-or-string: true
           type: object
         unit:
-          description: 'Unit being booked, for scope checks. Format: properties/{property}/units/{unit}'
+          description: 'Unit being booked, for scope checks. Format: resources/{resource}'
           type: string
       type: object
     freebusy.promocode.v1.ValidatePromoCodeResponse:

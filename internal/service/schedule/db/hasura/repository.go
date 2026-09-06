@@ -32,7 +32,7 @@ func NewScheduleRepository(svc *freebusyql.Service) *ScheduleRepository {
 // singleton is reported as an empty Schedule (name only). The exceptions list is
 // always derived from the unit's AvailabilityException rows.
 func (r *ScheduleRepository) GetSchedule(ctx context.Context, name string) (*schedulepbv1.Schedule, error) {
-	_, unitID, err := types.ParseScheduleName(name)
+	unitID, err := types.ParseScheduleName(name)
 	if err != nil {
 		return nil, err
 	}

@@ -14498,6 +14498,34 @@
       "fields": null,
       "inputFields": [
         {
+          "name": "applicableProperties",
+          "description": "",
+          "type": {
+            "kind": "LIST",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String1",
+              "ofType": null
+            }
+          },
+          "defaultValue": null
+        },
+        {
+          "name": "applicableUnits",
+          "description": "",
+          "type": {
+            "kind": "LIST",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String1",
+              "ofType": null
+            }
+          },
+          "defaultValue": null
+        },
+        {
           "name": "id",
           "description": "",
           "type": {
@@ -14924,6 +14952,20 @@
             "kind": "SCALAR",
             "name": "String1",
             "ofType": null
+          },
+          "defaultValue": null
+        },
+        {
+          "name": "organizationalUnitId",
+          "description": "",
+          "type": {
+            "kind": "NON_NULL",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String1",
+              "ofType": null
+            }
           },
           "defaultValue": null
         },
@@ -37390,6 +37432,34 @@
       "description": "",
       "fields": [
         {
+          "name": "applicableProperties",
+          "description": "",
+          "args": [],
+          "type": {
+            "kind": "LIST",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String1",
+              "ofType": null
+            }
+          }
+        },
+        {
+          "name": "applicableUnits",
+          "description": "",
+          "args": [],
+          "type": {
+            "kind": "LIST",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String1",
+              "ofType": null
+            }
+          }
+        },
+        {
           "name": "id",
           "description": "",
           "args": [],
@@ -38568,6 +38638,20 @@
           }
         },
         {
+          "name": "organizationalUnitId",
+          "description": "",
+          "args": [],
+          "type": {
+            "kind": "NON_NULL",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String1",
+              "ofType": null
+            }
+          }
+        },
+        {
           "name": "propertyId",
           "description": "",
           "args": [],
@@ -38791,6 +38875,20 @@
         },
         {
           "name": "notes",
+          "description": "",
+          "args": [],
+          "type": {
+            "kind": "NON_NULL",
+            "name": "",
+            "ofType": {
+              "kind": "OBJECT",
+              "name": "TextAggExp",
+              "ofType": null
+            }
+          }
+        },
+        {
+          "name": "organizationalUnitId",
           "description": "",
           "args": [],
           "type": {
@@ -39045,6 +39143,16 @@
           "defaultValue": null
         },
         {
+          "name": "organizationalUnitId",
+          "description": "",
+          "type": {
+            "kind": "INPUT_OBJECT",
+            "name": "TextBoolExp",
+            "ofType": null
+          },
+          "defaultValue": null
+        },
+        {
           "name": "propertyId",
           "description": "",
           "type": {
@@ -39264,6 +39372,16 @@
         },
         {
           "name": "notes",
+          "description": "",
+          "type": {
+            "kind": "ENUM",
+            "name": "OrderBy",
+            "ofType": null
+          },
+          "defaultValue": null
+        },
+        {
+          "name": "organizationalUnitId",
           "description": "",
           "type": {
             "kind": "ENUM",
@@ -71805,6 +71923,54 @@
     },
     {
       "kind": "INPUT_OBJECT",
+      "name": "UpdateColumnPromocodeScopesApplicablePropertiesInput",
+      "description": "Update the 'applicable_properties' column in the 'promocode_scopes' collection",
+      "fields": null,
+      "inputFields": [
+        {
+          "name": "set",
+          "description": "Set the column to this value",
+          "type": {
+            "kind": "LIST",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String1",
+              "ofType": null
+            }
+          },
+          "defaultValue": null
+        }
+      ],
+      "enumValues": null,
+      "interfaces": null
+    },
+    {
+      "kind": "INPUT_OBJECT",
+      "name": "UpdateColumnPromocodeScopesApplicableUnitsInput",
+      "description": "Update the 'applicable_units' column in the 'promocode_scopes' collection",
+      "fields": null,
+      "inputFields": [
+        {
+          "name": "set",
+          "description": "Set the column to this value",
+          "type": {
+            "kind": "LIST",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String1",
+              "ofType": null
+            }
+          },
+          "defaultValue": null
+        }
+      ],
+      "enumValues": null,
+      "interfaces": null
+    },
+    {
+      "kind": "INPUT_OBJECT",
       "name": "UpdateColumnPromocodeScopesIdInput",
       "description": "Update the 'id' column in the 'promocode_scopes' collection",
       "fields": null,
@@ -72288,6 +72454,30 @@
             "kind": "SCALAR",
             "name": "String1",
             "ofType": null
+          },
+          "defaultValue": null
+        }
+      ],
+      "enumValues": null,
+      "interfaces": null
+    },
+    {
+      "kind": "INPUT_OBJECT",
+      "name": "UpdateColumnPropertyLicencesOrganizationalUnitIdInput",
+      "description": "Update the 'organizational_unit_id' column in the 'property_licences' collection",
+      "fields": null,
+      "inputFields": [
+        {
+          "name": "set",
+          "description": "Set the column to this value",
+          "type": {
+            "kind": "NON_NULL",
+            "name": "",
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String1",
+              "ofType": null
+            }
           },
           "defaultValue": null
         }
@@ -79854,6 +80044,26 @@
       "fields": null,
       "inputFields": [
         {
+          "name": "applicableProperties",
+          "description": "Update the 'applicable_properties' column in the 'promocode_scopes' collection.",
+          "type": {
+            "kind": "INPUT_OBJECT",
+            "name": "UpdateColumnPromocodeScopesApplicablePropertiesInput",
+            "ofType": null
+          },
+          "defaultValue": null
+        },
+        {
+          "name": "applicableUnits",
+          "description": "Update the 'applicable_units' column in the 'promocode_scopes' collection.",
+          "type": {
+            "kind": "INPUT_OBJECT",
+            "name": "UpdateColumnPromocodeScopesApplicableUnitsInput",
+            "ofType": null
+          },
+          "defaultValue": null
+        },
+        {
           "name": "id",
           "description": "Update the 'id' column in the 'promocode_scopes' collection.",
           "type": {
@@ -80247,6 +80457,16 @@
           "type": {
             "kind": "INPUT_OBJECT",
             "name": "UpdateColumnPropertyLicencesNotesInput",
+            "ofType": null
+          },
+          "defaultValue": null
+        },
+        {
+          "name": "organizationalUnitId",
+          "description": "Update the 'organizational_unit_id' column in the 'property_licences' collection.",
+          "type": {
+            "kind": "INPUT_OBJECT",
+            "name": "UpdateColumnPropertyLicencesOrganizationalUnitIdInput",
             "ofType": null
           },
           "defaultValue": null

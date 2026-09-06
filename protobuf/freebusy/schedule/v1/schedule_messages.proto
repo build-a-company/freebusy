@@ -21,7 +21,7 @@ message GetScheduleRequest {
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {type: "freebusy.schedule.v1/Schedule"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+/schedule$"
+    (buf.validate.field).string.pattern = "^resources/[^/]+/schedule$"
   ];
 }
 
@@ -35,8 +35,8 @@ message UpdateScheduleRequest {
     (buf.validate.field).required = true,
     (buf.validate.field).cel = {
       id: "update_schedule.name"
-      message: "schedule.name must be of the form properties/{property}/units/{unit}/schedule"
-      expression: "this.name.matches('^properties/[^/]+/units/[^/]+/schedule$')"
+      message: "schedule.name must be of the form resources/{resource}/schedule"
+      expression: "this.name.matches('^resources/[^/]+/schedule$')"
     }
   ];
 
@@ -89,7 +89,7 @@ message GetAvailabilityExceptionRequest {
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {type: "freebusy.schedule.v1/AvailabilityException"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+/availabilityExceptions/[^/]+$"
+    (buf.validate.field).string.pattern = "^resources/[^/]+/availabilityExceptions/[^/]+$"
   ];
 }
 
@@ -140,6 +140,6 @@ message DeleteAvailabilityExceptionRequest {
   string name = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {type: "freebusy.schedule.v1/AvailabilityException"},
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+/availabilityExceptions/[^/]+$"
+    (buf.validate.field).string.pattern = "^resources/[^/]+/availabilityExceptions/[^/]+$"
   ];
 }

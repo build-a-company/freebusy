@@ -4,19 +4,16 @@ import (
 	"context"
 
 	"github.com/oh-tarnished/freebusy/internal/database"
-	"github.com/oh-tarnished/freebusy/internal/runtime/availability"
-	"github.com/oh-tarnished/freebusy/internal/runtime/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/runtime/identity"
 	"github.com/oh-tarnished/freebusy/internal/runtime/organisation"
 	"github.com/oh-tarnished/freebusy/internal/runtime/promocode"
 	"github.com/oh-tarnished/freebusy/internal/runtime/schedule"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
+	"github.com/oh-tarnished/freebusy/internal/runtime/scheduling"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/property/v1/propertypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/schedule/v1/schedulepbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/the-protobuf-project/runtime-go/grpc"
 )
 
@@ -37,7 +34,6 @@ func newServiceInstance(conn *database.Connection) (*Service, error) {
 		organisation.New(conn),
 		schedule.New(conn),
 		scheduling.New(conn),
-		availability.New(conn),
 		identity.New(conn),
 	)
 	svc.conn = conn
@@ -60,7 +56,6 @@ func registerServices(s *grpc.GRPCServer, svc *Service) {
 	orgpbv1.RegisterOrganisationServiceServer(s, svc)
 	schedulepbv1.RegisterScheduleServiceServer(s, svc)
 	schedulingpbv1.RegisterSchedulingServiceServer(s, svc)
-	availabilitypbv1.RegisterAvailabilityServiceServer(s, svc)
 	identitypbv1.RegisterIdentityServiceServer(s, svc)
 }
 
@@ -88,12 +83,6 @@ func registerHTTPGateways() grpc.Option {
 		if err := promocodepbv1.RegisterPromoCodeServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 			return err
 		}
-		if err := propertypbv1.RegisterPropertyServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
-			return err
-		}
-		if err := propertypbv1.RegisterLicenceServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
-			return err
-		}
 		if err := orgpbv1.RegisterOrganisationServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 			return err
 		}
@@ -101,9 +90,6 @@ func registerHTTPGateways() grpc.Option {
 			return err
 		}
 		if err := schedulingpbv1.RegisterSchedulingServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
-			return err
-		}
-		if err := availabilitypbv1.RegisterAvailabilityServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 			return err
 		}
 		return identitypbv1.RegisterIdentityServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts)
@@ -122,12 +108,6 @@ func registerMCPServices(svc *Service) grpc.Option {
 			return promocodepbv1.ServePromoCodeServiceMCP(ctx, svc, cfg)
 		},
 		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
-			return propertypbv1.ServePropertyServiceMCP(ctx, svc, cfg)
-		},
-		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
-			return propertypbv1.ServeLicenceServiceMCP(ctx, svc, cfg)
-		},
-		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
 			return orgpbv1.ServeOrganisationServiceMCP(ctx, svc, cfg)
 		},
 		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
@@ -135,9 +115,6 @@ func registerMCPServices(svc *Service) grpc.Option {
 		},
 		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
 			return schedulingpbv1.ServeSchedulingServiceMCP(ctx, svc, cfg)
-		},
-		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
-			return availabilitypbv1.ServeAvailabilityServiceMCP(ctx, svc, cfg)
 		},
 		func(ctx context.Context, cfg *grpc.MCPServerConfig) error {
 			return identitypbv1.ServeIdentityServiceMCP(ctx, svc, cfg)

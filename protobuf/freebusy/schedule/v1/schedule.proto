@@ -104,7 +104,7 @@ message StayConstraints {
 message AvailabilityException {
   option (google.api.resource) = {
     type: "freebusy.schedule.v1/AvailabilityException"
-    pattern: "properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}"
+    pattern: "resources/{resource}/availabilityExceptions/{availability_exception}"
     singular: "availabilityException"
     plural: "availabilityExceptions"
   };
@@ -113,7 +113,7 @@ message AvailabilityException {
   // Format: resources/{resource}/availabilityExceptions/{availability_exception}
   string name = 1 [
     (google.api.field_behavior) = IDENTIFIER,
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+/availabilityExceptions/[^/]+$",
+    (buf.validate.field).string.pattern = "^resources/[^/]+/availabilityExceptions/[^/]+$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
 
@@ -151,7 +151,7 @@ message AvailabilityException {
 message Schedule {
   option (google.api.resource) = {
     type: "freebusy.schedule.v1/Schedule"
-    pattern: "properties/{property}/units/{unit}/schedule"
+    pattern: "resources/{resource}/schedule"
     singular: "schedule"
     plural: "schedules"
   };
@@ -160,7 +160,7 @@ message Schedule {
   // Format: resources/{resource}/schedule
   string name = 1 [
     (google.api.field_behavior) = IDENTIFIER,
-    (buf.validate.field).string.pattern = "^properties/[^/]+/units/[^/]+/schedule$",
+    (buf.validate.field).string.pattern = "^resources/[^/]+/schedule$",
     (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE
   ];
 

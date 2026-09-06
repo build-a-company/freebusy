@@ -30,6 +30,30 @@ type unitName struct {
 	Unit     string   `resource:"unit"`
 }
 
+// resourceName is the RFC 9073 VRESOURCE name, "resources/{resource}".
+//
+// Flat, because the RFC resource is flat: section 7.3 defines the component's
+// properties and says nothing about where it sits, so the catalogue is not
+// nested under a site the way freebusy's own Unit was under a Property.
+type resourceName struct {
+	_        struct{} `resource:"resources/{resource}"`
+	Resource string   `resource:"resource"`
+}
+
+// ParseResource extracts the id from an RFC 9073 resource name,
+// "resources/{resource}".
+//
+// It replaces ParseUnitParent on every booking path: a booking now names a
+// resource another service owns, so there is no parent property segment to
+// return and nothing local to resolve it against.
+func ParseResource(name string) (resourceID string, err error) {
+	var n resourceName
+	if err = resourcename.UnmarshalResource(name, &n); err != nil {
+		return "", err
+	}
+	return n.Resource, nil
+}
+
 // PromoCodeName builds the resource name "promoCodes/{id}" from a bare id.
 func PromoCodeName(id string) (string, error) {
 	return resourcename.MarshalResource(&promoCodeName{ID: id})

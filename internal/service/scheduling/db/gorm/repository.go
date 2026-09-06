@@ -7,10 +7,8 @@ package gorm
 
 import (
 	"context"
-	"errors"
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/filterx"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/types"
@@ -62,7 +60,7 @@ func (r *BookingRepository) GetBooking(ctx context.Context, name string) (*sched
 	if err := preloadBooking(r.db.WithContext(ctx)).First(&m, "id = ?", id).Error; err != nil {
 		return nil, repox.MapGormErr(err)
 	}
-	unitName, err := r.unitName(ctx, m.UnitID)
+	unitName := m.Unit
 	if err != nil {
 		return nil, err
 	}
@@ -86,13 +84,12 @@ func (r *BookingRepository) ListBookings(ctx context.Context, in repox.ListInput
 	if err != nil {
 		return nil, "", repox.MapGormErr(repox.MapFilterxErr(err))
 	}
-	unitNames, err := r.unitNames(ctx, models)
 	if err != nil {
 		return nil, "", err
 	}
 	items := make([]*schedulingpbv1.Booking, 0, len(models))
 	for i := range models {
-		out := bookingFromModel(&models[i], unitNames[models[i].UnitID])
+		out := bookingFromModel(&models[i], models[i].Unit)
 		guests, err := r.loadGuests(ctx, models[i].ID)
 		if err != nil {
 			return nil, "", err
@@ -101,41 +98,4 @@ func (r *BookingRepository) ListBookings(ctx context.Context, in repox.ListInput
 		items = append(items, out)
 	}
 	return items, next, nil
-}
-
-// unitName resolves a bare unit id to its full resource name (the booking row
-// stores only the id, since its FK targets property.units.id).
-func (r *BookingRepository) unitName(ctx context.Context, unitID string) (string, error) {
-	var u property.Unit
-	if err := r.db.WithContext(ctx).Select("id", "name").First(&u, "id = ?", unitID).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return "", nil
-		}
-		return "", repox.MapGormErr(err)
-	}
-	return u.Name, nil
-}
-
-// unitNames batches the id→name resolution for a page of bookings.
-func (r *BookingRepository) unitNames(ctx context.Context, bookings []scheduling.Booking) (map[string]string, error) {
-	ids := make([]string, 0, len(bookings))
-	seen := map[string]bool{}
-	for i := range bookings {
-		if id := bookings[i].UnitID; id != "" && !seen[id] {
-			seen[id] = true
-			ids = append(ids, id)
-		}
-	}
-	out := make(map[string]string, len(ids))
-	if len(ids) == 0 {
-		return out, nil
-	}
-	var units []property.Unit
-	if err := r.db.WithContext(ctx).Select("id", "name").Where("id IN ?", ids).Find(&units).Error; err != nil {
-		return nil, repox.MapGormErr(err)
-	}
-	for i := range units {
-		out[units[i].ID] = units[i].Name
-	}
-	return out, nil
 }

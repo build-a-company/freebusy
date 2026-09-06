@@ -7,7 +7,6 @@ import (
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/promocode"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/shared"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
@@ -28,7 +27,7 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 	if err != nil {
 		return nil, err
 	}
-	_, unitID, err := types.ParseUnitParent(b.GetUnit())
+	unitID, err := types.ParseResource(b.GetUnit())
 	if err != nil {
 		return nil, err
 	}
@@ -36,15 +35,11 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 		return nil, types.ErrInvalidArgument
 	}
 
-	var unit property.Unit
-	if err := r.db.WithContext(ctx).
-		Preload("Price").
-		Preload("Fees").Preload("Fees.Amount").
-		Preload("Taxes").
-		Preload("LosDiscounts").Preload("LosDiscounts.AmountOff").
-		First(&unit, "id = ?", unitID).Error; err != nil {
-		return nil, repox.MapGormErr(err)
+	plan, err := loadRatePlan(ctx, r.db, b.GetUnit())
+	if err != nil {
+		return nil, err
 	}
+	prof := resolveResourceProfile(ctx, b.GetUnit())
 
 	// Load the promo code (with its discount and scope) when one is applied, so the
 	// pricing engine can evaluate its scope and discount.
@@ -53,7 +48,7 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 		var p promocode.PromoCode
 		if err := r.db.WithContext(ctx).
 			Preload("Discount").Preload("Discount.AmountOff").
-			Preload("Scope").Preload("Scope.MinSubtotal").Preload("Scope.ScopeApplicableUnits").
+			Preload("Scope").Preload("Scope.MinSubtotal").Preload("Scope.ApplicableUnits").
 			First(&p, "id = ?", pid).Error; err != nil {
 			return nil, repox.MapGormErr(err)
 		}
@@ -67,7 +62,7 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 
 	// Occupancy: the staying party must fit the unit's max occupancy across the
 	// reserved units (guests × max_occupancy). Zero max_occupancy means unbounded.
-	if !party.Fits(repox.Deref(unit.MaxOccupancy), requested, b.GetOccupancy(), b.GetGuests()) {
+	if !party.Fits(prof.MaxOccupancy, requested, b.GetOccupancy(), b.GetGuests()) {
 		return nil, types.ErrInvalidArgument
 	}
 	occupancy := occupancyToModel(b.GetOccupancy())
@@ -81,9 +76,9 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 	// on the create response (they are not persisted).
 	var priceModel, discountModel, totalModel *common.Money
 	var components []*sharedpbv1.PriceComponent
-	if unit.Price != nil {
-		nights := nightsBetween(b.GetWindow(), unit.TimeZone)
-		p := computePricing(&unit, nights, int64(requested), promo)
+	if plan.Price != nil {
+		nights := nightsBetween(b.GetWindow(), prof.TimeZone)
+		p := computePricing(plan, nights, int64(requested), promo)
 		priceModel = moneyToModel(p.base)
 		totalModel = moneyToModel(p.total)
 		if !isZeroMoney(p.discount) {
@@ -102,7 +97,7 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 	m := &scheduling.Booking{
 		ID:             id,
 		Name:           name,
-		UnitID:         unitID,
+		Unit:           unitID,
 		CustomerID:     strOrNil(repox.LastSegment(b.GetCustomer())),
 		Units:          repox.Ptr(requested),
 		State:          &state,
@@ -135,10 +130,7 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 		if e := tx.WithContext(ctx).Raw(overlapSQL, unitID, window.EndTime, window.StartTime).Scan(&reserved).Error; e != nil {
 			return e
 		}
-		capacity := int64(1)
-		if unit.Capacity != nil && *unit.Capacity > 0 {
-			capacity = int64(*unit.Capacity)
-		}
+		capacity := prof.Capacity
 		if reserved+int64(requested) > capacity {
 			return types.ErrCapacityExhausted
 		}

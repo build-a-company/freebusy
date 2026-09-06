@@ -3957,6 +3957,26 @@ definition:
           foreign_keys: {}
         insert_promocode_scopes_object:
           fields:
+            applicable_properties:
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
+            applicable_units:
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
             id:
               type:
                 name: text
@@ -4136,6 +4156,10 @@ definition:
                 underlying_type:
                   name: text
                   type: named
+            organizational_unit_id:
+              type:
+                name: text
+                type: named
             property_id:
               type:
                 name: text
@@ -6298,6 +6322,26 @@ definition:
               foreign_collection: property_units
         promocode_scopes:
           fields:
+            applicable_properties:
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
+            applicable_units:
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
             id:
               type:
                 name: text
@@ -6444,6 +6488,10 @@ definition:
                 underlying_type:
                   name: text
                   type: named
+            organizational_unit_id:
+              type:
+                name: text
+                type: named
             property_id:
               type:
                 name: text
@@ -10461,6 +10509,36 @@ definition:
                 name: text
                 type: named
           foreign_keys: {}
+        update_column_promocode_scopes_applicable_properties:
+          description: Update the 'applicable_properties' column in the 'promocode_scopes' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
+          foreign_keys: {}
+        update_column_promocode_scopes_applicable_units:
+          description: Update the 'applicable_units' column in the 'promocode_scopes' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  element_type:
+                    type: nullable
+                    underlying_type:
+                      name: text
+                      type: named
+                  type: array
+          foreign_keys: {}
         update_column_promocode_scopes_id:
           description: Update the 'id' column in the 'promocode_scopes' collection
           fields:
@@ -10697,6 +10775,15 @@ definition:
                 underlying_type:
                   name: text
                   type: named
+          foreign_keys: {}
+        update_column_property_licences_organizational_unit_id:
+          description: Update the 'organizational_unit_id' column in the 'property_licences' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                name: text
+                type: named
           foreign_keys: {}
         update_column_property_licences_property_id:
           description: Update the 'property_id' column in the 'property_licences' collection
@@ -14391,6 +14478,20 @@ definition:
         update_promocode_scopes_by_id_update_columns:
           description: Update the columns of the 'promocode_scopes' collection
           fields:
+            applicable_properties:
+              description: Update the 'applicable_properties' column in the 'promocode_scopes' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_promocode_scopes_applicable_properties
+                  type: named
+            applicable_units:
+              description: Update the 'applicable_units' column in the 'promocode_scopes' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_promocode_scopes_applicable_units
+                  type: named
             id:
               description: Update the 'id' column in the 'promocode_scopes' collection.
               type:
@@ -14611,6 +14712,13 @@ definition:
                 type: nullable
                 underlying_type:
                   name: update_column_property_licences_notes
+                  type: named
+            organizational_unit_id:
+              description: Update the 'organizational_unit_id' column in the 'property_licences' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  name: update_column_property_licences_organizational_unit_id
                   type: named
             property_id:
               description: Update the 'property_id' column in the 'property_licences' collection.

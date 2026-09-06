@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/schedule"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/types"
@@ -24,14 +23,11 @@ func (r *BookingRepository) computeRefund(ctx context.Context, tx *gorm.DB, m *s
 	if total == nil {
 		return 0, nil, "non-refundable", nil
 	}
-	var unit property.Unit
-	if err := tx.WithContext(ctx).Select("id", "property_id").First(&unit, "id = ?", m.UnitID).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return 0, nil, "non-refundable", nil
-		}
-		return 0, nil, "", err
-	}
-	scheduleName, err := types.ScheduleName(unit.PropertyID, m.UnitID)
+	// No resource lookup: a schedule now hangs off the bookable resource
+	// directly ("resources/{resource}/schedule"), so its name is derivable from
+	// the booking alone. The Unit row this used to read only ever supplied the
+	// parent property segment the name no longer has.
+	scheduleName, err := types.ScheduleName(m.Unit)
 	if err != nil {
 		return 0, nil, "", err
 	}

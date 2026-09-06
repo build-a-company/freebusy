@@ -32,7 +32,7 @@ func (r *BookingRepository) computeRefund(ctx context.Context, res *bookingsql.S
 	if unit == nil {
 		return 0, nil, "non-refundable", nil
 	}
-	scheduleName, err := types.ScheduleName(unit.PropertyId, res.Unit)
+	scheduleName, err := types.ScheduleName(res.Unit)
 	if err != nil {
 		return 0, nil, "", err
 	}

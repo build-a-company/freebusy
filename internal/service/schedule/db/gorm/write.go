@@ -18,7 +18,7 @@ import (
 // existing schedule. The merged proto is re-materialized into a fresh child graph
 // and the superseded rows are deleted in the same transaction.
 func (r *ScheduleRepository) UpdateSchedule(ctx context.Context, s *schedulepbv1.Schedule, paths []string) (*schedulepbv1.Schedule, error) {
-	propertyID, _, err := types.ParseScheduleName(s.GetName())
+	resourceID, err := types.ParseScheduleName(s.GetName())
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +38,7 @@ func (r *ScheduleRepository) UpdateSchedule(ctx context.Context, s *schedulepbv1
 			merged = scheduleFromModel(&existing)
 		}
 		applyScheduleMask(merged, s, paths)
-		g := buildScheduleGraph(merged, propertyID)
+		g := buildScheduleGraph(merged, resourceID)
 
 		// New belongs-to children.
 		if g.buffers != nil {

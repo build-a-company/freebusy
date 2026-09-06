@@ -8,6 +8,10 @@ definition:
       type: String_1!
     - name: minSubtotalId
       type: String_1
+    - name: applicableProperties
+      type: "[String_1]"
+    - name: applicableUnits
+      type: "[String_1]"
   graphql:
     typeName: InsertPromocodeScopesObject
     inputTypeName: InsertPromocodeScopesObjectInput
@@ -21,6 +25,12 @@ definition:
         minSubtotalId:
           column:
             name: min_subtotal_id
+        applicableProperties:
+          column:
+            name: applicable_properties
+        applicableUnits:
+          column:
+            name: applicable_units
 
 ---
 kind: TypePermissions
@@ -33,6 +43,8 @@ definition:
         allowedFields:
           - id
           - minSubtotalId
+          - applicableProperties
+          - applicableUnits
 
 ---
 kind: ObjectType

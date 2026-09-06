@@ -20,22 +20,23 @@ import (
 // Filter fields for PropertyLicences. Build predicates like AttachmentId.Eq(v) and combine
 // them with And/Or/Not.
 var (
-	AttachmentId     = graphql.StringField{Col: "attachmentId"}
-	CreateTime       = graphql.StringField{Col: "createTime"}
-	Etag             = graphql.StringField{Col: "etag"}
-	ExpiryDate       = graphql.StringField{Col: "expiryDate"}
-	Id               = graphql.StringField{Col: "id"}
-	IssueDate        = graphql.StringField{Col: "issueDate"}
-	IssuingAuthority = graphql.StringField{Col: "issuingAuthority"}
-	LicenceNumber    = graphql.StringField{Col: "licenceNumber"}
-	Name             = graphql.StringField{Col: "name"}
-	Notes            = graphql.StringField{Col: "notes"}
-	PropertyId       = graphql.StringField{Col: "propertyId"}
-	State            = graphql.StringField{Col: "state"}
-	Target           = graphql.StringField{Col: "target"}
-	Type             = graphql.StringField{Col: "type"}
-	Unit             = graphql.StringField{Col: "unit"}
-	UpdateTime       = graphql.StringField{Col: "updateTime"}
+	AttachmentId         = graphql.StringField{Col: "attachmentId"}
+	CreateTime           = graphql.StringField{Col: "createTime"}
+	Etag                 = graphql.StringField{Col: "etag"}
+	ExpiryDate           = graphql.StringField{Col: "expiryDate"}
+	Id                   = graphql.StringField{Col: "id"}
+	IssueDate            = graphql.StringField{Col: "issueDate"}
+	IssuingAuthority     = graphql.StringField{Col: "issuingAuthority"}
+	LicenceNumber        = graphql.StringField{Col: "licenceNumber"}
+	Name                 = graphql.StringField{Col: "name"}
+	Notes                = graphql.StringField{Col: "notes"}
+	OrganizationalUnitId = graphql.StringField{Col: "organizationalUnitId"}
+	PropertyId           = graphql.StringField{Col: "propertyId"}
+	State                = graphql.StringField{Col: "state"}
+	Target               = graphql.StringField{Col: "target"}
+	Type                 = graphql.StringField{Col: "type"}
+	Unit                 = graphql.StringField{Col: "unit"}
+	UpdateTime           = graphql.StringField{Col: "updateTime"}
 )
 
 // And matches rows satisfying every predicate.

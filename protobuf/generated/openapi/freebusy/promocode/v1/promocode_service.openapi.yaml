@@ -546,14 +546,14 @@ components:
                         type: string
                     description: |-
                         Properties the code applies to. Empty means all properties.
-                         Format: properties/{property}
+                         Format: organizationalUnits/{organizational_unit}
                 applicableUnits:
                     type: array
                     items:
                         type: string
                     description: |-
                         Units the code applies to. Empty means all units.
-                         Format: properties/{property}/units/{unit}
+                         Format: resources/{resource}
             description: |-
                 Scope restricts which bookings a code applies to. Nested value object →
                  belongs-to promocode.scopes. Its repeated resource references and Money
@@ -605,12 +605,12 @@ components:
                     type: string
                     description: |-
                         Property being booked, for scope checks.
-                         Format: properties/{property}
+                         Format: organizationalUnits/{organizational_unit}
                 unit:
                     type: string
                     description: |-
                         Unit being booked, for scope checks.
-                         Format: properties/{property}/units/{unit}
+                         Format: resources/{resource}
                 customer:
                     type: string
                     description: |-

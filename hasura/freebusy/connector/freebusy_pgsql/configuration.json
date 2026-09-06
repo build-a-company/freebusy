@@ -2460,6 +2460,26 @@
         "schemaName": "promocode",
         "tableName": "scopes",
         "columns": {
+          "applicable_properties": {
+            "name": "applicable_properties",
+            "type": {
+              "arrayType": {
+                "scalarType": "text"
+              }
+            },
+            "nullable": "nullable",
+            "description": null
+          },
+          "applicable_units": {
+            "name": "applicable_units",
+            "type": {
+              "arrayType": {
+                "scalarType": "text"
+              }
+            },
+            "nullable": "nullable",
+            "description": null
+          },
           "id": {
             "name": "id",
             "type": {
@@ -2704,6 +2724,14 @@
               "scalarType": "text"
             },
             "nullable": "nullable",
+            "description": null
+          },
+          "organizational_unit_id": {
+            "name": "organizational_unit_id",
+            "type": {
+              "scalarType": "text"
+            },
+            "nullable": "nonNullable",
             "description": null
           },
           "property_id": {

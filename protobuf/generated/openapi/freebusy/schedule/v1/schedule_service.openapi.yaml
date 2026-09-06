@@ -273,7 +273,7 @@ components:
                     type: string
                     description: |-
                         The exception name.
-                         Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}
+                         Format: resources/{resource}/availabilityExceptions/{availability_exception}
                 kind:
                     type: integer
                     description: Whether this span closes the unit or adds extra availability.
@@ -420,7 +420,7 @@ components:
                     type: string
                     description: |-
                         The schedule name.
-                         Format: properties/{property}/units/{unit}/schedule
+                         Format: resources/{resource}/schedule
                 recurringRules:
                     type: array
                     items:
@@ -442,7 +442,7 @@ components:
                     description: |-
                         Resource names of the active exceptions; manage them with the
                          AvailabilityException standard methods.
-                         Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}
+                         Format: resources/{resource}/availabilityExceptions/{availability_exception}
                 cancellationPolicy:
                     allOf:
                         - $ref: '#/components/schemas/CancellationPolicy'

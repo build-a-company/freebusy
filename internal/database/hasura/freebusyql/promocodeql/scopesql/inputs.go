@@ -19,6 +19,10 @@ import (
 
 // CreateInput holds the settable fields for creating one PromocodeScopes row.
 type CreateInput struct {
+	// ApplicableProperties sets the "applicableProperties" column; the zero value is omitted (column default / NULL).
+	ApplicableProperties []*string `json:"applicableProperties,omitzero"`
+	// ApplicableUnits sets the "applicableUnits" column; the zero value is omitted (column default / NULL).
+	ApplicableUnits []*string `json:"applicableUnits,omitzero"`
 	// Id sets the "id" column (required).
 	Id string `json:"id"`
 	// MinSubtotalId sets the "minSubtotalId" column; the zero value is omitted (column default / NULL).
@@ -27,6 +31,10 @@ type CreateInput struct {
 
 // UpdateInput holds the fields to change on a PromocodeScopes row; each set field becomes a column update.
 type UpdateInput struct {
+	// Update the 'applicable_properties' column in the 'promocode_scopes' collection.
+	ApplicableProperties graphql.Nullable[[]*string] `json:"applicableProperties"`
+	// Update the 'applicable_units' column in the 'promocode_scopes' collection.
+	ApplicableUnits graphql.Nullable[[]*string] `json:"applicableUnits"`
 	// Update the 'id' column in the 'promocode_scopes' collection.
 	Id graphql.Nullable[string] `json:"id"`
 	// Update the 'min_subtotal_id' column in the 'promocode_scopes' collection.

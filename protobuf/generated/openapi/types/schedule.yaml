@@ -61,7 +61,7 @@ components:
           - EXCEPTION_KIND_EXTRA_HOURS
           type: string
         name:
-          description: 'The exception name. Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}'
+          description: 'The exception name. Format: resources/{resource}/availabilityExceptions/{availability_exception}'
           type: string
         reason:
           description: Human-readable reason (e.g. "Public holiday").
@@ -209,12 +209,12 @@ components:
           type: string
         exceptions:
           description: 'Resource names of the active exceptions; manage them with
-            the AvailabilityException standard methods. Format: properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}'
+            the AvailabilityException standard methods. Format: resources/{resource}/availabilityExceptions/{availability_exception}'
           items:
             type: string
           type: array
         name:
-          description: 'The schedule name. Format: properties/{property}/units/{unit}/schedule'
+          description: 'The schedule name. Format: resources/{resource}/schedule'
           type: string
         recurringRules:
           description: Recurring working hours.

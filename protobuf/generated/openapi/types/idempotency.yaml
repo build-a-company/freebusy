@@ -14,7 +14,7 @@ components:
           format: date-time
           type: string
         method:
-          description: 'Fully-qualified RPC that was called, e.g. "/freebusy.booking.v1.BookingService/CreateBooking".
+          description: 'Fully-qualified RPC that was called, e.g. "/freebusy.scheduling.v1.SchedulingService/CreateBooking".
             Part of the key: the same request_id replayed against a different method
             is a different request.'
           type: string
@@ -35,7 +35,16 @@ components:
             RPC wrote it.'
           type: string
         state:
-          description: Whether the first call is still running or has settled.
+          description: 'Whether the first call is still running or has settled. REQUIRED,
+            not OUTPUT_ONLY, and AIP-216''s state-field-output-only is knowingly not
+            satisfied here. protoc-gen-orm reads OUTPUT_ONLY as "the repository never
+            writes this column": with it set, GORM''s Update stops copying State and
+            the GraphQL create input and update patch both omit it, so settle()''s
+            transition to DONE is silently dropped and every replay re-runs the handler.
+            AIP-216 is about a *client* not setting lifecycle; this record has no
+            client -- no service exposes it and the server is the only writer -- so
+            the rule''s premise does not hold while its cost is a broken idempotency
+            mechanism. Revisit if orm gains a writable override.'
           enum:
           - IDEMPOTENCY_STATE_UNSPECIFIED
           - IDEMPOTENCY_STATE_IN_FLIGHT

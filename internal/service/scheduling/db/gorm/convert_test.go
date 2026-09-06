@@ -50,11 +50,11 @@ func TestMoneyMath(t *testing.T) {
 func TestBookingFromModel(t *testing.T) {
 	state := scheduling.BookingStatePendingHold
 	m := &scheduling.Booking{
-		ID:     "b1",
-		Name:   "bookings/b1",
-		UnitID: "u1",
-		Units:  repox.Ptr(int32(2)),
-		State:  &state,
+		ID:    "b1",
+		Name:  "bookings/b1",
+		Unit:  "u1",
+		Units: repox.Ptr(int32(2)),
+		State: &state,
 		Window: &shared.TimeWindow{
 			StartTime: time.Date(2026, 12, 24, 8, 30, 0, 0, time.UTC),
 			EndTime:   time.Date(2026, 12, 27, 5, 30, 0, 0, time.UTC),

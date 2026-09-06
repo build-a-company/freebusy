@@ -8,7 +8,6 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/scheduling"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
 	"github.com/oh-tarnished/freebusy/internal/types"
@@ -55,12 +54,9 @@ func (r *BookingRepository) UpdateBookingGuests(ctx context.Context, name string
 			return fmt.Errorf("%w: the party can only be edited while the booking is on hold or confirmed", types.ErrInvalidState)
 		}
 
-		// Re-validate the party against the unit's max occupancy.
-		var unit property.Unit
-		if e := tx.WithContext(ctx).Select("id", "max_occupancy").First(&unit, "id = ?", m.UnitID).Error; e != nil {
-			return e
-		}
-		if !party.Fits(repox.Deref(unit.MaxOccupancy), repox.Deref(m.Units), occupancy, guests) {
+		// Re-validate the party against the resource's max occupancy.
+		prof := resolveResourceProfile(ctx, m.Unit)
+		if !party.Fits(prof.MaxOccupancy, repox.Deref(m.Units), occupancy, guests) {
 			return types.ErrInvalidArgument
 		}
 

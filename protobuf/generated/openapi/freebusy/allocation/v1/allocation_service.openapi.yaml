@@ -1,0 +1,480 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: AllocationService API
+    description: |-
+        AllocationService is the read-only half of the engine: it answers how much is
+         free, and never changes anything. HoldService is the half that takes.
+
+         The counting is done here rather than stored anywhere. No RFC models an
+         inventory count -- RFC 5545 and RFC 7953 are one-calendar-one-timeline -- so
+         "5 of 12 free" is produced by asking each RFC 9073 resource's calendar
+         whether it is free across the window and totalling the answers. RFC 7953's
+         VAVAILABILITY says when a resource was on offer at all; bookings on its
+         calendar say what has since been taken; the difference is availability.
+
+         Every operation is a custom method (AIP-136): they compute rather than fetch,
+         so they take neither the standard-method names nor their shapes.
+    version: 0.0.1
+servers:
+    - url: https://freebusy.ohtarnished.dev
+paths:
+    /v1/organizationalUnits/{organizationalUnit}:checkAvailability:
+        post:
+            tags:
+                - AllocationService
+            description: |-
+                Checks one exact window for one exact quantity, with reasons when it fails.
+
+                 Advisory, not a reservation: the answer can be stale the instant it is
+                 returned. CreateHold is what actually secures anything.
+            operationId: AllocationService_CheckAvailability
+            parameters:
+                - name: organizationalUnit
+                  in: path
+                  description: The organizationalUnit id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CheckAvailabilityRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CheckAvailabilityResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1/organizationalUnits/{organizationalUnit}:computeAvailability:
+        post:
+            tags:
+                - AllocationService
+            description: Computes availability across a site's resources, bucketed by slot or day.
+            operationId: AllocationService_ComputeAvailability
+            parameters:
+                - name: organizationalUnit
+                  in: path
+                  description: The organizationalUnit id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ComputeAvailabilityRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ComputeAvailabilityResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1/organizations/{organization}:searchAvailability:
+        post:
+            tags:
+                - AllocationService
+            description: |-
+                Sweeps an operator for resources free across a window.
+
+                 The search entry point, where ComputeAvailability answers for a site the
+                 caller has already chosen. Paginated, since a large operator may match
+                 thousands of resources.
+            operationId: AllocationService_SearchAvailability
+            parameters:
+                - name: organization
+                  in: path
+                  description: The organization id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SearchAvailabilityRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SearchAvailabilityResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /v1/resources:batchCompute:
+        post:
+            tags:
+                - AllocationService
+            description: |-
+                Runs several availability computations in one round trip.
+
+                 Each entry is independent and may name a different site, window or
+                 granularity. Capped at 50 entries, because each one fans out across every
+                 candidate resource's calendar.
+            operationId: AllocationService_BatchComputeAvailability
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BatchComputeAvailabilityRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BatchComputeAvailabilityResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+components:
+    schemas:
+        AvailabilityBucket:
+            type: object
+            properties:
+                window:
+                    allOf:
+                        - $ref: '#/components/schemas/Interval'
+                    description: |-
+                        The span this bucket covers: one slot, or one calendar day in the target
+                         time zone, per the request's granularity.
+                freeCount:
+                    type: integer
+                    description: How many candidate resources are free across the whole span.
+                    format: int32
+                totalCount:
+                    type: integer
+                    description: |-
+                        How many candidates were considered. `free_count` out of this is the
+                         "5 of 12 free" a caller renders.
+                    format: int32
+                freeResources:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        Which resources are free, when the request asked for them. Omitted by
+                         default: a car park with 200 bays would otherwise repeat 200 names in
+                         every bucket of every day.
+                         Format: resources/{resource}
+            description: |-
+                One slice of an availability answer: how many resources are free across a
+                 span, and which ones.
+
+                 This is where pooling happens. No RFC counts inventory -- RFC 5545 and 7953
+                 are one-calendar-one-timeline -- so a count is produced by asking each
+                 resource's calendar whether it is free and totalling the answers, rather than
+                 by storing a capacity number anywhere.
+        AvailabilityMatch:
+            type: object
+            properties:
+                resource:
+                    type: string
+                    description: |-
+                        The free resource.
+                         Format: resources/{resource}
+                organizationalUnit:
+                    type: string
+                    description: |-
+                        The site it belongs to.
+                         Format: organizationalUnits/{organizational_unit}
+                window:
+                    allOf:
+                        - $ref: '#/components/schemas/Interval'
+                    description: The span it is free for, which may be narrower than the searched window.
+                resourceTypes:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        RESOURCE-TYPE values carried by the resource, RFC 9073 section 6.3, echoed
+                         so a caller can group results without re-fetching each resource.
+            description: One resource that satisfies a search, with the window it is free for.
+        BatchComputeAvailabilityRequest:
+            required:
+                - requests
+            type: object
+            properties:
+                requests:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ComputeAvailabilityRequest'
+                    description: |-
+                        The computations to run. Capped at 50 to bound the calendar reads a single
+                         call can trigger.
+            description: |-
+                Request message for AllocationService.BatchComputeAvailability. Each entry is
+                 a full ComputeAvailabilityRequest, so sites, windows and granularities may
+                 differ within one batch.
+        BatchComputeAvailabilityResponse:
+            type: object
+            properties:
+                responses:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ComputeAvailabilityResponse'
+                    description: One response per request, in the order requested.
+            description: Response message for AllocationService.BatchComputeAvailability.
+        CheckAvailabilityRequest:
+            required:
+                - parent
+                - window
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: |-
+                        The site whose resources to check.
+                         Format: organizationalUnits/{organizational_unit}
+                resources:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        Restrict the check to these resources. Empty means every resource the site
+                         holds.
+                         Format: resources/{resource}
+                window:
+                    allOf:
+                        - $ref: '#/components/schemas/Interval'
+                    description: The exact window to check.
+                quantity:
+                    type: integer
+                    description: How many resources are needed. Defaults to 1.
+                    format: int32
+            description: Request message for AllocationService.CheckAvailability.
+        CheckAvailabilityResponse:
+            type: object
+            properties:
+                bookable:
+                    type: boolean
+                    description: Whether `quantity` resources can be held for the window right now.
+                freeCount:
+                    type: integer
+                    description: How many are actually free, which may be fewer than requested.
+                    format: int32
+                reasons:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/UnbookableReason'
+                    description: Why not, when bookable is false. Empty when it is true.
+                candidateResources:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        Which resources would be taken, in the order the allocator would pick
+                         them. Advisory: another caller may take one before a hold is created.
+                         Format: resources/{resource}
+            description: Response message for AllocationService.CheckAvailability.
+        ComputeAvailabilityRequest:
+            required:
+                - parent
+                - window
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: |-
+                        The site whose resources to compute over.
+                         Format: organizationalUnits/{organizational_unit}
+                resources:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        Restrict the computation to these resources. Empty means every resource
+                         the site holds.
+                         Format: resources/{resource}
+                window:
+                    allOf:
+                        - $ref: '#/components/schemas/Interval'
+                    description: The window to compute over.
+                granularity:
+                    type: integer
+                    description: How to slice the window. Defaults by window length.
+                    format: enum
+                slotDuration:
+                    pattern: ^-?(?:0|[1-9][0-9]{0,11})(?:\.[0-9]{1,9})?s$
+                    type: string
+                    description: Slot length for SLOT granularity. Ignored for DAY.
+                timeZone:
+                    type: string
+                    description: |-
+                        IANA time zone the day boundaries are drawn in, e.g. "Asia/Kolkata".
+                         Defaults to the site's zone. Required in effect for DAY granularity, since
+                         "a night" has no meaning without one.
+                includeFreeResources:
+                    type: boolean
+                    description: |-
+                        Populate AvailabilityBucket.free_resources. Off by default: a large site
+                         would otherwise repeat every resource name in every bucket.
+            description: Request message for AllocationService.ComputeAvailability.
+        ComputeAvailabilityResponse:
+            type: object
+            properties:
+                buckets:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AvailabilityBucket'
+                    description: One bucket per slot or day, in ascending time order.
+                totalCount:
+                    type: integer
+                    description: How many resources were considered across the whole window.
+                    format: int32
+            description: Response message for AllocationService.ComputeAvailability.
+        GoogleProtobufAny:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        Interval:
+            type: object
+            properties:
+                startTime:
+                    type: string
+                    description: |-
+                        Optional. Inclusive start of the interval.
+
+                         If specified, a Timestamp matching this interval will have to be the same
+                         or after the start.
+                    format: date-time
+                endTime:
+                    type: string
+                    description: |-
+                        Optional. Exclusive end of the interval.
+
+                         If specified, a Timestamp matching this interval will have to be before the
+                         end.
+                    format: date-time
+            description: |-
+                Represents a time interval, encoded as a Timestamp start (inclusive) and a
+                 Timestamp end (exclusive).
+
+                 The start must be less than or equal to the end.
+                 When the start equals the end, the interval is empty (matches no time).
+                 When both start and end are unspecified, the interval matches any time.
+        SearchAvailabilityRequest:
+            required:
+                - parent
+                - window
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: |-
+                        The operator to search within.
+                         Format: organizations/{organization}
+                window:
+                    allOf:
+                        - $ref: '#/components/schemas/Interval'
+                    description: The window that must be free.
+                organizationalUnits:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        Restrict to sites, e.g. one car park or one hotel. Empty searches all.
+                         Format: organizationalUnits/{organizational_unit}
+                resourceTypes:
+                    type: array
+                    items:
+                        type: string
+                    description: |-
+                        Restrict to RESOURCE-TYPE values, RFC 9073 section 6.3, e.g. "room" or
+                         "parking-bay". Empty matches every type.
+                quantity:
+                    type: integer
+                    description: |-
+                        How many resources must be free together at one site for it to match.
+                         Defaults to 1.
+                    format: int32
+                pageSize:
+                    type: integer
+                    description: Maximum matches to return. Defaults to 50, capped at 1000.
+                    format: int32
+                pageToken:
+                    type: string
+                    description: Page token from a previous SearchAvailabilityResponse.next_page_token.
+            description: |-
+                Request message for AllocationService.SearchAvailability. Sweeps a whole
+                 operator for resources free across a window, where ComputeAvailability
+                 answers for one site already chosen.
+        SearchAvailabilityResponse:
+            type: object
+            properties:
+                matches:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/AvailabilityMatch'
+                    description: The free resources found.
+                nextPageToken:
+                    type: string
+                    description: Token for the next page, empty when this is the last page.
+            description: Response message for AllocationService.SearchAvailability.
+        Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/GoogleProtobufAny'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+        UnbookableReason:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: What went wrong, as a code a caller can branch on.
+                    format: enum
+                message:
+                    type: string
+                    description: Human-readable detail for logs and support, not for parsing.
+                resource:
+                    type: string
+                    description: |-
+                        The resource this reason is about, when it concerns one in particular.
+                         Format: resources/{resource}
+            description: Why a requested window is not bookable.
+tags:
+    - name: AllocationService

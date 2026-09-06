@@ -17,7 +17,6 @@ import (
 )
 
 // JSON schemas for each RPC method, used as the inputSchema for MCP tools.
-var QuoteService_ComputeQuoteSchemaJSON = `{"description":"Price a booking window under a rate plan, itemised into base, overrides, discounts, fees and taxes.","properties":{"occupancy_percent":{"maximum":100,"minimum":0,"type":"integer"},"party_size":{"minimum":0,"type":"integer"},"promotion_codes":{"items":{"type":"string"},"type":"array"},"quantity":{"minimum":0,"type":"integer"},"rate_plan":{"pattern":"^ratePlans/[^/]+$","type":"string"},"window":{"properties":{"end_time":{"format":"date-time","type":["string","null"]},"start_time":{"format":"date-time","type":["string","null"]}},"required":[],"type":"object"}},"required":["rate_plan","window"],"type":"object"}`
 var RatePlanService_CreateRatePlanSchemaJSON = `{"description":"Create a rate plan for a bookable resource, with a base price and optional overrides, fees and taxes.","properties":{"rate_plan":{"properties":{"bounds":{"properties":{"ceiling":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"floor":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"}},"required":[],"type":"object"},"create_time":{"format":"date-time","type":["string","null"]},"description":{"type":"string"},"display_name":{"type":"string"},"dynamic_rules":{"items":{"properties":{"bands":{"items":{"properties":{"adjustment":{"properties":{"amount_delta":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"percent_delta":{"maximum":1000,"minimum":-100,"type":"integer"}},"required":[],"type":"object"},"display_name":{"type":"string"},"max_threshold":{"type":"integer"},"min_threshold":{"type":"integer"}},"required":["min_threshold","adjustment"],"type":"object"},"type":"array"},"trigger":{"enum":["DYNAMIC_TRIGGER_UNSPECIFIED","DYNAMIC_TRIGGER_OCCUPANCY","DYNAMIC_TRIGGER_LEAD_TIME","DYNAMIC_TRIGGER_LENGTH_OF_STAY"],"type":"string"}},"required":["trigger","bands"],"type":"object"},"type":"array"},"etag":{"type":"string"},"fees":{"items":{"properties":{"amount":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"code":{"type":"string"},"display_name":{"type":"string"},"percent":{"maximum":100,"minimum":0,"type":"integer"},"pricing_unit":{"enum":["PRICING_UNIT_UNSPECIFIED","PRICING_UNIT_PER_BOOKING","PRICING_UNIT_PER_NIGHT","PRICING_UNIT_PER_PERSON"],"type":"string"},"taxable":{"type":"boolean"}},"required":["code"],"type":"object"},"type":"array"},"los_discounts":{"items":{"properties":{"amount_off":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"min_nights":{"minimum":1,"type":"integer"},"percent_off":{"maximum":100,"minimum":0,"type":"integer"}},"required":["min_nights"],"type":"object"},"type":"array"},"name":{"pattern":"^ratePlans/[^/]+$","type":"string"},"price":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"pricing_unit":{"enum":["PRICING_UNIT_UNSPECIFIED","PRICING_UNIT_PER_BOOKING","PRICING_UNIT_PER_NIGHT","PRICING_UNIT_PER_PERSON"],"type":"string"},"rate_overrides":{"items":{"properties":{"date_range":{"properties":{"end_date":{"properties":{"day":{"type":"integer"},"month":{"type":"integer"},"year":{"type":"integer"}},"required":[],"type":"object"},"start_date":{"properties":{"day":{"type":"integer"},"month":{"type":"integer"},"year":{"type":"integer"}},"required":[],"type":"object"}},"required":["start_date","end_date"],"type":"object"},"price":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"weekdays":{"items":{"enum":["DAY_OF_WEEK_UNSPECIFIED","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"],"type":"string"},"type":"array"}},"required":["price"],"type":"object"},"type":"array"},"resource":{"type":"string"},"state":{"enum":["RATE_PLAN_STATE_UNSPECIFIED","RATE_PLAN_STATE_ACTIVE","RATE_PLAN_STATE_ARCHIVED"],"type":"string"},"taxes":{"items":{"properties":{"code":{"type":"string"},"display_name":{"type":"string"},"percent":{"type":"number"}},"required":["code","percent"],"type":"object"},"type":"array"},"update_time":{"format":"date-time","type":["string","null"]}},"required":["resource","display_name","price"],"type":"object"},"rate_plan_id":{"type":"string"}},"required":["rate_plan"],"type":"object"}`
 var RatePlanService_DeleteRatePlanSchemaJSON = `{"description":"Deletes a rate plan. Prefer archiving (state ARCHIVED) over deleting: a booking priced under a plan must stay explainable after the plan stops being offered, and a delete takes that record away.","properties":{"etag":{"type":"string"},"name":{"pattern":"^ratePlans/[^/]+$","type":"string"}},"required":["name"],"type":"object"}`
 var RatePlanService_GetRatePlanSchemaJSON = `{"description":"Retrieves one rate plan.","properties":{"name":{"pattern":"^ratePlans/[^/]+$","type":"string"}},"required":["name"],"type":"object"}`
@@ -26,7 +25,6 @@ var RatePlanService_UpdateRatePlanSchemaJSON = `{"description":"Updates a rate p
 
 // JSON schemas for each RPC method's response, advertised as the tool's
 // outputSchema and satisfied by the structuredContent each handler returns.
-var QuoteService_ComputeQuoteOutputSchemaJSON = `{"properties":{"components":{"items":{"properties":{"amount":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"code":{"type":"string"},"display_name":{"type":"string"},"type":{"enum":["COMPONENT_TYPE_UNSPECIFIED","COMPONENT_TYPE_BASE","COMPONENT_TYPE_RATE_OVERRIDE","COMPONENT_TYPE_LOS_DISCOUNT","COMPONENT_TYPE_PROMOTION","COMPONENT_TYPE_FEE","COMPONENT_TYPE_TAX","COMPONENT_TYPE_DYNAMIC"],"type":"string"}},"required":[],"type":"object"},"type":"array"},"rejected_promotion_codes":{"items":{"properties":{"code":{"type":"string"},"reason":{"type":"string"}},"required":[],"type":"object"},"type":"array"},"subtotal":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"tax_total":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"total":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"}},"required":[],"type":"object"}`
 var RatePlanService_CreateRatePlanOutputSchemaJSON = `{"properties":{"bounds":{"properties":{"ceiling":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"floor":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"}},"required":[],"type":"object"},"create_time":{"format":"date-time","type":["string","null"]},"description":{"type":"string"},"display_name":{"type":"string"},"dynamic_rules":{"items":{"properties":{"bands":{"items":{"properties":{"adjustment":{"properties":{"amount_delta":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"percent_delta":{"maximum":1000,"minimum":-100,"type":"integer"}},"required":[],"type":"object"},"display_name":{"type":"string"},"max_threshold":{"type":"integer"},"min_threshold":{"type":"integer"}},"required":["min_threshold","adjustment"],"type":"object"},"type":"array"},"trigger":{"enum":["DYNAMIC_TRIGGER_UNSPECIFIED","DYNAMIC_TRIGGER_OCCUPANCY","DYNAMIC_TRIGGER_LEAD_TIME","DYNAMIC_TRIGGER_LENGTH_OF_STAY"],"type":"string"}},"required":["trigger","bands"],"type":"object"},"type":"array"},"etag":{"type":"string"},"fees":{"items":{"properties":{"amount":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"code":{"type":"string"},"display_name":{"type":"string"},"percent":{"maximum":100,"minimum":0,"type":"integer"},"pricing_unit":{"enum":["PRICING_UNIT_UNSPECIFIED","PRICING_UNIT_PER_BOOKING","PRICING_UNIT_PER_NIGHT","PRICING_UNIT_PER_PERSON"],"type":"string"},"taxable":{"type":"boolean"}},"required":["code"],"type":"object"},"type":"array"},"los_discounts":{"items":{"properties":{"amount_off":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"min_nights":{"minimum":1,"type":"integer"},"percent_off":{"maximum":100,"minimum":0,"type":"integer"}},"required":["min_nights"],"type":"object"},"type":"array"},"name":{"pattern":"^ratePlans/[^/]+$","type":"string"},"price":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"pricing_unit":{"enum":["PRICING_UNIT_UNSPECIFIED","PRICING_UNIT_PER_BOOKING","PRICING_UNIT_PER_NIGHT","PRICING_UNIT_PER_PERSON"],"type":"string"},"rate_overrides":{"items":{"properties":{"date_range":{"properties":{"end_date":{"properties":{"day":{"type":"integer"},"month":{"type":"integer"},"year":{"type":"integer"}},"required":[],"type":"object"},"start_date":{"properties":{"day":{"type":"integer"},"month":{"type":"integer"},"year":{"type":"integer"}},"required":[],"type":"object"}},"required":["start_date","end_date"],"type":"object"},"price":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"weekdays":{"items":{"enum":["DAY_OF_WEEK_UNSPECIFIED","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"],"type":"string"},"type":"array"}},"required":["price"],"type":"object"},"type":"array"},"resource":{"type":"string"},"state":{"enum":["RATE_PLAN_STATE_UNSPECIFIED","RATE_PLAN_STATE_ACTIVE","RATE_PLAN_STATE_ARCHIVED"],"type":"string"},"taxes":{"items":{"properties":{"code":{"type":"string"},"display_name":{"type":"string"},"percent":{"type":"number"}},"required":["code","percent"],"type":"object"},"type":"array"},"update_time":{"format":"date-time","type":["string","null"]}},"required":["resource","display_name","price"],"type":"object"}`
 var RatePlanService_DeleteRatePlanOutputSchemaJSON = `{"properties":{},"required":[],"type":"object"}`
 var RatePlanService_GetRatePlanOutputSchemaJSON = `{"properties":{"bounds":{"properties":{"ceiling":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"floor":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"}},"required":[],"type":"object"},"create_time":{"format":"date-time","type":["string","null"]},"description":{"type":"string"},"display_name":{"type":"string"},"dynamic_rules":{"items":{"properties":{"bands":{"items":{"properties":{"adjustment":{"properties":{"amount_delta":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"percent_delta":{"maximum":1000,"minimum":-100,"type":"integer"}},"required":[],"type":"object"},"display_name":{"type":"string"},"max_threshold":{"type":"integer"},"min_threshold":{"type":"integer"}},"required":["min_threshold","adjustment"],"type":"object"},"type":"array"},"trigger":{"enum":["DYNAMIC_TRIGGER_UNSPECIFIED","DYNAMIC_TRIGGER_OCCUPANCY","DYNAMIC_TRIGGER_LEAD_TIME","DYNAMIC_TRIGGER_LENGTH_OF_STAY"],"type":"string"}},"required":["trigger","bands"],"type":"object"},"type":"array"},"etag":{"type":"string"},"fees":{"items":{"properties":{"amount":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"code":{"type":"string"},"display_name":{"type":"string"},"percent":{"maximum":100,"minimum":0,"type":"integer"},"pricing_unit":{"enum":["PRICING_UNIT_UNSPECIFIED","PRICING_UNIT_PER_BOOKING","PRICING_UNIT_PER_NIGHT","PRICING_UNIT_PER_PERSON"],"type":"string"},"taxable":{"type":"boolean"}},"required":["code"],"type":"object"},"type":"array"},"los_discounts":{"items":{"properties":{"amount_off":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"min_nights":{"minimum":1,"type":"integer"},"percent_off":{"maximum":100,"minimum":0,"type":"integer"}},"required":["min_nights"],"type":"object"},"type":"array"},"name":{"pattern":"^ratePlans/[^/]+$","type":"string"},"price":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"pricing_unit":{"enum":["PRICING_UNIT_UNSPECIFIED","PRICING_UNIT_PER_BOOKING","PRICING_UNIT_PER_NIGHT","PRICING_UNIT_PER_PERSON"],"type":"string"},"rate_overrides":{"items":{"properties":{"date_range":{"properties":{"end_date":{"properties":{"day":{"type":"integer"},"month":{"type":"integer"},"year":{"type":"integer"}},"required":[],"type":"object"},"start_date":{"properties":{"day":{"type":"integer"},"month":{"type":"integer"},"year":{"type":"integer"}},"required":[],"type":"object"}},"required":["start_date","end_date"],"type":"object"},"price":{"properties":{"currency_code":{"type":"string"},"nanos":{"type":"integer"},"units":{"type":"string"}},"required":[],"type":"object"},"weekdays":{"items":{"enum":["DAY_OF_WEEK_UNSPECIFIED","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"],"type":"string"},"type":"array"}},"required":["price"],"type":"object"},"type":"array"},"resource":{"type":"string"},"state":{"enum":["RATE_PLAN_STATE_UNSPECIFIED","RATE_PLAN_STATE_ACTIVE","RATE_PLAN_STATE_ARCHIVED"],"type":"string"},"taxes":{"items":{"properties":{"code":{"type":"string"},"display_name":{"type":"string"},"percent":{"type":"number"}},"required":["code","percent"],"type":"object"},"type":"array"},"update_time":{"format":"date-time","type":["string","null"]}},"required":["resource","display_name","price"],"type":"object"}`
@@ -36,28 +34,12 @@ var RatePlanService_UpdateRatePlanOutputSchemaJSON = `{"properties":{"bounds":{"
 // MCP tool descriptors. Each pairs a schema with a tool name and description
 // so that LLM clients can discover and invoke the underlying RPCs.
 var (
-	QuoteService_ComputeQuoteTool      = newTool("quote_service-compute_quote_v1", `Price a booking window under a rate plan, itemised into base, overrides, discounts, fees and taxes.`, QuoteService_ComputeQuoteSchemaJSON, QuoteService_ComputeQuoteOutputSchemaJSON, nil, "", nil)
 	RatePlanService_CreateRatePlanTool = newTool("rate_plan_service-create_rate_plan_v1", `Create a rate plan for a bookable resource, with a base price and optional overrides, fees and taxes.`, RatePlanService_CreateRatePlanSchemaJSON, RatePlanService_CreateRatePlanOutputSchemaJSON, nil, "", nil)
 	RatePlanService_DeleteRatePlanTool = newTool("rate_plan_service-delete_rate_plan_v1", `Deletes a rate plan. Prefer archiving (state ARCHIVED) over deleting: a booking priced under a plan must stay explainable after the plan stops being offered, and a delete takes that record away.`, RatePlanService_DeleteRatePlanSchemaJSON, RatePlanService_DeleteRatePlanOutputSchemaJSON, nil, "", nil)
 	RatePlanService_GetRatePlanTool    = newTool("rate_plan_service-get_rate_plan_v1", `Retrieves one rate plan.`, RatePlanService_GetRatePlanSchemaJSON, RatePlanService_GetRatePlanOutputSchemaJSON, nil, "", nil)
 	RatePlanService_ListRatePlansTool  = newTool("rate_plan_service-list_rate_plans_v1", `Lists rate plans, most usefully filtered by the resource they price.`, RatePlanService_ListRatePlansSchemaJSON, RatePlanService_ListRatePlansOutputSchemaJSON, nil, "", nil)
 	RatePlanService_UpdateRatePlanTool = newTool("rate_plan_service-update_rate_plan_v1", `Updates a rate plan. Editing a plan changes what future quotes cost; it does not reprice a booking already taken, which carries the components it was quoted under.`, RatePlanService_UpdateRatePlanSchemaJSON, RatePlanService_UpdateRatePlanOutputSchemaJSON, nil, "", nil)
 )
-
-// QuoteServiceMCPServer is the interface that users implement to handle MCP
-// tool calls backed by QuoteService RPCs. Unary RPCs take (ctx, req) and
-// return (resp, error). Server-streaming RPCs (with MCPProgress) take (req,
-// stream) matching the gRPC server interface — any type implementing
-// QuoteServiceServer automatically satisfies this interface.
-type QuoteServiceMCPServer interface {
-	ComputeQuote(ctx context.Context, req *ComputeQuoteRequest) (*ComputeQuoteResponse, error)
-}
-
-// QuoteServiceMCPClient is the gRPC client interface used when forwarding MCP
-// tool calls to a remote gRPC server. It matches the generated gRPC client stub.
-type QuoteServiceMCPClient interface {
-	ComputeQuote(ctx context.Context, req *ComputeQuoteRequest, opts ...grpc.CallOption) (*ComputeQuoteResponse, error)
-}
 
 // RatePlanServiceMCPServer is the interface that users implement to handle MCP
 // tool calls backed by RatePlanService RPCs. Unary RPCs take (ctx, req) and
@@ -80,45 +62,6 @@ type RatePlanServiceMCPClient interface {
 	GetRatePlan(ctx context.Context, req *GetRatePlanRequest, opts ...grpc.CallOption) (*RatePlan, error)
 	ListRatePlans(ctx context.Context, req *ListRatePlansRequest, opts ...grpc.CallOption) (*ListRatePlansResponse, error)
 	UpdateRatePlan(ctx context.Context, req *UpdateRatePlanRequest, opts ...grpc.CallOption) (*RatePlan, error)
-}
-
-// RegisterQuoteServiceMCPHandler registers all QuoteService RPC methods as MCP
-// tools, prompts, resources, and apps on the given server based on proto options.
-func RegisterQuoteServiceMCPHandler(s *mcp.Server, srv QuoteServiceMCPServer, opts ...mcp.Option) {
-	cfg := mcp.ApplyOptions(opts...)
-	_ = cfg
-	appResourceURI := mcp.AppResourceURI("QuoteService")
-	{
-		tool := mcp.PrepareToolWithExtras(QuoteService_ComputeQuoteTool, cfg.ExtraProperties)
-		tool = mcp.SetToolAppMeta(tool, appResourceURI)
-		s.AddTool(tool, func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-			var pbReq ComputeQuoteRequest
-			args, ctx := mcp.ExtractExtras(ctx, req.Params.Arguments, cfg)
-			if err := (protojson.UnmarshalOptions{DiscardUnknown: true}).Unmarshal(args, &pbReq); err != nil {
-				return nil, err
-			}
-			// Dispatch through the unary interceptor chain (when configured) so
-			// middleware sees this call exactly as it would the wire RPC.
-			rawResp, err := mcp.InvokeUnary(ctx, cfg.UnaryInterceptor, "/freebusy.pricing.v1.QuoteService/ComputeQuote", srv, &pbReq, func(ctx context.Context, req any) (any, error) {
-				return srv.ComputeQuote(ctx, req.(*ComputeQuoteRequest))
-			})
-			if err != nil {
-				return mcp.HandleError(err)
-			}
-			resp := rawResp.(*ComputeQuoteResponse)
-			out, err := (protojson.MarshalOptions{UseProtoNames: true, EmitDefaultValues: true}).Marshal(resp)
-			if err != nil {
-				return nil, err
-			}
-			return structuredResult(out)
-		})
-	}
-
-	s.AddResource(&mcp.Resource{
-		URI:      appResourceURI,
-		Name:     "Quotes",
-		MIMEType: "text/html",
-	}, mcp.ResourceHandlerFor(cfg, appResourceURI, mcp.DefaultAppResourceHandler("Quotes", "1.0.0", "Price a booking window under a rate plan. Read-only.")))
 }
 
 // RegisterRatePlanServiceMCPHandler registers all RatePlanService RPC methods as MCP
@@ -266,47 +209,9 @@ func RegisterRatePlanServiceMCPHandler(s *mcp.Server, srv RatePlanServiceMCPServ
 	}, mcp.ResourceHandlerFor(cfg, appResourceURI, mcp.DefaultAppResourceHandler("Rate Plans", "1.0.0", "Manage what a bookable resource costs: base rates, seasonal overrides, fees and taxes.")))
 }
 
-// QuoteServiceMCPDefaultBasePath is the default HTTP path prefix for
-// QuoteService MCP endpoints, derived from the protobuf package and service name.
-const QuoteServiceMCPDefaultBasePath = "/freebusy/pricing/v1/quoteservice/mcp"
-
 // RatePlanServiceMCPDefaultBasePath is the default HTTP path prefix for
 // RatePlanService MCP endpoints, derived from the protobuf package and service name.
 const RatePlanServiceMCPDefaultBasePath = "/freebusy/pricing/v1/rateplanservice/mcp"
-
-// QuoteServiceCompletionMap returns a map of "promptName:argName" → allowed
-// values, built from enum_values declared in the proto MCP options.
-func QuoteServiceCompletionMap() map[string][]string {
-	m := map[string][]string{}
-	return m
-}
-
-// ServeQuoteServiceMCP creates an MCP server, registers the service tools, and
-// starts serving using the configured transport (streamable-http, sse, or stdio).
-// Uses the proto-derived BasePath. This is a blocking call.
-func ServeQuoteServiceMCP(ctx context.Context, srv QuoteServiceMCPServer, cfg *mcp.MCPServerConfig, opts ...mcp.Option) error {
-	// Set the proto-derived path as the generated default
-	cfg.GeneratedBasePath = QuoteServiceMCPDefaultBasePath
-
-	// Wire completion handler for prompt arguments with enum_values.
-	completionMap := QuoteServiceCompletionMap()
-	if len(completionMap) > 0 {
-		if cfg.ServerOptions == nil {
-			cfg.ServerOptions = &mcp.ServerOptions{}
-		}
-		cfg.ServerOptions.CompletionHandler = mcp.CompletionHandlerFromEnums(completionMap)
-	}
-
-	// Forward the hosting server's unary interceptor chain so every tool call
-	// runs the same middleware (validation, auth, tracing) as the wire RPC.
-	if cfg.UnaryInterceptor != nil {
-		opts = append(opts, mcp.WithUnaryInterceptor(cfg.UnaryInterceptor))
-	}
-
-	return mcp.StartServer(ctx, cfg, func(s *mcp.Server) {
-		RegisterQuoteServiceMCPHandler(s, srv, opts...)
-	})
-}
 
 // RatePlanServiceCompletionMap returns a map of "promptName:argName" → allowed
 // values, built from enum_values declared in the proto MCP options.
@@ -340,42 +245,6 @@ func ServeRatePlanServiceMCP(ctx context.Context, srv RatePlanServiceMCPServer, 
 	return mcp.StartServer(ctx, cfg, func(s *mcp.Server) {
 		RegisterRatePlanServiceMCPHandler(s, srv, opts...)
 	})
-}
-
-// ForwardToQuoteServiceMCPClient registers all QuoteService tools, prompts,
-// resources, and apps on the MCP server, forwarding every tool call to a
-// remote gRPC server via the provided client stub.
-func ForwardToQuoteServiceMCPClient(s *mcp.Server, client QuoteServiceMCPClient, opts ...mcp.Option) {
-	cfg := mcp.ApplyOptions(opts...)
-	_ = cfg
-	appResourceURI := mcp.AppResourceURI("QuoteService")
-	{
-		tool := mcp.PrepareToolWithExtras(QuoteService_ComputeQuoteTool, cfg.ExtraProperties)
-		tool = mcp.SetToolAppMeta(tool, appResourceURI)
-		s.AddTool(tool, func(ctx context.Context, req *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-			var pbReq ComputeQuoteRequest
-			args, ctx := mcp.ExtractExtras(ctx, req.Params.Arguments, cfg)
-			if err := (protojson.UnmarshalOptions{DiscardUnknown: true}).Unmarshal(args, &pbReq); err != nil {
-				return nil, err
-			}
-			ctx = mcp.ForwardMetadata(ctx)
-			resp, err := client.ComputeQuote(ctx, &pbReq)
-			if err != nil {
-				return mcp.HandleError(err)
-			}
-			out, err := (protojson.MarshalOptions{UseProtoNames: true, EmitDefaultValues: true}).Marshal(resp)
-			if err != nil {
-				return nil, err
-			}
-			return structuredResult(out)
-		})
-	}
-
-	s.AddResource(&mcp.Resource{
-		URI:      appResourceURI,
-		Name:     "Quotes",
-		MIMEType: "text/html",
-	}, mcp.ResourceHandlerFor(cfg, appResourceURI, mcp.DefaultAppResourceHandler("Quotes", "1.0.0", "Price a booking window under a rate plan. Read-only.")))
 }
 
 // ForwardToRatePlanServiceMCPClient registers all RatePlanService tools, prompts,

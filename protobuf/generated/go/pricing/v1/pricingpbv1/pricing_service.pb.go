@@ -36,11 +36,7 @@ const file_freebusy_pricing_v1_pricing_service_proto_rawDesc = "" +
 	"\x0eDeleteRatePlan\x12*.freebusy.pricing.v1.DeleteRatePlanRequest\x1a\x16.google.protobuf.Empty\"%\xdaA\x04name\x82\xd3\xe4\x93\x02\x18*\x16/v1/{name=ratePlans/*}\x1a\x8c\x01\xcaA\x18freebusy.ohtarnished.dev\xc2\xf3\x18m\n" +
 	"k\n" +
 	"\n" +
-	"Rate Plans\x12\x051.0.0\x1aVManage what a bookable resource costs: base rates, seasonal overrides, fees and taxes.2\x8e\x03\n" +
-	"\fQuoteService\x12\x95\x02\n" +
-	"\fComputeQuote\x12(.freebusy.pricing.v1.ComputeQuoteRequest\x1a).freebusy.pricing.v1.ComputeQuoteResponse\"\xaf\x01\xdaA\x10rate_plan,window\xca\xf3\x18e\x12cPrice a booking window under a rate plan, itemised into base, overrides, discounts, fees and taxes.\x82\xd3\xe4\x93\x02-:\x01*\"(/v1/{rate_plan=ratePlans/*}:computeQuote\x1af\xcaA\x18freebusy.ohtarnished.dev\xc2\xf3\x18G\n" +
-	"E\n" +
-	"\x06Quotes\x12\x051.0.0\x1a4Price a booking window under a rate plan. Read-only.B\xf7\x01\n" +
+	"Rate Plans\x12\x051.0.0\x1aVManage what a bookable resource costs: base rates, seasonal overrides, fees and taxes.B\xf7\x01\n" +
 	"\x17com.freebusy.pricing.v1B\x13PricingServiceProtoP\x01ZYgithub.com/oh-tarnished/freebusy/protobuf/generated/go/pricing/v1/pricingpbv1;pricingpbv1\xa2\x02\x03FPX\xaa\x02\x13Freebusy.Pricing.V1\xca\x02\x13Freebusy\\Pricing\\V1\xe2\x02\x1fFreebusy\\Pricing\\V1\\GPBMetadata\xea\x02\x15Freebusy::Pricing::V1b\x06proto3"
 
 var file_freebusy_pricing_v1_pricing_service_proto_goTypes = []any{
@@ -49,11 +45,9 @@ var file_freebusy_pricing_v1_pricing_service_proto_goTypes = []any{
 	(*CreateRatePlanRequest)(nil), // 2: freebusy.pricing.v1.CreateRatePlanRequest
 	(*UpdateRatePlanRequest)(nil), // 3: freebusy.pricing.v1.UpdateRatePlanRequest
 	(*DeleteRatePlanRequest)(nil), // 4: freebusy.pricing.v1.DeleteRatePlanRequest
-	(*ComputeQuoteRequest)(nil),   // 5: freebusy.pricing.v1.ComputeQuoteRequest
-	(*RatePlan)(nil),              // 6: freebusy.pricing.v1.RatePlan
-	(*ListRatePlansResponse)(nil), // 7: freebusy.pricing.v1.ListRatePlansResponse
-	(*emptypb.Empty)(nil),         // 8: google.protobuf.Empty
-	(*ComputeQuoteResponse)(nil),  // 9: freebusy.pricing.v1.ComputeQuoteResponse
+	(*RatePlan)(nil),              // 5: freebusy.pricing.v1.RatePlan
+	(*ListRatePlansResponse)(nil), // 6: freebusy.pricing.v1.ListRatePlansResponse
+	(*emptypb.Empty)(nil),         // 7: google.protobuf.Empty
 }
 var file_freebusy_pricing_v1_pricing_service_proto_depIdxs = []int32{
 	0, // 0: freebusy.pricing.v1.RatePlanService.GetRatePlan:input_type -> freebusy.pricing.v1.GetRatePlanRequest
@@ -61,15 +55,13 @@ var file_freebusy_pricing_v1_pricing_service_proto_depIdxs = []int32{
 	2, // 2: freebusy.pricing.v1.RatePlanService.CreateRatePlan:input_type -> freebusy.pricing.v1.CreateRatePlanRequest
 	3, // 3: freebusy.pricing.v1.RatePlanService.UpdateRatePlan:input_type -> freebusy.pricing.v1.UpdateRatePlanRequest
 	4, // 4: freebusy.pricing.v1.RatePlanService.DeleteRatePlan:input_type -> freebusy.pricing.v1.DeleteRatePlanRequest
-	5, // 5: freebusy.pricing.v1.QuoteService.ComputeQuote:input_type -> freebusy.pricing.v1.ComputeQuoteRequest
-	6, // 6: freebusy.pricing.v1.RatePlanService.GetRatePlan:output_type -> freebusy.pricing.v1.RatePlan
-	7, // 7: freebusy.pricing.v1.RatePlanService.ListRatePlans:output_type -> freebusy.pricing.v1.ListRatePlansResponse
-	6, // 8: freebusy.pricing.v1.RatePlanService.CreateRatePlan:output_type -> freebusy.pricing.v1.RatePlan
-	6, // 9: freebusy.pricing.v1.RatePlanService.UpdateRatePlan:output_type -> freebusy.pricing.v1.RatePlan
-	8, // 10: freebusy.pricing.v1.RatePlanService.DeleteRatePlan:output_type -> google.protobuf.Empty
-	9, // 11: freebusy.pricing.v1.QuoteService.ComputeQuote:output_type -> freebusy.pricing.v1.ComputeQuoteResponse
-	6, // [6:12] is the sub-list for method output_type
-	0, // [0:6] is the sub-list for method input_type
+	5, // 5: freebusy.pricing.v1.RatePlanService.GetRatePlan:output_type -> freebusy.pricing.v1.RatePlan
+	6, // 6: freebusy.pricing.v1.RatePlanService.ListRatePlans:output_type -> freebusy.pricing.v1.ListRatePlansResponse
+	5, // 7: freebusy.pricing.v1.RatePlanService.CreateRatePlan:output_type -> freebusy.pricing.v1.RatePlan
+	5, // 8: freebusy.pricing.v1.RatePlanService.UpdateRatePlan:output_type -> freebusy.pricing.v1.RatePlan
+	7, // 9: freebusy.pricing.v1.RatePlanService.DeleteRatePlan:output_type -> google.protobuf.Empty
+	5, // [5:10] is the sub-list for method output_type
+	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -90,7 +82,7 @@ func file_freebusy_pricing_v1_pricing_service_proto_init() {
 			NumEnums:      0,
 			NumMessages:   0,
 			NumExtensions: 0,
-			NumServices:   2,
+			NumServices:   1,
 		},
 		GoTypes:           file_freebusy_pricing_v1_pricing_service_proto_goTypes,
 		DependencyIndexes: file_freebusy_pricing_v1_pricing_service_proto_depIdxs,

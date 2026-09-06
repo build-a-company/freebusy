@@ -6,7 +6,6 @@ import (
 	"context"
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/promocode"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/internal/database/repository/repox"
 	"github.com/oh-tarnished/freebusy/internal/service/scheduling/party"
 	"github.com/oh-tarnished/freebusy/internal/types"
@@ -24,7 +23,7 @@ import (
 // ErrCapacityExhausted when the window is full. What it does not do is write —
 // no hold is placed, so the price it quotes is indicative, not reserved.
 func (r *BookingRepository) PreviewBooking(ctx context.Context, b *schedulingpbv1.Booking) (*schedulingpbv1.Booking, error) {
-	_, unitID, err := types.ParseUnitParent(b.GetUnit())
+	unitID, err := types.ParseResource(b.GetUnit())
 	if err != nil {
 		return nil, err
 	}
@@ -32,22 +31,18 @@ func (r *BookingRepository) PreviewBooking(ctx context.Context, b *schedulingpbv
 		return nil, types.ErrInvalidArgument
 	}
 
-	var unit property.Unit
-	if err := r.db.WithContext(ctx).
-		Preload("Price").
-		Preload("Fees").Preload("Fees.Amount").
-		Preload("Taxes").
-		Preload("LosDiscounts").Preload("LosDiscounts.AmountOff").
-		First(&unit, "id = ?", unitID).Error; err != nil {
-		return nil, repox.MapGormErr(err)
+	plan, err := loadRatePlan(ctx, r.db, b.GetUnit())
+	if err != nil {
+		return nil, err
 	}
+	prof := resolveResourceProfile(ctx, b.GetUnit())
 
 	var promo *promocode.PromoCode
 	if pid := repox.LastSegment(b.GetPromoCode()); pid != "" {
 		var p promocode.PromoCode
 		if err := r.db.WithContext(ctx).
 			Preload("Discount").Preload("Discount.AmountOff").
-			Preload("Scope").Preload("Scope.MinSubtotal").Preload("Scope.ScopeApplicableUnits").
+			Preload("Scope").Preload("Scope.MinSubtotal").Preload("Scope.ApplicableUnits").
 			First(&p, "id = ?", pid).Error; err != nil {
 			return nil, repox.MapGormErr(err)
 		}
@@ -58,7 +53,7 @@ func (r *BookingRepository) PreviewBooking(ctx context.Context, b *schedulingpbv
 	if requested < 1 {
 		requested = 1
 	}
-	if !party.Fits(repox.Deref(unit.MaxOccupancy), requested, b.GetOccupancy(), b.GetGuests()) {
+	if !party.Fits(prof.MaxOccupancy, requested, b.GetOccupancy(), b.GetGuests()) {
 		return nil, types.ErrInvalidArgument
 	}
 
@@ -70,18 +65,15 @@ func (r *BookingRepository) PreviewBooking(ctx context.Context, b *schedulingpbv
 	if err := r.db.WithContext(ctx).Raw(overlapSQL, unitID, window.EndTime, window.StartTime).Scan(&reserved).Error; err != nil {
 		return nil, repox.MapGormErr(err)
 	}
-	capacity := int64(1)
-	if unit.Capacity != nil && *unit.Capacity > 0 {
-		capacity = int64(*unit.Capacity)
-	}
+	capacity := prof.Capacity
 	if reserved+int64(requested) > capacity {
 		return nil, types.ErrCapacityExhausted
 	}
 
 	out := proto.Clone(b).(*schedulingpbv1.Booking)
-	if unit.Price != nil {
-		nights := nightsBetween(b.GetWindow(), unit.TimeZone)
-		p := computePricing(&unit, nights, int64(requested), promo)
+	if plan.Price != nil {
+		nights := nightsBetween(b.GetWindow(), prof.TimeZone)
+		p := computePricing(plan, nights, int64(requested), promo)
 		out.Price = p.base
 		out.Total = p.total
 		if !isZeroMoney(p.discount) {

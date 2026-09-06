@@ -78,8 +78,8 @@ Scope restricts which bookings a code applies to. Nested value object → belong
 | Field | Type | Behavior | Description |
 | --- | --- | --- | --- |
 | `min_subtotal` | `Money` | `OPTIONAL` | Minimum subtotal required for the code to apply. Normalized into the shared common.moneys table (belongs-to via min_subtotal_id). |
-| `applicable_properties` | `repeated string` | `OPTIONAL` | Properties the code applies to. Empty means all properties. Format: properties/{property} |
-| `applicable_units` | `repeated string` | `OPTIONAL` | Units the code applies to. Empty means all units. Format: properties/{property}/units/{unit} |
+| `applicable_properties` | `repeated string` | `OPTIONAL` | Properties the code applies to. Empty means all properties. Format: organizationalUnits/{organizational_unit} |
+| `applicable_units` | `repeated string` | `OPTIONAL` | Units the code applies to. Empty means all units. Format: resources/{resource} |
 
 ### Redemption
 
@@ -162,8 +162,8 @@ Request message for ValidatePromoCode. Computes the discount a code would apply 
 | --- | --- | --- | --- |
 | `code` | `string` | `REQUIRED` | The human-entered code to validate (e.g. "SUMMER25"). |
 | `subtotal` | `Money` | `REQUIRED` | Subtotal the discount would apply to. |
-| `property` | `string` | `OPTIONAL` | Property being booked, for scope checks. Format: properties/{property} |
-| `unit` | `string` | `OPTIONAL` | Unit being booked, for scope checks. Format: properties/{property}/units/{unit} |
+| `property` | `string` | `OPTIONAL` | Property being booked, for scope checks. Format: organizationalUnits/{organizational_unit} |
+| `unit` | `string` | `OPTIONAL` | Unit being booked, for scope checks. Format: resources/{resource} |
 | `customer` | `string` | `OPTIONAL` | Customer redeeming the code, for per-customer limit checks. Format: users/{user} |
 
 ### ValidatePromoCodeResponse

@@ -9,16 +9,17 @@ Every protobuf module under `protobuf/`. Each row links to that module's generat
 
 | Module | Package | Services | Messages | Enums | Reference |
 | --- | --- | --- | --- | --- | --- |
-| Availability | `freebusy.availability.v1` | 1 | 16 | 1 | [README](freebusy/availability/README.md) |
-| Booking | `freebusy.booking.v1` | 1 | 15 | 2 | [README](freebusy/booking/README.md) |
+| Allocation | `freebusy.allocation.v1` | 2 | 19 | 3 | [README](freebusy/allocation/README.md) |
 | Channel | `freebusy.channel.v1` | 1 | 28 | 6 | [README](freebusy/channel/README.md) |
 | Identity | `freebusy.identity.v1` | 1 | 9 | 5 | [README](freebusy/identity/README.md) |
 | Organisation | `freebusy.organisation.v1` | 1 | 16 | 3 | [README](freebusy/organisation/README.md) |
+| Pricing | `freebusy.pricing.v1` | 2 | 20 | 4 | [README](freebusy/pricing/README.md) |
 | Promocode | `freebusy.promocode.v1` | 1 | 17 | 3 | [README](freebusy/promocode/README.md) |
-| Property | `freebusy.property.v1` | 2 | 31 | 7 | [README](freebusy/property/README.md) |
+| Property | `freebusy.property.v1` | 1 | 7 | 3 | [README](freebusy/property/README.md) |
 | Schedule | `freebusy.schedule.v1` | 1 | 14 | 1 | [README](freebusy/schedule/README.md) |
+| Scheduling | `freebusy.scheduling.v1` | 1 | 15 | 2 | [README](freebusy/scheduling/README.md) |
 | Shared | `freebusy.shared.v1` | 0 | 6 | 5 | [README](freebusy/shared/README.md) |
-| **Total** | _9 modules_ | 9 | 152 | 33 | |
+| **Total** | _10 modules_ | 11 | 151 | 35 | |
 
 ## Dependency graph
 
@@ -26,22 +27,22 @@ Local (`freebusy.*`) import relationships between modules. External deps (`googl
 
 ```mermaid
 graph LR
-    freebusy_availability_v1["Availability<br/>freebusy.availability.v1"]
-    freebusy_booking_v1["Booking<br/>freebusy.booking.v1"]
+    freebusy_allocation_v1["Allocation<br/>freebusy.allocation.v1"]
     freebusy_channel_v1["Channel<br/>freebusy.channel.v1"]
     freebusy_identity_v1["Identity<br/>freebusy.identity.v1"]
     freebusy_organisation_v1["Organisation<br/>freebusy.organisation.v1"]
+    freebusy_pricing_v1["Pricing<br/>freebusy.pricing.v1"]
     freebusy_promocode_v1["Promocode<br/>freebusy.promocode.v1"]
     freebusy_property_v1["Property<br/>freebusy.property.v1"]
     freebusy_schedule_v1["Schedule<br/>freebusy.schedule.v1"]
+    freebusy_scheduling_v1["Scheduling<br/>freebusy.scheduling.v1"]
     freebusy_shared_v1["Shared<br/>freebusy.shared.v1"]
-    freebusy_availability_v1 --> freebusy_shared_v1
-    freebusy_booking_v1 --> freebusy_identity_v1
-    freebusy_booking_v1 --> freebusy_shared_v1
     freebusy_channel_v1 --> freebusy_shared_v1
     freebusy_identity_v1 --> freebusy_shared_v1
     freebusy_property_v1 --> freebusy_shared_v1
     freebusy_schedule_v1 --> freebusy_shared_v1
+    freebusy_scheduling_v1 --> freebusy_identity_v1
+    freebusy_scheduling_v1 --> freebusy_shared_v1
 ```
 
 ---

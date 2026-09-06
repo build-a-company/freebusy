@@ -37,13 +37,13 @@ static_resources:
                       routes:
 
                         - match:
-                            prefix: "/freebusy.availability.v1.AvailabilityService/"
+                            prefix: "/freebusy.allocation.v1.AllocationService/"
                           route:
                             cluster: freebusy_backend
                             timeout: 60s
 
                         - match:
-                            prefix: "/freebusy.booking.v1.BookingService/"
+                            prefix: "/freebusy.allocation.v1.HoldService/"
                           route:
                             cluster: freebusy_backend
                             timeout: 60s
@@ -67,6 +67,18 @@ static_resources:
                             timeout: 60s
 
                         - match:
+                            prefix: "/freebusy.pricing.v1.QuoteService/"
+                          route:
+                            cluster: freebusy_backend
+                            timeout: 60s
+
+                        - match:
+                            prefix: "/freebusy.pricing.v1.RatePlanService/"
+                          route:
+                            cluster: freebusy_backend
+                            timeout: 60s
+
+                        - match:
                             prefix: "/freebusy.promocode.v1.PromoCodeService/"
                           route:
                             cluster: freebusy_backend
@@ -79,19 +91,13 @@ static_resources:
                             timeout: 60s
 
                         - match:
-                            prefix: "/freebusy.property.v1.PropertyService/"
-                          route:
-                            cluster: freebusy_backend
-                            timeout: 60s
-
-                        - match:
-                            prefix: "/freebusy.resource.v1.ResourceService/"
-                          route:
-                            cluster: freebusy_backend
-                            timeout: 60s
-
-                        - match:
                             prefix: "/freebusy.schedule.v1.ScheduleService/"
+                          route:
+                            cluster: freebusy_backend
+                            timeout: 60s
+
+                        - match:
+                            prefix: "/freebusy.scheduling.v1.SchedulingService/"
                           route:
                             cluster: freebusy_backend
                             timeout: 60s

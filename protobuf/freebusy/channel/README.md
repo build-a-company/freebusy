@@ -37,7 +37,7 @@ A connection between one property and one distribution channel (OTA/GDS). It is 
 | Field | Type | Behavior | Description |
 | --- | --- | --- | --- |
 | `name` | `string` | `IDENTIFIER` | The channel name. Format: channels/{channel} |
-| `property` | `string` | `REQUIRED` | The property this channel distributes. Format: properties/{property} |
+| `property` | `string` | `REQUIRED` | The property this channel distributes. Format: organizationalUnits/{organizational_unit} |
 | `type` | `ChannelType` | `REQUIRED` | Which OTA/GDS this connects to. Immutable: the adapter and external ID space are fixed per channel. |
 | `display_name` | `string` | `OPTIONAL` | Human-friendly label (e.g. "Booking.com — Goa Resort"). |
 | `external_property_id` | `string` | `OPTIONAL` | The channel's own code for this hotel (e.g. the Booking.com hotel id). |
@@ -55,7 +55,7 @@ Maps a freebusy Unit to its counterpart on the channel. ARI for a unit only flow
 | Field | Type | Behavior | Description |
 | --- | --- | --- | --- |
 | `name` | `string` | `IDENTIFIER` | The mapping name. Format: channels/{channel}/unitMappings/{unit_mapping} |
-| `unit` | `string` | `REQUIRED` | The freebusy unit being mapped. Format: properties/{property}/units/{unit} |
+| `unit` | `string` | `REQUIRED` | The freebusy unit being mapped. Format: resources/{resource} |
 | `external_room_type_id` | `string` | `REQUIRED` | The channel's room-type id this unit maps to. |
 | `external_rate_plan_id` | `string` | `OPTIONAL` | The channel's rate-plan id this unit maps to. |
 | `state` | `MappingState` | `OUTPUT_ONLY` | Mapping state. |
@@ -69,7 +69,7 @@ One day's availability, rate, and restrictions for a unit — the atomic unit of
 
 | Field | Type | Behavior | Description |
 | --- | --- | --- | --- |
-| `unit` | `string` | `REQUIRED` | The unit this update is for. Format: properties/{property}/units/{unit} |
+| `unit` | `string` | `REQUIRED` | The unit this update is for. Format: resources/{resource} |
 | `date` | `Date` | `REQUIRED` | The date (in the unit's timezone) the values apply to. |
 | `available` | `int32` | `OPTIONAL` | Number of units available to sell on this date. |
 | `rate` | `Money` | `OPTIONAL` | Nightly rate to publish for this date. |
@@ -95,7 +95,7 @@ A reservation as it exists on the channel, landed inbound so it can be reconcile
 | --- | --- | --- | --- |
 | `channel` | `string` | `REQUIRED` | The channel the reservation came from. Format: channels/{channel} |
 | `external_id` | `string` | `REQUIRED` | The channel's own id for this reservation (used for idempotency and modify/cancel matching). |
-| `unit` | `string` | `REQUIRED` | The resolved freebusy unit being booked. Format: properties/{property}/units/{unit} |
+| `unit` | `string` | `REQUIRED` | The resolved freebusy unit being booked. Format: resources/{resource} |
 | `guest` | `Contact` | `OPTIONAL` | Guest contact details supplied by the channel. |
 | `stay` | `DateRange` | `REQUIRED` | The stay: check-in to check-out (end_date is the check-out date). |
 | `units` | `int32` | `OPTIONAL` | Number of units / rooms reserved. Defaults to 1. |
@@ -110,7 +110,7 @@ A record of one sync attempt, for observability of the ARI push / reservation pu
 | --- | --- | --- | --- |
 | `direction` | `SyncDirection` | - | Whether this was an outbound push or an inbound pull. |
 | `channel` | `string` | - | The channel involved. Format: channels/{channel} |
-| `unit` | `string` | - | The unit involved, when the event is unit-scoped. Format: properties/{property}/units/{unit} |
+| `unit` | `string` | - | The unit involved, when the event is unit-scoped. Format: resources/{resource} |
 | `date` | `Date` | - | The date the event concerned, when applicable. |
 | `state` | `SyncState` | `OUTPUT_ONLY` | Outcome. |
 | `error` | `string` | - | Human-readable error when state is FAILED. |

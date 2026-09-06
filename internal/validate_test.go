@@ -4,13 +4,11 @@ import (
 	"context"
 	"testing"
 
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/availability/v1/availabilitypbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/identity/v1/identitypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/organisation/v1/orgpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/promocode/v1/promocodepbv1"
-	"github.com/oh-tarnished/freebusy/protobuf/generated/go/property/v1/propertypbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/schedule/v1/schedulepbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/scheduling/v1/schedulingpbv1"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 	"github.com/the-protobuf-project/runtime-go/grpc"
 	"google.golang.org/genproto/googleapis/type/money"
@@ -116,18 +114,11 @@ func TestValidationInterceptor_Services(t *testing.T) {
 		{"user update bad name", &identitypbv1.UpdateUserRequest{User: &identitypbv1.User{Name: "people/1"}}, true},
 
 		// property
-		{"property create missing time_zone", &propertypbv1.CreatePropertyRequest{Property: &propertypbv1.Property{Organisation: "organisations/o1", DisplayName: "Grand"}}, true},
-		{"property create ok", &propertypbv1.CreatePropertyRequest{Property: &propertypbv1.Property{Organisation: "organisations/o1", DisplayName: "Grand", TimeZone: "UTC"}}, false},
-		{"unit create unset type", &propertypbv1.CreateUnitRequest{Parent: "properties/p1", Unit: &propertypbv1.Unit{DisplayName: "Room", BookingMode: 1, TimeZone: "UTC"}}, true},
-		{"unit create ok", &propertypbv1.CreateUnitRequest{Parent: "properties/p1", Unit: &propertypbv1.Unit{DisplayName: "Room", Type: propertypbv1.UnitType_UNIT_TYPE_ROOM, BookingMode: 1, TimeZone: "UTC"}}, false},
-		{"licence create foreign unit", &propertypbv1.CreateLicenceRequest{Parent: "properties/p1", Licence: &propertypbv1.Licence{Type: propertypbv1.LicenceType_LICENCE_TYPE_FIRE_SAFETY, Unit: "properties/p2/units/u1"}}, true},
-		{"licence create own unit ok", &propertypbv1.CreateLicenceRequest{Parent: "properties/p1", Licence: &propertypbv1.Licence{Type: propertypbv1.LicenceType_LICENCE_TYPE_FIRE_SAFETY, Unit: "properties/p1/units/u1"}}, false},
-		{"unit delete bad name", &propertypbv1.DeleteUnitRequest{Name: "units/u1"}, true},
 
 		// schedule
 		{"schedule get bad name", &schedulepbv1.GetScheduleRequest{Name: "properties/p1/units/u1"}, true},
-		{"exception create no span", &schedulepbv1.CreateAvailabilityExceptionRequest{Parent: "properties/p1/units/u1", AvailabilityException: &schedulepbv1.AvailabilityException{Kind: schedulepbv1.ExceptionKind_EXCEPTION_KIND_CLOSURE}}, true},
-		{"exception create ok", &schedulepbv1.CreateAvailabilityExceptionRequest{Parent: "properties/p1/units/u1", AvailabilityException: &schedulepbv1.AvailabilityException{Kind: schedulepbv1.ExceptionKind_EXCEPTION_KIND_CLOSURE, Span: &schedulepbv1.AvailabilityException_Window{Window: window}}}, false},
+		{"exception create no span", &schedulepbv1.CreateAvailabilityExceptionRequest{Parent: "resources/r1", AvailabilityException: &schedulepbv1.AvailabilityException{Kind: schedulepbv1.ExceptionKind_EXCEPTION_KIND_CLOSURE}}, true},
+		{"exception create ok", &schedulepbv1.CreateAvailabilityExceptionRequest{Parent: "resources/r1", AvailabilityException: &schedulepbv1.AvailabilityException{Kind: schedulepbv1.ExceptionKind_EXCEPTION_KIND_CLOSURE, Span: &schedulepbv1.AvailabilityException_Window{Window: window}}}, false},
 
 		// promocode
 		{"promocode create no discount", &promocodepbv1.CreatePromoCodeRequest{PromoCode: &promocodepbv1.PromoCode{Code: "X"}}, true},
@@ -137,15 +128,12 @@ func TestValidationInterceptor_Services(t *testing.T) {
 		{"promocode validate ok", &promocodepbv1.ValidatePromoCodeRequest{Code: "X", Subtotal: &money.Money{CurrencyCode: "USD", Units: 100}}, false},
 
 		// booking
-		{"booking create missing window", &schedulingpbv1.CreateBookingRequest{Booking: &schedulingpbv1.Booking{Unit: "properties/p1/units/u1"}}, true},
-		{"booking create ok", &schedulingpbv1.CreateBookingRequest{Booking: &schedulingpbv1.Booking{Unit: "properties/p1/units/u1", Window: window}}, false},
+		{"booking create missing window", &schedulingpbv1.CreateBookingRequest{Booking: &schedulingpbv1.Booking{Unit: "resources/r1"}}, true},
+		{"booking create ok", &schedulingpbv1.CreateBookingRequest{Booking: &schedulingpbv1.Booking{Unit: "resources/r1", Window: window}}, false},
 		{"booking reschedule missing window", &schedulingpbv1.RescheduleBookingRequest{Name: "bookings/b1"}, true},
-		{"booking window missing end", &schedulingpbv1.CreateBookingRequest{Booking: &schedulingpbv1.Booking{Unit: "properties/p1/units/u1", Window: &sharedpbv1.TimeWindow{StartTime: timestamppb.Now()}}}, true},
+		{"booking window missing end", &schedulingpbv1.CreateBookingRequest{Booking: &schedulingpbv1.Booking{Unit: "resources/r1", Window: &sharedpbv1.TimeWindow{StartTime: timestamppb.Now()}}}, true},
 
 		// availability
-		{"availability compute no period", &availabilitypbv1.ComputeAvailabilityRequest{Unit: "properties/p1/units/u1"}, true},
-		{"availability compute ok", &availabilitypbv1.ComputeAvailabilityRequest{Unit: "properties/p1/units/u1", Period: &availabilitypbv1.ComputeAvailabilityRequest_Window{Window: window}}, false},
-		{"availability check bad unit", &availabilitypbv1.CheckAvailabilityRequest{Unit: "units/u1", Period: &availabilitypbv1.CheckAvailabilityRequest_Window{Window: window}}, true},
 	}
 
 	for _, tc := range cases {

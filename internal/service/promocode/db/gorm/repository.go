@@ -44,8 +44,8 @@ func preloadGraph(db *gorm.DB) *gorm.DB {
 		Preload("Window").
 		Preload("Limits").
 		Preload("Scope.MinSubtotal").
-		Preload("Scope.ScopeApplicableProperties").
-		Preload("Scope.ScopeApplicableUnits")
+		Preload("Scope.ApplicableProperties").
+		Preload("Scope.ApplicableUnits")
 }
 
 // persistChildren inserts the Money rows and belongs-to children in foreign-key
@@ -73,20 +73,11 @@ func (g *promoGraph) persistChildren(ctx context.Context, tx *gorm.DB) error {
 		}
 	}
 	if g.scope != nil {
+		// The applicable-name arrays are columns on the scope row itself, so
+		// this single insert carries them; the two join-table inserts it
+		// replaced went away with the join tables.
 		if e := promocode.NewScopeStore(tx).Create(ctx, g.scope); e != nil {
 			return e
-		}
-		props := promocode.NewScopeApplicablePropertiesStore(tx)
-		for _, row := range g.properties {
-			if e := props.Create(ctx, row); e != nil {
-				return e
-			}
-		}
-		units := promocode.NewScopeApplicableUnitsStore(tx)
-		for _, row := range g.units {
-			if e := units.Create(ctx, row); e != nil {
-				return e
-			}
 		}
 	}
 	return nil

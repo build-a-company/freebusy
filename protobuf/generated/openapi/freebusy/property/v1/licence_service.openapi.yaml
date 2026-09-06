@@ -16,7 +16,7 @@ info:
 servers:
     - url: https://freebusy.ohtarnished.dev
 paths:
-    /v1/properties/{property}/licences:
+    /v1/organizationalUnits/{organizationalUnit}/licences:
         get:
             tags:
                 - LicenceService
@@ -25,9 +25,9 @@ paths:
                  property-wide and per-unit ones.
             operationId: LicenceService_ListLicences
             parameters:
-                - name: property
+                - name: organizationalUnit
                   in: path
-                  description: The property id.
+                  description: The organizationalUnit id.
                   required: true
                   schema:
                     type: string
@@ -46,7 +46,7 @@ paths:
                   in: query
                   description: |-
                     Filter expression (AIP-160), e.g. `type = LICENCE_TYPE_FIRE_SAFETY`,
-                     `target = LICENCE_TARGET_UNIT`, `unit = properties/p1/units/u1`, or
+                     `target = LICENCE_TARGET_UNIT`, `unit = resources/bay-l2-014`, or
                      `expiry_date <= 2026-08-01` to find licences due for renewal.
                   schema:
                     type: string
@@ -77,9 +77,9 @@ paths:
                  unit instead of the whole property.
             operationId: LicenceService_CreateLicence
             parameters:
-                - name: property
+                - name: organizationalUnit
                   in: path
-                  description: The property id.
+                  description: The organizationalUnit id.
                   required: true
                   schema:
                     type: string
@@ -112,16 +112,16 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
-    /v1/properties/{property}/licences/{licence}:
+    /v1/organizationalUnits/{organizationalUnit}/licences/{licence}:
         get:
             tags:
                 - LicenceService
             description: Gets a single licence.
             operationId: LicenceService_GetLicence
             parameters:
-                - name: property
+                - name: organizationalUnit
                   in: path
-                  description: The property id.
+                  description: The organizationalUnit id.
                   required: true
                   schema:
                     type: string
@@ -150,9 +150,9 @@ paths:
             description: Deletes a licence.
             operationId: LicenceService_DeleteLicence
             parameters:
-                - name: property
+                - name: organizationalUnit
                   in: path
-                  description: The property id.
+                  description: The organizationalUnit id.
                   required: true
                   schema:
                     type: string
@@ -178,9 +178,9 @@ paths:
             description: Updates a licence, e.g. to record its renewal.
             operationId: LicenceService_UpdateLicence
             parameters:
-                - name: property
+                - name: organizationalUnit
                   in: path
-                  description: The property id.
+                  description: The organizationalUnit id.
                   required: true
                   schema:
                     type: string
@@ -268,7 +268,7 @@ components:
                     type: string
                     description: |-
                         The licence name.
-                         Format: properties/{property}/licences/{licence}
+                         Format: organizationalUnits/{organizational_unit}/licences/{licence}
                 target:
                     readOnly: true
                     type: integer
@@ -279,9 +279,13 @@ components:
                 unit:
                     type: string
                     description: |-
-                        The unit this licence covers, for a LICENCE_TARGET_UNIT licence; unset for
-                         a property-wide licence. Must belong to the parent property.
-                         Format: properties/{property}/units/{unit}
+                        The bookable resource this licence covers, for a LICENCE_TARGET_UNIT
+                         licence; unset for a site-wide one. Must belong to the parent site.
+
+                         An RFC 9073 VRESOURCE, named rather than embedded: AIP-215 says to refer to
+                         a resource by name, and the catalogue is served by the RFC Resources
+                         service, not by this one.
+                         Format: resources/{resource}
                 type:
                     type: integer
                     description: What kind of licence/certificate this is.
@@ -328,15 +332,17 @@ components:
                     type: string
                     description: Opaque version for optimistic concurrency (AIP-154); echo on update/delete.
             description: |-
-                A regulatory licence or certificate held by a Property or one of its Units
-                 (e.g. trade licence, fire safety NOC, per-room liquor licence). One resource
-                 covers both: every licence is parented by the property, `target` says what it
-                 covers, and a unit licence names its unit in `unit`. Tracks the issuing
-                 authority and validity window so `expiry_date` can be filtered on to find
-                 licences due for renewal; the certificate itself is carried in `attachment`.
-                 A standalone resource (own Get/List/Create/Update/Delete), like Unit, rather
-                 than an embedded repeated field like Media, so a renewal doesn't require
-                 resending the whole Property.
+                A regulatory licence or certificate held by a site or one of its bookable
+                 resources (e.g. trade licence, fire safety NOC, per-room liquor licence).
+
+                 Native, and it stays native because no RFC covers it: the IETF standardises
+                 calendars and directories, not the paperwork a jurisdiction demands to
+                 operate. It parents onto an RFC 4519 organizationalUnit and names an RFC 9073
+                 resource, so the only thing freebusy defines here is the licence itself.
+
+                 One resource covers both scopes: `target` says which, and a resource-scoped
+                 licence names it in `unit`. `expiry_date` is filterable so renewals due can be
+                 listed; the certificate itself rides in `attachment`.
         ListLicencesResponse:
             type: object
             properties:

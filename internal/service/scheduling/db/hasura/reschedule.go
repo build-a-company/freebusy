@@ -38,7 +38,7 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 	}
 	unitID := res.Unit
 	if newUnit != "" {
-		_, uid, perr := types.ParseUnitParent(newUnit)
+		uid, perr := types.ParseResource(newUnit)
 		if perr != nil {
 			return nil, perr
 		}

@@ -24,6 +24,8 @@ definition:
       type: String_1!
     - name: notes
       type: String_1
+    - name: organizationalUnitId
+      type: String_1!
     - name: propertyId
       type: String_1!
     - name: state
@@ -73,6 +75,9 @@ definition:
         notes:
           column:
             name: notes
+        organizationalUnitId:
+          column:
+            name: organizational_unit_id
         propertyId:
           column:
             name: property_id
@@ -111,6 +116,7 @@ definition:
           - licenceNumber
           - name
           - notes
+          - organizationalUnitId
           - propertyId
           - state
           - target

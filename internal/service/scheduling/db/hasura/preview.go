@@ -24,7 +24,7 @@ import (
 // ErrCapacityExhausted when the window is full. What it does not do is write —
 // no hold is placed, so the price it quotes is indicative, not reserved.
 func (r *BookingRepository) PreviewBooking(ctx context.Context, b *schedulingpbv1.Booking) (*schedulingpbv1.Booking, error) {
-	_, unitID, err := types.ParseUnitParent(b.GetUnit())
+	unitID, err := types.ParseResource(b.GetUnit())
 	if err != nil {
 		return nil, err
 	}

@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
+	pricing_model "github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/pricing"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/promocode"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/property"
 	"github.com/oh-tarnished/freebusy/protobuf/generated/go/shared/v1/sharedpbv1"
 )
 
@@ -23,23 +23,26 @@ func componentByCode(cs []*sharedpbv1.PriceComponent, code string) *sharedpbv1.P
 	return nil
 }
 
+// perNight is the pricing unit that makes bookingModeOf report ModeNightly —
+// the fixtures' stand-in for the old Unit.BookingMode.
+var perNight = pricing_model.PricingUnitPerNight
+
 // A 3-night stay at ₹5000/night with a 10% length-of-stay discount, a flat
 // ₹500 cleaning fee (taxable), and 12% GST. Base 15000, −1500 LOS = 13500,
 // +500 fee = 14000 taxable, +1680 tax = 15680 total.
 func TestComputePricingFullStack(t *testing.T) {
 	cleaning := "Cleaning fee"
-	perBooking := property.PricingUnitPerBooking
-	unit := &property.Unit{
-		BookingMode: property.BookingModeNightly,
-		TimeZone:    "Asia/Kolkata",
+	perBooking := pricing_model.PricingUnitPerBooking
+	unit := &pricing_model.RatePlan{
+		PricingUnit: &perNight,
 		Price:       inr(5000),
-		LosDiscounts: []property.LosDiscount{
+		LosDiscounts: []pricing_model.LosDiscount{
 			{MinNights: 3, PercentOff: repox.Ptr(int32(10))},
 		},
-		Fees: []property.Fee{
+		Fees: []pricing_model.Fee{
 			{Code: "cleaning_fee", DisplayName: &cleaning, Amount: inr(500), Taxable: repox.Ptr(true), PricingUnit: &perBooking},
 		},
-		Taxes: []property.Tax{
+		Taxes: []pricing_model.Tax{
 			{Code: "gst", Percent: 12},
 		},
 	}
@@ -69,11 +72,10 @@ func TestComputePricingFullStack(t *testing.T) {
 // A promo code stacks after the LOS discount: base 15000, −1500 LOS = 13500,
 // then 20% promo off 13500 = −2700, total 10800 (no fees/taxes here).
 func TestComputePricingWithPromo(t *testing.T) {
-	unit := &property.Unit{
-		BookingMode: property.BookingModeNightly,
-		TimeZone:    "Asia/Kolkata",
+	unit := &pricing_model.RatePlan{
+		PricingUnit: &perNight,
 		Price:       inr(5000),
-		LosDiscounts: []property.LosDiscount{
+		LosDiscounts: []pricing_model.LosDiscount{
 			{MinNights: 3, PercentOff: repox.Ptr(int32(10))},
 		},
 	}
@@ -97,17 +99,16 @@ func TestComputePricingWithPromo(t *testing.T) {
 
 // A promo scoped to specific units does not apply to a unit outside the list.
 func TestComputePricingPromoScopeExcludesUnit(t *testing.T) {
-	unit := &property.Unit{
+	unit := &pricing_model.RatePlan{
 		ID:          "u1",
-		BookingMode: property.BookingModeNightly,
-		TimeZone:    "Asia/Kolkata",
+		PricingUnit: &perNight,
 		Price:       inr(5000),
 	}
 	promo := &promocode.PromoCode{
 		Code:     "SUITEONLY",
 		Discount: &promocode.Discount{PercentOff: repox.Ptr(int32(50))},
 		Scope: &promocode.Scope{
-			ScopeApplicableUnits: []promocode.ScopeApplicableUnits{{UnitID: "u2"}},
+			ApplicableUnits: []string{"u2"},
 		},
 	}
 

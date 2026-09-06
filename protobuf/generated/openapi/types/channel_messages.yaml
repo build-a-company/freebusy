@@ -65,7 +65,7 @@ components:
               description: 'The channel name. Format: channels/{channel}'
               type: string
             property:
-              description: 'The property this channel distributes. Format: properties/{property}'
+              description: 'The property this channel distributes. Format: organizationalUnits/{organizational_unit}'
               type: string
             state:
               description: Connection state.
@@ -141,7 +141,7 @@ components:
               - MAPPING_STATE_UNMAPPED
               type: string
             unit:
-              description: 'The freebusy unit being mapped. Format: properties/{property}/units/{unit}'
+              description: 'The freebusy unit being mapped. Format: resources/{resource}'
               type: string
             updateTime:
               description: Last-modification timestamp.
@@ -311,7 +311,7 @@ components:
                   x-kubernetes-int-or-string: true
               type: object
             unit:
-              description: 'The resolved freebusy unit being booked. Format: properties/{property}/units/{unit}'
+              description: 'The resolved freebusy unit being booked. Format: resources/{resource}'
               type: string
             units:
               description: Number of units / rooms reserved. Defaults to 1.
@@ -385,7 +385,7 @@ components:
                 description: 'The channel name. Format: channels/{channel}'
                 type: string
               property:
-                description: 'The property this channel distributes. Format: properties/{property}'
+                description: 'The property this channel distributes. Format: organizationalUnits/{organizational_unit}'
                 type: string
               state:
                 description: Connection state.
@@ -502,7 +502,7 @@ components:
                 type: string
               unit:
                 description: 'The unit involved, when the event is unit-scoped. Format:
-                  properties/{property}/units/{unit}'
+                  resources/{resource}'
                 type: string
             type: object
           type: array
@@ -567,7 +567,7 @@ components:
                 - MAPPING_STATE_UNMAPPED
                 type: string
               unit:
-                description: 'The freebusy unit being mapped. Format: properties/{property}/units/{unit}'
+                description: 'The freebusy unit being mapped. Format: resources/{resource}'
                 type: string
               updateTime:
                 description: Last-modification timestamp.
@@ -663,7 +663,7 @@ components:
                     type: boolean
                 type: object
               unit:
-                description: 'The unit this update is for. Format: properties/{property}/units/{unit}'
+                description: 'The unit this update is for. Format: resources/{resource}'
                 type: string
             type: object
           type: array
@@ -729,7 +729,7 @@ components:
                 type: string
               unit:
                 description: 'The unit involved, when the event is unit-scoped. Format:
-                  properties/{property}/units/{unit}'
+                  resources/{resource}'
                 type: string
             type: object
           type: array
@@ -768,7 +768,7 @@ components:
               description: 'The channel name. Format: channels/{channel}'
               type: string
             property:
-              description: 'The property this channel distributes. Format: properties/{property}'
+              description: 'The property this channel distributes. Format: organizationalUnits/{organizational_unit}'
               type: string
             state:
               description: Connection state.
@@ -838,7 +838,7 @@ components:
               - MAPPING_STATE_UNMAPPED
               type: string
             unit:
-              description: 'The freebusy unit being mapped. Format: properties/{property}/units/{unit}'
+              description: 'The freebusy unit being mapped. Format: resources/{resource}'
               type: string
             updateTime:
               description: Last-modification timestamp.

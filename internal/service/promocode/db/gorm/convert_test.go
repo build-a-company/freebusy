@@ -36,12 +36,6 @@ func roundTrip(in *promocodepbv1.PromoCode) *promocodepbv1.PromoCode {
 		if g.scope.MinSubtotalID != nil {
 			g.scope.MinSubtotal = moneyByID[*g.scope.MinSubtotalID]
 		}
-		for _, row := range g.properties {
-			g.scope.ScopeApplicableProperties = append(g.scope.ScopeApplicableProperties, *row)
-		}
-		for _, row := range g.units {
-			g.scope.ScopeApplicableUnits = append(g.scope.ScopeApplicableUnits, *row)
-		}
 	}
 	return fromModel(g.promo)
 }

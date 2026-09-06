@@ -28,15 +28,13 @@ type userName struct {
 }
 
 type scheduleName struct {
-	_        struct{} `resource:"properties/{property}/units/{unit}/schedule"`
-	Property string   `resource:"property"`
-	Unit     string   `resource:"unit"`
+	_        struct{} `resource:"resources/{resource}/schedule"`
+	Resource string   `resource:"resource"`
 }
 
 type availabilityExceptionName struct {
-	_         struct{} `resource:"properties/{property}/units/{unit}/availabilityExceptions/{availability_exception}"`
-	Property  string   `resource:"property"`
-	Unit      string   `resource:"unit"`
+	_         struct{} `resource:"resources/{resource}/availabilityExceptions/{availability_exception}"`
+	Resource  string   `resource:"resource"`
 	Exception string   `resource:"availability_exception"`
 }
 
@@ -121,22 +119,25 @@ func UserName(id string) (string, error) {
 	return resourcename.MarshalResource(&userName{ID: id})
 }
 
-// ScheduleName builds "properties/{property}/units/{unit}/schedule".
-func ScheduleName(propertyID, unitID string) (string, error) {
-	return resourcename.MarshalResource(&scheduleName{Property: propertyID, Unit: unitID})
+// ScheduleName builds "resources/{resource}/schedule".
+//
+// A schedule hangs off the bookable resource directly now that Unit is an RFC
+// 9073 VRESOURCE: there is no property segment left to nest it under, and
+// AIP-123 requires every parent segment name a resource that actually exists.
+func ScheduleName(resourceID string) (string, error) {
+	return resourcename.MarshalResource(&scheduleName{Resource: resourceID})
 }
 
-// ParseScheduleName extracts the parent property and unit ids from a schedule
-// resource name.
-func ParseScheduleName(name string) (propertyID, unitID string, err error) {
+// ParseScheduleName extracts the parent resource id from a schedule name.
+func ParseScheduleName(name string) (resourceID string, err error) {
 	var n scheduleName
 	if err = resourcename.UnmarshalResource(name, &n); err != nil {
-		return "", "", err
+		return "", err
 	}
-	return n.Property, n.Unit, nil
+	return n.Resource, nil
 }
 
 // AvailabilityExceptionName builds the full exception resource name from bare ids.
-func AvailabilityExceptionName(propertyID, unitID, exceptionID string) (string, error) {
-	return resourcename.MarshalResource(&availabilityExceptionName{Property: propertyID, Unit: unitID, Exception: exceptionID})
+func AvailabilityExceptionName(resourceID, exceptionID string) (string, error) {
+	return resourcename.MarshalResource(&availabilityExceptionName{Resource: resourceID, Exception: exceptionID})
 }

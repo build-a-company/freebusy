@@ -24,6 +24,8 @@ definition:
       type: String_1!
     - name: notes
       type: String_1
+    - name: organizationalUnitId
+      type: String_1!
     - name: propertyId
       type: String_1!
     - name: state
@@ -73,6 +75,9 @@ definition:
         notes:
           column:
             name: notes
+        organizationalUnitId:
+          column:
+            name: organizational_unit_id
         propertyId:
           column:
             name: property_id
@@ -111,6 +116,7 @@ definition:
           - licenceNumber
           - name
           - notes
+          - organizationalUnitId
           - propertyId
           - state
           - target
@@ -146,6 +152,8 @@ definition:
         - fieldName: name
           booleanExpressionType: TextBoolExp
         - fieldName: notes
+          booleanExpressionType: TextBoolExp
+        - fieldName: organizationalUnitId
           booleanExpressionType: TextBoolExp
         - fieldName: propertyId
           booleanExpressionType: TextBoolExp
@@ -196,6 +204,8 @@ definition:
           aggregateExpression: TextAggExp
         - fieldName: notes
           aggregateExpression: TextAggExp
+        - fieldName: organizationalUnitId
+          aggregateExpression: TextAggExp
         - fieldName: propertyId
           aggregateExpression: TextAggExp
         - fieldName: state
@@ -242,6 +252,8 @@ definition:
         - fieldName: name
           orderByExpression: String1OrderByExp
         - fieldName: notes
+          orderByExpression: String1OrderByExp
+        - fieldName: organizationalUnitId
           orderByExpression: String1OrderByExp
         - fieldName: propertyId
           orderByExpression: String1OrderByExp

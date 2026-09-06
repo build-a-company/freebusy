@@ -119,16 +119,15 @@ func collectRefs(m *promocode.PromoCode) promoRefs {
 }
 
 // deleteChildren removes a promo code's child rows in foreign-key order: the
-// scope's join rows and the scope, then the window / limits / discount, then the
-// Money rows those children referenced.
+// scope, then the window / limits / discount, then the Money rows those children
+// referenced.
+//
+// The scope's applicable-name arrays need no deletion of their own: they are
+// columns on the scope row and go with it. The two join-table deletes this
+// replaced were removed with the join tables, when those references became
+// cross-service and could no longer point at anything local.
 func deleteChildren(ctx context.Context, tx *gorm.DB, refs promoRefs) error {
 	if refs.scopeID != nil {
-		if e := tx.WithContext(ctx).Where("scope_id = ?", *refs.scopeID).Delete(&promocode.ScopeApplicableProperties{}).Error; e != nil {
-			return e
-		}
-		if e := tx.WithContext(ctx).Where("scope_id = ?", *refs.scopeID).Delete(&promocode.ScopeApplicableUnits{}).Error; e != nil {
-			return e
-		}
 		if e := promocode.NewScopeStore(tx).DeleteByID(ctx, *refs.scopeID); e != nil {
 			return e
 		}

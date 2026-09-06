@@ -23,6 +23,10 @@ type DeletePromocodeScopesByIdResponse struct {
 	AffectedRows int32 `graphql:"affectedRows"`
 	// Data from rows affected by the mutation
 	Returning []struct {
+		// ApplicableProperties selects the "applicableProperties" field.
+		ApplicableProperties []*string `graphql:"applicableProperties"`
+		// ApplicableUnits selects the "applicableUnits" field.
+		ApplicableUnits []*string `graphql:"applicableUnits"`
 		// Id selects the "id" field.
 		Id string `graphql:"id"`
 		// MinSubtotalId selects the "minSubtotalId" field; nil when the column is NULL.
@@ -36,6 +40,10 @@ type InsertPromocodeScopesResponse struct {
 	AffectedRows int32 `graphql:"affectedRows"`
 	// Data from rows affected by the mutation
 	Returning []struct {
+		// ApplicableProperties selects the "applicableProperties" field.
+		ApplicableProperties []*string `graphql:"applicableProperties"`
+		// ApplicableUnits selects the "applicableUnits" field.
+		ApplicableUnits []*string `graphql:"applicableUnits"`
 		// Id selects the "id" field.
 		Id string `graphql:"id"`
 		// MinSubtotalId selects the "minSubtotalId" field; nil when the column is NULL.
@@ -47,6 +55,10 @@ type InsertPromocodeScopesResponse struct {
 // column; nullable columns are pointers so NULL stays distinguishable from a
 // zero value.
 type PromocodeScopes struct {
+	// ApplicableProperties selects the "applicableProperties" field.
+	ApplicableProperties []*string `graphql:"applicableProperties"`
+	// ApplicableUnits selects the "applicableUnits" field.
+	ApplicableUnits []*string `graphql:"applicableUnits"`
 	// Id selects the "id" field.
 	Id string `graphql:"id"`
 	// MinSubtotalId selects the "minSubtotalId" field; nil when the column is NULL.
@@ -88,6 +100,10 @@ type UpdatePromocodeScopesByIdResponse struct {
 	AffectedRows int32 `graphql:"affectedRows"`
 	// Data from rows affected by the mutation
 	Returning []struct {
+		// ApplicableProperties selects the "applicableProperties" field.
+		ApplicableProperties []*string `graphql:"applicableProperties"`
+		// ApplicableUnits selects the "applicableUnits" field.
+		ApplicableUnits []*string `graphql:"applicableUnits"`
 		// Id selects the "id" field.
 		Id string `graphql:"id"`
 		// MinSubtotalId selects the "minSubtotalId" field; nil when the column is NULL.

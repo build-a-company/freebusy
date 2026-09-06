@@ -125,13 +125,13 @@ components:
           properties:
             applicableProperties:
               description: 'Properties the code applies to. Empty means all properties.
-                Format: properties/{property}'
+                Format: organizationalUnits/{organizational_unit}'
               items:
                 type: string
               type: array
             applicableUnits:
               description: 'Units the code applies to. Empty means all units. Format:
-                properties/{property}/units/{unit}'
+                resources/{resource}'
               items:
                 type: string
               type: array
@@ -257,13 +257,13 @@ components:
       properties:
         applicableProperties:
           description: 'Properties the code applies to. Empty means all properties.
-            Format: properties/{property}'
+            Format: organizationalUnits/{organizational_unit}'
           items:
             type: string
           type: array
         applicableUnits:
           description: 'Units the code applies to. Empty means all units. Format:
-            properties/{property}/units/{unit}'
+            resources/{resource}'
           items:
             type: string
           type: array

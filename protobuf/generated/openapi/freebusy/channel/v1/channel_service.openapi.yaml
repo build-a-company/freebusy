@@ -589,7 +589,7 @@ components:
                     type: string
                     description: |-
                         The unit this update is for.
-                         Format: properties/{property}/units/{unit}
+                         Format: resources/{resource}
                 date:
                     type: string
                     description: The date (in the unit's timezone) the values apply to.
@@ -625,7 +625,7 @@ components:
                     type: string
                     description: |-
                         The property this channel distributes.
-                         Format: properties/{property}
+                         Format: organizationalUnits/{organizational_unit}
                 type:
                     type: integer
                     description: |-
@@ -785,7 +785,7 @@ components:
                     type: string
                     description: |-
                         The resolved freebusy unit being booked.
-                         Format: properties/{property}/units/{unit}
+                         Format: resources/{resource}
                 guest:
                     allOf:
                         - $ref: '#/components/schemas/Contact'
@@ -982,7 +982,7 @@ components:
                     type: string
                     description: |-
                         The unit involved, when the event is unit-scoped.
-                         Format: properties/{property}/units/{unit}
+                         Format: resources/{resource}
                 date:
                     type: string
                     description: The date the event concerned, when applicable.
@@ -1017,7 +1017,7 @@ components:
                     type: string
                     description: |-
                         The freebusy unit being mapped.
-                         Format: properties/{property}/units/{unit}
+                         Format: resources/{resource}
                 externalRoomTypeId:
                     type: string
                     description: The channel's room-type id this unit maps to.
