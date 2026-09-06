@@ -4,7 +4,7 @@
 // 	protoc (unknown)
 //
 // database: rfc
-// schemas:  group, membership, organization, organizational_unit, calendar, event, journal, todo, vcard, user, availability, resource, card, project, common
+// schemas:  group, membership, organization, orgunit, calendar, event, journal, todo, vcard, user, availability, resource, card, project, common
 //
 // Migration aggregator: every model in one factory Registry.
 // annotations: entity.v1 1.5.3, store.v1 1.5.3
@@ -28,7 +28,7 @@ import (
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/rfc/journal"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/rfc/membership"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/rfc/organization"
-	"github.com/oh-tarnished/freebusy/internal/database/gorm/rfc/organizationalunit"
+	"github.com/oh-tarnished/freebusy/internal/database/gorm/rfc/orgunit"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/rfc/project"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/rfc/resource"
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/rfc/todo"
@@ -52,7 +52,7 @@ var schemas = []string{
 	"group",
 	"membership",
 	"organization",
-	"organizational_unit",
+	"orgunit",
 	"calendar",
 	"event",
 	"journal",
@@ -123,7 +123,7 @@ var Default = New().Register(
 	&group.Member{},
 	&membership.Membership{},
 	&organization.Organization{},
-	&organizationalunit.OrganizationalUnit{},
+	&orgunit.OrganizationalUnit{},
 	&calendar.Calendar{},
 	&calendar.ExtensionProperty{},
 	&event.Event{},

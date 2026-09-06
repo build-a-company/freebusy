@@ -349,10 +349,10 @@ definition:
               unique_columns:
                 - id
         - arguments: {}
-          name: organizational_unit_resource
-          type: organizational_unit_resource
+          name: orgunit_organizational_units
+          type: orgunit_organizational_units
           uniqueness_constraints:
-            resource_pkey:
+            organizational_units_pkey:
               unique_columns:
                 - id
         - arguments: {}
@@ -2781,8 +2781,8 @@ definition:
                   type: named
                 type: array
           foreign_keys: {}
-        delete_organizational_unit_resource_by_id_response:
-          description: Responses from the 'delete_organizational_unit_resource_by_id' procedure
+        delete_orgunit_organizational_units_by_id_response:
+          description: Responses from the 'delete_orgunit_organizational_units_by_id' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -2793,7 +2793,7 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: organizational_unit_resource
+                  name: orgunit_organizational_units
                   type: named
                 type: array
           foreign_keys: {}
@@ -9028,7 +9028,7 @@ definition:
                   type: named
                 type: array
           foreign_keys: {}
-        insert_organizational_unit_resource_object:
+        insert_orgunit_organizational_units_object:
           fields:
             business_categories:
               type:
@@ -9115,8 +9115,8 @@ definition:
                 name: timestamptz
                 type: named
           foreign_keys: {}
-        insert_organizational_unit_resource_response:
-          description: Responses from the 'insert_organizational_unit_resource' procedure
+        insert_orgunit_organizational_units_response:
+          description: Responses from the 'insert_orgunit_organizational_units' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -9127,7 +9127,7 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: organizational_unit_resource
+                  name: orgunit_organizational_units
                   type: named
                 type: array
           foreign_keys: {}
@@ -14187,7 +14187,7 @@ definition:
                 name: timestamptz
                 type: named
           foreign_keys: {}
-        organizational_unit_resource:
+        orgunit_organizational_units:
           fields:
             business_categories:
               type:
@@ -23130,8 +23130,8 @@ definition:
                 name: timestamptz
                 type: named
           foreign_keys: {}
-        update_column_organizational_unit_resource_business_categories:
-          description: Update the 'business_categories' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_business_categories:
+          description: Update the 'business_categories' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23145,8 +23145,8 @@ definition:
                       type: named
                   type: array
           foreign_keys: {}
-        update_column_organizational_unit_resource_create_time:
-          description: Update the 'create_time' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_create_time:
+          description: Update the 'create_time' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23154,8 +23154,8 @@ definition:
                 name: timestamptz
                 type: named
           foreign_keys: {}
-        update_column_organizational_unit_resource_delete_time:
-          description: Update the 'delete_time' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_delete_time:
+          description: Update the 'delete_time' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23165,8 +23165,8 @@ definition:
                   name: timestamptz
                   type: named
           foreign_keys: {}
-        update_column_organizational_unit_resource_descriptions:
-          description: Update the 'descriptions' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_descriptions:
+          description: Update the 'descriptions' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23180,8 +23180,8 @@ definition:
                       type: named
                   type: array
           foreign_keys: {}
-        update_column_organizational_unit_resource_display_names:
-          description: Update the 'display_names' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_display_names:
+          description: Update the 'display_names' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23193,8 +23193,8 @@ definition:
                     type: named
                 type: array
           foreign_keys: {}
-        update_column_organizational_unit_resource_etag:
-          description: Update the 'etag' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_etag:
+          description: Update the 'etag' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23204,8 +23204,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_organizational_unit_resource_expire_time:
-          description: Update the 'expire_time' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_expire_time:
+          description: Update the 'expire_time' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23215,8 +23215,8 @@ definition:
                   name: timestamptz
                   type: named
           foreign_keys: {}
-        update_column_organizational_unit_resource_id:
-          description: Update the 'id' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_id:
+          description: Update the 'id' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23224,8 +23224,8 @@ definition:
                 name: text
                 type: named
           foreign_keys: {}
-        update_column_organizational_unit_resource_name:
-          description: Update the 'name' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_name:
+          description: Update the 'name' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23233,8 +23233,8 @@ definition:
                 name: text
                 type: named
           foreign_keys: {}
-        update_column_organizational_unit_resource_organization:
-          description: Update the 'organization' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_organization:
+          description: Update the 'organization' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23244,8 +23244,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_organizational_unit_resource_see_also:
-          description: Update the 'see_also' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_see_also:
+          description: Update the 'see_also' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23259,8 +23259,8 @@ definition:
                       type: named
                   type: array
           foreign_keys: {}
-        update_column_organizational_unit_resource_uid:
-          description: Update the 'uid' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_uid:
+          description: Update the 'uid' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -23270,8 +23270,8 @@ definition:
                   name: text
                   type: named
           foreign_keys: {}
-        update_column_organizational_unit_resource_update_time:
-          description: Update the 'update_time' column in the 'organizational_unit_resource' collection
+        update_column_orgunit_organizational_units_update_time:
+          description: Update the 'update_time' column in the 'orgunit_organizational_units' collection
           fields:
             _set:
               description: Set the column to this value
@@ -32138,8 +32138,8 @@ definition:
                   name: update_column_organization_resource_update_time
                   type: named
           foreign_keys: {}
-        update_organizational_unit_resource_by_id_response:
-          description: Responses from the 'update_organizational_unit_resource_by_id' procedure
+        update_orgunit_organizational_units_by_id_response:
+          description: Responses from the 'update_orgunit_organizational_units_by_id' procedure
           fields:
             affected_rows:
               description: The number of rows affected by the mutation
@@ -32150,103 +32150,103 @@ definition:
               description: Data from rows affected by the mutation
               type:
                 element_type:
-                  name: organizational_unit_resource
+                  name: orgunit_organizational_units
                   type: named
                 type: array
           foreign_keys: {}
-        update_organizational_unit_resource_by_id_update_columns:
-          description: Update the columns of the 'organizational_unit_resource' collection
+        update_orgunit_organizational_units_by_id_update_columns:
+          description: Update the columns of the 'orgunit_organizational_units' collection
           fields:
             business_categories:
-              description: Update the 'business_categories' column in the 'organizational_unit_resource' collection.
+              description: Update the 'business_categories' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_business_categories
+                  name: update_column_orgunit_organizational_units_business_categories
                   type: named
             create_time:
-              description: Update the 'create_time' column in the 'organizational_unit_resource' collection.
+              description: Update the 'create_time' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_create_time
+                  name: update_column_orgunit_organizational_units_create_time
                   type: named
             delete_time:
-              description: Update the 'delete_time' column in the 'organizational_unit_resource' collection.
+              description: Update the 'delete_time' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_delete_time
+                  name: update_column_orgunit_organizational_units_delete_time
                   type: named
             descriptions:
-              description: Update the 'descriptions' column in the 'organizational_unit_resource' collection.
+              description: Update the 'descriptions' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_descriptions
+                  name: update_column_orgunit_organizational_units_descriptions
                   type: named
             display_names:
-              description: Update the 'display_names' column in the 'organizational_unit_resource' collection.
+              description: Update the 'display_names' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_display_names
+                  name: update_column_orgunit_organizational_units_display_names
                   type: named
             etag:
-              description: Update the 'etag' column in the 'organizational_unit_resource' collection.
+              description: Update the 'etag' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_etag
+                  name: update_column_orgunit_organizational_units_etag
                   type: named
             expire_time:
-              description: Update the 'expire_time' column in the 'organizational_unit_resource' collection.
+              description: Update the 'expire_time' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_expire_time
+                  name: update_column_orgunit_organizational_units_expire_time
                   type: named
             id:
-              description: Update the 'id' column in the 'organizational_unit_resource' collection.
+              description: Update the 'id' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_id
+                  name: update_column_orgunit_organizational_units_id
                   type: named
             name:
-              description: Update the 'name' column in the 'organizational_unit_resource' collection.
+              description: Update the 'name' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_name
+                  name: update_column_orgunit_organizational_units_name
                   type: named
             organization:
-              description: Update the 'organization' column in the 'organizational_unit_resource' collection.
+              description: Update the 'organization' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_organization
+                  name: update_column_orgunit_organizational_units_organization
                   type: named
             see_also:
-              description: Update the 'see_also' column in the 'organizational_unit_resource' collection.
+              description: Update the 'see_also' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_see_also
+                  name: update_column_orgunit_organizational_units_see_also
                   type: named
             uid:
-              description: Update the 'uid' column in the 'organizational_unit_resource' collection.
+              description: Update the 'uid' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_uid
+                  name: update_column_orgunit_organizational_units_uid
                   type: named
             update_time:
-              description: Update the 'update_time' column in the 'organizational_unit_resource' collection.
+              description: Update the 'update_time' column in the 'orgunit_organizational_units' collection.
               type:
                 type: nullable
                 underlying_type:
-                  name: update_column_organizational_unit_resource_update_time
+                  name: update_column_orgunit_organizational_units_update_time
                   type: named
           foreign_keys: {}
         update_pricing_adjustments_by_id_response:
@@ -39991,16 +39991,16 @@ definition:
                 name: text
                 type: named
             pre_check:
-              description: Delete permission predicate over the 'organizational_unit_resource' collection
+              description: Delete permission predicate over the 'orgunit_organizational_units' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: organizational_unit_resource
+                  object_type_name: orgunit_organizational_units
                   type: predicate
-          description: Delete any row on the 'organizational_unit_resource' collection using the 'id' key
-          name: delete_organizational_unit_resource_by_id
+          description: Delete any row on the 'orgunit_organizational_units' collection using the 'id' key
+          name: delete_orgunit_organizational_units_by_id
           result_type:
-            name: delete_organizational_unit_resource_by_id_response
+            name: delete_orgunit_organizational_units_by_id_response
             type: named
         - arguments:
             key_id:
@@ -42225,20 +42225,20 @@ definition:
             objects:
               type:
                 element_type:
-                  name: insert_organizational_unit_resource_object
+                  name: insert_orgunit_organizational_units_object
                   type: named
                 type: array
             post_check:
-              description: Insert permission predicate over the 'organizational_unit_resource' collection
+              description: Insert permission predicate over the 'orgunit_organizational_units' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: organizational_unit_resource
+                  object_type_name: orgunit_organizational_units
                   type: predicate
-          description: Insert into the organizational_unit_resource table
-          name: insert_organizational_unit_resource
+          description: Insert into the orgunit_organizational_units table
+          name: insert_orgunit_organizational_units
           result_type:
-            name: insert_organizational_unit_resource_response
+            name: insert_orgunit_organizational_units_response
             type: named
         - arguments:
             objects:
@@ -45044,27 +45044,27 @@ definition:
                 name: text
                 type: named
             post_check:
-              description: Update permission post-condition predicate over the 'organizational_unit_resource' collection
+              description: Update permission post-condition predicate over the 'orgunit_organizational_units' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: organizational_unit_resource
+                  object_type_name: orgunit_organizational_units
                   type: predicate
             pre_check:
-              description: Update permission pre-condition predicate over the 'organizational_unit_resource' collection
+              description: Update permission pre-condition predicate over the 'orgunit_organizational_units' collection
               type:
                 type: nullable
                 underlying_type:
-                  object_type_name: organizational_unit_resource
+                  object_type_name: orgunit_organizational_units
                   type: predicate
             update_columns:
               type:
-                name: update_organizational_unit_resource_by_id_update_columns
+                name: update_orgunit_organizational_units_by_id_update_columns
                 type: named
-          description: Update any row on the 'organizational_unit_resource' collection using the 'id' key
-          name: update_organizational_unit_resource_by_id
+          description: Update any row on the 'orgunit_organizational_units' collection using the 'id' key
+          name: update_orgunit_organizational_units_by_id
           result_type:
-            name: update_organizational_unit_resource_by_id_response
+            name: update_orgunit_organizational_units_by_id_response
             type: named
         - arguments:
             key_id:

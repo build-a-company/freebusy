@@ -467,9 +467,9 @@ Organization is the LDAP 'organization' object class, RFC 4519 section 3.8 <http
 | `delete_time` | `TIMESTAMPTZ` | nullable |
 | `expire_time` | `TIMESTAMPTZ` | nullable |
 
-## Schema `organizational_unit`
+## Schema `orgunit`
 
-### `OrganizationalUnit` → `resource`
+### `OrganizationalUnit` → `organizational_units`
 
 OrganizationalUnit is the LDAP 'organizationalUnit' object class, RFC 4519 section 3.11 <https://www.rfc-editor.org/rfc/rfc4519.html#section-3.11>. A flat resource, "organizationalUnits/{organizationalUnit}", not nested under Organization: section 3.11 defines MUST and MAY attributes and says nothing about DIT placement, so "organizations/{o}/organizationalUnits/{ou}" would assert a hierarchy the RFC does not require. Group faced the same question for its own optional 'o' reference and was built flat for the same reason -- this resource follows that precedent instead of inventing a new one. Attributes are repeated because LDAP attribute types are multi-valued by default. Section 3.11 lists twenty MAY attributes; the three modelled here -- description, businessCategory, seeAlso -- are the ones Organization already carries, kept identical rather than picking a different subset for two object classes whose optional attributes overlap this heavily. Reference: RFC 4519 "LDAP: Schema for User Applications", section 3.11. https://www.rfc-editor.org/rfc/rfc4519.html#section-3.11
 

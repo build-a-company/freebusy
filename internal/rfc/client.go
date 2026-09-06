@@ -22,8 +22,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	calendarv1 "github.com/oh-tarnished/freebusy/protobuf/generated/go/protobuf/rfc5545/calendar/v1"
-	resourcev1 "github.com/oh-tarnished/freebusy/protobuf/generated/go/protobuf/rfc9073/resource/v1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/protobuf/rfc5545/calendar/v1/calendarpbv1"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/protobuf/rfc9073/resource/v1/resourcepbv1"
 )
 
 // ProfileSchemaURI identifies the STRUCTURED-DATA payload freebusy reads off a
@@ -55,8 +55,8 @@ type Profile struct {
 // Client reads the RFC services. The zero value is unusable; use Dial.
 type Client struct {
 	conn      *grpc.ClientConn
-	resources resourcev1.ResourcesClient
-	calendars calendarv1.CalendarsClient
+	resources resourcepbv1.ResourcesClient
+	calendars calendarpbv1.CalendarsClient
 }
 
 // Dial connects to the RFC services at endpoint.
@@ -72,8 +72,8 @@ func Dial(ctx context.Context, endpoint string) (*Client, error) {
 	}
 	return &Client{
 		conn:      conn,
-		resources: resourcev1.NewResourcesClient(conn),
-		calendars: calendarv1.NewCalendarsClient(conn),
+		resources: resourcepbv1.NewResourcesClient(conn),
+		calendars: calendarpbv1.NewCalendarsClient(conn),
 	}, nil
 }
 
@@ -86,11 +86,11 @@ func (c *Client) Close() error {
 }
 
 // Resource fetches one VRESOURCE by name, e.g. "resources/bay-l2-014".
-func (c *Client) Resource(ctx context.Context, name string) (*resourcev1.Resource, error) {
+func (c *Client) Resource(ctx context.Context, name string) (*resourcepbv1.Resource, error) {
 	if c == nil {
 		return nil, ErrUnavailable
 	}
-	return c.resources.GetResource(ctx, &resourcev1.GetResourceRequest{Name: name})
+	return c.resources.GetResource(ctx, &resourcepbv1.GetResourceRequest{Name: name})
 }
 
 // TimeZone returns the IANA zone a resource's nights are counted in, by reading
@@ -100,7 +100,7 @@ func (c *Client) Resource(ctx context.Context, name string) (*resourcev1.Resourc
 // resource, and section 7.3 gives a VRESOURCE no timezone of its own. An empty
 // string means the resource names no calendar or the calendar names no zone,
 // which callers read as UTC.
-func (c *Client) TimeZone(ctx context.Context, res *resourcev1.Resource) (string, error) {
+func (c *Client) TimeZone(ctx context.Context, res *resourcepbv1.Resource) (string, error) {
 	if c == nil {
 		return "", ErrUnavailable
 	}
@@ -108,7 +108,7 @@ func (c *Client) TimeZone(ctx context.Context, res *resourcev1.Resource) (string
 	if calName == "" {
 		return "", nil
 	}
-	cal, err := c.calendars.GetCalendar(ctx, &calendarv1.GetCalendarRequest{Name: calName})
+	cal, err := c.calendars.GetCalendar(ctx, &calendarpbv1.GetCalendarRequest{Name: calName})
 	if err != nil {
 		return "", err
 	}
@@ -122,7 +122,7 @@ func (c *Client) TimeZone(ctx context.Context, res *resourcev1.Resource) (string
 // encoding for this schema; both are left unread rather than guessed at. A
 // resource carrying neither returns the zero Profile and no error, because a
 // resource without a booking profile is a perfectly ordinary resource.
-func DecodeProfile(res *resourcev1.Resource) (Profile, error) {
+func DecodeProfile(res *resourcepbv1.Resource) (Profile, error) {
 	var p Profile
 	for _, sd := range res.GetStructuredData() {
 		if sd.GetSchema() != ProfileSchemaURI {

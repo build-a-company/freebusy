@@ -4620,9 +4620,9 @@
         "foreignRelations": {},
         "description": null
       },
-      "organizational_unit_resource": {
-        "schemaName": "organizational_unit",
-        "tableName": "resource",
+      "orgunit_organizational_units": {
+        "schemaName": "orgunit",
+        "tableName": "organizational_units",
         "columns": {
           "business_categories": {
             "name": "business_categories",
@@ -4738,7 +4738,7 @@
           }
         },
         "uniquenessConstraints": {
-          "resource_pkey": [
+          "organizational_units_pkey": [
             "id"
           ]
         },
