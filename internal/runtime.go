@@ -4,6 +4,8 @@ import (
 	"context"
 	"github.com/oh-tarnished/freebusy/config"
 	"github.com/oh-tarnished/freebusy/internal/rfc"
+	"github.com/oh-tarnished/freebusy/internal/runtime/pricing"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/pricing/v1/pricingpbv1"
 	"github.com/oh-tarnished/freebusy/shared"
 
 	"github.com/oh-tarnished/freebusy/internal/database"
@@ -50,6 +52,7 @@ func newServiceInstance(conn *database.Connection) (*Service, error) {
 		organisation.New(conn),
 		schedule.New(conn),
 		scheduling.New(conn, catalogue),
+		pricing.New(conn),
 		identity.New(conn),
 	)
 	svc.conn = conn
@@ -72,6 +75,7 @@ func registerServices(s *grpc.GRPCServer, svc *Service) {
 	orgpbv1.RegisterOrganisationServiceServer(s, svc)
 	schedulepbv1.RegisterScheduleServiceServer(s, svc)
 	schedulingpbv1.RegisterSchedulingServiceServer(s, svc)
+	pricingpbv1.RegisterRatePlanServiceServer(s, svc)
 	identitypbv1.RegisterIdentityServiceServer(s, svc)
 }
 
@@ -106,6 +110,9 @@ func registerHTTPGateways() grpc.Option {
 			return err
 		}
 		if err := schedulingpbv1.RegisterSchedulingServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
+			return err
+		}
+		if err := pricingpbv1.RegisterRatePlanServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 			return err
 		}
 		return identitypbv1.RegisterIdentityServiceHandlerFromEndpoint(context.Background(), mux, endpoint, opts)

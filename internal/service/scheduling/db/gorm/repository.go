@@ -18,13 +18,19 @@ import (
 )
 
 // overlapSQL sums the reserved units of active bookings (held or confirmed) whose
-// window overlaps [start,end) on a unit, for the capacity check. Windows are
+// window overlaps [start,end) on a resource, for the capacity check.
+//
+// The table is named literally, so it does not follow a rename the way the
+// generated stores do: this moved from "booking"."resource" to
+// "scheduling"."bookings" when the package was renamed and dedupe_schema_table
+// stopped collapsing the table name. Raw SQL is invisible to the compiler —
+// only the e2e suite catches a stale name here. Windows are
 // compared as UTC instants, so the check is timezone-safe. A PENDING_HOLD only
 // counts while its hold is unexpired: a lapsed hold frees capacity immediately,
 // without waiting for the sweeper to flip its stored state.
 const overlapSQL = `
 SELECT COALESCE(SUM(COALESCE(b.units, 1)), 0)
-FROM "booking"."resource" b
+FROM "scheduling"."bookings" b
 JOIN "shared"."time_windows" w ON w.id = b.window_id
 WHERE b.unit = ? AND b.state IN ('PENDING_HOLD','CONFIRMED')
   AND (b.state <> 'PENDING_HOLD' OR b.hold_expire_time IS NULL OR b.hold_expire_time > now())

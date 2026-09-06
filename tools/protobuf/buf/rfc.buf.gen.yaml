@@ -25,3 +25,33 @@ plugins:
   - remote: buf.build/grpc/go:v1.6.0
     out: protobuf/generated/go
     opt: module=github.com/oh-tarnished/freebusy/protobuf/generated/go
+  # --- Persistence for the RFC catalogue ---
+  #
+  # freebusy serves these resources itself (one binary, own `rfc` database), so
+  # it needs models and stores for them the same way it does for its own tables.
+  # config= is what keeps each RFC in its own schema; see rfc.layout.yaml.
+  - local: protoc-gen-store
+    out: ./internal/database/rfcgorm
+    strategy: all
+    opt:
+      - target=gorm
+      - stores=true
+      # filterx: the repository target composes it for AIP-160 List filtering.
+      - filters=true
+      - go_module=github.com/oh-tarnished/freebusy/internal/database/rfcgorm
+      - config=tools/protobuf/buf/config/rfc.layout.yaml
+      # Proto<->model converters. Re-enabled on protoc-gen-store 1.5.2, which
+      # fixed the import alias for a package whose path ends in a version
+      # (protoc-gen-go names .../resource/v1 "resourcev1", not "v1").
+      - converters=true
+
+  # Proto-facing repositories: CRUD in protobuf types, so the gRPC servers need
+  # no hand-written conversion for 15 RFC packages.
+  - local: protoc-gen-store
+    out: ./internal/database/rfcrepo
+    strategy: all
+    opt:
+      - target=repository
+      - go_module=github.com/oh-tarnished/freebusy/internal/database/rfcrepo
+      - gorm_module=github.com/oh-tarnished/freebusy/internal/database/rfcgorm
+      - config=tools/protobuf/buf/config/rfc.layout.yaml

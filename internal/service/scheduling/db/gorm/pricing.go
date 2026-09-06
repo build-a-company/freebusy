@@ -2,6 +2,7 @@ package gorm
 
 import (
 	"context"
+	"errors"
 
 	"github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/common"
 	pricing_model "github.com/oh-tarnished/freebusy/internal/database/gorm/freebusy/pricing"
@@ -111,9 +112,12 @@ func bookingModeOf(plan *pricing_model.RatePlan) string {
 // generated store kept `resource` a plain indexed column instead of a foreign
 // key.
 //
-// Returns ErrNotFound when a resource has no plan, which is a real state and not
-// a corruption: a resource can exist in the catalogue before anyone prices it,
-// and the caller decides whether that is bookable-at-zero or an error.
+// Returns (nil, nil) when a resource has no plan. That is a real state, not a
+// corruption, and it must not fail the booking: an unpriced resource is a free
+// one — an internal meeting room, a shared desk — and refusing to book it would
+// make pricing a precondition of scheduling, which is exactly the coupling
+// moving money into its own package was meant to remove. Callers skip the price
+// breakdown when the plan is nil and book at no charge.
 func loadRatePlan(ctx context.Context, db *gorm.DB, resourceName string) (*pricing_model.RatePlan, error) {
 	var plan pricing_model.RatePlan
 	if err := db.WithContext(ctx).
@@ -122,6 +126,9 @@ func loadRatePlan(ctx context.Context, db *gorm.DB, resourceName string) (*prici
 		Preload("Taxes").
 		Preload("LosDiscounts").Preload("LosDiscounts.AmountOff").
 		First(&plan, "resource = ?", resourceName).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
 		return nil, repox.MapGormErr(err)
 	}
 	return &plan, nil

@@ -27,10 +27,13 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 	if err != nil {
 		return nil, err
 	}
-	unitID, err := types.ParseResource(b.GetUnit())
-	if err != nil {
-		return nil, err
+	// Validate the name, then keep it whole: the column stores the resource
+	// name, so parsing to a bare id here would store something the API never
+	// echoes back and the overlap query never matches.
+	if _, err := types.ParseResource(b.GetUnit()); err != nil {
+		return nil, types.ErrInvalidArgument
 	}
+	unitID := b.GetUnit()
 	if b.GetWindow() == nil {
 		return nil, types.ErrInvalidArgument
 	}
@@ -76,7 +79,7 @@ func (r *BookingRepository) CreateBooking(ctx context.Context, b *schedulingpbv1
 	// on the create response (they are not persisted).
 	var priceModel, discountModel, totalModel *common.Money
 	var components []*sharedpbv1.PriceComponent
-	if plan.Price != nil {
+	if plan != nil && plan.Price != nil {
 		nights := nightsBetween(b.GetWindow(), prof.TimeZone)
 		p := computePricing(plan, nights, int64(requested), promo)
 		priceModel = moneyToModel(p.base)

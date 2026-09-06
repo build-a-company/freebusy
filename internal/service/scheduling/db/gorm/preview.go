@@ -23,10 +23,13 @@ import (
 // ErrCapacityExhausted when the window is full. What it does not do is write —
 // no hold is placed, so the price it quotes is indicative, not reserved.
 func (r *BookingRepository) PreviewBooking(ctx context.Context, b *schedulingpbv1.Booking) (*schedulingpbv1.Booking, error) {
-	unitID, err := types.ParseResource(b.GetUnit())
-	if err != nil {
-		return nil, err
+	// Validate the name, then keep it whole: the column stores the resource
+	// name, so parsing to a bare id here would store something the API never
+	// echoes back and the overlap query never matches.
+	if _, err := types.ParseResource(b.GetUnit()); err != nil {
+		return nil, types.ErrInvalidArgument
 	}
+	unitID := b.GetUnit()
 	if b.GetWindow() == nil {
 		return nil, types.ErrInvalidArgument
 	}
@@ -71,7 +74,7 @@ func (r *BookingRepository) PreviewBooking(ctx context.Context, b *schedulingpbv
 	}
 
 	out := proto.Clone(b).(*schedulingpbv1.Booking)
-	if plan.Price != nil {
+	if plan != nil && plan.Price != nil {
 		nights := nightsBetween(b.GetWindow(), prof.TimeZone)
 		p := computePricing(plan, nights, int64(requested), promo)
 		out.Price = p.base

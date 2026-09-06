@@ -81,7 +81,7 @@ func (r *BookingRepository) RescheduleBooking(ctx context.Context, name string, 
 		// Recompute the full price breakdown for the new window/unit (base, LOS +
 		// promo discounts, fees, taxes), carrying the booking's promo code.
 		var priceID, discountID, totalID *string
-		if plan.Price != nil {
+		if plan != nil && plan.Price != nil {
 			nights := nightsBetween(w.GetWindow(), prof.TimeZone)
 			p := computePricing(plan, nights, int64(requested), promo)
 			price := moneyToModel(p.base)

@@ -6,6 +6,8 @@ package internal
 
 import (
 	"context"
+	"github.com/oh-tarnished/freebusy/internal/runtime/pricing"
+	"github.com/oh-tarnished/freebusy/protobuf/generated/go/pricing/v1/pricingpbv1"
 
 	"github.com/oh-tarnished/freebusy/internal/database"
 	"github.com/oh-tarnished/freebusy/internal/runtime/scheduling"
@@ -25,6 +27,7 @@ type Service struct {
 	orgpbv1.OrganisationServiceServer
 	schedulepbv1.ScheduleServiceServer
 	schedulingpbv1.SchedulingServiceServer
+	pricingpbv1.RatePlanServiceServer
 	identitypbv1.IdentityServiceServer
 
 	// scheduling is the concrete scheduling server, retained so background tasks (the
@@ -45,6 +48,7 @@ func NewService(
 	organisation orgpbv1.OrganisationServiceServer,
 	schedule schedulepbv1.ScheduleServiceServer,
 	scheduling *scheduling.Server,
+	ratePlans *pricing.Server,
 	identity identitypbv1.IdentityServiceServer,
 ) *Service {
 	return &Service{
@@ -52,6 +56,7 @@ func NewService(
 		OrganisationServiceServer: organisation,
 		ScheduleServiceServer:     schedule,
 		SchedulingServiceServer:   scheduling,
+		RatePlanServiceServer:     ratePlans,
 		IdentityServiceServer:     identity,
 		scheduling:                scheduling,
 	}

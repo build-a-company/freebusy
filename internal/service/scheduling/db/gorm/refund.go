@@ -27,7 +27,13 @@ func (r *BookingRepository) computeRefund(ctx context.Context, tx *gorm.DB, m *s
 	// directly ("resources/{resource}/schedule"), so its name is derivable from
 	// the booking alone. The Unit row this used to read only ever supplied the
 	// parent property segment the name no longer has.
-	scheduleName, err := types.ScheduleName(m.Unit)
+	// m.Unit is a full resource name; ScheduleName builds a name from the bare
+	// id, so parse it out rather than nesting resources/ inside resources/.
+	resourceID, rerr := types.ParseResource(m.Unit)
+	if rerr != nil {
+		return 0, nil, "", rerr
+	}
+	scheduleName, err := types.ScheduleName(resourceID)
 	if err != nil {
 		return 0, nil, "", err
 	}
